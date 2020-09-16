@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/margin_10"
+    android:layout_marginBottom="@dimen/margin_10"
+    app:cardBackgroundColor="@color/item_bg_drawer_item"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_10"
+        android:background="@color/item_bg_drawer_item">
+
+
+        <FrameLayout
+            android:layout_width="@dimen/margin_55"
+            android:id="@+id/videoImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="@dimen/margin_55">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/video">
+
+            </ImageView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_marginStart="@dimen/margin_10"
+            android:fontFamily="@font/century_gothic_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/px40"
+            app:layout_constraintStart_toEndOf="@id/videoImage"
+            android:text="@string/title"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/description"
+            android:layout_marginStart="@dimen/margin_10"
+            android:fontFamily="@font/century_gothic"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            android:textColor="@color/text_Color_drawer_item"
+            android:textSize="@dimen/px22"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/videoImage"
+            android:text="@string/dummy_content"
+            android:layout_height="wrap_content"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
