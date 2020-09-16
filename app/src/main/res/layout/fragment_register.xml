@@ -75,13 +75,103 @@
                 </FrameLayout>
 
                 <EditText
+                    android:id="@+id/reg_Name"
                     android:layout_width="match_parent"
                     android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="@dimen/margin_50"
+                    android:hint="Name"
+                    android:textColorHint="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
                     android:paddingStart="@dimen/margin_20"
                     android:drawableLeft="@drawable/ic_name"
                     app:layout_constraintTop_toBottomOf="@id/frameProfile"/>
+
+                <EditText
+                    android:id="@+id/reg_Email"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="20dp"
+                    android:hint="Email Address"
+                    android:textColorHint="#7e7e7e"
+                    android:textColor="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_mail"
+                    app:layout_constraintTop_toBottomOf="@id/reg_Name"/>
+
+                <EditText
+                    android:id="@+id/reg_User_type"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="20dp"
+                    android:hint="Select User Type"
+                    android:textColorHint="#7e7e7e"
+                    android:textColor="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_d_user"
+                    app:layout_constraintTop_toBottomOf="@id/reg_Email"/>
+
+                <EditText
+                    android:id="@+id/reg_DOB"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="20dp"
+                    android:hint="Select Date of Birth"
+                    android:textColorHint="#7e7e7e"
+                    android:textColor="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_mail"
+                    app:layout_constraintTop_toBottomOf="@id/reg_User_type"/>
+
+                <EditText
+                    android:id="@+id/reg_Password"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="20dp"
+                    android:hint="Password"
+                    android:textColorHint="#7e7e7e"
+                    android:textColor="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_password"
+                    app:layout_constraintTop_toBottomOf="@id/reg_DOB"/>
+
+                <EditText
+                    android:id="@+id/reg_cnf_password"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="20dp"
+                    android:hint="Confirm Password"
+                    android:textColorHint="#7e7e7e"
+                    android:textColor="#7e7e7e"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_password"
+                    app:layout_constraintTop_toBottomOf="@id/reg_Password"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:text="Register"
+                    android:textSize="@dimen/px60"
+                    android:textStyle="bold"
+                    android:padding="@dimen/margin_10"
+                    android:layout_marginLeft="@dimen/margin_100"
+                    android:layout_marginRight="@dimen/margin_100"
+                    android:background="@drawable/bt_bg_dialog"
+                    android:layout_marginTop="@dimen/margin_50"
+                    android:layout_marginBottom="@dimen/margin_50"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/reg_cnf_password"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
