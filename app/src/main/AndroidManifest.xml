@@ -11,8 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppParentTheme">
         <activity android:name=".views.activities.AccountHandlerActivity"/>
-        <activity android:name=".views.activities.HomeActivity" />
-        <activity android:name=".views.activities.SplashActivity">
+        <activity android:name=".views.activities.SplashActivity" />
+        <activity android:name=".views.activities.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

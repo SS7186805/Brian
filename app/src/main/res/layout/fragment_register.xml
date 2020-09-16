@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.login.LoginViewModel" />
+            type="com.brian.viewModels.login.LoginViewModel"/>
 
         <variable
             name="clickHandler"
@@ -14,7 +14,8 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blackTheme">
@@ -76,12 +77,23 @@
 
                 <EditText
                     android:layout_width="match_parent"
+                    android:id="@+id/eName"
                     android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="@dimen/margin_50"
                     android:paddingStart="@dimen/margin_20"
                     android:drawableLeft="@drawable/ic_name"
-                    app:layout_constraintTop_toBottomOf="@id/frameProfile"/>
+                    app:layout_constraintTop_toBottomOf="@id/frameProfile" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/eEmail"
+                    android:background="@drawable/edit_text_bg"
+                    android:layout_height="@dimen/edit_text_height"
+                    android:layout_marginTop="@dimen/margin_20"
+                    android:paddingStart="@dimen/margin_20"
+                    android:drawableLeft="@drawable/ic_name"
+                    app:layout_constraintTop_toBottomOf="@id/eName" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

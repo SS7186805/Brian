@@ -5,4 +5,13 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="yellow">#fec60a</color>
     <color name="blackTheme">#121213</color>
+    <color name="dashboard_item_color">#fec60a</color>
+    <color name="text_Color_drawer_item">#aaaaaa</color>
+    <color name="item_bg_drawer_item">#1c1c1b</color>
+    <color name="black">#000</color>
+    <color name="icon_color">#AAAAAA</color>
+    <color name="red">#ee0104</color>
+    <color name="grey">#9f9c9c</color>
+    <color name="green">#1ab40f</color>
+    <color name="text_color_grey">#b0aea8</color>
 </resources>
