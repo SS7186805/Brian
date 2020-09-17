@@ -87,4 +87,6 @@
     <string name="confirm_new_password">Confirm New Passsword</string>
     <string name="update">Update</string>
     <string name="info_password">You need to login again\nonce you update password.</string>
+    <string name="badge_name">Badge Name</string>
+    <string name="work_gym">Work Gym</string>
 </resources>

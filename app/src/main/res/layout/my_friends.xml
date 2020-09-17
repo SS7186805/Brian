@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="5dp"
+    android:layout_margin="5dp"
+    android:background="#7e7e7e">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/friend_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/profile_pic_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Joe Duo"
+        android:textColor="#fec60a"
+        android:textSize="55px"
+        android:textStyle="bold"
+        android:fontFamily="@font/century_gothic_bold"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintStart_toEndOf="@id/friend_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

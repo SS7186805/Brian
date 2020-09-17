@@ -14,30 +14,45 @@
             type="com.brian.views.fragments.MessagesFragment.ClickHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="@color/blackTheme"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:background="@color/blackTheme">
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.03" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.97" />
 
 
+        <include
+            android:id="@+id/type1"
+            layout="@layout/messages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            android:id="@+id/type2"
+            layout="@layout/messages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type1" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

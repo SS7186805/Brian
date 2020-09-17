@@ -110,6 +110,14 @@
         android:id="@+id/myProfileFragment"
         android:name="com.brian.views.fragments.MyProfileFragment"
         tools:layout="@layout/my_profile_fragment" />
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.brian.views.fragments.ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/register"
+        android:name="com.brian.views.fragments.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
 
 </navigation>
 

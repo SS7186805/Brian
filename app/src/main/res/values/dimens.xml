@@ -18,6 +18,7 @@
     <dimen name="px40">12sp</dimen>
     <dimen name="px45">14sp</dimen>
     <dimen name="px50">14sp</dimen>
+    <dimen name="px100">28sp</dimen>
     <dimen name="px55">15sp</dimen>
     <dimen name="px60">16sp</dimen>
     <dimen name="px65">17sp</dimen>
@@ -32,4 +33,5 @@
     <dimen name="margin_55">55dp</dimen>
     <dimen name="margin_45">45dp</dimen>
     <dimen name="profile_btn_size">55dp</dimen>
+    <dimen name="margin_180">180dp</dimen>
 </resources>
