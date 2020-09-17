@@ -78,7 +78,6 @@
                 <EditText
                     android:id="@+id/reg_Name"
                     android:layout_width="match_parent"
-                    android:id="@+id/eName"
                     android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="@dimen/margin_50"
@@ -89,15 +88,6 @@
                     android:drawableLeft="@drawable/ic_name"
                     app:layout_constraintTop_toBottomOf="@id/frameProfile" />
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:id="@+id/eEmail"
-                    android:background="@drawable/edit_text_bg"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:paddingStart="@dimen/margin_20"
-                    android:drawableLeft="@drawable/ic_name"
-                    app:layout_constraintTop_toBottomOf="@id/eName" />
 
                 <EditText
                     android:id="@+id/reg_Email"

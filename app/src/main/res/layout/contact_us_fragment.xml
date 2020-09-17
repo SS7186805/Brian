@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brian.viewModels.register.RegisterViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.brian.views.fragments.ContactUsFragment.ClickHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/blackTheme"
+        android:layout_height="match_parent">
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:id="@+id/startGuide"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.03"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:id="@+id/endGuide"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_50"
+            android:fontFamily="@font/century_gothic"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/ic_password"
+            android:drawablePadding="@dimen/margin_10"
+            android:hint="@string/title"
+            android:paddingStart="@dimen/margin_20"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_150"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/edit_text_bg_large"
+            android:drawableStart="@drawable/ic_password"
+            android:drawablePadding="@dimen/margin_10"
+            android:fontFamily="@font/century_gothic"
+            android:hint="@string/new_password"
+            android:paddingStart="@dimen/margin_20"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_80"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/century_gothic_bold"
+            android:paddingLeft="@dimen/margin_50"
+            android:paddingTop="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_50"
+            android:paddingBottom="@dimen/margin_15"
+            android:text="@string/submit"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/message"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

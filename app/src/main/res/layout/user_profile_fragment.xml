@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brian.viewModels.register.RegisterViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.brian.views.fragments.UserProfileFragment.ClickHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@color/blackTheme"
+        android:layout_height="match_parent">
+
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"/>
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:id="@+id/startGuide"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:id="@+id/endGuide"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97"
+            android:layout_height="wrap_content"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/margin_100"
+            android:id="@+id/profilePic"
+            android:src="@drawable/profile_pic"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="@dimen/margin_100"/>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:textColor="@color/yellow"
+            android:id="@+id/username"
+            android:fontFamily="@font/century_gothic_bold"
+            android:textSize="@dimen/px55"
+            android:text="@string/app_name"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintTop_toBottomOf="@id/profilePic"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/type"
+            android:textColor="@color/text_color_grey"
+            android:fontFamily="@font/century_gothic_bold"
+            android:textSize="@dimen/px45"
+            android:text="@string/player"
+            android:includeFontPadding="false"
+            android:layout_marginTop="@dimen/margin_5"
+            app:layout_constraintTop_toBottomOf="@id/username"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/dob"
+            android:textColor="@color/text_color_grey"
+            android:fontFamily="@font/century_gothic_bold"
+            android:textSize="@dimen/px40"
+            android:text="@string/dob"
+            android:layout_marginTop="@dimen/margin_5"
+            app:layout_constraintTop_toBottomOf="@id/type"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/badges"
+            android:textColor="@color/yellow"
+            android:fontFamily="@font/century_gothic_bold"
+            android:textSize="@dimen/px50"
+            android:layout_marginStart="@dimen/margin_10"
+            android:text="@string/badges_earned"
+            android:layout_marginTop="@dimen/margin_30"
+            app:layout_constraintTop_toBottomOf="@id/dob"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:id="@+id/recycler"
+            android:layout_marginTop="@dimen/margin_5"
+            app:layout_constraintTop_toBottomOf="@id/badges"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="wrap_content"/>
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brian.viewModels.register.RegisterViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.brian.views.fragments.CreateChallengeFragment.ClickHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blackTheme">
+
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+        <EditText
+            android:id="@+id/challengeTitle"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_50"
+            android:fontFamily="@font/century_gothic"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/ic_challenge1"
+            android:drawablePadding="@dimen/margin_10"
+            android:hint="@string/challenge_title"
+            android:paddingStart="@dimen/margin_20"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <EditText
+            android:id="@+id/selectChallengeType"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_20"
+            android:onClick="@{()-> clickHandler.onSelectChallenge()}"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/ic_name"
+            android:drawablePadding="@dimen/margin_10"
+            android:fontFamily="@font/century_gothic"
+            android:hint="@string/select_challenge_type"
+            android:paddingStart="@dimen/margin_20"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/challengeTitle" />
+
+        <EditText
+            android:id="@+id/selectDate"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/ic_name"
+            android:drawablePadding="@dimen/margin_10"
+            android:hint="@string/select_date"
+            android:paddingStart="@dimen/margin_20"
+            android:fontFamily="@font/century_gothic"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/selectChallengeType" />
+
+        <EditText
+            android:id="@+id/selectUser"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="@dimen/margin_10"
+            android:hint="@string/select_user"
+            android:paddingStart="@dimen/margin_20"
+            android:fontFamily="@font/century_gothic"
+            android:textColorHint="#7e7e7e"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/selectDate" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_80"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/century_gothic_bold"
+            android:onClick="@{()-> clickHandler.onCreateClick()}"
+            android:paddingLeft="@dimen/margin_50"
+            android:paddingTop="@dimen/margin_15"
+            android:paddingRight="@dimen/margin_50"
+            android:paddingBottom="@dimen/margin_15"
+            android:text="@string/create"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/selectUser"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

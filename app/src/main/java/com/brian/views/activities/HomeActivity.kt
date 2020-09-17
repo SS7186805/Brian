@@ -48,14 +48,18 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     ) {
 
         if (destination.id == R.id.pitcherFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
-            || destination.id == R.id.buzzFeedDetailsFragment || destination.id == R.id.usersFragment) {
+            || destination.id == R.id.buzzFeedDetailsFragment || destination.id == R.id.usersFragment
+            || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
+            ||destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
+            ||destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
+             ) {
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
 
         }
 
-        if(destination.id == R.id.myFriendsFragment){
+        if(destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment ||destination.id == R.id.teamFragment ){
             mBinding.toolbar.iAdd.visibility= VISIBLE
 
         }else{
@@ -141,6 +145,15 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
                 navController.navigate(R.id.usersFragment)
 
             }
+            if(navController.currentDestination?.id == R.id.challenegesFragment){
+                navController.navigate(R.id.createChallengeFragment)
+
+            }
+
+            if(navController.currentDestination?.id == R.id.teamFragment){
+                navController.navigate(R.id.createTeamFragment)
+
+            }
 
         }
 
@@ -171,6 +184,12 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             getString(R.string.buzz_feed) -> navController.navigate(R.id.buzzFeedFragment)
             getString(R.string.my_friends) -> navController.navigate(R.id.myFriendsFragment)
             getString(R.string.mesages) -> navController.navigate(R.id.messagesFragment)
+            getString(R.string.challenges) -> navController.navigate(R.id.challenegesFragment)
+            getString(R.string.my_profile) -> navController.navigate(R.id.myProfileFragment)
+            getString(R.string.teams) -> navController.navigate(R.id.teamFragment)
+            getString(R.string.mystats) -> navController.navigate(R.id.myStatsFragment)
+            getString(R.string.contact_us) -> navController.navigate(R.id.contactUsFragment)
+            getString(R.string.leaderboards) -> navController.navigate(R.id.leaderBoards)
         }
     }
 

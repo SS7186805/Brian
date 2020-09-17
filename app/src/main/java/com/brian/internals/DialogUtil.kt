@@ -5,10 +5,14 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.view.View
+import android.graphics.drawable.InsetDrawable
 import android.view.ViewGroup
 import com.brian.R
 import kotlinx.android.synthetic.main.layout_custom_dialog.*
+import kotlinx.android.synthetic.main.layout_custom_dialog.description
+import kotlinx.android.synthetic.main.layout_custom_dialog.title
+import kotlinx.android.synthetic.main.layout_custom_dialog_logout.*
+
 
 class DialogUtil() {
 
@@ -29,11 +33,25 @@ class DialogUtil() {
                     builder.successClickListener?.onOkayClick()
                 }
             }
+            DialogType.LOGOUT -> {
+                dialog?.setContentView(R.layout.layout_custom_dialog_logout)
+                dialog?.btYes?.setOnClickListener {
+                    dialog?.cancel()
+                    builder.yesNoDialogClickListener?.onClickYes()
+                }
+                dialog?.btNo?.setOnClickListener {
+                    dialog?.cancel()
+                    builder.yesNoDialogClickListener?.onClickNo()
+                }
+            }
 
 
         }
+
+        val back = ColorDrawable(Color.TRANSPARENT)
+        val inset = InsetDrawable(back, 100)
         dialog?.setCanceledOnTouchOutside(false)
-        dialog?.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window!!.setBackgroundDrawable(inset)
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT

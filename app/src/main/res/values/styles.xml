@@ -26,4 +26,20 @@
         <!--<item name="colorError">@color/error_color</item>
         <item name="android:windowBackground">@drawable/bg</item>-->
     </style>
+    <style name="customTabStyle" parent="Widget.MaterialComponents.TabLayout">
+
+    </style>
+    <style name="TabLayoutText">
+        <item name="textAllCaps">false</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/century_gothic</item>
+        <item name="android:textSize">@dimen/px50</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/century_gothic</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">#6b6b6b</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

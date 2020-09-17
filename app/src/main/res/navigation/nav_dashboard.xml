@@ -52,6 +52,64 @@
         android:name="com.brian.views.fragments.MessagesFragment"
         tools:layout="@layout/messages_fragment" />
 
+    <fragment
+        android:id="@+id/challenegesFragment"
+        android:name="com.brian.views.fragments.ChallengesFragment"
+        tools:layout="@layout/challenges_fragment" />
+
+    <fragment
+        android:id="@+id/challenegeFragment"
+        android:name="com.brian.views.fragments.ChallengeFragment"
+        tools:layout="@layout/challenge_fragment" />
+
+    <fragment
+        android:id="@+id/createChallengeFragment"
+        android:name="com.brian.views.fragments.CreateChallengeFragment"
+        tools:layout="@layout/create_challenge_fragment" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.brian.views.fragments.UserProfileFragment"
+        tools:layout="@layout/user_profile_fragment" />
+    <fragment
+        android:id="@+id/challengeType"
+        android:name="com.brian.views.fragments.ChallengeTypeFragment"
+        tools:layout="@layout/challenge_type_fragment" />
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.brian.views.fragments.TeamsFragment"
+        tools:layout="@layout/teams_fragment" />
+
+    <fragment
+        android:id="@+id/createTeamFragment"
+        android:name="com.brian.views.fragments.CreateTeamFragment"
+        tools:layout="@layout/create_team_fragment" />
+
+    <fragment
+        android:id="@+id/myStatsFragment"
+        android:name="com.brian.views.fragments.MyStatsFragment"
+        tools:layout="@layout/my_stats_fragment" />
+    <fragment
+        android:id="@+id/leaderBoards"
+        android:name="com.brian.views.fragments.LeaderBoardFragment"
+        tools:layout="@layout/leaderboard_fragment" />
+    <fragment
+        android:id="@+id/contactUsFragment"
+        android:name="com.brian.views.fragments.ContactUsFragment"
+        tools:layout="@layout/contact_us_fragment" />
+    <fragment
+        android:id="@+id/myChallengesFragment"
+        android:name="com.brian.views.fragments.MyChallenegesFragment"
+        tools:layout="@layout/my_challenges_fragment" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.brian.views.fragments.ChangePasswordFragment"
+        tools:layout="@layout/change_password_fragment" />
+
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.brian.views.fragments.MyProfileFragment"
+        tools:layout="@layout/my_profile_fragment" />
 
 </navigation>
 

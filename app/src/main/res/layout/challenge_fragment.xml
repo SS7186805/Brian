@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.brian.viewModels.register.RegisterViewModel" />
+
+        <variable
+            name="clickHandler"
+            type="com.brian.views.fragments.ChallengeFragment.ClickHandler" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blackTheme">
+
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.97" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:id="@+id/profileCard"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:cardBackgroundColor="@color/item_bg_drawer_item"
+            app:cardCornerRadius="@dimen/margin_10">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/item_bg_drawer_item"
+                android:padding="@dimen/margin_10">
+
+
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:text="@string/title"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/px40"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:fontFamily="@font/century_gothic"
+                    android:text="@string/challenge_type"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/px40"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="@dimen/margin_30"
+                    android:layout_height="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:src="@drawable/profile_pic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:fontFamily="@font/century_gothic"
+                    android:text="@string/user_name"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/px40"
+                    app:layout_constraintBottom_toBottomOf="@id/profilePic"
+                    app:layout_constraintStart_toEndOf="@id/profilePic"
+                    app:layout_constraintTop_toTopOf="@id/profilePic" />
+
+
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_5"
+                    android:fontFamily="@font/century_gothic"
+                    android:text="@string/time_text"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/px40"
+                    app:layout_constraintStart_toStartOf="@id/username"
+                    app:layout_constraintTop_toBottomOf="@id/username" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:id="@+id/addCard"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_marginTop="@dimen/margin_20"
+            app:cardCornerRadius="@dimen/margin_10"
+            app:cardBackgroundColor="@color/item_bg_drawer_item"
+            app:layout_constraintTop_toBottomOf="@id/profileCard"
+            android:layout_height="@dimen/margin_150">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/century_gothic_bold"
+            android:onClick="@{()-> clickHandler.onSubmitClick()}"
+            android:layout_marginTop="@dimen/margin_50"
+            android:paddingLeft="@dimen/margin_50"
+            android:paddingTop="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_50"
+            android:paddingBottom="@dimen/margin_10"
+            android:text="@string/submit"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/addCard"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

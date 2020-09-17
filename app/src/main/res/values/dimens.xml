@@ -30,4 +30,6 @@
     <dimen name="margin_110">110dp</dimen>
     <dimen name="margin_115">115dp</dimen>
     <dimen name="margin_55">55dp</dimen>
+    <dimen name="margin_45">45dp</dimen>
+    <dimen name="profile_btn_size">55dp</dimen>
 </resources>

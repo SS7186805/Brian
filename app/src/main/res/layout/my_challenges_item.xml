@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        app:cardBackgroundColor="@color/item_bg_drawer_item"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10"
+            android:background="@color/item_bg_drawer_item">
+
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:id="@+id/videoImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="@dimen/margin_150">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/video_full">
+
+                </ImageView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_play"
+                    android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/title"
+                android:fontFamily="@font/century_gothic_bold"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/px40"
+                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/videoImage"
+                android:text="@string/title"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/type"
+                android:fontFamily="@font/century_gothic"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/px40"
+                android:layout_marginTop="@dimen/margin_5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                android:text="@string/challenge_type"
+                android:layout_height="wrap_content"/>
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="@dimen/margin_30"
+                android:src="@drawable/profile_pic"
+                android:id="@+id/profilePic"
+                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/type"
+                android:layout_height="@dimen/margin_30"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/username"
+                android:fontFamily="@font/century_gothic"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/px40"
+                android:layout_marginStart="@dimen/margin_10"
+                app:layout_constraintStart_toEndOf="@id/profilePic"
+                app:layout_constraintTop_toTopOf="@id/profilePic"
+                app:layout_constraintBottom_toBottomOf="@id/profilePic"
+                android:text="@string/challenge_type"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/check"
+                android:paddingBottom="@dimen/margin_10"
+                app:layout_constraintBottom_toTopOf="@id/time"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/time"
+                android:fontFamily="@font/century_gothic"
+                android:textColor="@color/text_color_grey"
+                android:textSize="@dimen/px40"
+                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profilePic"
+                android:text="@string/time_text"
+                android:layout_height="wrap_content"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:id="@+id/lAcceptReject"
+                app:layout_constraintTop_toBottomOf="@id/time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/margin_30"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="@dimen/margin_120"
+                    android:id="@+id/accept"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/px40"
+                    android:textAlignment="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginStart="@dimen/margin_20"
+                    android:backgroundTint="@color/green"
+                    android:paddingStart="@dimen/margin_30"
+                    android:paddingEnd="@dimen/margin_30"
+                    android:paddingTop="@dimen/margin_10"
+                    android:paddingBottom="@dimen/margin_10"
+                    android:background="@drawable/btn_bg"
+                    android:text="@string/approve"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="@dimen/margin_120"
+                    android:id="@+id/reject"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/px40"
+                    android:backgroundTint="@color/red"
+                    android:paddingTop="@dimen/margin_10"
+                    android:paddingBottom="@dimen/margin_10"
+                    android:background="@drawable/btn_bg"
+                    android:layout_marginEnd="@dimen/margin_20"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@string/reject"
+                    android:layout_height="wrap_content"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/cancelChallenge"
+                android:visibility="gone"
+                android:fontFamily="@font/century_gothic_bold"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:textSize="@dimen/px40"
+                android:backgroundTint="@color/yellow"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingRight="@dimen/margin_20"
+                android:background="@drawable/btn_bg"
+                android:layout_marginEnd="@dimen/margin_20"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lAcceptReject"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/margin_20"
+                android:text="@string/cancel_challenge"
+                android:layout_height="wrap_content"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>
