@@ -14,80 +14,89 @@
             type="com.brian.views.fragments.UsersFragment.ClickHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="@color/blackTheme"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blackTheme">
 
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"/>
+            layout="@layout/toolbar_layout" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.97" />
 
+        <EditText
+            android:id="@+id/et_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:padding="@dimen/margin_10"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/margin_5"
+            android:background="@drawable/search_bar"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+            android:textSize="@dimen/px40"
+            android:text="Search User"
+            android:fontFamily="@font/century_gothic"
+            android:textColor="#7b7b7b"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="@+id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"/>
 
 
         <include
             android:id="@+id/type1"
+            layout="@layout/my_friends1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
+            android:layout_marginTop="@dimen/margin_30"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/my_friends1"/>
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/et_search_bar" />
+
         <include
             android:id="@+id/type2"
+            layout="@layout/my_friends1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/type1"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/my_friends1"/>
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type1" />
+
         <include
-        android:id="@+id/type3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10"
-        app:layout_constraintTop_toBottomOf="@id/type2"
-        app:layout_constraintStart_toStartOf="@id/startGuide"
-        app:layout_constraintEnd_toEndOf="@id/endGuide"
-        layout="@layout/user_send_request"/>
+            android:id="@+id/type3"
+            layout="@layout/user_send_request"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type2" />
+
         <include
             android:id="@+id/type4"
+            layout="@layout/user_send_request"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/type3"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/user_send_request"/>
-
-
-
-
-
-
-
-
-
-
-
-
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type3" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@
     <dimen name="px60">16sp</dimen>
     <dimen name="px65">17sp</dimen>
     <dimen name="px70">18sp</dimen>
+    <dimen name="px80">24sp</dimen>
     <dimen name="margin_5">5dp</dimen>
     <dimen name="edit_text_height">45dp</dimen>
     <dimen name="margin_120">120dp</dimen>
