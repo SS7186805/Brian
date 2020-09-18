@@ -41,6 +41,7 @@
             android:layout_height="@dimen/margin_120"
             android:layout_marginTop="@dimen/margin_40"
             app:cardCornerRadius="@dimen/margin_10"
+            app:cardBackgroundColor="@color/item_bg_drawer_item"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,25 +49,25 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/blackTheme">
+                android:background="@color/item_bg_drawer_item">
 
                 <TextView
                     android:id="@+id/tv_clng_cmplt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:text="Challenges Completed"
                     android:textColor="@color/yellow"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:textSize="@dimen/px70"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <FrameLayout
-                    android:layout_width="@dimen/margin_180"
+                    android:layout_width="@dimen/margin_190"
                     android:layout_height="@dimen/margin_80"
-                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginBottom="@dimen/margin_25"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -82,12 +83,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginStart="@dimen/margin_10"
-                        android:layout_marginTop="@dimen/margin_30"
-                        android:fontFamily="@font/century_gothic_bold"
+                        android:layout_marginStart="@dimen/margin_15"
+                        android:layout_marginTop="@dimen/margin_19"
+                        android:fontFamily="@font/digital_medium"
                         android:text="12"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/px100" />
+                        android:textSize="@dimen/px200" />
                 </FrameLayout>
 
 
@@ -101,6 +102,7 @@
             android:layout_height="@dimen/margin_120"
             android:layout_marginTop="@dimen/margin_20"
             app:cardCornerRadius="@dimen/margin_10"
+            app:cardBackgroundColor="@color/item_bg_drawer_item"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@+id/cv_type1">
@@ -108,7 +110,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/blackTheme">
+                android:background="@color/item_bg_drawer_item">
 
                 <TextView
                     android:id="@+id/tv_DSV"
@@ -126,9 +128,7 @@
 
                 <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/margin_70"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -145,7 +145,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/century_gothic_bold"
-                        android:text="50%"
+                        android:text="50 %"
                         android:textColor="@color/yellow"
                         android:textSize="@dimen/px60" />
                 </FrameLayout>
@@ -158,23 +158,25 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_type3"
             android:layout_width="0dp"
-            android:layout_height="@dimen/margin_120"
+            android:layout_height="@dimen/margin_110"
             android:layout_marginTop="@dimen/margin_20"
             app:cardCornerRadius="@dimen/margin_10"
+            app:cardBackgroundColor="@color/item_bg_drawer_item"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@+id/cv_type2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingBottom="@dimen/margin_10"
                 android:layout_height="match_parent"
-                android:background="@color/blackTheme">
+                android:background="@color/item_bg_drawer_item">
 
                 <TextView
                     android:id="@+id/tv_Badges_earn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:text="Badges Earned"
                     android:textColor="@color/yellow"
@@ -189,6 +191,7 @@
                     android:layout_marginStart="@dimen/margin_20"
                     android:layout_marginEnd="@dimen/margin_20"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:weightSum="4"

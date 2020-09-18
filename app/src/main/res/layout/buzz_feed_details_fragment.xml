@@ -37,24 +37,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
+            app:layout_constraintGuide_percent="0.95" />
 
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:layout_marginTop="@dimen/margin_20"
+            android:scaleType="centerCrop"
             android:src="@drawable/buzz_details"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <LinearLayout
             android:id="@+id/indicators"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_15"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintTop_toBottomOf="@id/image"
@@ -63,46 +64,58 @@
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:background="@drawable/oval_bg"
-                android:backgroundTint="@color/yellow" />
+                android:background="@drawable/slider_dot"
+                />
 
 
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/oval_bg"
+                android:background="@drawable/empty_dot"
               />
 
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/oval_bg"
+                android:background="@drawable/empty_dot"
                 />
 
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/oval_bg" />
+                android:background="@drawable/empty_dot" />
 
 
 
         </LinearLayout>
 
+        <TextView
+            android:layout_width="0dp"
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_25"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/title"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/px60"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/indicators" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_10"
             android:fontFamily="@font/century_gothic"
             android:text="@string/dummy_content"
             android:textColor="@color/text_Color_drawer_item"
             android:textSize="@dimen/px45"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/indicators" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
 
 

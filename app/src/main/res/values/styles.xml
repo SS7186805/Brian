@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/yellow</item>
     </style>
 
     <!-- Base application theme. -->
@@ -13,8 +13,8 @@
     <style name="AppParentTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorAccent">@color/yellow</item>
+        <item name="android:windowLightStatusBar">false</item>
         <!--        <item name="android:statusBarColor">@color/status_bar_color</item>-->
         <item name="windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -22,6 +22,8 @@
         <item name="android:spotShadowAlpha">.1</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="colorPrimaryDark">@color/blackTheme</item>
+
 
         <!--<item name="colorError">@color/error_color</item>
         <item name="android:windowBackground">@drawable/bg</item>-->

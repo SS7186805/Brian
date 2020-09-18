@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:id="@+id/endGuide"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"
+            app:layout_constraintGuide_percent="0.95"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -59,14 +59,13 @@
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             android:text="@string/pitch"
-            android:paddingLeft="@dimen/margin_50"
-            android:paddingRight="@dimen/margin_50"
-            android:paddingTop="@dimen/margin_10"
-            android:paddingBottom="@dimen/margin_10"
+            android:gravity="center"
+            android:background="@drawable/capsuler_login_btn"
             android:textColor="@color/black"
             android:fontFamily="@font/century_gothic_bold"
+            android:textAllCaps="false"
+            android:textSize="@dimen/px60"
             android:layout_marginBottom="@dimen/margin_100"
-            android:background="@drawable/btn_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="wrap_content"/>
 

@@ -43,20 +43,20 @@
             android:id="@+id/frameProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_50"
+            android:layout_marginTop="@dimen/margin_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="@dimen/margin_100"
-                android:layout_height="@dimen/margin_100"
+                android:layout_width="@dimen/margin_120"
+                android:layout_height="@dimen/margin_120"
                 android:src="@drawable/ic_profile" />
 
             <ImageView
-                android:layout_width="@dimen/margin_30"
-                android:layout_height="@dimen/margin_30"
+                android:layout_width="@dimen/margin_32"
+                android:layout_height="@dimen/margin_32"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/margin_5"
                 android:src="@drawable/ic_add">
@@ -65,22 +65,42 @@
 
         </FrameLayout>
 
-        <EditText
-            android:id="@+id/et_team_name"
+
+        <FrameLayout
+            android:id="@+id/fMessage"
             android:layout_width="0dp"
-            android:background="@drawable/edit_text_bg"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginTop="@dimen/margin_50"
-            android:hint="Team Name"
-            android:fontFamily="@font/century_gothic"
-            android:textColor="#7e7e7e"
-            android:textColorHint="#7e7e7e"
-            android:drawablePadding="@dimen/margin_10"
-            android:paddingStart="@dimen/margin_20"
-            android:drawableLeft="@drawable/ic_name"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            app:layout_constraintTop_toBottomOf="@id/frameProfile" />
+            app:layout_constraintTop_toBottomOf="@id/frameProfile">
+
+            <EditText
+                android:id="@+id/et_team_name"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_text_bg"
+                android:layout_height="@dimen/edit_text_height"
+                android:hint="Team Name"
+                android:fontFamily="@font/century_gothic"
+                android:textColor="#7e7e7e"
+                android:textColorHint="#7e7e7e"
+                android:textSize="@dimen/px55"
+                android:paddingStart="@dimen/margin_55"
+                     />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_15"
+                android:src="@drawable/team_name"
+                android:tint="@color/yellow">
+
+            </ImageView>
+
+        </FrameLayout>
+
+
 
         <EditText
             android:id="@+id/et_select_user"
@@ -93,11 +113,16 @@
             android:textColor="#7e7e7e"
             android:textColorHint="#7e7e7e"
             android:drawablePadding="@dimen/margin_10"
-            android:paddingStart="@dimen/margin_20"
+            android:textSize="@dimen/px55"
+            android:paddingEnd="@dimen/margin_15"
+            android:inputType="none"
+            android:focusable="false"
+            android:onClick="@{()-> clickHandler.onSelectUser()}"
             android:drawableLeft="@drawable/ic_d_user"
-            android:drawable="@drawable/ic_baseline_arrow_forward"
+            android:paddingStart="@dimen/margin_20"
+            android:drawableRight="@drawable/ic_baseline_arrow_forward"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/et_team_name"
+            app:layout_constraintTop_toBottomOf="@id/fMessage"
             app:layout_constraintEnd_toEndOf="@id/endGuide"/>
 
         <Button
@@ -105,6 +130,9 @@
             android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="Create"
+            android:layout_marginTop="@dimen/margin_40"
+            android:textSize="@dimen/px60"
+            android:onClick="@{()-> clickHandler.onCreateClick()}"
             android:fontFamily="@font/century_gothic_bold"
             android:background="@drawable/capsuler_login_btn"
             app:layout_constraintStart_toStartOf="parent"

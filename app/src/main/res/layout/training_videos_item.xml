@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     app:cardCornerRadius="@dimen/margin_10"
     android:layout_marginBottom="@dimen/margin_10"
-    app:cardBackgroundColor="@color/item_bg_drawer_item"
+    app:cardBackgroundColor="@color/card_background_training"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_10"
-        android:background="@color/item_bg_drawer_item">
+        android:background="@color/card_background_training">
 
 
         <FrameLayout
-            android:layout_width="@dimen/margin_55"
+            android:layout_width="@dimen/margin_60"
             android:id="@+id/videoImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="@dimen/margin_55">
+            android:layout_height="@dimen/margin_60">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -56,10 +56,10 @@
             android:fontFamily="@font/century_gothic"
             app:layout_constraintTop_toBottomOf="@id/title"
             android:textColor="@color/text_Color_drawer_item"
-            android:textSize="@dimen/px22"
+            android:textSize="@dimen/px35"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/videoImage"
-            android:text="@string/dummy_content"
+            android:text="@string/dummy_content_short"
             android:layout_height="wrap_content"/>
 
 

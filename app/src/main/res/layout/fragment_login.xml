@@ -23,108 +23,101 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#121213">
+            android:background="@color/blackTheme">
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/Guideline_end"
+                android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_end="10dp" />
+                app:layout_constraintGuide_percent="0.05" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/Guideline_begin"
+                android:id="@+id/end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_begin="10dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/login_Guideline_half"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.95" />
 
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="50dp"
+                android:layout_width="@dimen/margin_130"
+                android:layout_height="@dimen/margin_130"
+                android:layout_marginTop="@dimen/margin_80"
                 android:src="@drawable/image"
-                app:layout_constraintBottom_toTopOf="@+id/login_Guideline_half"
-                app:layout_constraintEnd_toEndOf="@id/Guideline_end"
-                app:layout_constraintStart_toStartOf="@+id/Guideline_begin"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintStart_toStartOf="@+id/start"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
                 android:id="@+id/et_userName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/capsuler_btn"
-                android:drawableLeft="@drawable/ic_mail"
-                android:drawablePadding="10dp"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/margin_100"
+                android:background="@drawable/edit_text_bg"
+                android:drawableStart="@drawable/ic_mail"
+                android:paddingStart="@dimen/margin_20"
+                android:drawablePadding="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic"
-                android:hint="Email Address"
-                android:padding="18dp"
+                android:hint="@string/email_address"
                 android:singleLine="true"
-                android:textColor="#7e7e7e"
-                android:textColorHint="#7e7e7e"
+                android:textColorHint="@color/hint_color"
                 android:textSize="@dimen/px55"
-                app:layout_constraintEnd_toEndOf="@id/Guideline_end"
-                app:layout_constraintStart_toStartOf="@id/Guideline_begin"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/edit_text_color"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
             <EditText
-                android:id="@+id/et_passWord"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/capsuler_btn"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="10dp"
+                android:id="@+id/et_password"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height"
+                android:layout_marginTop="@dimen/margin_30"
+                android:background="@drawable/edit_text_bg"
+                android:drawableStart="@drawable/ic_password"
+                android:paddingStart="@dimen/margin_20"
+                android:drawablePadding="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic"
-                android:hint="Password"
-                android:padding="18dp"
+                android:hint="@string/password"
                 android:singleLine="true"
-                android:textColor="#7e7e7e"
-                android:textColorHint="#7e7e7e"
+                android:inputType="textPassword"
+                android:textColor="@color/edit_text_color"
+                android:textColorHint="@color/hint_color"
                 android:textSize="@dimen/px55"
-                app:layout_constraintEnd_toEndOf="@+id/Guideline_end"
-                app:layout_constraintStart_toStartOf="@id/Guideline_begin"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintTop_toBottomOf="@+id/et_userName" />
+
 
             <TextView
                 android:id="@+id/tv_forgot_pswd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+
+                android:layout_marginEnd="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic"
                 android:onClick="@{()-> clickHandler.onForgotPasswordClick()}"
-                android:text="Forgot Password?"
-                android:textSize="@dimen/px50"
+                android:text="@string/forgot_password"
                 android:textColor="#fec60a"
-                app:layout_constraintEnd_toEndOf="@id/et_passWord"
-                app:layout_constraintTop_toBottomOf="@id/et_passWord" />
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintTop_toBottomOf="@id/et_password" />
 
             <Button
                 android:id="@+id/btn_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="96dp"
+                android:layout_marginTop="@dimen/margin_100"
+                android:onClick="@{()-> clickHandler.onLoginClick()}"
                 android:background="@drawable/capsuler_login_btn"
                 android:fontFamily="@font/century_gothic_bold"
-                android:text="Login"
+                android:text="@string/log_in"
                 android:textAllCaps="false"
                 android:textSize="@dimen/px60"
-                app:layout_constraintEnd_toEndOf="@id/Guideline_end"
-                app:layout_constraintStart_toStartOf="@id/Guideline_begin"
+                app:layout_constraintEnd_toEndOf="@id/end"
+                app:layout_constraintStart_toStartOf="@id/start"
                 app:layout_constraintTop_toBottomOf="@+id/tv_forgot_pswd" />
 
 
@@ -135,18 +128,19 @@
                 android:gravity="center"
                 android:onClick="@{()-> clickHandler.onRegisterClick()}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/Guideline_end"
+                app:layout_constraintEnd_toEndOf="@id/end"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@id/Guideline_begin">
+                app:layout_constraintStart_toStartOf="@id/start">
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/century_gothic"
-                    android:text="Don't have an account?"
+                    android:text="@string/txt_signup_1"
                     android:textColor="#7e7e7e"
-                    android:textSize="@dimen/px50" />
+                    android:textSize="@dimen/px50"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/txt_register"

@@ -1,7 +1,9 @@
 package com.brian.base
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.brian.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,5 +23,13 @@ abstract class ScopedActivity : AppCompatActivity(), CoroutineScope {
     override fun onDestroy() {
         super.onDestroy()
         job.cancel()
+    }
+
+
+    fun setStatusBarColor() {
+        val window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.statusBarColor = this.resources!!.getColor(R.color.blackTheme)
     }
 }

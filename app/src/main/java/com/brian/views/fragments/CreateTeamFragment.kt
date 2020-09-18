@@ -55,18 +55,19 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClick
             DialogUtil.build(requireContext()) {
                 title = getString(R.string.success)
                 dialogType = DialogUtil.DialogType.SUCCESS
-                message = getString(R.string.challenge_created)
+                message = getString(R.string.team_created)
                 successClickListener = this@CreateTeamFragment
             }
         }
 
-        fun onSelectChallenge(){
-            findNavController().navigate(R.id.challengeType)
+        fun onSelectUser(){
+            findNavController().navigate(R.id.myFriendsFragment)
         }
 
     }
 
     override fun onOkayClick() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        findNavController().navigateUp()
+
     }
 }

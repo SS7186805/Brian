@@ -9,7 +9,7 @@
         android:topLeftRadius="30dp"
         android:topRightRadius="30dp"/>
 
-    <solid android:color="#aaa" />
+    <solid android:color="@color/card_background_training" />
 
     <size
         android:height="10dp"

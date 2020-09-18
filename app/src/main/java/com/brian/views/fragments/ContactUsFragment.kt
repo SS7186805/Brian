@@ -16,6 +16,7 @@ import com.brian.databinding.ChallengesFragmentBinding
 import com.brian.databinding.ContactUsFragmentBinding
 import com.brian.databinding.LeaderboardFragmentBinding
 import com.brian.databinding.MyChallengesItemBinding
+import com.brian.internals.DialogUtil
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.ChallengeRequestsAdapter
@@ -25,7 +26,7 @@ import com.google.android.material.tabs.TabLayout
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class ContactUsFragment : ScopedFragment(), KodeinAware {
+class ContactUsFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: ContactUsFragmentBinding
@@ -57,9 +58,22 @@ class ContactUsFragment : ScopedFragment(), KodeinAware {
 
 
 
-    inner class ClickHandler : MyChallengesAdapter.onViewClick {
-        override fun onAprroveClick() {
+    inner class ClickHandler{
+
+        fun onCreateClick(){
+            DialogUtil.build(requireContext()) {
+                title = getString(R.string.success)
+                dialogType = DialogUtil.DialogType.SUCCESS
+                message = getString(R.string.contact_us_message)
+                successClickListener = this@ContactUsFragment
+            }
         }
+
+
+    }
+
+    override fun onOkayClick() {
+        findNavController().navigateUp()
 
     }
 

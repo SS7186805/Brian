@@ -3,15 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
+    android:background="@color/card_background_training"
+    android:padding="@dimen/margin_10"
     android:layout_margin="5dp"
-    android:background="#7e7e7e">
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/friend_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/margin_50"
+        android:layout_height="@dimen/margin_50"
         android:src="@drawable/profile_pic_1"
+        android:layout_marginStart="@dimen/margin_5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -23,9 +25,9 @@
         android:fontFamily="@font/century_gothic_bold"
         android:text="Joe Duo"
         android:textColor="#fec60a"
-        android:textSize="55px"
+        android:textSize="@dimen/px55"
         android:textStyle="bold"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="@dimen/margin_10"
         app:layout_constraintStart_toEndOf="@id/friend_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -38,10 +40,9 @@
         android:textColor="#000"
         android:textStyle="bold"
         android:textSize="@dimen/px40"
+        android:layout_marginEnd="@dimen/margin_10"
         android:text="Send Request"
         android:fontFamily="@font/century_gothic_bold"
-        android:layout_marginLeft="@dimen/margin_110"
-        app:layout_constraintStart_toEndOf="@+id/tv_frnd_Name"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

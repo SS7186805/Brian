@@ -12,6 +12,13 @@ import org.kodein.di.generic.singleton
 
 class MainApplication : Application(),KodeinAware{
 
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+
+    }
+
     override val kodein: Kodein = Kodein.lazy {
         import(androidXModule(this@MainApplication))
 
@@ -22,5 +29,11 @@ class MainApplication : Application(),KodeinAware{
 
 
     }
+
+    companion object {
+        private lateinit var instance: MainApplication
+        fun get(): MainApplication = instance
+    }
+
 
 }

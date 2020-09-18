@@ -25,34 +25,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="0.00" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/endGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
+            app:layout_constraintGuide_percent="1" />
 
 
         <include
-            android:id="@+id/type1"
+            android:id="@+id/type11"
             layout="@layout/messages"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_30"
+            android:onClick="@{() -> clickHandler.onUsersClick()}"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
-            android:id="@+id/type2"
+            android:id="@+id/type22"
             layout="@layout/messages"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_10"
+            android:onClick="@{() -> clickHandler.onUsersClick()}"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/type1" />
+            app:layout_constraintTop_toBottomOf="@id/type11" />
+
+
+        <include
+            android:id="@+id/type33"
+            layout="@layout/messages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:onClick="@{() -> clickHandler.onUsersClick()}"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type22" />
+
+        <include
+            android:id="@+id/type44"
+            layout="@layout/messages"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:onClick="@{() -> clickHandler.onUsersClick()}"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type33" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

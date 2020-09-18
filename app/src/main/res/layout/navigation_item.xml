@@ -8,9 +8,9 @@
         android:background="@drawable/bg_selector"
         android:layout_marginBottom="@dimen/margin_10"
         android:paddingLeft="@dimen/margin_10"
-        android:paddingTop="@dimen/margin_5"
+        android:paddingTop="@dimen/margin_7"
         android:paddingRight="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_5">
+        android:paddingBottom="@dimen/margin_7">
 
         <ImageView
             android:id="@+id/icon"

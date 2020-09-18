@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     app:cardCornerRadius="@dimen/margin_10"
     android:layout_marginBottom="@dimen/margin_10"
-    app:cardBackgroundColor="@color/item_bg_drawer_item"
+    app:cardBackgroundColor="@color/question_card_bg"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,8 +11,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10"
-        android:background="@color/item_bg_drawer_item">
+        android:paddingStart="@dimen/margin_20"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingEnd="@dimen/margin_20"
+        android:paddingBottom="@dimen/margin_10"
+        android:background="@color/question_card_bg">
 
 
         <TextView
@@ -78,8 +81,8 @@
             android:fontFamily="@font/century_gothic_bold"
             android:textColor="@color/black"
             android:background="@drawable/btn_bg"
-            android:paddingStart="@dimen/margin_20"
-            android:paddingEnd="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_30"
+            android:paddingEnd="@dimen/margin_30"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
             android:textSize="@dimen/px60"
@@ -97,8 +100,8 @@
             android:fontFamily="@font/century_gothic_bold"
             android:textColor="@color/black"
             android:background="@drawable/btn_bg"
-            android:paddingStart="@dimen/margin_20"
-            android:paddingEnd="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_30"
+            android:paddingEnd="@dimen/margin_30"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
             android:textSize="@dimen/px60"
@@ -116,8 +119,8 @@
             android:fontFamily="@font/century_gothic_bold"
             android:textColor="@color/black"
             android:background="@drawable/btn_bg"
-            android:paddingStart="@dimen/margin_20"
-            android:paddingEnd="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_30"
+            android:paddingEnd="@dimen/margin_30"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
             android:textSize="@dimen/px60"
@@ -134,8 +137,8 @@
             android:fontFamily="@font/century_gothic_bold"
             android:textColor="@color/black"
             android:background="@drawable/btn_bg"
-            android:paddingStart="@dimen/margin_20"
-            android:paddingEnd="@dimen/margin_20"
+            android:paddingStart="@dimen/margin_30"
+            android:paddingEnd="@dimen/margin_30"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
             android:textSize="@dimen/px60"
@@ -149,7 +152,6 @@
             android:text="@string/correctAnswer"
             android:fontFamily="@font/century_gothic_bold"
             android:textColor="@color/green"
-            android:paddingStart="@dimen/margin_20"
             android:paddingEnd="@dimen/margin_20"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"

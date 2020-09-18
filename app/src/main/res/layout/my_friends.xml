@@ -3,14 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
+    android:padding="@dimen/margin_8"
     android:layout_margin="5dp"
-    android:background="#7e7e7e">
+    android:background="@color/card_background_training"
+    >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/friend_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/margin_50"
+        android:layout_height="@dimen/margin_50"
         android:src="@drawable/profile_pic_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,10 +22,10 @@
         android:layout_height="wrap_content"
         android:text="Joe Duo"
         android:textColor="#fec60a"
-        android:textSize="55px"
+        android:textSize="@dimen/px55"
         android:textStyle="bold"
         android:fontFamily="@font/century_gothic_bold"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@id/friend_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

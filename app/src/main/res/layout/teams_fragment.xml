@@ -25,25 +25,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/endGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
+            app:layout_constraintGuide_percent="1" />
 
 
         <include
             android:id="@+id/type1"
-            layout="@layout/training_videos_item"
+            layout="@layout/teams"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintEnd_toEndOf="@+id/endGuide"
-            app:layout_constraintStart_toStartOf="@+id/startGuide"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="@dimen/margin_30"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <include
+            android:id="@+id/type2"
+            layout="@layout/teams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@+id/type1"/>
+
+        <include
+            android:id="@+id/type3"
+            layout="@layout/teams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@+id/type2"/>
+
+        <include
+            android:id="@+id/type4"
+            layout="@layout/teams"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@+id/type3"/>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

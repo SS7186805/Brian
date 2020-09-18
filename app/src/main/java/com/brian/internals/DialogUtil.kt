@@ -48,8 +48,8 @@ class DialogUtil() {
 
         }
 
-        val back = ColorDrawable(Color.TRANSPARENT)
-        val inset = InsetDrawable(back, 100)
+        val back = ColorDrawable(Color.BLACK)
+        val inset = InsetDrawable(back, 150)
         dialog?.setCanceledOnTouchOutside(false)
         dialog?.window!!.setBackgroundDrawable(inset)
         dialog?.window?.setLayout(

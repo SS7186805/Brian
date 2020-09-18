@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97" />
+            app:layout_constraintGuide_percent="0.95" />
 
         <ScrollView
             android:layout_width="0dp"
@@ -58,6 +58,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/score"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/margin_30"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_10"
                     app:cardBackgroundColor="@color/item_bg_drawer_item"
@@ -68,6 +69,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
                         android:background="@color/item_bg_drawer_item"
                         android:padding="@dimen/margin_10">
 
@@ -76,7 +78,7 @@
                             android:id="@+id/tScore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/century_gothic_bold"
+                            android:fontFamily="@font/century_gothic"
                             android:text="@string/score"
                             android:textColor="@color/yellow"
                             android:textSize="@dimen/px65"
@@ -88,7 +90,7 @@
                             android:id="@+id/average"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/century_gothic_bold"
+                            android:fontFamily="@font/century_gothic"
                             android:text="@string/average"
                             android:textColor="@color/yellow"
                             android:layout_marginEnd="@dimen/margin_10"
@@ -100,17 +102,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_20"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:layout_marginEnd="@dimen/margin_10"
                             android:layout_marginBottom="@dimen/margin_20"
-                            app:cardBackgroundColor="@color/text_Color_drawer_item"
+                            app:cardBackgroundColor="@color/game_item_bg"
                             app:cardCornerRadius="@dimen/margin_10"
 
                             app:layout_constraintTop_toBottomOf="@id/average">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
+
                                 android:layout_height="wrap_content"
-                                android:background="@color/text_Color_drawer_item"
+                                android:background="@color/game_item_bg"
                                 android:padding="@dimen/margin_10">
+
+                                <androidx.constraintlayout.widget.Guideline
+                                    android:layout_width="wrap_content"
+                                    android:orientation="vertical"
+                                    android:id="@+id/mid"
+                                    app:layout_constraintGuide_percent="0.55"
+                                    android:layout_height="wrap_content"/>
 
                                 <TextView
                                     android:id="@+id/total_questions"
@@ -127,9 +139,10 @@
                                     android:id="@+id/correct_answers"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_5"
                                     android:fontFamily="@font/century_gothic_bold"
                                     android:text="@string/correct_answers"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/green"
                                     android:textSize="@dimen/px50"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/total_questions" />
@@ -138,12 +151,51 @@
                                     android:id="@+id/incorrect_answers"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_5"
+
                                     android:fontFamily="@font/century_gothic_bold"
                                     android:text="@string/incorrect_answers"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/red"
                                     android:textSize="@dimen/px50"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/correct_answers" />
+
+
+                                <TextView
+                                    android:id="@+id/total_questions_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/century_gothic_bold"
+                                    android:text="5"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/px50"
+                                    app:layout_constraintStart_toStartOf="@id/mid"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/correct_answers_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_5"
+                                    android:fontFamily="@font/century_gothic_bold"
+                                    android:text="3"
+                                    android:textColor="@color/green"
+                                    android:textSize="@dimen/px50"
+                                    app:layout_constraintStart_toStartOf="@id/mid"
+                                    app:layout_constraintTop_toBottomOf="@id/total_questions_count" />
+
+                                <TextView
+                                    android:id="@+id/incorrect_answers_count"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_5"
+
+                                    android:fontFamily="@font/century_gothic_bold"
+                                    android:text="1"
+                                    android:textColor="@color/red"
+                                    android:textSize="@dimen/px50"
+                                    app:layout_constraintStart_toStartOf="@id/mid"
+                                    app:layout_constraintTop_toBottomOf="@id/correct_answers_count" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -162,7 +214,7 @@
                     layout="@layout/question_item"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_40"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/score" />
@@ -180,15 +232,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_50"
                     android:layout_marginBottom="@dimen/margin_20"
-                    android:background="@drawable/btn_bg"
-                    android:fontFamily="@font/century_gothic_bold"
+                    android:background="@drawable/capsuler_login_btn"
                     android:onClick="@{()-> clickHandler.onPitchClick()}"
-                    android:paddingLeft="@dimen/margin_50"
-                    android:paddingTop="@dimen/margin_10"
-                    android:paddingRight="@dimen/margin_50"
-                    android:paddingBottom="@dimen/margin_10"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/px60"
+                    android:gravity="center"
                     android:text="@string/done"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"

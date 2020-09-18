@@ -3,12 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/LanguageSelectFragment">
+    app:startDestination="@id/loginFragment">
 
 
     <fragment
-        android:id="@+id/LanguageSelectFragment"
-        android:name="com.demo.language_select.LanguageSelectFragment"
-        tools:layout="@layout/fragment_lang_select" />
+        android:id="@+id/loginFragment"
+        android:name="com.brian.views.fragments.LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.brian.views.fragments.RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.brian.views.fragments.ForgotPasswordFragment"
+        tools:layout="@layout/fragment_forgot_password" />
 
 </navigation>

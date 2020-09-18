@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#7e7e7e"
-    android:padding="5dp"
+    android:background="@color/card_background_training"
+    android:padding="@dimen/margin_10"
     android:layout_margin="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/friend_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/profile_pic_1"
+        android:layout_marginStart="@dimen/margin_5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -22,10 +23,10 @@
         android:layout_height="wrap_content"
         android:text="Joe Duo"
         android:textColor="#fec60a"
-        android:textSize="55px"
+        android:textSize="@dimen/px55"
         android:fontFamily="@font/century_gothic_bold"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@id/friend_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -41,8 +42,7 @@
         android:textStyle="bold"
         android:textSize="@dimen/px40"
         android:text="Accept"
-        android:layout_marginLeft="@dimen/margin_70"
-        app:layout_constraintStart_toEndOf="@+id/tv_frnd_Name"
+        android:layout_marginEnd="@dimen/margin_15"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_Reject"/>
@@ -56,8 +56,8 @@
         android:fontFamily="@font/century_gothic_bold"
         android:textStyle="bold"
         android:textSize="@dimen/px40"
+        android:layout_marginEnd="@dimen/margin_5"
         android:text="Reject"
-        app:layout_constraintStart_toEndOf="@+id/btn_Accept"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

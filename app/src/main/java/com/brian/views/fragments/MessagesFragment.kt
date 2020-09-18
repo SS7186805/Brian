@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.MessagesFragmentBinding
@@ -44,6 +46,9 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     }
 
     inner class ClickHandler{
+        fun onUsersClick(){
+            findNavController().navigate(R.id.chatFragment)
 
+        }
     }
 }

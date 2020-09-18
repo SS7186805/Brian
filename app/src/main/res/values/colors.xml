@@ -7,6 +7,7 @@
     <color name="blackTheme">#121213</color>
     <color name="dashboard_item_color">#fec60a</color>
     <color name="text_Color_drawer_item">#aaaaaa</color>
+    <color name="edit_text_color">#aaaaaa</color>
     <color name="item_bg_drawer_item">#1c1c1b</color>
     <color name="black">#000</color>
     <color name="icon_color">#AAAAAA</color>
@@ -14,4 +15,8 @@
     <color name="grey">#9f9c9c</color>
     <color name="green">#1ab40f</color>
     <color name="text_color_grey">#b0aea8</color>
+    <color name="hint_color">#7e7e7e</color>
+    <color name="card_background_training">#363535</color>
+    <color name="question_card_bg">#1c1c1d</color>
+    <color name="game_item_bg">#676766</color>
 </resources>

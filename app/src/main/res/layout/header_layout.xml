@@ -1,4 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="300dp"
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lProfile"
     app:layout_constraintTop_toTopOf="parent"
@@ -8,30 +9,33 @@
     android:layout_height="@dimen/margin_80"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="@dimen/margin_60"
-        android:src="@drawable/ic_my_profile1"
-        android:id="@+id/profilePic"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_height="@dimen/margin_60">
 
-    </de.hdodenhof.circleimageview.CircleImageView>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:id="@+id/name"
-        app:layout_constraintStart_toEndOf="@id/profilePic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_centerVertical="true"
-        android:textSize="@dimen/px60"
-        android:fontFamily="@font/century_gothic_bold"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="@dimen/margin_20"
-        android:text="@string/app_name"
-        android:layout_height="wrap_content"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="@dimen/margin_60"
+            android:src="@drawable/profile_pic"
+            android:id="@+id/profilePic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_height="@dimen/margin_60">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </de.hdodenhof.circleimageview.CircleImageView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:id="@+id/name"
+            app:layout_constraintStart_toEndOf="@id/profilePic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/px60"
+            android:fontFamily="@font/century_gothic_bold"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="@dimen/margin_20"
+            android:text="@string/user_name"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+

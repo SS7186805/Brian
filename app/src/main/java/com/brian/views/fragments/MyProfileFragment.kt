@@ -1,5 +1,6 @@
 package com.brian.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,14 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
+import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MyProfileFragmentBinding
 import com.brian.internals.DialogUtil
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
+import com.brian.views.activities.AccountHandlerActivity
+import com.brian.views.activities.HomeActivity
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -79,9 +83,14 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     }
 
     override fun onClickYes() {
+        Prefs.init().isLogIn="false"
+        startActivity(Intent(requireContext(),AccountHandlerActivity::class.java))
+        (requireActivity() as HomeActivity).finish()
+
     }
 
     override fun onClickNo() {
+
     }
 
 

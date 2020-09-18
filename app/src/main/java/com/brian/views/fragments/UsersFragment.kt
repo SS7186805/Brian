@@ -53,10 +53,7 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler{
 
-        fun onPitchClick(){
-            findNavController().navigate(R.id.questionsFragment)
 
-        }
 
     }
 }

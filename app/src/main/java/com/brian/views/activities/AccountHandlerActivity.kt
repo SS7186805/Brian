@@ -1,6 +1,7 @@
 package com.brian.views.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -16,6 +17,7 @@ class AccountHandlerActivity : ScopedActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_account_handler)
         navController = setNavigationController()
 

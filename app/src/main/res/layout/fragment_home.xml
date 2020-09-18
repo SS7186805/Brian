@@ -34,7 +34,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-
+                 android:layout_marginTop="@dimen/margin_20"
                 android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -83,6 +83,7 @@
                     android:id="@+id/lCatcher"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_10"
@@ -119,17 +120,18 @@
                     app:layout_constraintEnd_toStartOf="@id/guideMid"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_20"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     android:layout_marginTop="@dimen/margin_20"
                     android:layout_marginEnd="@dimen/margin_10"
                     android:layout_height="@dimen/margin_115">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/margin_40"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/iFirst"
-                        android:src="@drawable/ic_1base"
+                        android:src="@drawable/oneb"
                         android:layout_marginTop="@dimen/margin_20"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="@dimen/margin_40"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -148,6 +150,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lSecondBase"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lCatcher"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -158,12 +161,12 @@
                     android:layout_height="@dimen/margin_115">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/margin_40"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/iSecondBase"
-                        android:src="@drawable/ic_2base"
+                        android:src="@drawable/twob"
                         android:layout_marginTop="@dimen/margin_20"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="@dimen/margin_40"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -184,6 +187,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lThird"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lFirst"
                     app:layout_constraintEnd_toStartOf="@id/guideMid"
@@ -194,12 +198,12 @@
                     android:layout_height="@dimen/margin_115">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/margin_40"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/iThird"
-                        android:src="@drawable/ic_3base"
+                        android:src="@drawable/thrreb"
                         android:layout_marginTop="@dimen/margin_20"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="@dimen/margin_40"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -218,6 +222,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lShortStep"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lSecondBase"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -228,12 +233,12 @@
                     android:layout_height="@dimen/margin_115">
 
                     <ImageView
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/margin_40"
                         android:layout_centerHorizontal="true"
                         android:id="@+id/iShort"
-                        android:src="@drawable/ic_2base"
+                        android:src="@drawable/short_step"
                         android:layout_marginTop="@dimen/margin_20"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="@dimen/margin_40"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -254,6 +259,8 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lLeftField"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lThird"
                     app:layout_constraintEnd_toStartOf="@id/guideMid"
@@ -291,6 +298,7 @@
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lShortStep"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
@@ -324,6 +332,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lRightField"
+                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lLeftField"
                     app:layout_constraintEnd_toEndOf="parent"

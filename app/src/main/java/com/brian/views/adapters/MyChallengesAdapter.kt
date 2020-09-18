@@ -2,8 +2,7 @@ package com.brian.views.adapters
 
 import android.content.Context
 import android.util.Log
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
 import androidx.core.content.ContextCompat
 import com.brian.R
 import com.brian.base.BaseRecyclerAdapter
@@ -26,14 +25,16 @@ class MyChallengesAdapter (override val layoutId: Int) : BaseRecyclerAdapter<MyC
 
         }else{
             holder.binding.lAcceptReject.visibility= VISIBLE
-            holder.binding.check.visibility= GONE
+            holder.binding.check.visibility= INVISIBLE
 
         }
 
         if(item.cancelChallenge){
             holder.binding.cancelChallenge.visibility= VISIBLE
             holder.binding.lAcceptReject.visibility=GONE
-            holder.binding.check.visibility= GONE
+            holder.binding.check.visibility= INVISIBLE
+            holder.binding.videoImage.visibility= GONE
+
 
         }
 

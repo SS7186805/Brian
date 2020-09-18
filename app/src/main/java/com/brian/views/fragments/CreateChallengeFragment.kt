@@ -67,9 +67,13 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware,DialogUtil.Success
             findNavController().navigate(R.id.challengeType)
         }
 
+        fun onSelectUser(){
+            findNavController().navigate(R.id.myFriendsFragment)
+        }
+
     }
 
     override fun onOkayClick() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        findNavController().navigateUp()
     }
 }

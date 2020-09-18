@@ -17,9 +17,7 @@ import com.brian.databinding.LeaderboardFragmentBinding
 import com.brian.databinding.MyChallengesItemBinding
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
-import com.brian.views.adapters.ChallengeRequestsAdapter
-import com.brian.views.adapters.MyChallenges
-import com.brian.views.adapters.MyChallengesAdapter
+import com.brian.views.adapters.*
 import com.google.android.material.tabs.TabLayout
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -29,10 +27,9 @@ class LeaderBoardFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelect
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: LeaderboardFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-    var myChallengesAdapter:MyChallengesAdapter?=null
+    var myChallengesAdapter:LeaderboardChallengeAdapter?=null
     var challengeRequestsAdapter:MyChallengesAdapter?=null
-    var myChallenges=ArrayList<MyChallenges>()
-    var challengeRequests=ArrayList<MyChallenges>()
+    var challenges=ArrayList<LeaderBoardChallenge>()
     private val mClickHandler = ClickHandler()
 
 
@@ -47,6 +44,8 @@ class LeaderBoardFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelect
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
+
+        setAdapter()
 
         mBinding.tabs.setOnTabSelectedListener(this)
         return mBinding.root
@@ -63,31 +62,25 @@ class LeaderBoardFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelect
         mBinding.rPlayers.layoutManager=LinearLayoutManager(requireContext())
 
         //Add My Challenges
-        myChallenges.add((MyChallenges(false,false,false)))
-        myChallenges.add((MyChallenges(true,false,false)))
-        myChallenges.add((MyChallenges(true,true,false)))
+        challenges.add(LeaderBoardChallenge(1,50))
+        challenges.add(LeaderBoardChallenge(2,49))
+        challenges.add(LeaderBoardChallenge(3,48))
+        challenges.add(LeaderBoardChallenge(0,30))
+        challenges.add(LeaderBoardChallenge(0,30))
+        challenges.add(LeaderBoardChallenge(0,30))
 
-        //Add Challenge Requests
-        challengeRequests.add((MyChallenges(false,false,true)))
-        challengeRequests.add((MyChallenges(false,false,true)))
-        challengeRequests.add((MyChallenges(false,false,true)))
 
-        myChallengesAdapter= MyChallengesAdapter(R.layout.my_challenges_item)
-        challengeRequestsAdapter=MyChallengesAdapter(R.layout.my_challenges_item)
+        myChallengesAdapter= LeaderboardChallengeAdapter(R.layout.leaderboard)
 
-        challengeRequestsAdapter!!.listener=this.mClickHandler
 
         mBinding.rChallenges.adapter=myChallengesAdapter
-        mBinding.rPlayers.adapter=challengeRequestsAdapter
 
-        myChallengesAdapter!!.addNewItems(myChallenges)
-        challengeRequestsAdapter!!.addNewItems(challengeRequests)
+        myChallengesAdapter!!.addNewItems(challenges)
 
     }
 
-    inner class ClickHandler : MyChallengesAdapter.onViewClick {
-        override fun onAprroveClick() {
-        }
+    inner class ClickHandler  {
+
 
     }
 

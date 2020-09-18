@@ -65,5 +65,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickL
 
     override fun onOkayClick() {
 
+        findNavController().navigateUp()
+
     }
 }

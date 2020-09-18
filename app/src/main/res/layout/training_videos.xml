@@ -26,14 +26,14 @@
             android:layout_width="wrap_content"
             android:id="@+id/startGuide"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.03"
+            app:layout_constraintGuide_percent="0.05"
             android:layout_height="wrap_content"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:id="@+id/endGuide"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"
+            app:layout_constraintGuide_percent="0.95"
             android:layout_height="wrap_content"/>
 
 
@@ -45,7 +45,7 @@
             layout="@layout/training_videos_item"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_30"
             app:layout_constraintEnd_toEndOf="@+id/endGuide"
             app:layout_constraintStart_toStartOf="@+id/startGuide"
             app:layout_constraintTop_toTopOf="parent" />

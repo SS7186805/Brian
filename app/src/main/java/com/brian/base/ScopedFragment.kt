@@ -1,6 +1,9 @@
 package com.brian.base
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +26,16 @@ abstract class ScopedFragment : Fragment(), CoroutineScope {
         job.cancel()
     }
 
+    fun hideKeyboard(v: View) {
+        val imm =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(v.windowToken, 0)
+    }
 
-
+    override fun onResume() {
+        super.onResume()
+        view?.let {
+            hideKeyboard(it)
+        }
+    }
 }

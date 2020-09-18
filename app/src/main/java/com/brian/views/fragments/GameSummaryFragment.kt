@@ -53,6 +53,7 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler{
 
         fun onPitchClick(){
+            findNavController().navigate(R.id.homeFragment)
 
         }
 

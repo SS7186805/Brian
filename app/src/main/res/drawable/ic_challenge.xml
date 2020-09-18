@@ -1,0 +1,16 @@
+<vector android:height="24dp" android:viewportHeight="512"
+    android:viewportWidth="512" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#F8C10A" android:pathData="M421.968,368.656L384,406.624l-32,-32l-32,32l-32,-32l-32,32l-32,-32l-32,32l-32,-32l-32,32l-37.968,-37.968L24,496h464L421.968,368.656z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M128,384l32,-32l32,32l32,-32l32,32l32,-32l32,32l32,-32l32,32l30.248,-30.248L376,280H136l-38.248,73.752L128,384z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M408,208h-16c0,-39.704 32.296,-72 72,-72v16C433.128,152 408,177.128 408,208z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M480,136h16v16h-16V136z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M416,120h-16c0,-35.288 28.712,-64 64,-64v16C437.528,72 416,93.528 416,120z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M96,272H80c0,-35.288 -28.712,-64 -64,-64v-16C60.112,192 96,227.888 96,272z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M88,120H72c0,-30.872 -25.128,-56 -56,-56V48C55.704,48 88,80.296 88,120z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M72,136h16v16H72V136z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M424,24h-16V8h-16v16h-16v16h16v16h16V40h16V24z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M392,224h16v16h-16V224z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M480,56h16v16h-16V56z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M120,56h-16c0,-17.648 -14.352,-32 -32,-32V8C98.472,8 120,29.528 120,56z"/>
+    <path android:fillColor="#F8C10A" android:pathData="M221.056,109.248C224.352,110.944 228.032,112 232,112c13.256,0 24,-10.744 24,-24c0,13.256 10.744,24 24,24s24,-10.744 24,-24c0,13.256 10.744,24 24,24s24,-10.744 24,-24V40c0,-13.256 -10.744,-24 -24,-24s-24,10.744 -24,24c0,-13.256 -10.744,-24 -24,-24s-24,10.744 -24,24c0,-13.256 -10.744,-24 -24,-24s-24,10.744 -24,24c0,-13.256 -10.744,-24 -24,-24s-24,10.744 -24,24v40h-16c-8.84,0 -16,7.16 -16,16v96l24,24v48h200V119.792c-6.704,5.08 -14.96,8.208 -24,8.208s-17.296,-3.128 -24,-8.208c-6.704,5.08 -14.96,8.208 -24,8.208s-17.296,-3.128 -24,-8.208c-6.704,5.08 -14.96,8.208 -24,8.208c-1.368,0 -2.672,-0.208 -4,-0.344c-0.824,0.936 -1.656,1.864 -2.552,2.736C234.488,140.336 240,153.536 240,168v48h-16v-48c0,-22.112 -17.888,-40 -40,-40h8C204.936,128 216.008,120.288 221.056,109.248z"/>
+</vector>

@@ -5,17 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentForgotPasswordBinding
 import com.brian.databinding.FragmentLoginBinding
+import com.brian.internals.DialogUtil
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class ForgotPasswordFragment : ScopedFragment(), KodeinAware {
+class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickListener  {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: FragmentForgotPasswordBinding
@@ -34,6 +38,10 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware {
             clickHandler = ClickHandler()
         }
 
+        mBinding.toolbar.tvTitle.text=getString(R.string.forgot_password_title)
+        mBinding.toolbar.ivBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
         return mBinding.root
     }
 
@@ -43,6 +51,21 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware {
     }
 
     inner class ClickHandler{
+
+        fun onSendClick(){
+            DialogUtil.build(requireContext()) {
+                title = getString(R.string.success)
+                dialogType = DialogUtil.DialogType.SUCCESS
+                message = getString(R.string.reset_password_mesage)
+                successClickListener = this@ForgotPasswordFragment
+            }
+        }
+
+    }
+
+    override fun onOkayClick() {
+
+        findNavController().navigate(R.id.loginFragment)
 
     }
 }

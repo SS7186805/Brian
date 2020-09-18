@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_5"
+    app:cardBackgroundColor="@color/card_background_training"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/margin_10"
-        android:background="#7e7e7e">
+        android:background="@color/card_background_training">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_ribbon"
@@ -17,7 +18,7 @@
             android:layout_height="@dimen/margin_50"
             app:civ_circle_background_color="@color/yellow"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_slider__circle"
+            android:src="@drawable/team_logo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +44,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/century_gothic"
             android:text="11 Players"
+            android:textSize="@dimen/px45"
             android:textColor="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_Workgym"

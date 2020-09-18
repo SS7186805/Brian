@@ -1,5 +1,7 @@
 package com.brian.views.activities
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -7,6 +9,8 @@ import android.view.Gravity.LEFT
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.animation.TranslateAnimation
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -20,6 +24,7 @@ import com.brian.views.adapters.NavigationItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 
+
 class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListener {
 
     lateinit var mBinding: ActivityMainBinding
@@ -32,15 +37,35 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setStatusBarColor()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.clickHandler = mClickHandler
         navController = Navigation.findNavController(this, R.id.main_dash_fragment)
         navController.addOnDestinationChangedListener(this)
         setAdapter()
+        setDrawer()
 
 
     }
 
+
+    fun setDrawer(){
+        val toggel = object : ActionBarDrawerToggle(
+            this,
+            mBinding.drawerLayout,
+            R.string.app_name,
+            R.string.app_name
+        ) {
+
+
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+                val moveFactor: Float = mBinding.recycler.getWidth() * slideOffset
+                mBinding.frameLayout.setTranslationX(moveFactor)
+            }
+        }
+
+        mBinding.drawerLayout.setDrawerListener(toggel)
+    }
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
@@ -52,7 +77,8 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
             ||destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
             ||destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
-             ) {
+            ||destination.id == R.id.challengeType || destination.id == R.id.chatFragment
+        ) {
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
@@ -65,6 +91,27 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         }else{
             mBinding.toolbar.iAdd.visibility= GONE
 
+        }
+        setDestinationName(destination.id)
+    }
+
+
+
+    fun setDestinationName(id:Int){
+
+        when(id){
+
+            R.id.homeFragment->mBinding.toolbar.tvTitle.text=getString(R.string.defensive_situation)
+            R.id.trainingVideosFragment->mBinding.toolbar.tvTitle.text=getString(R.string.training_videos)
+            R.id.buzzFeedFragment->mBinding.toolbar.tvTitle.text=getString(R.string.buzz_feed)
+            R.id.myFriendsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_friends)
+            R.id.messagesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mesages)
+            R.id.challenegesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.challenges)
+            R.id.teamFragment->mBinding.toolbar.tvTitle.text=getString(R.string.teams)
+            R.id.myStatsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mystats)
+            R.id.leaderBoards->mBinding.toolbar.tvTitle.text=getString(R.string.leaderboards)
+            R.id.contactUsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.contact_us)
+            R.id.myProfileFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_profile)
         }
 
     }
@@ -100,7 +147,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         itemsList.add(NavigationItem(R.drawable.ic_message1, getString(R.string.mesages), false))
         itemsList.add(
             NavigationItem(
-                R.drawable.ic_defensive,
+                R.drawable.ic_challenge,
                 getString(R.string.challenges),
                 false
             )
