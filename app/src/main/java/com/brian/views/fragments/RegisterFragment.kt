@@ -1,16 +1,13 @@
 package com.brian.views.fragments
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.DatePicker
-import android.widget.TextView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -19,25 +16,21 @@ import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentRegisterBinding
 import com.brian.internals.DialogUtil
 import com.brian.internals.Utils
-import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.contact_us_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import java.text.SimpleDateFormat
-import java.util.*
 
-class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickListener {
+class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: FragmentRegisterBinding
     lateinit var mViewModel: RegisterViewModel
     private var datePickerDialog: DatePickerDialog? = null
-
+    var list = ArrayList<String>()
 
 
     override fun onCreateView(
@@ -51,9 +44,30 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
             clickHandler = ClickHandler()
         }
 
-        mBinding.toolbar.tvTitle.text=getString(R.string.register)
+        mBinding.toolbar.tvTitle.text = getString(R.string.register)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        list.add("Male")
+        list.add("Female")
+
+        val arrayAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), android.R.layout.simple_list_item_1, list)
+        mBinding.regUserType.setAdapter(arrayAdapter)
+        mBinding.regUserType.setInputType(0)
+
+
+
+
+        mBinding.regUserType.setOnClickListener {
+            mBinding.regUserType.showDropDown()
+
+        }
+
+
+        mBinding.regUserType.setOnFocusChangeListener { v, hasFocus ->
+            mBinding.regUserType.showDropDown()
         }
         return mBinding.root
     }
@@ -63,13 +77,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
 
-    inner class ClickHandler{
+    inner class ClickHandler {
 
-        fun onRegisterClick(){
-            var meaasge=getString(R.string.register_message)
+        fun onRegisterClick() {
+            var meaasge = getString(R.string.register_message)
 
-            if(arguments?.getString("edit").equals("edit")){
-                meaasge=getString(R.string.update_profile_message)
+            if (arguments?.getString("edit").equals("edit")) {
+                meaasge = getString(R.string.update_profile_message)
             }
             DialogUtil.build(requireContext()) {
                 title = getString(R.string.success)
@@ -79,9 +93,14 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
             }
         }
 
-        fun selectDate(){
+        fun selectDate() {
             hideKeyboard(requireView())
-            Utils.init.selectDate(requireContext(),Utils.init.getCurrentDate(),mBinding.regDOB,false)
+            Utils.init.selectDate(
+                requireContext(),
+                Utils.init.getCurrentDate(),
+                mBinding.regDOB,
+                false
+            )
         }
 
     }
@@ -90,10 +109,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if(arguments?.getString("edit").equals("edit")){
+        if (arguments?.getString("edit").equals("edit")) {
 
-            mBinding.regPassword.visibility=GONE
-            mBinding.regCnfPassword.visibility=GONE
+            mBinding.regPassword.visibility = GONE
+            mBinding.regCnfPassword.visibility = GONE
             mBinding.registerButton.setText(getString(R.string.update))
             mBinding.toolbar.tvTitle.setText(getString(R.string.editProfile))
             mBinding.regName.setText(getString(R.string.user_name))
@@ -102,13 +121,14 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
 
         }
     }
+
     override fun onOkayClick() {
 
 
-        if(arguments?.getString("edit").equals("edit")){
+        if (arguments?.getString("edit").equals("edit")) {
             findNavController().navigateUp()
 
-        }else{
+        } else {
             Prefs.init().isLogIn = "true"
             startActivity(Intent(requireContext(), HomeActivity::class.java))
             (requireActivity() as AccountHandlerActivity).finish()
@@ -116,7 +136,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickLi
         }
 
     }
-
 
 
 }

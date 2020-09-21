@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="?actionBarSize"
-    android:background="@color/blackTheme">
+    android:background="@color/item_bg_drawer_item"
+    >
 
     <ImageView
         android:layout_width="30dp"

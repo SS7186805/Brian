@@ -114,14 +114,13 @@
                     android:drawableLeft="@drawable/ic_mail"
                     app:layout_constraintTop_toBottomOf="@id/reg_Name"/>
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/reg_User_type"
                     android:layout_width="match_parent"
                     android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="20dp"
                     android:hint="Select User Type"
-                    android:focusable="false"
                     android:inputType="none"
                     android:singleLine="true"
                     android:paddingEnd="@dimen/margin_20"

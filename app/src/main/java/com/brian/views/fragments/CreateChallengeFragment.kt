@@ -70,7 +70,9 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware,DialogUtil.Success
         }
 
         fun onSelectUser(){
-            findNavController().navigate(R.id.myFriendsFragment, bundleOf("no" to "no"))
+
+                findNavController().navigate(R.id.usersFragment, bundleOf("no" to "no"))
+
         }
         fun selectDate(){
             hideKeyboard(requireView())

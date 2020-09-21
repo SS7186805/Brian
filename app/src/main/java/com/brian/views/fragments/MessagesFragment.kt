@@ -62,10 +62,12 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
 
 
     private fun setupRecycler() {
+        list.clear()
         for (i in 0 until 5){
             list.add(MessageData("${i}"))
         }
         mAdapter = SwipeToDeleteAdapter(list)
+        mAdapter.listener=this.mClickHandler
         mBinding.recycler.apply {
             layoutManager = LinearLayoutManager(requireContext())
             swipeListener = onItemSwipeListener
@@ -92,7 +94,7 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
         messagesAdapter!!.addNewItems(list)
     }*/
 
-    inner class ClickHandler : MyMessagesAdapter.onViewClick{
+    inner class ClickHandler : SwipeToDeleteAdapter.onViewClick{
 
         override fun onAprroveClick() {
             findNavController().navigate(R.id.chatFragment)

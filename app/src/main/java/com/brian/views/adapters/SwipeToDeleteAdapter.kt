@@ -9,12 +9,20 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
     : DragDropSwipeAdapter<MessageData, SwipeToDeleteAdapter.ViewHolder>(dataSet) {
 
+    var listener: onViewClick? = null
+
+
     class ViewHolder(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView) {
 
     }
 
     override fun onBindViewHolder(item: MessageData, viewHolder: ViewHolder, position: Int) {
+        viewHolder.itemView.setOnClickListener{
+            listener?.onAprroveClick()
+        }
     }
+
+
 
     override fun getViewToTouchToStartDraggingItem(item: MessageData, viewHolder: SwipeToDeleteAdapter.ViewHolder, position: Int): View? {
         // We return the view holder's view on which the user has to touch to drag the item
@@ -23,4 +31,8 @@ class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
 
     override fun getViewHolder(itemView: View): ViewHolder = SwipeToDeleteAdapter.ViewHolder(itemView)
 
+    interface onViewClick {
+        fun onAprroveClick()
+
+    }
 }
