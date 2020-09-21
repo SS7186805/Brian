@@ -85,6 +85,10 @@
         tools:layout="@layout/create_team_fragment" />
 
     <fragment
+        android:id="@+id/myTeamfragment"
+        android:name="com.brian.views.fragments.MyTeamsFragment"
+        tools:layout="@layout/my_teams_fragment" />
+    <fragment
         android:id="@+id/myStatsFragment"
         android:name="com.brian.views.fragments.MyStatsFragment"
         tools:layout="@layout/my_stats_fragment" />

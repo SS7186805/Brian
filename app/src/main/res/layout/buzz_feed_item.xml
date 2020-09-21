@@ -11,21 +11,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/margin_10"
+        android:padding="@dimen/margin_8"
         android:background="@color/card_background_training">
 
 
         <FrameLayout
-            android:layout_width="@dimen/margin_60"
+            android:layout_width="@dimen/margin_80"
             android:id="@+id/videoImage"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_height="@dimen/margin_60">
+            android:layout_height="@dimen/margin_80">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/video">
+                android:src="@drawable/buzz_feed_white">
 
             </ImageView>
 

@@ -63,30 +63,30 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:background="@drawable/green_dot" />
 
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/red_dot" />
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/green_dot" />
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/empty_dot" />
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/empty_dot" />
 
@@ -182,7 +182,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_40"
                     android:fontFamily="@font/century_gothic_bold"
                     android:text="@string/question4"
                     android:textColor="@color/yellow"
@@ -236,14 +236,14 @@
                     android:id="@+id/option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_40"
                     android:background="@drawable/btn_bg"
                     android:backgroundTint="@color/red"
                     android:fontFamily="@font/century_gothic_bold"
                     android:paddingStart="@dimen/margin_30"
                     android:paddingEnd="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_10"
-                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_9"
+                    android:paddingBottom="@dimen/margin_9"
                     android:text="@string/option1"
                     android:textColor="@color/black"
                     android:textSize="@dimen/px60"
@@ -254,14 +254,14 @@
                     android:id="@+id/option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginTop="@dimen/margin_40"
                     android:background="@drawable/btn_bg"
                     android:paddingStart="@dimen/margin_30"
                     android:paddingEnd="@dimen/margin_30"
                     android:backgroundTint="@color/grey"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:paddingTop="@dimen/margin_10"
-                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_9"
+                    android:paddingBottom="@dimen/margin_9"
                     android:text="@string/option2"
                     android:textColor="@color/black"
                     android:textSize="@dimen/px60"
@@ -278,9 +278,9 @@
                     android:backgroundTint="@color/grey"
                     android:fontFamily="@font/century_gothic_bold"
                     android:paddingStart="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_9"
                     android:paddingEnd="@dimen/margin_30"
-                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingBottom="@dimen/margin_9"
                     android:text="@string/option3"
                     android:textColor="@color/black"
                     android:textSize="@dimen/px60"
@@ -296,9 +296,9 @@
                     android:backgroundTint="@color/green"
                     android:fontFamily="@font/century_gothic_bold"
                     android:paddingStart="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_10"
+                    android:paddingTop="@dimen/margin_9"
                     android:paddingEnd="@dimen/margin_30"
-                    android:paddingBottom="@dimen/margin_10"
+                    android:paddingBottom="@dimen/margin_9"
                     android:text="@string/option4"
                     android:textColor="@color/black"
                     android:textSize="@dimen/px60"
@@ -309,7 +309,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_60"
+                    android:layout_marginTop="@dimen/margin_100"
                     android:layout_marginBottom="@dimen/margin_50"
                     android:background="@drawable/capsuler_login_btn"
                     android:gravity="center"

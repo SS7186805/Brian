@@ -1,5 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="300dp"
+    android:layout_width="290dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lProfile"
     app:layout_constraintTop_toTopOf="parent"

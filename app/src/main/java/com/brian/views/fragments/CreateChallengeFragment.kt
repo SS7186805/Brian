@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -13,6 +14,7 @@ import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.PitcherFragmentBinding
 import com.brian.databinding.TrainingVideosBinding
 import com.brian.internals.DialogUtil
+import com.brian.internals.Utils
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
@@ -68,7 +70,12 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware,DialogUtil.Success
         }
 
         fun onSelectUser(){
-            findNavController().navigate(R.id.myFriendsFragment)
+            findNavController().navigate(R.id.myFriendsFragment, bundleOf("no" to "no"))
+        }
+        fun selectDate(){
+            hideKeyboard(requireView())
+            Utils.init.selectDate(requireContext(),
+                Utils.init.getCurrentDate(),mBinding.selectDate,false)
         }
 
     }

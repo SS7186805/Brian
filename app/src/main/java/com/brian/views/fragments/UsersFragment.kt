@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.FragmentLoginBinding
-import com.brian.databinding.PitcherFragmentBinding
-import com.brian.databinding.TrainingVideosBinding
 import com.brian.databinding.UsersFragmentBinding
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
+import com.brian.views.adapters.MyFriends
+import com.brian.views.adapters.MyFriendsAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -25,7 +23,9 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: UsersFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-
+    var list = ArrayList<MyFriends>()
+    var friendsAdapter: MyFriendsAdapter? = null
+    private val mClickHandler = ClickHandler()
 
 
     override fun onCreateView(
@@ -38,10 +38,23 @@ class UsersFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text=getString(R.string.users)
+
+        if (arguments?.getString("no").equals("no")) {
+            mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
+
+        } else  if (arguments?.getString("team").equals("team")) {
+            mBinding.toolbar.tvTitle.text = getString(R.string.team_player)
+
+        }
+        else {
+            mBinding.toolbar.tvTitle.text = getString(R.string.users)
+
+        }
+
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+        setAdapter()
 
         return mBinding.root
     }
@@ -51,9 +64,36 @@ class UsersFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
 
-    inner class ClickHandler{
+    fun setAdapter() {
+        list.clear()
+        friendsAdapter = MyFriendsAdapter(R.layout.my_friends_item)
+
+        if (arguments?.getString("no").equals("no") || arguments?.getString("team").equals("team")) {
+
+            list.add(MyFriends(false, true, false))
+            list.add(MyFriends(false, true, false))
+            list.add(MyFriends(false, true, false))
+            list.add(MyFriends(false, true, false))
+        } else {
+            list.add(MyFriends(false, false, false))
+            list.add(MyFriends(false, false, false))
+            list.add(MyFriends(true, true, false))
+            list.add(MyFriends(true, true, true))
+            list.add(MyFriends(true, true, false))
+        }
 
 
+        mBinding.recycler.layoutManager = LinearLayoutManager(requireContext())
+        mBinding.recycler.adapter = friendsAdapter
+        friendsAdapter!!.listener = this.mClickHandler
+        friendsAdapter!!.addNewItems(list)
+    }
+
+
+    inner class ClickHandler : MyFriendsAdapter.onViewClick {
+        override fun onAprroveClick() {
+            findNavController().navigate(R.id.userProfileFragment)
+        }
 
     }
 }

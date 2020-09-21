@@ -39,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/edit_text_height"
             android:layout_marginTop="@dimen/margin_50"
+            android:singleLine="true"
             android:background="@drawable/edit_text_bg"
             android:drawableLeft="@drawable/ic_title"
             android:drawablePadding="@dimen/margin_10"
@@ -47,6 +48,7 @@
             android:paddingStart="@dimen/margin_20"
             android:textColorHint="#7e7e7e"
             android:textSize="@dimen/px55"
+            android:textColor="@color/edit_text_color"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toTopOf="parent" />
@@ -74,6 +76,7 @@
                 android:paddingStart="@dimen/margin_55"
                 android:paddingTop="@dimen/margin_20"
                 android:paddingEnd="@dimen/margin_20"
+                android:textColor="@color/edit_text_color"
                 android:paddingBottom="@dimen/margin_20"
                 android:textColorHint="#7e7e7e"
                 android:textSize="@dimen/px55" />
@@ -100,6 +103,7 @@
             android:onClick="@{()-> clickHandler.onCreateClick()}"
             android:gravity="center"
             android:textSize="@dimen/px60"
+            android:layout_marginBottom="@dimen/margin_10"
             android:text="@string/submit"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/endGuide"

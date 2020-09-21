@@ -40,7 +40,7 @@
         android:textColor="#000"
         android:textStyle="bold"
         android:textSize="@dimen/px40"
-        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_5"
         android:text="Send Request"
         android:fontFamily="@font/century_gothic_bold"
         app:layout_constraintTop_toTopOf="parent"

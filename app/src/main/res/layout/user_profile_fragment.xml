@@ -66,9 +66,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:id="@+id/type"
-            android:textColor="@color/text_color_grey"
+            android:textColor="#bdbcbc"
             android:fontFamily="@font/century_gothic"
-            android:textSize="@dimen/px40"
+            android:textSize="@dimen/px50"
             android:text="@string/player"
             android:includeFontPadding="false"
             android:layout_marginTop="@dimen/margin_5"
@@ -80,9 +80,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:id="@+id/dob"
-            android:textColor="@color/text_color_grey"
+            android:textColor="#bdbcbc"
             android:fontFamily="@font/century_gothic"
-            android:textSize="@dimen/px40"
+            android:textSize="@dimen/px45"
             android:text="@string/dob"
             android:layout_marginTop="@dimen/margin_5"
             app:layout_constraintTop_toBottomOf="@id/type"

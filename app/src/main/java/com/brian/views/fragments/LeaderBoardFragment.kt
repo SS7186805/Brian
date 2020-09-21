@@ -28,8 +28,9 @@ class LeaderBoardFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelect
     lateinit var mBinding: LeaderboardFragmentBinding
     lateinit var mViewModel: RegisterViewModel
     var myChallengesAdapter:LeaderboardChallengeAdapter?=null
-    var challengeRequestsAdapter:MyChallengesAdapter?=null
+    var playersAdapter:LeaderboardChallengeAdapter?=null
     var challenges=ArrayList<LeaderBoardChallenge>()
+    var players=ArrayList<LeaderBoardChallenge>()
     private val mClickHandler = ClickHandler()
 
 
@@ -62,20 +63,32 @@ class LeaderBoardFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelect
         mBinding.rPlayers.layoutManager=LinearLayoutManager(requireContext())
 
         //Add My Challenges
-        challenges.add(LeaderBoardChallenge(1,50))
-        challenges.add(LeaderBoardChallenge(2,49))
-        challenges.add(LeaderBoardChallenge(3,48))
-        challenges.add(LeaderBoardChallenge(0,30))
-        challenges.add(LeaderBoardChallenge(0,30))
-        challenges.add(LeaderBoardChallenge(0,30))
+        challenges.add(LeaderBoardChallenge(1,50,getString(R.string.challenges)))
+        challenges.add(LeaderBoardChallenge(2,49,getString(R.string.challenges)))
+        challenges.add(LeaderBoardChallenge(3,48,getString(R.string.challenges)))
+        challenges.add(LeaderBoardChallenge(0,30,getString(R.string.challenges)))
+        challenges.add(LeaderBoardChallenge(0,30,getString(R.string.challenges)))
+        challenges.add(LeaderBoardChallenge(0,30,getString(R.string.challenges)))
+
+        //Add My Players
+        players.add(LeaderBoardChallenge(1,50,getString(R.string.situations)))
+        players.add(LeaderBoardChallenge(2,49,getString(R.string.situations)))
+        players.add(LeaderBoardChallenge(3,48,getString(R.string.situations)))
+        players.add(LeaderBoardChallenge(0,30,getString(R.string.situations)))
+        players.add(LeaderBoardChallenge(0,30,getString(R.string.situations)))
+        players.add(LeaderBoardChallenge(0,30,getString(R.string.situations)))
 
 
         myChallengesAdapter= LeaderboardChallengeAdapter(R.layout.leaderboard)
+        playersAdapter= LeaderboardChallengeAdapter(R.layout.leaderboard)
 
 
         mBinding.rChallenges.adapter=myChallengesAdapter
+        mBinding.rPlayers.adapter=playersAdapter
 
         myChallengesAdapter!!.addNewItems(challenges)
+        playersAdapter!!.addNewItems(players)
+
 
     }
 

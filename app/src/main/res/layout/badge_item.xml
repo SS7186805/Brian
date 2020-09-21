@@ -9,7 +9,10 @@
         app:layout_constraintEnd_toStartOf="@id/guideMid"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="@dimen/margin_80"
-        android:layout_margin="@dimen/margin_5"
+        android:layout_marginEnd="@dimen/margin_6"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_marginRight="@dimen/margin_6"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
         <ImageView

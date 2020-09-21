@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20"
-            android:paddingEnd="@dimen/margin_10"
+            android:paddingEnd="@dimen/margin_20"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
             android:singleLine="true"
@@ -62,46 +62,18 @@
             app:layout_constraintEnd_toEndOf="@+id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"/>
 
-        <include
-            android:id="@+id/type1"
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
+            android:id="@+id/recycler"
             android:layout_marginTop="@dimen/margin_30"
-            android:layout_height="wrap_content"
-
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@id/et_search_bar"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/my_friends1" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp">
 
-        <include
-            android:id="@+id/type2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/type1"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/my_friends1" />
+        </androidx.recyclerview.widget.RecyclerView>
 
-        <include
-            android:id="@+id/type3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/type2"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/user_send_request" />
-
-        <include
-            android:id="@+id/type4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/type3"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            layout="@layout/user_send_request" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

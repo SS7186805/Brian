@@ -1,69 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/card_background_training"
-    android:padding="@dimen/margin_8"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="10dp">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:id="@+id/view"
+        android:paddingStart="@dimen/margin_8"
+        android:paddingEnd="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5"
+        android:background="@color/card_background_training"
+        >
 
 
         <ImageView
-            android:layout_width="@dimen/margin_50"
-            android:layout_height="@dimen/margin_50"
             android:id="@+id/userImage"
+            android:layout_width="@dimen/margin_55"
+            android:layout_height="@dimen/margin_55"
             android:layout_marginStart="@dimen/margin_10"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/profile_pic_1"
             app:layout_constraintStart_toStartOf="parent"
-            android:src="@drawable/profile_pic_1" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Joe Duo"
-                android:id="@+id/userName"
-                android:fontFamily="@font/century_gothic"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintEnd_toStartOf="@id/time"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toEndOf="@id/userImage"
-                android:textStyle="bold"
-                android:textColor="#fec60a"
-                android:textSize="@dimen/px50" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:singleLine="true"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/century_gothic"
-                android:layout_marginStart="10dp"
-                app:layout_constraintEnd_toStartOf="@id/time"
-                app:layout_constraintTop_toBottomOf="@id/userName"
-                app:layout_constraintStart_toEndOf="@id/userImage"
-                android:text="Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gallery of type and scrambled it to make a type specimen book."
-                android:textColor="#aaaaaa"
-                android:textSize="@dimen/px35" />
 
         <TextView
+            android:id="@+id/userName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/century_gothic"
+            android:text="Joe Duo"
+            android:layout_marginTop="@dimen/margin_8"
+            android:textColor="#fec60a"
+            android:textSize="@dimen/px50"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvTime"
+            app:layout_constraintStart_toEndOf="@id/userImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/century_gothic"
+            android:singleLine="true"
+            android:text="Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gallery of type and scrambled it to make a type specimen book."
+            android:textColor="#aaaaaa"
+            android:textSize="@dimen/px35"
+            app:layout_constraintEnd_toStartOf="@id/tvTime"
+            app:layout_constraintStart_toEndOf="@id/userImage"
+            app:layout_constraintTop_toBottomOf="@id/userName" />
+
+        <TextView
+            android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:fontFamily="@font/century_gothic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:gravity="center"
             android:layout_marginEnd="@dimen/margin_5"
-            android:textSize="@dimen/px35"
+            android:fontFamily="@font/century_gothic"
+            android:gravity="center"
+            android:text="02:54 PM"
             android:textColor="#aaaaaa"
-            android:text="02:54 PM"/>
+            android:textSize="@dimen/px35"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

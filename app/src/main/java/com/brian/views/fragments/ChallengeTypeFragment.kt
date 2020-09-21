@@ -55,7 +55,16 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessCl
 
     }
 
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if(arguments?.getString("badges").equals("badges")){
+
+            mBinding.toolbar.tvTitle.setText(getString(R.string.badges_earned))
+
+        }
+    }
+
     override fun onOkayClick() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

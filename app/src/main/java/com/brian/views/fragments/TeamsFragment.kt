@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -39,6 +40,7 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
             clickHandler = ClickHandler()
         }
 
+
         return mBinding.root
     }
 
@@ -49,6 +51,16 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler{
 
+        fun onClickTeam(){
+            findNavController().navigate(R.id.usersFragment, bundleOf("team" to "team"))
+        }
+
+
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
     }
 }

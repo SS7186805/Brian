@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -55,12 +56,18 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
         }
 
         fun onEditProfileClick() {
+            findNavController().navigate(R.id.register, bundleOf("edit" to "edit"))
+
         }
 
         fun onBadgesEarnedClick() {
+            findNavController().navigate(R.id.challengeType, bundleOf("badges" to "badges"))
+
         }
 
         fun onMyTeamsClick() {
+            findNavController().navigate(R.id.myTeamfragment)
+
         }
 
         fun onMyChallengesClick() {

@@ -19,13 +19,13 @@
     <string name="my_friends">My Friends</string>
     <string name="mesages">Messages</string>
     <string name="teams">Teams</string>
-    <string name="challenges">Challengers</string>
+    <string name="challenges">Challenges</string>
     <string name="leaderboards">Leaderboard</string>
     <string name="mystats">My Stats</string>
     <string name="my_profile">My Profile</string>
     <string name="contact_us">Contact Us</string>
     <string name="title">Title</string>
-    <string name="dummy_content">"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard. \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard."</string>
+    <string name="dummy_content">"Lorem Ipsum is simply dummy text of the print abc and typesetting industry. Lorem Ipsum has been the industry's standard.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard. \nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard."</string>
     <string name="dummy_content_short">"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "</string>
     <string name="situation_name">Situation Name</string>
     <string name="pitch">Pitch</string>
@@ -75,7 +75,7 @@
     <string name="challenge_created">Challenge created successfully.</string>
     <string name="create_team">Create Team</string>
     <string name="players">Players</string>
-    <string name="weekly_leaderboard">Weekly leaderboard</string>
+    <string name="weekly_leaderboard">Weekly Leaderboard</string>
     <string name="change_password">Change Password</string>
     <string name="viewProfile">View Profile</string>
     <string name="editProfile">Edit Profile</string>
@@ -106,5 +106,8 @@
     <string name="password_message">Password has been updated successfully. Please login again.</string>
     <string name="dont_have_account">Don\'t have an account?</string>
     <string name="txt_signup_1">Don\'t have an account?</string>
+    <string name="situations">Situations</string>
+    <string name="update_profile_message">You have been successfully updated with Baseball Bee.</string>
+    <string name="team_player">Team Player</string>
 
 </resources>

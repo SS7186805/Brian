@@ -23,6 +23,7 @@ import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.messages.*
 
 
 class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListener {
@@ -77,7 +78,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
             ||destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
             ||destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
-            ||destination.id == R.id.challengeType || destination.id == R.id.chatFragment
+            ||destination.id == R.id.challengeType || destination.id == R.id.chatFragment ||  destination.id == R.id.register || destination.id == R.id.myTeamfragment
         ) {
             mBinding.toolbar.visibility = GONE
         } else {
@@ -183,6 +184,9 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     inner class ClickHandler : NavigationItemAdapter.onClickItem {
 
         fun onClickNavigation() {
+            mBinding.root.let {
+                hideKeyboard(it)
+            }
             mBinding.drawerLayout.openDrawer(LEFT)
 
         }

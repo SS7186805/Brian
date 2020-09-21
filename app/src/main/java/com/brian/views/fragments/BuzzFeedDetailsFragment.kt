@@ -16,6 +16,7 @@ import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
+import com.brian.views.adapters.SlideViewRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -49,6 +50,17 @@ class BuzzFeedDetailsFragment : ScopedFragment(), KodeinAware {
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
+
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val images = mutableListOf<Int>()
+        for (i in 0..4) {
+            images.add(R.drawable.buzz_details)
+        }
+        mBinding.svSafariImages2.setSliderAdapter(SlideViewRecyclerAdapter(images))
     }
 
     inner class ClickHandler{

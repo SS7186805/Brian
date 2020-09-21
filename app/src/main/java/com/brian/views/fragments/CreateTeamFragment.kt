@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -61,7 +62,7 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClick
         }
 
         fun onSelectUser(){
-            findNavController().navigate(R.id.myFriendsFragment)
+            findNavController().navigate(R.id.usersFragment, bundleOf("no" to "no"))
         }
 
     }

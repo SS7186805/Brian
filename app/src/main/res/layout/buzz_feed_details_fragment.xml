@@ -40,11 +40,37 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
+
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/svSafariImages2"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:sliderAnimationDuration="1000"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="1000"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="@dimen/dp0"
+            app:sliderIndicatorMarginBottom="@dimen/dp0"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="@dimen/margin_3"
+            app:sliderIndicatorRadius="@dimen/margin_2"
+            app:sliderIndicatorSelectedColor="@color/yellow"
+            app:sliderIndicatorUnselectedColor="@color/edit_text_color"
+            app:sliderScrollTimeInSec="3"
+            app:sliderStartAutoCycle="true" />
+
+
+
         <ImageView
             android:id="@+id/image"
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:layout_marginTop="@dimen/margin_20"
+            android:visibility="gone"
             android:scaleType="centerCrop"
             android:src="@drawable/buzz_details"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +81,7 @@
             android:id="@+id/indicators"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/margin_15"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
@@ -103,7 +130,7 @@
             android:textSize="@dimen/px60"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/indicators" />
+            app:layout_constraintTop_toBottomOf="@id/svSafariImages2" />
 
         <TextView
             android:layout_width="0dp"

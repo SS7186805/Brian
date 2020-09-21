@@ -46,18 +46,27 @@ class LoginFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler {
         fun onForgotPasswordClick() {
+            clearFields()
+
             findNavController().navigate(R.id.forgotPasswordFragment)
         }
 
         fun onRegisterClick() {
+            clearFields()
             findNavController().navigate(R.id.registerFragment)
         }
 
         fun onLoginClick() {
+            clearFields()
             Prefs.init().isLogIn = "true"
             startActivity(Intent(requireContext(), HomeActivity::class.java))
             (requireActivity() as AccountHandlerActivity).finish()
 
         }
+    }
+
+    private fun clearFields() {
+        mBinding.etUserName.text.clear()
+        mBinding.etPassword.text.clear()
     }
 }

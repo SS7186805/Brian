@@ -74,7 +74,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/century_gothic"
                         android:textColor="@color/dashboard_item_color"
-                        android:textSize="@dimen/px60"
+                        android:textSize="@dimen/px65"
                         android:text="@string/defensive_situation"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -117,8 +117,8 @@
 
 
         <com.google.android.material.navigation.NavigationView
-            android:layout_width="300dp"
-            android:background="@color/blackTheme"
+            android:layout_width="290dp"
+            android:background="#2f2f2f"
             android:id="@+id/navigation_view"
             android:layout_gravity="start"
             app:headerLayout="@layout/header_layout"
@@ -126,7 +126,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="300dp"
+                android:layout_width="290dp"
                 android:id="@+id/recycler"
                 android:layout_marginTop="@dimen/margin_100"
                 android:layout_height="match_parent"/>

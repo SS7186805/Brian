@@ -29,7 +29,7 @@ class LeaderboardChallengeAdapter (override val layoutId: Int) : BaseRecyclerAda
         }
 
       holder.binding.tvRank.text=item.rank.toString()
-      holder.binding.tvChallenges.text="${item.challengeCount} Challenges"
+      holder.binding.tvChallenges.text="${item.challengeCount} ${item.text}"
 
 
 
