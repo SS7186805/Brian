@@ -10,7 +10,9 @@ interface AuthenticationRepository{
         registerRequest: RegisterRequest,
                        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
 
-    fun LoginResponse(registerRequest: RegisterRequest) : BaseResponse
+    fun LoginResponse(registerRequest: RegisterRequest,
+                      onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
 
-    fun ForgotResponse(registerRequest: RegisterRequest) : BaseResponse
+    fun ForgotResponse(registerRequest: RegisterRequest,
+                       onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
 }

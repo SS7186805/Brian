@@ -74,8 +74,17 @@ class LoginFragment : ScopedFragment(), KodeinAware {
     private fun setupObserver(){
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
-                if (!TextUtils.isEmpty(it))
+                progress_bar.visibility = View.GONE
+                if (!TextUtils.isEmpty(it)){
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+                if(it == "User logged in successfully."){
+                    clearFields()
+                    Prefs.init().isLogIn = "true"
+                    startActivity(Intent(requireContext(), HomeActivity::class.java))
+                    (requireActivity() as AccountHandlerActivity).finish()
+                }
+
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {

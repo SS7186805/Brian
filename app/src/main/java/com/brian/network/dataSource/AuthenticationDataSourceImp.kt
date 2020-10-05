@@ -23,6 +23,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
             response = apiService.login(registerRequest)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
 
         }
         return response
@@ -34,6 +35,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
             response = apiService.forgot(registerRequest)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
         }
         return response
     }

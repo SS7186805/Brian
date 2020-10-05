@@ -30,25 +30,40 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
             } else {
                 onResult(true, response.message!!, response)
             }
-
         }
-
-
     }
 
-    override fun LoginResponse(registerRequest: RegisterRequest): BaseResponse {
-        var response = BaseResponse()
+    override fun LoginResponse(registerRequest: RegisterRequest,
+                               onResult: (
+                                   isSuccess: Boolean,
+                                   message: String,
+                                   response: BaseResponse?
+                               ) -> Unit) {
+
         GlobalScope.launch(Dispatchers.Main) {
-            response = authenticationDataSource.LoginResponse(registerRequest)
+          val  response = authenticationDataSource.LoginResponse(registerRequest)
+            if (response.error!=null) {
+                onResult(false, response.error!!.message!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
         }
-        return response
     }
 
-    override fun ForgotResponse(registerRequest: RegisterRequest): BaseResponse {
-        var response = BaseResponse()
+    override fun ForgotResponse(registerRequest: RegisterRequest,
+                                onResult: (
+                                    isSuccess: Boolean,
+                                    message: String,
+                                    response: BaseResponse?
+                                ) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            response = authenticationDataSource.ForgotResponse(registerRequest)
+          val  response = authenticationDataSource.ForgotResponse(registerRequest)
+            if (response.error!=null) {
+                onResult(false, response.error!!.message!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
         }
-        return response
+
     }
 }

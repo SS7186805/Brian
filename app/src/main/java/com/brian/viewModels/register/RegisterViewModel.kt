@@ -37,18 +37,15 @@ class RegisterViewModel(
             showLoading.postValue(true)
             authenticationRepository.SignUpResponse(registerRequest.get()!!)
             { isSuccess, message, response ->
-                println(message)
-                if (isSuccess){
+                if (isSuccess) {
                     showLoading.postValue(false)
                     registerSuccess.postValue(true)
                     showMessage.postValue(response?.message)
 
-                }else{
+                } else {
                     showLoading.postValue(false)
                     showMessage.postValue(message)
-
                 }
-
             }
         }
     }
@@ -85,7 +82,16 @@ class RegisterViewModel(
     fun onLoginClick() {
         if (loginValidation()) {
             showLoading.postValue(true)
-            val response = authenticationRepository.LoginResponse(registerRequest.get()!!)
+            authenticationRepository.LoginResponse(registerRequest.get()!!)
+            { isSuccess, message, response ->
+                if (isSuccess) {
+                    showLoading.postValue(false)
+                    showMessage.postValue(response?.message)
+                } else {
+                    showLoading.postValue(false)
+                    showMessage.postValue(message)
+                }
+            }
         }
     }
 
@@ -107,7 +113,17 @@ class RegisterViewModel(
 
         if (forgotValidation()) {
             showLoading.postValue(true)
-            var response = authenticationRepository.ForgotResponse(registerRequest.get()!!)
+            authenticationRepository.ForgotResponse(registerRequest.get()!!)
+            {isSuccess, message, response ->
+                if (isSuccess) {
+                    showLoading.postValue(false)
+                    showMessage.postValue(response?.message)
+
+                } else {
+                    showLoading.postValue(false)
+                    showMessage.postValue(message)
+                }
+            }
         }
     }
 
@@ -122,24 +138,5 @@ class RegisterViewModel(
         }
         return true
     }
-
-//    fun getFlightsCompanies() {
-//        showLoading.postValue(true)
-//
-//        flightsRepositary.getCompanies(
-//            FlightsApiAuth(),
-//            onResult = { isSuccess: Boolean, response: FlightsCompanies ->
-//                if (isSuccess) {
-//                    showLoading.postValue(false)
-//
-//                    Log.e("flightsResponse", response.aerocrs!!.airlines?.airline?.size.toString())
-//                    airlines.postValue(response.aerocrs!!.airlines?.airline)
-//
-//                } else {
-//                   toastMessage.postValue(response.error?.message)
-//                }
-//            })
-//    }
-
 
 }
