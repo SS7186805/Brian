@@ -13,11 +13,22 @@ data class BaseResponse(
 
 	@field:SerializedName("data")
 	val data: Data? = null,
+	@field:SerializedName("error")
+	var error: Error? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
 ) : Parcelable
 
+
+@Parcelize
+data class Error(
+	@field:SerializedName("status")
+	var status: Int? = 1,
+
+	@field:SerializedName("message")
+	var message: String? = null
+) : Parcelable
 @Parcelize
 data class Data(
 

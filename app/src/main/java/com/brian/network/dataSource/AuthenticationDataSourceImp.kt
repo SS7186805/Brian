@@ -5,12 +5,14 @@ import com.brian.models.RegisterRequest
 import com.brian.network.APIService
 
 class AuthenticationDataSourceImp(private val apiService: APIService) : AuthenticationDataSource {
-    override suspend fun SignUpResponse(registerRequest: RegisterRequest): BaseResponse{
+    override suspend fun SignUpResponse(registerRequest: RegisterRequest): BaseResponse {
         var response = BaseResponse()
         try {
             response = apiService.signUp(registerRequest)
         } catch (e: Exception) {
             e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+
         }
         return response
     }
@@ -21,6 +23,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
             response = apiService.login(registerRequest)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+
         }
         return response
     }
@@ -29,7 +32,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
         var response = BaseResponse()
         try {
             response = apiService.forgot(registerRequest)
-        }catch (e: java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
         return response

@@ -35,12 +35,20 @@ class RegisterViewModel(
     fun onSignUpClick() {
         if (SignUpvalidate()) {
             showLoading.postValue(true)
-            authenticationRepository.SignUpResponse(registerRequest.get()!!) { isSuccess, message, response ->
+            authenticationRepository.SignUpResponse(registerRequest.get()!!)
+            { isSuccess, message, response ->
                 println(message)
-                if (isSuccess)
+                if (isSuccess){
+                    showLoading.postValue(false)
                     registerSuccess.postValue(true)
+                    showMessage.postValue(response?.message)
 
-                showMessage.postValue(response?.message)
+                }else{
+                    showLoading.postValue(false)
+                    showMessage.postValue(message)
+
+                }
+
             }
         }
     }

@@ -3,20 +3,26 @@ package com.brian.network
 import android.text.TextUtils
 import android.util.Log
 import com.brian.BuildConfig
+import com.brian.R
 import com.brian.base.Prefs
 import com.brian.models.BaseResponse
+import com.brian.models.Error
 import com.brian.models.RegisterRequest
+import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
 
 
 const val BASE_URL = "http://1.6.98.142/brain/"
@@ -54,6 +60,31 @@ interface APIService {
                 .build().create(APIService::class.java)
         }
 
+
+        fun getErrorMessageFromGenericResponse(
+            exception: Exception): Error? {
+            val error = com.brian.models.Error()
+            try {
+                when (exception) {
+                    is HttpException -> {
+                        val body = exception.response()?.errorBody()
+                        val adapter = Gson().getAdapter(BaseResponse::class.java)
+                        val errorParser = adapter.fromJson(body?.string())
+                        error.message = errorParser.message ?: exception.message()
+                    }
+                    is ConnectException -> {
+                        error.message = "Connection_Error"
+                    }
+                    is SocketTimeoutException -> {
+                        error.message = "TimeoutError"
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            } finally {
+                return error
+            }
+        }
 
         private fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor? {
             val httpLoggingInterceptor =
