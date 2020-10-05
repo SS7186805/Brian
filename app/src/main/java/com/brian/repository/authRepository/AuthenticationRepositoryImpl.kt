@@ -17,7 +17,11 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         }
         return response
     }
-
+    /*GlobalScope.launch(Dispatchers.Main) {
+        val response = flightsDataSource.getCompanies(queryParams)
+        onResult(response.aerocrs!!.success, response)
+    }
+*/
     override fun LoginResponse(registerRequest: RegisterRequest):BaseResponse {
       var response = BaseResponse()
         GlobalScope.launch(Dispatchers.Main) {

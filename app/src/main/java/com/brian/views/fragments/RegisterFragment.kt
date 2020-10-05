@@ -11,10 +11,7 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
-import android.os.StrictMode
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
@@ -26,7 +23,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -44,10 +40,6 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import java.io.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
@@ -135,7 +127,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
                 ) {
 
-                   selectImage()
+                    selectImage()
 
                 } else {
                     Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
@@ -210,8 +202,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             override fun onClick(dialog: DialogInterface, item: Int) {
                 if (options[item] == "Take Photo") {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    val f = File(Environment.getExternalStorageDirectory(), "temp.jpg")
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))
+                    /*  val f = File(Environment.getExternalStorageDirectory(), "temp.jpg")
+                      intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))*/
                     startActivityForResult(intent, 1)
                 } else if (options[item] == "Choose from Gallery") {
                     val intent =
@@ -229,54 +221,21 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
-                var f = File(Environment.getExternalStorageDirectory().toString())
-                for (temp in f.listFiles()) {
-                    if (temp.name == "temp.jpg") {
-                        f = temp
-                        break
-                    }
-                }
-                try {
-                    val bitmap: Bitmap
-                    val bitmapOptions = BitmapFactory.Options()
-                    bitmap = BitmapFactory.decodeFile(
-                        f.absolutePath,
-                        bitmapOptions
-                    )
-                    circler_image.setImageBitmap(bitmap)
-                    val path = (Environment
-                        .getExternalStorageDirectory()
-                        .toString() + File.separator
-                            + "Phoenix" + File.separator + "default")
-                    f.delete()
-                    var outFile: OutputStream? = null
-                    val file = File(path, System.currentTimeMillis().toString() + ".jpg")
-                    try {
-                        outFile = FileOutputStream(file)
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile)
-                        outFile.flush()
-                        outFile.close()
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                var photo = data?.getExtras()?.get("data") as Bitmap
+                circler_image.setImageBitmap(photo);
             } else if (requestCode == 2) {
                 val selectedImage = data?.data
                 val filePath = arrayOf(MediaStore.Images.Media.DATA)
                 val c: Cursor? =
-                    selectedImage?.let { context?.getContentResolver()?.query(
-                        it,
-                        filePath,
-                        null,
-                        null,
-                        null
-                    ) }
+                    selectedImage?.let {
+                        context?.getContentResolver()?.query(
+                            it,
+                            filePath,
+                            null,
+                            null,
+                            null
+                        )
+                    }
                 c?.moveToFirst()
 
                 val columnIndex: Int = c!!.getColumnIndex(filePath[0])
@@ -294,8 +253,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 
     inner class ClickHandler {
 
-        fun onclickAddImage(){
-          if (checkPersmission()) selectImage() else requestPermission()
+        fun onclickAddImage() {
+            if (checkPersmission()) selectImage() else requestPermission()
         }
 
         fun onRegisterClick() {

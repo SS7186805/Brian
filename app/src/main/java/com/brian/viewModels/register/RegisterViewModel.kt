@@ -2,6 +2,7 @@ package com.brian.viewModels.register
 
 
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
@@ -103,5 +104,24 @@ class RegisterViewModel(
         }
         return true
     }
+
+  /*  fun getFlightsCompanies() {
+        showLoading.postValue(true)
+
+        flightsRepositary.getCompanies(
+            FlightsApiAuth(),
+            onResult = { isSuccess: Boolean, response: FlightsCompanies ->
+                if (isSuccess) {
+                    showLoading.postValue(false)
+
+                    Log.e("flightsResponse", response.aerocrs!!.airlines?.airline?.size.toString())
+                    airlines.postValue(response.aerocrs!!.airlines?.airline)
+
+                } else {
+//                    toastMessage.postValue(response.error?.message)
+                }
+            })
+    }*/
+
 
 }
