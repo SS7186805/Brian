@@ -140,19 +140,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             }
         }
     }
-//    private fun takePicture() {
-//
-//        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-//        val file: File = createFile()
-//
-//        val uri: Uri = FileProvider.getUriForFile(
-//            requireContext(),
-//            "com.example.android.fileprovider",
-//            file
-//        )
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-//        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
-//    }
 
 
     private fun checkPersmission(): Boolean {
@@ -174,20 +161,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         )
     }
 
-//    @Throws(IOException::class)
-//    private fun createFile(): File {
-//        // Create an image file name
-//        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//        return File.createTempFile(
-//            "JPEG_${timeStamp}_", /* prefix */
-//            ".jpg", /* suffix */
-//            storageDir /* directory */
-//        ).apply {
-//            // Save a file: path for use with ACTION_VIEW intents
-//            mCurrentPhotoPath = absolutePath
-//        }
-//    }
 
     private fun setupViewModel() {
         mViewModel =

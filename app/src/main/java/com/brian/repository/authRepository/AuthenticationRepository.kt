@@ -6,15 +6,9 @@ import com.brian.models.RegisterRequest
 
 interface AuthenticationRepository{
 
-    fun SignUpResponse(registerRequest: RegisterRequest) : BaseResponse
-/*
-
-    fun getCompanies(
-        queryParams: FlightsApiAuth,
-        onResult: (isSuccess: Boolean, baseResponse: FlightsCompanies) -> Unit
-    )
-
-*/
+    fun SignUpResponse(
+        registerRequest: RegisterRequest,
+                       onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
 
     fun LoginResponse(registerRequest: RegisterRequest) : BaseResponse
 

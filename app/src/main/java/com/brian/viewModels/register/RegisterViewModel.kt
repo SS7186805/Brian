@@ -35,12 +35,13 @@ class RegisterViewModel(
     fun onSignUpClick() {
         if (SignUpvalidate()) {
             showLoading.postValue(true)
-          val response = authenticationRepository.SignUpResponse(registerRequest.get()!!)
-            println(response.result)
-            if (response.result == resourcesProvider.getString(R.string.success))
-                registerSuccess.postValue(true)
+            authenticationRepository.SignUpResponse(registerRequest.get()!!) { isSuccess, message, response ->
+                println(message)
+                if (isSuccess)
+                    registerSuccess.postValue(true)
 
-            showMessage.postValue(response.message)
+                showMessage.postValue(response?.message)
+            }
         }
     }
 
@@ -50,6 +51,9 @@ class RegisterViewModel(
             return false
         } else if (TextUtils.isEmpty(registerRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
+            return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(registerRequest.get()!!.email).matches()) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Valid_Email))
             return false
         } else if (TextUtils.isEmpty(registerRequest.get()!!.dob)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_date_birth))
@@ -81,6 +85,9 @@ class RegisterViewModel(
         if (TextUtils.isEmpty(registerRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_email_address))
             return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(registerRequest.get()!!.email).matches()) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Valid_Email))
+            return false
         } else if (TextUtils.isEmpty(registerRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_password))
             return false
@@ -101,27 +108,30 @@ class RegisterViewModel(
         if (TextUtils.isEmpty(registerRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_email_address))
             return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(registerRequest.get()!!.email).matches()) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Valid_Email))
+            return false
         }
         return true
     }
 
-  /*  fun getFlightsCompanies() {
-        showLoading.postValue(true)
-
-        flightsRepositary.getCompanies(
-            FlightsApiAuth(),
-            onResult = { isSuccess: Boolean, response: FlightsCompanies ->
-                if (isSuccess) {
-                    showLoading.postValue(false)
-
-                    Log.e("flightsResponse", response.aerocrs!!.airlines?.airline?.size.toString())
-                    airlines.postValue(response.aerocrs!!.airlines?.airline)
-
-                } else {
-//                    toastMessage.postValue(response.error?.message)
-                }
-            })
-    }*/
+//    fun getFlightsCompanies() {
+//        showLoading.postValue(true)
+//
+//        flightsRepositary.getCompanies(
+//            FlightsApiAuth(),
+//            onResult = { isSuccess: Boolean, response: FlightsCompanies ->
+//                if (isSuccess) {
+//                    showLoading.postValue(false)
+//
+//                    Log.e("flightsResponse", response.aerocrs!!.airlines?.airline?.size.toString())
+//                    airlines.postValue(response.aerocrs!!.airlines?.airline)
+//
+//                } else {
+//                   toastMessage.postValue(response.error?.message)
+//                }
+//            })
+//    }
 
 
 }
