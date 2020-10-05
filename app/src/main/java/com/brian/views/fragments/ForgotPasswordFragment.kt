@@ -1,9 +1,12 @@
 package com.brian.views.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -16,6 +19,7 @@ import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_forgot_password.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -33,6 +37,7 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
+        setupObserver()
         mBinding = FragmentForgotPasswordBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
@@ -59,6 +64,22 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
                 message = getString(R.string.reset_password_mesage)
                 successClickListener = this@ForgotPasswordFragment
             }
+        }
+
+    }
+
+    private fun setupObserver(){
+        mViewModel.apply {
+            showMessage.observe(viewLifecycleOwner, Observer {
+                if (!TextUtils.isEmpty(it))
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            })
+
+            showLoading.observe(viewLifecycleOwner, Observer {
+                if(it){
+                    progress_bar.visibility = View.VISIBLE
+                }
+            })
         }
 
     }

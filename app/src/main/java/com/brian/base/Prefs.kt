@@ -9,8 +9,9 @@ import com.google.gson.Gson
 
 class Prefs {
 
-    private val PREF_NAME_GLOBAL="GLOBAL"
-    private val IS_LOG_IN = "DEVICE_DISPLAY_WIDTH"
+    private val PREF_NAME_GLOBAL = "GLOBAL"
+    private val IS_LOG_IN = "IS_LOG_IN"
+    private val ACCESS_TOKEN = "ACCESS_TOKEN"
 
 
     private var sharedPreferences: SharedPreferences =
@@ -55,6 +56,18 @@ class Prefs {
             sF.edit().putString(IS_LOG_IN, value).apply()
         }
 
+
+    var accessToken: String
+        get() {
+            val sF = MainApplication.get().applicationContext
+                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
+            return sF.getString(ACCESS_TOKEN, "") ?: ""
+        }
+        set(value) {
+            val sF = MainApplication.get().applicationContext
+                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
+            sF.edit().putString(ACCESS_TOKEN, value).apply()
+        }
 
 
 }

@@ -73,12 +73,12 @@
                     android:drawablePadding="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:hint="@string/email_address"
+                    android:text="@={viewModel.registerRequest.email}"
                     android:inputType="textEmailAddress"
                     android:paddingStart="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_20"
                     android:singleLine="true"
                     android:textColor="@color/edit_text_color"
-
                     android:textColorHint="@color/hint_color"
                     android:textSize="@dimen/px55"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +95,7 @@
                     android:drawablePadding="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:hint="@string/password"
+                    android:text="@={viewModel.registerRequest.password}"
                     android:inputType="textPassword"
                     android:paddingStart="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_20"
@@ -112,7 +113,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-
                     android:layout_marginEnd="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:onClick="@{()-> clickHandler.onForgotPasswordClick()}"
@@ -128,7 +128,7 @@
                     android:layout_marginTop="@dimen/margin_100"
                     android:background="@drawable/capsuler_login_btn"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:onClick="@{()-> clickHandler.onLoginClick()}"
+                    android:onClick="@{()-> viewModel.onLoginClick()}"
                     android:text="@string/log_in"
                     android:textAllCaps="false"
                     android:textSize="@dimen/px60"
@@ -171,6 +171,17 @@
 
 
                 </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -109,5 +109,26 @@
     <string name="situations">Situations</string>
     <string name="update_profile_message">You have been successfully updated with Baseball Bee.</string>
     <string name="team_player">Team Player</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="select_date_of_birth">Select Date of Birth</string>
+    <string name="select_user_type">Select User Type</string>
+    <string name="name">Name</string>
+    <string name="Enter_your_name">Enter your name</string>
+    <string name="Enter_your_email">Enter your email</string>
+    <string name="Enter_your_date_birth">Enter your Date of Birth</string>
+    <string name="Select_User_type">Select Player Type</string>
+    <string name="Enter_passowrd">Enter Password</string>
+    <string name="Enter_confirm_password">Enter Confirm Password</string>
+    <string name="Enter_same_password">Enter same password</string>
+
+    <!--API Error Msg-->
+    <string name="something_went_wrong">Oh.. something went wrong.</string>
+    <string name="connectErr">Failed to connect to server. Please check your internet connection.</string>
+    <string name="timeoutErr">Failed to connect to server. Please try after sometime.</string>
+    <string name="noInternetErr">Please check your internet connection.</string>
+    <string name="Enter_email_address">Enter Email Address</string>
+    <string name="Enter_password">Enter password</string>
+    <string name="Valid_Email">Enter valid Email Address</string>
+
 
 </resources>

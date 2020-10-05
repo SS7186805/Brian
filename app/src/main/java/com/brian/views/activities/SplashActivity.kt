@@ -21,7 +21,6 @@ class SplashActivity : ScopedActivity() {
 
             }else{
                 startActivity(Intent(this,AccountHandlerActivity::class.java))
-
             }
             finish()
         }, 2000)

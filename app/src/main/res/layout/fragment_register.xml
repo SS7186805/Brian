@@ -6,16 +6,15 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel"/>
+            type="com.brian.viewModels.register.RegisterViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.brian.views.fragments.RegisterFragment.ClickHandler" />
+            type="com.brian.views.fragments.RegisterFragment.ClickHandler"/>
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blackTheme">
@@ -61,11 +60,14 @@
 
 
                     <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circler_image"
                         android:layout_width="@dimen/margin_120"
                         android:layout_height="@dimen/margin_120"
                         android:src="@drawable/ic_use_r" />
 
                     <ImageView
+                        android:id="@+id/image_select"
+                        android:onClick="@{()->clickHandler.onclickAddImage()}"
                         android:layout_width="@dimen/margin_32"
                         android:layout_height="@dimen/margin_32"
                         android:layout_gravity="bottom|end"
@@ -79,155 +81,170 @@
                 <EditText
                     android:id="@+id/reg_Name"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="@dimen/margin_50"
-                    android:hint="Name"
-                    android:textColor="@color/edit_text_color"
+                    android:background="@drawable/edit_text_bg"
+                    android:drawableLeft="@drawable/ic_name"
+                    android:drawablePadding="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
+                    android:hint="@string/name"
+                    android:text="@={viewModel.registerRequest.name}"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_20"
+                    android:singleLine="true"
+                    android:textColor="@color/edit_text_color"
                     android:textColorHint="@color/hint_color"
                     android:textSize="@dimen/px55"
-                    android:singleLine="true"
-                    android:paddingEnd="@dimen/margin_20"
-                    android:drawablePadding="@dimen/margin_10"
-                    android:paddingStart="@dimen/margin_20"
-                    android:drawableLeft="@drawable/ic_name"
                     app:layout_constraintTop_toBottomOf="@id/frameProfile" />
 
 
                 <EditText
                     android:id="@+id/reg_Email"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
-                    android:singleLine="true"
-                    android:paddingEnd="@dimen/margin_20"
                     android:layout_marginTop="20dp"
-                    android:hint="Email Address"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/edit_text_color"
-                    android:fontFamily="@font/century_gothic"
-                    android:textColorHint="#7e7e7e"
-                    android:drawablePadding="@dimen/margin_10"
-                    android:paddingStart="@dimen/margin_20"
-                    android:textSize="@dimen/px55"
+                    android:background="@drawable/edit_text_bg"
                     android:drawableLeft="@drawable/ic_mail"
-                    app:layout_constraintTop_toBottomOf="@id/reg_Name"/>
+                    android:drawablePadding="@dimen/margin_10"
+                    android:fontFamily="@font/century_gothic"
+                    android:text="@={viewModel.registerRequest.email}"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_20"
+                    android:singleLine="true"
+                    android:textColor="@color/edit_text_color"
+                    android:textColorHint="#7e7e7e"
+                    android:textSize="@dimen/px55"
+                    app:layout_constraintTop_toBottomOf="@id/reg_Name" />
 
                 <AutoCompleteTextView
                     android:id="@+id/reg_User_type"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="20dp"
-                    android:hint="Select User Type"
+                    android:background="@drawable/edit_text_bg"
+                    android:drawableStart="@drawable/ic_d_user"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:text="@={viewModel.registerRequest.user_type}"
+                    android:fontFamily="@font/century_gothic"
+                    android:hint="@string/select_user_type"
                     android:inputType="none"
-                    android:singleLine="true"
+                    android:paddingStart="@dimen/margin_20"
                     android:paddingEnd="@dimen/margin_20"
+                    android:singleLine="true"
                     android:textColor="@color/edit_text_color"
-                    android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
                     android:textColorHint="#7e7e7e"
                     android:textSize="@dimen/px55"
-                    android:fontFamily="@font/century_gothic"
-                    android:drawablePadding="@dimen/margin_10"
-                    android:paddingStart="@dimen/margin_20"
-                    android:drawableLeft="@drawable/ic_d_user"
-                    app:layout_constraintTop_toBottomOf="@id/reg_Email"/>
+                    app:layout_constraintTop_toBottomOf="@id/reg_Email" />
 
                 <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/margin_20"
-                    app:layout_constraintTop_toBottomOf="@id/reg_User_type"
                     android:id="@+id/fSelectDate"
-                    android:layout_height="wrap_content">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20"
+                    app:layout_constraintTop_toBottomOf="@id/reg_User_type">
+
                     <EditText
                         android:id="@+id/reg_DOB"
                         android:layout_width="match_parent"
-                        android:background="@drawable/edit_text_bg"
                         android:layout_height="@dimen/edit_text_height"
-                        android:onClick="@{()->clickHandler.selectDate()}"
-                        android:hint="Select Date of Birth"
-                        android:textColorHint="#7e7e7e"
-                        android:textSize="@dimen/px55"
-                        android:focusable="false"
-                        android:inputType="none"
-                        android:textColor="@color/edit_text_color"
-                        android:paddingEnd="@dimen/margin_20"
+                        android:background="@drawable/edit_text_bg"
                         android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-                        android:fontFamily="@font/century_gothic"
                         android:drawablePadding="@dimen/margin_10"
+                        android:focusable="false"
+                        android:fontFamily="@font/century_gothic"
+                        android:hint="@string/select_date_of_birth"
+                        android:inputType="none"
+                        android:text="@={viewModel.registerRequest.dob}"
+                        android:onClick="@{()->clickHandler.selectDate()}"
                         android:paddingStart="@dimen/margin_55"
-                        />
+                        android:paddingEnd="@dimen/margin_20"
+                        android:textColor="@color/edit_text_color"
+                        android:textColorHint="#7e7e7e"
+                        android:textSize="@dimen/px55" />
+
                     <ImageView
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_17"
                         android:src="@drawable/calendar"
-                        android:tint="@color/yellow">
+                        app:tint="@color/yellow">
 
                     </ImageView>
-
-
                 </FrameLayout>
-
 
                 <EditText
                     android:id="@+id/reg_Password"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="20dp"
-                    android:hint="Password"
-                    android:textSize="@dimen/px55"
-                    android:textColorHint="#7e7e7e"
-                    android:textColor="@color/edit_text_color"
-                    android:fontFamily="@font/century_gothic"
+                    android:background="@drawable/edit_text_bg"
+                    android:drawableStart="@drawable/ic_password"
                     android:drawablePadding="@dimen/margin_10"
+                    android:fontFamily="@font/century_gothic"
+                    android:hint="@string/password"
+                    android:text="@={viewModel.registerRequest.password}"
                     android:inputType="textPassword"
-                    android:paddingEnd="@dimen/margin_20"
                     android:paddingStart="@dimen/margin_20"
-                    android:drawableLeft="@drawable/ic_password"
-                    app:layout_constraintTop_toBottomOf="@id/fSelectDate"/>
+                    android:paddingEnd="@dimen/margin_20"
+                    android:textColor="@color/edit_text_color"
+                    android:textColorHint="#7e7e7e"
+                    android:textSize="@dimen/px55"
+                    app:layout_constraintTop_toBottomOf="@id/fSelectDate" />
 
                 <EditText
                     android:id="@+id/reg_cnf_password"
                     android:layout_width="match_parent"
-                    android:background="@drawable/edit_text_bg"
                     android:layout_height="@dimen/edit_text_height"
                     android:layout_marginTop="20dp"
-                    android:hint="Confirm Password"
+                    android:background="@drawable/edit_text_bg"
+                    android:drawableStart="@drawable/ic_password"
+                    android:drawablePadding="@dimen/margin_10"
+                    android:fontFamily="@font/century_gothic"
+                    android:hint="@string/confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.registerRequest.cnf_password}"
+                    android:paddingStart="@dimen/margin_20"
+                    android:paddingEnd="@dimen/margin_20"
+                    android:singleLine="true"
+                    android:textColor="@color/edit_text_color"
                     android:textColorHint="#7e7e7e"
                     android:textSize="@dimen/px55"
-                    android:singleLine="true"
-                    android:inputType="textPassword"
-                    android:paddingEnd="@dimen/margin_20"
-                    android:textColor="@color/edit_text_color"
-                    android:fontFamily="@font/century_gothic"
-                    android:drawablePadding="@dimen/margin_10"
-                    android:paddingStart="@dimen/margin_20"
-                    android:imeOptions="actionDone"
-                    android:drawableLeft="@drawable/ic_password"
-                    app:layout_constraintTop_toBottomOf="@id/reg_Password"/>
+                    app:layout_constraintTop_toBottomOf="@id/reg_Password" />
 
                 <Button
+                    android:id="@+id/registerButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"
+                    android:layout_marginLeft="@dimen/margin_100"
+                    android:layout_marginTop="@dimen/margin_80"
+                    android:layout_marginRight="@dimen/margin_100"
+                    android:layout_marginBottom="@dimen/margin_80"
+                    android:background="@drawable/bt_bg_dialog"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:onClick="@{() -> viewModel.onSignUpClick()}"
+                    android:padding="@dimen/margin_10"
                     android:text="@string/register"
+                    android:textAllCaps="false"
                     android:textSize="@dimen/px60"
                     android:textStyle="bold"
-                    android:id="@+id/registerButton"
-                    android:onClick="@{() -> clickHandler.onRegisterClick()}"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:padding="@dimen/margin_10"
-                    android:layout_marginLeft="@dimen/margin_100"
-                    android:layout_marginRight="@dimen/margin_100"
-                    android:background="@drawable/bt_bg_dialog"
-                    android:layout_marginTop="@dimen/margin_80"
-                    android:layout_marginBottom="@dimen/margin_80"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/reg_cnf_password"/>
+                    app:layout_constraintTop_toBottomOf="@+id/reg_cnf_password" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
