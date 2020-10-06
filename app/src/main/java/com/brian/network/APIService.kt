@@ -3,23 +3,20 @@ package com.brian.network
 import android.text.TextUtils
 import android.util.Log
 import com.brian.BuildConfig
-import com.brian.R
 import com.brian.base.Prefs
+import com.brian.models.AuthRequest
 import com.brian.models.BaseResponse
 import com.brian.models.Error
 import com.brian.models.RegisterRequest
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
+import kotlinx.android.parcel.RawValue
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -29,18 +26,27 @@ const val BASE_URL = "http://1.6.98.142/brain/"
 
 interface APIService {
 
+//    @Multipart
+//    @POST("api/v1/register")
+//    suspend fun signUp(@Part name: MultipartBody.Part,
+//    @Part email : MultipartBody.Part,
+//    @Part dob:MultipartBody.Part,
+//    @Part user_type:MultipartBody.Part,
+//    @Part password:MultipartBody.Part,
+//    @Part device_type:MultipartBody.Part,
+//    @Part device_token:MultipartBody.Part,
+//    @Part profile_picture: MultipartBody.Part?): BaseResponse
+
+//    @Multipart
+//    @FormUrlEncoded
     @POST("api/v1/register")
     suspend fun signUp(@Body request: RegisterRequest): BaseResponse
 
     @POST("api/v1/login")
-    suspend fun login(@Body request: RegisterRequest):BaseResponse
+    suspend fun login(@Body request: RegisterRequest): BaseResponse
 
     @POST("api/v1/forgot-password")
-    suspend fun forgot(@Body request: RegisterRequest):BaseResponse
-
-
-
-
+    suspend fun forgot(@Body request: RegisterRequest): BaseResponse
 
 
     companion object {
@@ -62,7 +68,8 @@ interface APIService {
 
 
         fun getErrorMessageFromGenericResponse(
-            exception: Exception): Error? {
+            exception: Exception
+        ): Error? {
             val error = com.brian.models.Error()
             try {
                 when (exception) {
@@ -141,6 +148,7 @@ interface APIService {
             }
 
         }
+
         operator fun invoke() = getAPIService()
     }
 }

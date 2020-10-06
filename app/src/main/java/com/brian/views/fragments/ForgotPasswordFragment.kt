@@ -72,8 +72,19 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
                 progress_bar.visibility = View.GONE
-                if (!TextUtils.isEmpty(it))
+                if (!TextUtils.isEmpty(it)){
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                }
+            })
+            registerSuccess.observe(viewLifecycleOwner, Observer {
+                if (it) {
+                    DialogUtil.build(requireContext()) {
+                        title = getString(R.string.success)
+                        dialogType = DialogUtil.DialogType.SUCCESS
+                        message = getString(R.string.reset_password_mesage)
+                        successClickListener = this@ForgotPasswordFragment
+                    }
+                }
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {

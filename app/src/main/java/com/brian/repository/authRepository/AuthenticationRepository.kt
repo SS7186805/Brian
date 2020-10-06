@@ -1,6 +1,7 @@
 package com.brian.repository.authRepository
 
 import androidx.databinding.ObservableField
+import com.brian.models.AuthRequest
 import com.brian.models.BaseResponse
 import com.brian.models.RegisterRequest
 

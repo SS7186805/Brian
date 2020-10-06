@@ -12,7 +12,7 @@ data class BaseResponse(
 	val result: String? = null,
 
 	@field:SerializedName("data")
-	val data: Data? = null,
+	val data: @RawValue Any? = null,
 
 	@field:SerializedName("error")
 	var error: Error? = null,

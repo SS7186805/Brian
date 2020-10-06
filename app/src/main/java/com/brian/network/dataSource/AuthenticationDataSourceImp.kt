@@ -1,5 +1,6 @@
 package com.brian.network.dataSource
 
+import com.brian.models.AuthRequest
 import com.brian.models.BaseResponse
 import com.brian.models.RegisterRequest
 import com.brian.network.APIService

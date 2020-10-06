@@ -1,6 +1,7 @@
 package com.brian.repository.authRepository
 
 import android.util.Log
+import com.brian.models.AuthRequest
 import com.brian.models.BaseResponse
 import com.brian.models.RegisterRequest
 import com.brian.network.dataSource.AuthenticationDataSource

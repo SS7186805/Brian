@@ -6,15 +6,10 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 import okhttp3.MultipartBody
 
-interface BaseRequest {
-    //    var deviceType: String?
-    var deviceToken: String?
-}
-
 @Parcelize
-data class RegisterRequest(
+data class AuthRequest(
     @field:SerializedName("name")
-    var name: String? = null,
+    var name: String ? = null,
 
     @field:SerializedName("email")
     var email: String? = null,
@@ -31,17 +26,9 @@ data class RegisterRequest(
     @field:SerializedName("cnf_password")
     var cnf_password: String? = null,
 
-//    @field:SerializedName("deviceType")
-//    override var deviceType: String? = null,
     @field:SerializedName("device_type")
-    var deviceType: String = "Android",
+    var deviceType: String? = "Android",
 
     @field:SerializedName("device_token")
-    override var deviceToken: String? = null,
-
-//    @field:SerializedName("profile_picture")
-//    var profile_picture: @RawValue MultipartBody.Part? = null
-
-    @field:SerializedName("profile_picture")
-    var profile_picture: String? = null
-) : Parcelable, BaseRequest
+     var deviceToken: String? = null
+): Parcelable

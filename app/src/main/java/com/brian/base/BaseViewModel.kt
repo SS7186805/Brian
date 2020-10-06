@@ -9,5 +9,5 @@ open class BaseViewModel : ViewModel(){
 
     var showMessage = MutableLiveData("")
     var showLoading = MutableLiveData(false)
-    var registerRequest = ObservableField<RegisterRequest>(RegisterRequest())
+
 }
