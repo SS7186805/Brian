@@ -15,6 +15,7 @@ import com.brian.models.DataItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import kotlinx.android.synthetic.main.pitcher_fragment.*
+import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 

@@ -12,7 +12,7 @@ class MyProfileRepositoryImp(private val myProfileDataSource: MyProfileDataSourc
         GlobalScope.launch(Dispatchers.Main){
             val response = myProfileDataSource.changePassword(change)
             if (response.error != null) {
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }

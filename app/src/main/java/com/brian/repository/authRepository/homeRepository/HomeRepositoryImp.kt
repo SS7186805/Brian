@@ -14,7 +14,7 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
             GlobalScope.launch(Dispatchers.Main) {
                 val response = homeDataSource.getDefensive()
                 if (response.error != null) {
-                    onResult(false, response.error!!.message!!, null)
+                    onResult(false, response.error!!, null)
                 } else {
                     onResult(true, response.message!!, response)
                 }
@@ -26,7 +26,7 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
         GlobalScope.launch(Dispatchers.Main){
             val response = homeDataSource.questionResponse()
             if (response.error != null){
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             }else{
                 onResult(true, response.message!!, response)
             }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -29,6 +30,7 @@ class QuestionsFragment : ScopedFragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
+        setUpObserver()
         mViewModel.questionRespone()
         mBinding = QuestionsFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
@@ -47,29 +49,26 @@ class QuestionsFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    fun setUpUI(){
-        mViewModel.data.apply {
-            description.text = question
-            tv_u_r_score.text = youAre.toString()
-            tv_runner_on_score.text = runnersOn.toString()
-            tv_out_score.text = out.toString()
-            thinkDescription.text = alsoThinkAboutIt
+    fun setUpObserver(){
+        mViewModel.apply {
+            data.observe(viewLifecycleOwner, Observer {
+                description.text = it.question
+                tv_u_r_score.text = it.youAre.toString()
+                tv_runner_on_score.text = it.runnersOn.toString()
+                tv_out_score.text = it.out.toString()
+                thinkDescription.text = it.alsoThinkAboutIt
+            })
         }
     }
 
     inner class ClickHandler {
-        var count = 1
+        var count = 0
         fun onNextClick() {
             count++
-
-
-
-            if (count == 6) {
+            mViewModel.questionRespone()
+            if (count == 5) {
                 findNavController().navigate(R.id.gameSummaryFragment)
             }
-
-
         }
-
     }
 }

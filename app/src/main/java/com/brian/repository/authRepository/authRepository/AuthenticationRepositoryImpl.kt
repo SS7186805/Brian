@@ -23,11 +23,8 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         GlobalScope.launch(Dispatchers.Main) {
 
             val response = authenticationDataSource.SignUpResponse(registerRequest)
-
-            Log.e("Response", "${response.toString()}sds")
-            Log.e("ResponseERRor", "${response.error}sds")
             if (response.error != null) {
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
@@ -46,7 +43,7 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         GlobalScope.launch(Dispatchers.Main) {
             val response = authenticationDataSource.LoginResponse(registerRequest)
             if (response.error != null) {
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
@@ -64,7 +61,7 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         GlobalScope.launch(Dispatchers.Main) {
             val response = authenticationDataSource.ForgotResponse(registerRequest)
             if (response.error != null) {
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
@@ -76,7 +73,7 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         GlobalScope.launch(Dispatchers.Main){
             val response = authenticationDataSource.LogOutResponse()
             if(response.error != null){
-                onResult(false,response.error!!.message!!,null)
+                onResult(false,response.error!!,null)
             }else{
                 onResult(true, response.message!!, response)
             }
@@ -90,7 +87,7 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
         GlobalScope.launch(Dispatchers.Main){
             val response = authenticationDataSource.editProfile(register)
             if (response.error != null) {
-                onResult(false, response.error!!.message!!, null)
+                onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
