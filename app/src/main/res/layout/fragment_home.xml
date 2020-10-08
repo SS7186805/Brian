@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -17,8 +17,6 @@
         android:layout_width="match_parent"
         android:background="@color/blackTheme"
         android:layout_height="match_parent">
-
-
 
 
         <ScrollView

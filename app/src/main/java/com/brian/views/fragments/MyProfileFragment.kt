@@ -2,10 +2,13 @@ package com.brian.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -17,6 +20,7 @@ import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
+import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -33,6 +37,7 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
+        setupObserver()
         mBinding = MyProfileFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
@@ -45,6 +50,15 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
+    }
+
+    private fun setupObserver(){
+        mViewModel.apply {
+            showMessage.observe(viewLifecycleOwner, Observer {
+                if (!TextUtils.isEmpty(it))
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            })
+        }
     }
 
 
@@ -90,6 +104,7 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     }
 
     override fun onClickYes() {
+        mViewModel.logOut()
         Prefs.init().isLogIn="false"
         startActivity(Intent(requireContext(),AccountHandlerActivity::class.java))
         (requireActivity() as HomeActivity).finish()

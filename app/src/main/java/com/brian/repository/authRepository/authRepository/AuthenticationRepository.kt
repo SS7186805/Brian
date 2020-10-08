@@ -1,8 +1,8 @@
-package com.brian.repository.authRepository
+package com.brian.repository.authRepository.authRepository
 
 import androidx.databinding.ObservableField
-import com.brian.models.AuthRequest
 import com.brian.models.BaseResponse
+import com.brian.models.DefensiveResponse
 import com.brian.models.RegisterRequest
 
 interface AuthenticationRepository{
@@ -16,4 +16,14 @@ interface AuthenticationRepository{
 
     fun ForgotResponse(registerRequest: RegisterRequest,
                        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
+
+    fun logOutResponse(onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit)
+
+    fun editProfile(register:RegisterRequest,onResult: (
+        isSuccess: Boolean,
+        message: String,
+        response: BaseResponse?
+    ) -> Unit)
+
+
 }

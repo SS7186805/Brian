@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -134,14 +134,6 @@
 
 
         </com.google.android.material.navigation.NavigationView>
-
-
-
-
-
-
-
-
 
 
 

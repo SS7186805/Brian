@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
+
+
 @Parcelize
 data class BaseResponse(
 
@@ -12,10 +14,10 @@ data class BaseResponse(
 	val result: String? = null,
 
 	@field:SerializedName("data")
-	val data: @RawValue Any? = null,
+	val data: @RawValue LoginData? = null,
 
 	@field:SerializedName("error")
-	var error: Error? = null,
+	var error: String? = null,
 
 	@field:SerializedName("message")
 	val message: String? = null
@@ -23,16 +25,7 @@ data class BaseResponse(
 
 
 @Parcelize
-data class Error(
-	@field:SerializedName("status")
-	var status: Int? = 1,
-
-	@field:SerializedName("message")
-	var message: String? = null
-) : Parcelable
-
-@Parcelize
-data class Data(
+data class LoginData(
 
 	@field:SerializedName("is_block")
 	val isBlock: Int? = null,

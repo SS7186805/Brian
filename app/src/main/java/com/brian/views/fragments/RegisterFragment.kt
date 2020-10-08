@@ -73,12 +73,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     ): View? {
 
         setupViewModel()
+        setupObserver()
         mBinding = FragmentRegisterBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
 
-        setupObserver()
+
         mBinding.toolbar.tvTitle.text = getString(R.string.register)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
@@ -329,7 +330,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         super.onActivityCreated(savedInstanceState)
 
         if (arguments?.getString("edit").equals("edit")) {
-
+            mViewModel.isediting = true
             mBinding.regPassword.visibility = GONE
             mBinding.regCnfPassword.visibility = GONE
             mBinding.registerButton.setText(getString(R.string.update))
@@ -337,6 +338,9 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regName.setText(getString(R.string.user_name))
             mBinding.regEmail.setText("abc@gmail.com")
             mBinding.regDOB.setText(Utils.init.getCurrentDate())
+            mBinding.regDOB.visibility = GONE
+            mBinding.regUserType.visibility = GONE
+            mBinding.calender.visibility = GONE
 
         }
     }

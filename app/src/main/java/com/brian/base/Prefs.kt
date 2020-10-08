@@ -4,6 +4,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.text.TextUtils
+import com.brian.models.LoginData
 
 import com.google.gson.Gson
 
@@ -12,10 +13,12 @@ class Prefs {
     private val PREF_NAME_GLOBAL = "GLOBAL"
     private val IS_LOG_IN = "IS_LOG_IN"
     private val ACCESS_TOKEN = "ACCESS_TOKEN"
+    private val USER_INFO = "user_info"
 
 
-    private var sharedPreferences: SharedPreferences =
-        PreferenceManager.getDefaultSharedPreferences(MainApplication.get().applicationContext)
+    private var pref: SharedPreferences = MainApplication.get().applicationContext
+        .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
+
 
     init {
         instance = this
@@ -34,7 +37,7 @@ class Prefs {
     }
 
     fun clear() {
-        sharedPreferences.edit().clear().apply()
+        pref.edit().clear().apply()
     }
 
     /*Authentication Token String for API Authentication*/
@@ -46,27 +49,36 @@ class Prefs {
     //Device Token, saved in separate SharedPreferences {PREF_NAME_GLOBAL} to persist data on user logout
     var isLogIn: String
         get() {
-            val sF = MainApplication.get().applicationContext
-                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
-            return sF.getString(IS_LOG_IN, "") ?: ""
+            return pref.getString(IS_LOG_IN, "") ?: ""
         }
         set(value) {
-            val sF = MainApplication.get().applicationContext
-                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
-            sF.edit().putString(IS_LOG_IN, value).apply()
+            pref.edit().putString(IS_LOG_IN, value).apply()
         }
 
 
     var accessToken: String
         get() {
-            val sF = MainApplication.get().applicationContext
-                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
-            return sF.getString(ACCESS_TOKEN, "") ?: ""
+            return pref.getString(ACCESS_TOKEN, "") ?: ""
         }
         set(value) {
-            val sF = MainApplication.get().applicationContext
-                .getSharedPreferences(PREF_NAME_GLOBAL, MODE_PRIVATE)
-            sF.edit().putString(ACCESS_TOKEN, value).apply()
+            pref.edit().putString(ACCESS_TOKEN, value).apply()
+        }
+
+    var userInfo: LoginData?
+        get() {
+            var data: LoginData? = null
+            val prefString = pref.getString(USER_INFO, "")
+            if (!TextUtils.isEmpty(prefString)) {
+                data = Gson().fromJson(prefString, LoginData::class.java)
+            }
+            return data
+        }
+        set(value) {
+            var prefString = ""
+            if (value != null) {
+                prefString = Gson().toJson(value)
+            }
+            pref.edit().putString(USER_INFO, prefString).apply()
         }
 
 

@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -63,28 +63,33 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <View
+                        android:id="@+id/view1"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:background="@drawable/green_dot" />
 
 
                     <View
+                        android:id="@+id/view2"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/red_dot" />
 
                     <View
+                        android:id="@+id/view3"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/green_dot" />
                     <View
+                        android:id="@+id/view4"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
                         android:background="@drawable/empty_dot" />
                     <View
+                        android:id="@+id/view5"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:layout_marginLeft="@dimen/margin_5"
@@ -111,6 +116,7 @@
                         android:textSize="@dimen/px50" />
 
                     <TextView
+                        android:id="@+id/tv_u_r_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -140,6 +146,7 @@
                         android:textSize="@dimen/px50" />
 
                     <TextView
+                        android:id="@+id/tv_runner_on_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -168,6 +175,7 @@
                         android:textSize="@dimen/px50" />
 
                     <TextView
+                        android:id="@+id/tv_out_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

@@ -45,8 +45,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         navController.addOnDestinationChangedListener(this)
         setAdapter()
         setDrawer()
-
-
     }
 
 
@@ -171,15 +169,12 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             )
         )
 
-
         itemAdapter = NavigationItemAdapter(R.layout.navigation_item, this)
         mBinding.recycler.adapter = itemAdapter
         itemAdapter!!.listener = this.mClickHandler
         itemAdapter!!.addNewItems(itemsList)
 
-
     }
-
 
     inner class ClickHandler : NavigationItemAdapter.onClickItem {
 
@@ -217,9 +212,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             }
             itemAdapter!!.notifyDataSetChanged()
 
-
             navigateFragments(item.text)
-
 
         }
 

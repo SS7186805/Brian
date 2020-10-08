@@ -166,6 +166,7 @@
                         android:textSize="@dimen/px55" />
 
                     <ImageView
+                        android:id="@+id/calender"
                         android:layout_width="22dp"
                         android:layout_height="22dp"
                         android:layout_marginStart="@dimen/margin_20"

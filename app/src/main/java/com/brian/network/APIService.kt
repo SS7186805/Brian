@@ -4,10 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.brian.BuildConfig
 import com.brian.base.Prefs
-import com.brian.models.AuthRequest
-import com.brian.models.BaseResponse
-import com.brian.models.Error
-import com.brian.models.RegisterRequest
+import com.brian.models.*
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.android.parcel.RawValue
@@ -37,7 +34,7 @@ interface APIService {
 //    @Part device_token:MultipartBody.Part,
 //    @Part profile_picture: MultipartBody.Part?): BaseResponse
 
-//    @Multipart
+    //    @Multipart
 //    @FormUrlEncoded
     @POST("api/v1/register")
     suspend fun signUp(@Body request: RegisterRequest): BaseResponse
@@ -47,6 +44,21 @@ interface APIService {
 
     @POST("api/v1/forgot-password")
     suspend fun forgot(@Body request: RegisterRequest): BaseResponse
+
+    @GET("api/v1/get-defensive-situation")
+    suspend fun getDefensiveSituation(): DefensiveResponse
+
+    @POST("api/v1/change-password")
+    suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
+
+    @POST("api/v1/logout")
+    suspend fun logOut(): BaseResponse
+
+    @POST("api/v1/profile")
+    suspend fun editProfile(@Body request: RegisterRequest): BaseResponse
+
+    @GET("api/v1/get-question-randomly")
+    suspend fun questionResponse(): QuestionResponse
 
 
     companion object {
@@ -69,21 +81,21 @@ interface APIService {
 
         fun getErrorMessageFromGenericResponse(
             exception: Exception
-        ): Error? {
-            val error = com.brian.models.Error()
+        ): String? {
+            var error = ""
             try {
                 when (exception) {
                     is HttpException -> {
                         val body = exception.response()?.errorBody()
                         val adapter = Gson().getAdapter(BaseResponse::class.java)
                         val errorParser = adapter.fromJson(body?.string())
-                        error.message = errorParser.message ?: exception.message()
+                        error = errorParser.message ?: exception.message()
                     }
                     is ConnectException -> {
-                        error.message = "Connection_Error"
+                        error = "Connection_Error"
                     }
                     is SocketTimeoutException -> {
-                        error.message = "TimeoutError"
+                        error = "TimeoutError"
                     }
                 }
             } catch (e: IOException) {
@@ -92,6 +104,7 @@ interface APIService {
                 return error
             }
         }
+
 
         private fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor? {
             val httpLoggingInterceptor =
@@ -113,7 +126,7 @@ interface APIService {
                     return if (!TextUtils.isEmpty(accessToken)) {
                         val request: Request = chain.request().newBuilder()
                             .addHeader("Accept", "application/json")
-                            .addHeader("x-access-token", "Bearer $accessToken").build()
+                            .addHeader("Authorization", "Bearer $accessToken").build()
                         chain.proceed(request)
                     } else {
                         val request: Request = chain.request().newBuilder()

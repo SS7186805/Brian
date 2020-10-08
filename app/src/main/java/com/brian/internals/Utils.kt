@@ -15,8 +15,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.brian.R
+import com.brian.models.LoginData
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -281,5 +283,12 @@ class Utils private constructor() {
     }
 }
 
+fun String.convertJSON(className: LoginData): LoginData {
+    return Gson().fromJson<LoginData>(this, LoginData::class.java)
+}
 
-
+fun <T>List<T>.toArrayList():ArrayList<T>{
+    val temp = ArrayList<T>()
+    temp.addAll(this)
+    return temp
+}

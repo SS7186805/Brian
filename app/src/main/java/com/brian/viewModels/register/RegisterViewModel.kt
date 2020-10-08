@@ -7,13 +7,11 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
-import com.brian.models.AuthRequest
+import com.brian.base.Prefs
+import com.brian.models.LoginData
 import com.brian.models.RegisterRequest
 import com.brian.providers.resources.ResourcesProvider
-import com.brian.repository.authRepository.AuthenticationRepository
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import com.brian.repository.authRepository.authRepository.AuthenticationRepository
 
 
 class RegisterViewModel(
@@ -21,30 +19,13 @@ class RegisterViewModel(
     private val resourcesProvider: ResourcesProvider
 ) : BaseViewModel() {
 
+    var user_name :String?= null
+
+    var isediting :Boolean = false
 
     var registerSuccess = MutableLiveData<Boolean>()
-    //var registerRequest = ObservableField<RegisterRequest>(RegisterRequest())
-//    var authRequest = ObservableField<AuthRequest>(AuthRequest())
-    var authRequest = ObservableField<RegisterRequest>(RegisterRequest())
 
-    fun setValue(){
-//        registerRequest.name = getText(authRequest.get()?.name!!)
-//        registerRequest.email = getText(authRequest.get()?.email!!)
-//        registerRequest.user_type = getText(authRequest.get()?.user_type!!)
-//        registerRequest.dob = getText(authRequest.get()?.dob!!)
-//        registerRequest.password = getText(authRequest.get()?.password!!)
-//        registerRequest.cnf_password = getText(authRequest.get()?.cnf_password!!)
-//        registerRequest.deviceType=getText("Android")
-//        registerRequest.deviceToken = getText("Asdasda")
-    }
-    fun getText(text: String):MultipartBody.Part{
-        val text = MultipartBody.Part.createFormData(
-            "text",
-            text,
-            RequestBody.create("text/*".toMediaTypeOrNull(), text)
-        )
-        return text
-    }
+    var authRequest = ObservableField<RegisterRequest>(RegisterRequest())
 
     init {
         authRequest.get()?.apply {
@@ -55,23 +36,36 @@ class RegisterViewModel(
             password = "123456"
             cnf_password = "123456"
             deviceType = "Android"
-            deviceToken ="Asdasda"
+            deviceToken = "Asdasda"
         }
     }
 
     fun onSignUpClick() {
-        if (SignUpvalidate()) {
-            setValue()
+        if(isediting){
             showLoading.postValue(true)
-            authenticationRepository.SignUpResponse(authRequest.get()!!)
-            { isSuccess, message, response ->
+            authenticationRepository.editProfile(authRequest.get()!!) { isSuccess, message, response ->
                 if (isSuccess) {
-                    showLoading.postValue(false)
-                    registerSuccess.postValue(true)
-                    showMessage.postValue(response?.message)
+                    println(response)
+                showLoading.postValue(false)
+                showMessage.postValue(response?.message)
                 } else {
-                    showLoading.postValue(false)
-                    showMessage.postValue(message)
+                showLoading.postValue(false)
+                showMessage.postValue(message)
+                }
+            }
+        }else{
+            if (SignUpvalidate()) {
+                showLoading.postValue(true)
+                authenticationRepository.SignUpResponse(authRequest.get()!!)
+                { isSuccess, message, response ->
+                    if (isSuccess) {
+                        showLoading.postValue(false)
+                        registerSuccess.postValue(true)
+                        showMessage.postValue(response?.message)
+                    } else {
+                        showLoading.postValue(false)
+                        showMessage.postValue(message)
+                    }
                 }
             }
         }
@@ -96,6 +90,9 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_passowrd))
             return false
+        } else if (authRequest.get()!!.password?.length!! >= 8) {
+            showMessage.postValue(resourcesProvider.getString(R.string.password_size))
+            return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_confirm_password))
             return false
@@ -112,8 +109,15 @@ class RegisterViewModel(
             authenticationRepository.LoginResponse(authRequest.get()!!)
             { isSuccess, message, response ->
                 if (isSuccess) {
+                    user_name = response?.data?.name
                     showLoading.postValue(false)
                     showMessage.postValue(response?.message)
+                    if (response?.data is LoginData) {
+                        val loginData: LoginData = response?.data
+                        Prefs.init().accessToken = loginData.accessToken!!
+                        Prefs.init().userInfo = loginData
+                    }
+
                 } else {
                     showLoading.postValue(false)
                     showMessage.postValue(message)
@@ -131,6 +135,9 @@ class RegisterViewModel(
             return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_password))
+            return false
+        } else if (authRequest.get()!!.password?.length!! >= 8) {
+            showMessage.postValue(resourcesProvider.getString(R.string.password_size))
             return false
         }
         return true
@@ -166,4 +173,15 @@ class RegisterViewModel(
         return true
     }
 
+    fun logOut(){
+         authenticationRepository.logOutResponse{
+                 isSuccess, message, response ->
+             if (isSuccess) {
+                 showMessage.postValue(response?.message)
+             } else {
+                 showMessage.postValue(message)
+             }
+
+         }
+    }
 }
