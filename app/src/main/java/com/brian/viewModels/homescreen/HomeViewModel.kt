@@ -3,6 +3,7 @@ package com.brian.viewModels.homescreen
 import androidx.lifecycle.MutableLiveData
 import com.brian.base.BaseViewModel
 import com.brian.internals.toArrayList
+import com.brian.models.AnswersItem
 import com.brian.models.DataItem
 import com.brian.models.QuestionData
 import com.brian.providers.resources.ResourcesProvider
@@ -13,7 +14,7 @@ class HomeViewModel(
     private val resourcesProvider: ResourcesProvider
 ) : BaseViewModel() {
 
-  var list = ArrayList<DataItem>()
+    var list = ArrayList<DataItem>()
     var data = MutableLiveData<QuestionData>()
 
     fun getDefensive() {
@@ -27,9 +28,8 @@ class HomeViewModel(
         }
     }
 
-    fun questionRespone(){
-        homeRepository.questionResponse(){
-                isSuccess, message, response ->
+    fun questionRespone() {
+        homeRepository.questionResponse() { isSuccess, message, response ->
             if (isSuccess) {
                 data.postValue(response?.data!!)
             } else {
