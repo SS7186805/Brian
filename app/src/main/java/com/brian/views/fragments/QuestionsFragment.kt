@@ -12,25 +12,29 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.QuestionsFragmentBinding
-import com.brian.internals.`interface`.ItemClickListener
+import com.brian.internals.interfaces.ItemClickListener
 import com.brian.internals.toArrayList
 import com.brian.models.AnswersItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import com.brian.views.adapters.QuestionAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.layout_question_recycler_item.*
 import kotlinx.android.synthetic.main.questions_fragment.*
 import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 
-class QuestionsFragment : ItemClickListener ,ScopedFragment(), KodeinAware {
-    override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
+class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
+    override val kodein by closestKodein()
     private val viewModelFactory: HomescreenViewModelFactory by instance()
     lateinit var mBinding: QuestionsFragmentBinding
     lateinit var mViewModel: HomeViewModel
     lateinit var questionAdapter: QuestionAdapter
     var answerlist = ArrayList<AnswersItem>()
+
+    var selectedAnswer=true
 
 
     override fun onCreateView(
@@ -60,8 +64,9 @@ class QuestionsFragment : ItemClickListener ,ScopedFragment(), KodeinAware {
 
     private fun setupRecycler() {
         mBinding.QuestionRecycler.layoutManager = GridLayoutManager(context, 2)
-        questionAdapter = QuestionAdapter(R.layout.layout_question_recycler_item,this)
+        questionAdapter = QuestionAdapter(R.layout.layout_question_recycler_item, this)
         mBinding.QuestionRecycler.adapter = questionAdapter
+        mBinding.QuestionRecycler.itemAnimator?.changeDuration=0
     }
 
     private fun setupViewModel() {
@@ -78,10 +83,17 @@ class QuestionsFragment : ItemClickListener ,ScopedFragment(), KodeinAware {
                 tv_out_score.text = it.out.toString()
                 thinkDescription.text = it.alsoThinkAboutIt
                 answerlist = it.answers!!.toArrayList()
+                setupRecycler()
                 questionAdapter.setNewItems(answerlist)
             })
         }
     }
+
+    override fun onClick(data: AnswersItem, position: Int) {
+        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()
+    }
+
+
 
     inner class ClickHandler {
         var count = 0
@@ -93,9 +105,4 @@ class QuestionsFragment : ItemClickListener ,ScopedFragment(), KodeinAware {
             }
         }
     }
-
-    override fun onClick(view: View?, position: Int) {
-
-    }
-
 }

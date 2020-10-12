@@ -249,85 +249,17 @@
                     app:layout_constraintTop_toBottomOf="@id/thinkDescription"/>
 
 
-            <!--    <TextView
-                    android:id="@+id/option1"
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/bottomGuide"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40"
-                    android:background="@drawable/btn_bg"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:paddingStart="@dimen/margin_30"
-                    android:paddingEnd="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_9"
-                    android:paddingBottom="@dimen/margin_9"
-                    android:text="@string/option1"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/px60"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
-
-                <TextView
-                    android:id="@+id/option2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40"
-                    android:background="@drawable/btn_bg"
-                    android:paddingStart="@dimen/margin_30"
-                    android:paddingEnd="@dimen/margin_30"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:paddingTop="@dimen/margin_9"
-                    android:paddingBottom="@dimen/margin_9"
-                    android:text="@string/option2"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/px60"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
-
-
-                <TextView
-                    android:id="@+id/option3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:background="@drawable/btn_bg"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:paddingStart="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_9"
-                    android:paddingEnd="@dimen/margin_30"
-                    android:paddingBottom="@dimen/margin_9"
-                    android:text="@string/option3"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/px60"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/option1" />
-
-                <TextView
-                    android:id="@+id/option4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:background="@drawable/btn_bg"
-                    android:backgroundTint="@color/grey"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:paddingStart="@dimen/margin_30"
-                    android:paddingTop="@dimen/margin_9"
-                    android:paddingEnd="@dimen/margin_30"
-                    android:paddingBottom="@dimen/margin_9"
-                    android:text="@string/option4"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/px60"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/option2" /> -->
-
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.9" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_100"
-                    android:layout_marginBottom="@dimen/margin_50"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:background="@drawable/capsuler_login_btn"
                     android:gravity="center"
                     android:fontFamily="@font/century_gothic_bold"
@@ -338,7 +270,7 @@
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/QuestionRecycler" />
+                    app:layout_constraintTop_toBottomOf="@id/bottomGuide" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

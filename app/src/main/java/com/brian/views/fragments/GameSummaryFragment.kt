@@ -13,6 +13,7 @@ import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.GameSummaryFragmentBinding
 import com.brian.databinding.PitcherFragmentBinding
 import com.brian.databinding.TrainingVideosBinding
+import com.brian.models.AnswersItem
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
@@ -26,8 +27,6 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: GameSummaryFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,

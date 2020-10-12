@@ -94,4 +94,5 @@ abstract class BaseRecyclerAdapter<T : ViewDataBinding, R> :
     fun clearOnlyList() {
         list.clear()
     }
+
 }

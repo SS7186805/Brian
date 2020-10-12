@@ -114,6 +114,7 @@ class RegisterViewModel(
                     showMessage.postValue(response?.message)
                     if (response?.data is LoginData) {
                         val loginData: LoginData = response?.data
+//                        Prefs.init().accessToken = loginData.accessToken!!
                         Prefs.init().accessToken = loginData.accessToken!!
                         Prefs.init().userInfo = loginData
                     }

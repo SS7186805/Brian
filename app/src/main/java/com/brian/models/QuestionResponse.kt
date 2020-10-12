@@ -31,13 +31,13 @@ data class QuestionData(
 	val runnersOn: Int? = null,
 
 	@field:SerializedName("updated_at")
-	val updatedAt:@RawValue Any? = null,
+	val updatedAt: @RawValue Any? = null,
 
 	@field:SerializedName("answers")
 	val answers: List<AnswersItem>? = null,
 
 	@field:SerializedName("created_at")
-	val createdAt:@RawValue Any? = null,
+	val createdAt: @RawValue Any? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,
@@ -46,7 +46,7 @@ data class QuestionData(
 	val youAre: Int? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt:@RawValue Any? = null,
+	val deletedAt: @RawValue Any? = null,
 
 	@field:SerializedName("out")
 	val out: Int? = null,
@@ -62,10 +62,10 @@ data class AnswersItem(
 	val answer: String? = null,
 
 	@field:SerializedName("updated_at")
-	val updatedAt:@RawValue Any? = null,
+	val updatedAt: @RawValue Any? = null,
 
 	@field:SerializedName("created_at")
-	val createdAt:@RawValue Any? = null,
+	val createdAt: @RawValue Any? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,
@@ -74,9 +74,15 @@ data class AnswersItem(
 	val questionId: Int? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt:@RawValue Any? = null,
+	val deletedAt: @RawValue Any? = null,
 
 	@field:SerializedName("is_correct")
-	val isCorrect: Int? = null
+	val isCorrect: Int? = null,
+
+	@field:SerializedName("selected")
+	var selected: String? = null,
+
+	@field:SerializedName("correct")
+	var correct: Int? = null
 
 ) : Parcelable

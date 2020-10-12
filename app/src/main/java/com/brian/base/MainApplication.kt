@@ -3,7 +3,6 @@ package com.brian.base
 import android.app.Application
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandler
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandlerImpl
-import com.brian.internals.`interface`.ItemClickListener
 import com.brian.network.APIService
 import com.brian.network.dataSource.authDataSource.AuthenticationDataSource
 import com.brian.network.dataSource.authDataSource.AuthenticationDataSourceImp
@@ -23,8 +22,6 @@ import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
 import com.brian.viewModels.register.RegisterViewModelFactory
-import com.brian.views.adapters.QuestionAdapter
-import com.brian.views.fragments.QuestionsFragment
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -45,6 +42,7 @@ class MainApplication : Application(),KodeinAware{
         import(androidXModule(this@MainApplication))
 
         bind() from singleton { APIService() }
+
         bind<ResourcesProvider>() with singleton {
             ResourcesProviderImpl(instance())
         }
