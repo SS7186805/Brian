@@ -27,14 +27,14 @@ class RegisterViewModel(
 
     var authRequest = ObservableField<RegisterRequest>(RegisterRequest())
 
-    init {
+   init {
         authRequest.get()?.apply {
-            name = "shivam"
-            email = "uic.17bca14021@gmail.com"
-            dob = "2020-10-01"
-            user_type = "Players"
-            password = "123456"
-            cnf_password = "123456"
+//            name = "shivam"
+//            email = "uic.17bca14021@gmail.com"
+//            dob = "2020-10-01"
+//            user_type = "Players"
+//            password = "123456"
+//            cnf_password = "123456"
             deviceType = "Android"
             deviceToken = "Asdasda"
         }
@@ -90,7 +90,7 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_passowrd))
             return false
-        } else if (authRequest.get()!!.password?.length!! >= 8) {
+        } else if (authRequest.get()!!.password?.length!! <= 8) {
             showMessage.postValue(resourcesProvider.getString(R.string.password_size))
             return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {
@@ -137,7 +137,7 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_password))
             return false
-        } else if (authRequest.get()!!.password?.length!! >= 8) {
+        } else if (authRequest.get()!!.password?.length!! <= 8) {
             showMessage.postValue(resourcesProvider.getString(R.string.password_size))
             return false
         }

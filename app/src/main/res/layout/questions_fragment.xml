@@ -188,7 +188,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/Questiontitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_40"
@@ -211,7 +211,7 @@
                     android:textColor="@color/text_Color_drawer_item"
                     android:textSize="@dimen/px40"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title" />
+                    app:layout_constraintTop_toBottomOf="@id/Questiontitle" />
 
 
                 <TextView

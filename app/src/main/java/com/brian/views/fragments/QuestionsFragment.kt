@@ -1,10 +1,12 @@
 package com.brian.views.fragments
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.brian.databinding.QuestionsFragmentBinding
 import com.brian.internals.interfaces.ItemClickListener
 import com.brian.internals.toArrayList
 import com.brian.models.AnswersItem
+import com.brian.models.QuestionData
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import com.brian.views.adapters.QuestionAdapter
@@ -33,8 +36,12 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
     lateinit var mViewModel: HomeViewModel
     lateinit var questionAdapter: QuestionAdapter
     var answerlist = ArrayList<AnswersItem>()
-
-    var selectedAnswer=true
+    var count = 0
+    var currentSelect:Int = 0
+    var previousSelect:Int=0
+    var correctAnswer:Int=0
+    var wrongeAnswer:Int=0
+    var questionSummary=ArrayList<QuestionData>()
 
 
     override fun onCreateView(
@@ -53,6 +60,8 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+        if (count<=5)
+        mBinding.Questiontitle.setText("Question ${count+1}")
 
 
         setUpObserver()
@@ -83,25 +92,63 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
                 tv_out_score.text = it.out.toString()
                 thinkDescription.text = it.alsoThinkAboutIt
                 answerlist = it.answers!!.toArrayList()
+                questionSummary.add(it)
                 setupRecycler()
                 questionAdapter.setNewItems(answerlist)
             })
         }
     }
 
-    override fun onClick(data: AnswersItem, position: Int) {
-        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()
+    override fun onClick(data: AnswersItem, position: Int,correct:Boolean) {
+//        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()
+        ++currentSelect
+        if(correct && count==0){
+            correctAnswer++
+            view1.setBackgroundResource(R.drawable.green_dot)
+        }else if (!correct && count==0){
+            wrongeAnswer++
+            view1.setBackgroundResource(R.drawable.red_dot)
+        }else if(correct && count==1){
+            correctAnswer++
+            view2.setBackgroundResource(R.drawable.green_dot)
+        }else if(!correct && count==1){
+            wrongeAnswer++
+            view2.setBackgroundResource(R.drawable.red_dot)
+        }else if(correct && count==2){
+            correctAnswer++
+            view3.setBackgroundResource(R.drawable.green_dot)
+        }else if(!correct && count==2){
+            wrongeAnswer++
+            view3.setBackgroundResource(R.drawable.red_dot)
+        }else if(correct && count==3){
+            correctAnswer++
+            view4.setBackgroundResource(R.drawable.green_dot)
+        }else if(!correct && count==3){
+            wrongeAnswer++
+            view4.setBackgroundResource(R.drawable.red_dot)
+        }else if(correct && count==4){
+            correctAnswer++
+            view5.setBackgroundResource(R.drawable.green_dot)
+        }else if(!correct && count==4){
+            wrongeAnswer++
+            view5.setBackgroundResource(R.drawable.red_dot)
+        }
+
     }
 
-
-
     inner class ClickHandler {
-        var count = 0
-        fun onNextClick() {
-            count++
-            mViewModel.questionRespone()
-            if (count == 5) {
-                findNavController().navigate(R.id.gameSummaryFragment)
+
+        fun onNextClick(){
+            if(currentSelect==previousSelect+1){
+                previousSelect=currentSelect
+                count++
+                Questiontitle.setText("Question ${count+1}")
+                mViewModel.questionRespone()
+                if (count == 5) {
+                    println("correctAnswer->$correctAnswer")
+                    println("wrongeAnswer->$wrongeAnswer")
+                    findNavController().navigate(R.id.gameSummaryFragment, bundleOf("correctAnswer" to correctAnswer,"wrongeAnswer" to wrongeAnswer,"questionSammary" to questionSummary ))
+            }
             }
         }
     }

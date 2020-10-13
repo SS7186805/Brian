@@ -1,167 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_10"
-    app:cardBackgroundColor="@color/question_card_bg"
-    app:cardCornerRadius="@dimen/margin_10">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="gameSummary"
+            type="com.brian.models.QuestionData" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/summaryCardview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/question_card_bg"
-        android:paddingStart="@dimen/margin_20"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingEnd="@dimen/margin_20"
-        android:paddingBottom="@dimen/margin_10">
+        android:layout_marginBottom="@dimen/margin_10"
+        app:cardBackgroundColor="@color/question_card_bg"
+        app:cardCornerRadius="@dimen/margin_10">
 
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/century_gothic_bold"
-            android:text="@string/question1"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/px40"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_5"
-            android:fontFamily="@font/century_gothic"
-            android:text="@string/dummy_content_short"
-            android:textColor="@color/text_Color_drawer_item"
-            android:textSize="@dimen/px40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-
-        <TextView
-            android:id="@+id/thinktext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:fontFamily="@font/century_gothic_bold"
-            android:text="@string/think_about"
-            android:textColor="@color/yellow"
-            android:textSize="@dimen/px40"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/description" />
-
-
-        <TextView
-            android:id="@+id/thinkDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_5"
-            android:fontFamily="@font/century_gothic"
-            android:text="@string/dummy_content_short"
-            android:textColor="@color/text_Color_drawer_item"
-            android:textSize="@dimen/px40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thinktext" />
-
-
-        <TextView
-            android:id="@+id/option1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_40"
-            android:background="@drawable/btn_bg"
-            android:backgroundTint="@color/red"
-            android:fontFamily="@font/century_gothic_bold"
-            android:paddingStart="@dimen/margin_30"
-            android:paddingTop="@dimen/margin_9"
-            android:paddingEnd="@dimen/margin_30"
-            android:paddingBottom="@dimen/margin_9"
-            android:text="@string/option1"
-            android:textColor="@color/black"
-            android:textSize="@dimen/px60"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
-
-        <TextView
-            android:id="@+id/option2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_40"
-            android:background="@drawable/btn_bg"
-
-            android:backgroundTint="@color/grey"
-            android:fontFamily="@font/century_gothic_bold"
-            android:paddingStart="@dimen/margin_30"
-            android:paddingTop="@dimen/margin_9"
-            android:paddingEnd="@dimen/margin_30"
-            android:paddingBottom="@dimen/margin_9"
-            android:text="@string/option2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/px60"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
-
-
-        <TextView
-            android:id="@+id/option3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:background="@drawable/btn_bg"
-            android:backgroundTint="@color/grey"
-            android:fontFamily="@font/century_gothic_bold"
-            android:paddingStart="@dimen/margin_30"
-            android:paddingTop="@dimen/margin_9"
-            android:paddingEnd="@dimen/margin_30"
-            android:paddingBottom="@dimen/margin_9"
-            android:text="@string/option3"
-            android:textColor="@color/black"
-            android:textSize="@dimen/px60"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/option1" />
-
-        <TextView
-            android:id="@+id/option4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:background="@drawable/btn_bg"
-            android:backgroundTint="@color/green"
-            android:fontFamily="@font/century_gothic_bold"
-            android:paddingStart="@dimen/margin_30"
-            android:paddingTop="@dimen/margin_9"
-            android:paddingEnd="@dimen/margin_30"
-            android:paddingBottom="@dimen/margin_9"
-            android:text="@string/option4"
-            android:textColor="@color/black"
-            android:textSize="@dimen/px60"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/option2" />
-
-        <TextView
-            android:id="@+id/correctAnswer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:fontFamily="@font/century_gothic_bold"
+            android:background="@color/question_card_bg"
+            android:paddingStart="@dimen/margin_20"
             android:paddingTop="@dimen/margin_10"
             android:paddingEnd="@dimen/margin_20"
-            android:paddingBottom="@dimen/margin_10"
-            android:text="@string/correctAnswer"
-            android:textColor="@color/green"
-            android:textSize="@dimen/px40"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/option3" />
+            android:paddingBottom="@dimen/margin_10">
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/century_gothic_bold"
+                android:text="@string/question1"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/px40"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/century_gothic"
+                android:text="@{gameSummary.question}"
+                android:textColor="@color/text_Color_drawer_item"
+                android:textSize="@dimen/px40"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+            <TextView
+                android:id="@+id/thinktext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:fontFamily="@font/century_gothic_bold"
+                android:text="@string/think_about"
+                android:textColor="@color/yellow"
+                android:textSize="@dimen/px40"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description" />
+
+
+            <TextView
+                android:id="@+id/thinkDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
+                android:fontFamily="@font/century_gothic"
+                android:text="@{gameSummary.alsoThinkAboutIt}"
+                android:textColor="@color/text_Color_drawer_item"
+                android:textSize="@dimen/px40"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thinktext" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/QuestionSummaryRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thinkDescription"/>
+
+            <TextView
+                android:id="@+id/correctAnswer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:fontFamily="@font/century_gothic_bold"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingEnd="@dimen/margin_20"
+                android:paddingBottom="@dimen/margin_10"
+                android:text="@string/correctAnswer"
+                android:textColor="@color/green"
+                android:textSize="@dimen/px40"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/QuestionSummaryRecycler" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

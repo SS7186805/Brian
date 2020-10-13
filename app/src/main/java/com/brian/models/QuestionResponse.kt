@@ -82,7 +82,8 @@ data class AnswersItem(
 	@field:SerializedName("selected")
 	var selected: String? = null,
 
-	@field:SerializedName("correct")
-	var correct: Int? = null
+	@field:SerializedName("isTrue")
+	var isTrue: Int? = null
+
 
 ) : Parcelable

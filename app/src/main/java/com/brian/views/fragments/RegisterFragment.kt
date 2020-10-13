@@ -85,8 +85,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             findNavController().navigateUp()
         }
 
-        list.add("Male")
-        list.add("Female")
+        list.add("Players")
+        list.add("Coaches")
+        list.add("Scouts")
+        list.add("Trainers")
 
         val arrayAdapter: ArrayAdapter<String> =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
@@ -221,7 +223,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 )
                 println("filePart->$filePart")
 //                mViewModel.authRequest.get()!!.profile_picture = filePart
-                mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
+              //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
                 circler_image.setImageBitmap(photo)
             } else if (requestCode == 2) {
                 val SelectedImage = data?.data as Uri
@@ -234,7 +236,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 )
                 println("filePart->$filePart")
 //                mViewModel.authRequest.get()!!.profile_picture = filePart
-                mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
+              //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
 
 //                val selectedImage = data?.data
 //                val filePath = arrayOf(MediaStore.Images.Media.DATA)
@@ -319,9 +321,9 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             hideKeyboard(requireView())
             Utils.init.selectDate(
                 requireContext(),
-                Utils.init.getCurrentDate(),
+                mBinding.regDOB.text.toString(),
                 mBinding.regDOB,
-                false
+                true
             )
         }
     }

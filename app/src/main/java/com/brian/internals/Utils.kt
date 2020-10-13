@@ -219,7 +219,7 @@ class Utils private constructor() {
             }
         }
         if (date != null) {
-            currentTime = SimpleDateFormat("dd/MM/yyyy").format(date)
+            currentTime = SimpleDateFormat("yyyy-MM-dd").format(date)
         }
         return currentTime
     }
@@ -243,6 +243,7 @@ class Utils private constructor() {
 
     fun getCurrentDate(): String {
         val df = SimpleDateFormat("dd/MM/yyyy")
+        //val df = SimpleDateFormat("yyyy-MM-dd")
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = Calendar.getInstance().timeInMillis
         return df.format(calendar.time)
