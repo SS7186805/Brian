@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.base.Prefs
+import com.brian.models.BaseResponse
 import com.brian.models.LoginData
 import com.brian.models.RegisterRequest
 import com.brian.providers.resources.ResourcesProvider
@@ -19,15 +20,15 @@ class RegisterViewModel(
     private val resourcesProvider: ResourcesProvider
 ) : BaseViewModel() {
 
-    var user_name :String?= null
+    var user_name: String? = null
 
-    var isediting :Boolean = false
+    var isediting: Boolean = false
 
     var registerSuccess = MutableLiveData<Boolean>()
 
     var authRequest = ObservableField<RegisterRequest>(RegisterRequest())
 
-   init {
+    init {
         authRequest.get()?.apply {
 //            name = "shivam"
 //            email = "uic.17bca14021@gmail.com"
@@ -41,19 +42,21 @@ class RegisterViewModel(
     }
 
     fun onSignUpClick() {
-        if(isediting){
-            showLoading.postValue(true)
-            authenticationRepository.editProfile(authRequest.get()!!) { isSuccess, message, response ->
-                if (isSuccess) {
-                    println(response)
-                showLoading.postValue(false)
-                showMessage.postValue(response?.message)
-                } else {
-                showLoading.postValue(false)
-                showMessage.postValue(message)
+        if (isediting) {
+            if (editValidation()) {
+                showLoading.postValue(true)
+                authenticationRepository.editProfile(authRequest.get()!!) { isSuccess, message, response ->
+                    if (isSuccess) {
+                        println(response)
+                        showLoading.postValue(false)
+                        showMessage.postValue(response?.message)
+                    } else {
+                        showLoading.postValue(false)
+                        showMessage.postValue(message)
+                    }
                 }
             }
-        }else{
+        } else {
             if (SignUpvalidate()) {
                 showLoading.postValue(true)
                 authenticationRepository.SignUpResponse(authRequest.get()!!)
@@ -62,6 +65,12 @@ class RegisterViewModel(
                         showLoading.postValue(false)
                         registerSuccess.postValue(true)
                         showMessage.postValue(response?.message)
+                        if (response?.data is LoginData) {
+                            val loginData: LoginData = response?.data
+//                        Prefs.init().accessToken = loginData.accessToken!!
+                            Prefs.init().accessToken = loginData.accessToken!!
+                            Prefs.init().userInfo = loginData
+                        }
                     } else {
                         showLoading.postValue(false)
                         showMessage.postValue(message)
@@ -69,6 +78,27 @@ class RegisterViewModel(
                 }
             }
         }
+    }
+
+    fun editValidation(): Boolean {
+        if (TextUtils.isEmpty(authRequest.get()!!.name)) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
+            return false
+        } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
+            return false
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(authRequest.get()!!.email).matches()) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Valid_Email))
+            return false
+        } else if (TextUtils.isEmpty(authRequest.get()!!.user_type)) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Select_User_type))
+            return false
+        } else if (TextUtils.isEmpty(authRequest.get()!!.dob)) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_date_birth))
+            return false
+        }
+        return true
+
     }
 
     fun SignUpvalidate(): Boolean {
@@ -81,17 +111,14 @@ class RegisterViewModel(
         } else if (!Patterns.EMAIL_ADDRESS.matcher(authRequest.get()!!.email).matches()) {
             showMessage.postValue(resourcesProvider.getString(R.string.Valid_Email))
             return false
-        } else if (TextUtils.isEmpty(authRequest.get()!!.dob)) {
-            showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_date_birth))
-            return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.user_type)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Select_User_type))
             return false
+        } else if (TextUtils.isEmpty(authRequest.get()!!.dob)) {
+            showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_date_birth))
+            return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_passowrd))
-            return false
-        } else if (authRequest.get()!!.password?.length!! <= 8) {
-            showMessage.postValue(resourcesProvider.getString(R.string.password_size))
             return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_confirm_password))
@@ -137,9 +164,6 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_password))
             return false
-        } else if (authRequest.get()!!.password?.length!! <= 8) {
-            showMessage.postValue(resourcesProvider.getString(R.string.password_size))
-            return false
         }
         return true
     }
@@ -174,15 +198,14 @@ class RegisterViewModel(
         return true
     }
 
-    fun logOut(){
-         authenticationRepository.logOutResponse{
-                 isSuccess, message, response ->
-             if (isSuccess) {
-                 showMessage.postValue(response?.message)
-             } else {
-                 showMessage.postValue(message)
-             }
+    fun logOut() {
+        authenticationRepository.logOutResponse { isSuccess, message, response ->
+            if (isSuccess) {
+                showMessage.postValue(response?.message)
+            } else {
+                showMessage.postValue(message)
+            }
 
-         }
+        }
     }
 }

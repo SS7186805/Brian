@@ -20,9 +20,7 @@ class QuestionAdapter(override val layoutId: Int, private var clickListener: Ite
         if (selectedIndex > -1) {
             if (item.isCorrect == iscorrect) {
                 holder.binding.option.setCardBackgroundColor(Color.GREEN)
-                item.isTrue=1
             } else if (position == selectedIndex) {
-                item.isTrue=0
                 holder.binding.option.setCardBackgroundColor(Color.RED)
             } else holder.binding.option.setCardBackgroundColor(Color.GRAY)
         }
@@ -30,6 +28,7 @@ class QuestionAdapter(override val layoutId: Int, private var clickListener: Ite
         holder.itemView.setOnClickListener {
             if (selectedIndex == -1) {
                 selectedIndex = position
+                item.selected=item.answer
                 item.selected=list[position].answer
                 clickListener.onClick(list[position], position,item.isCorrect== iscorrect)
                 notifyDataSetChanged()

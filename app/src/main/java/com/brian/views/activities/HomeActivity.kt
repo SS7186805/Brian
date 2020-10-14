@@ -17,12 +17,16 @@ import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
+import com.brian.base.Prefs
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ActivityMainBinding
+import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.header_layout.*
+import kotlinx.android.synthetic.main.header_layout.view.*
 import kotlinx.android.synthetic.main.messages.*
 
 
@@ -45,6 +49,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         navController.addOnDestinationChangedListener(this)
         setAdapter()
         setDrawer()
+
     }
 
 
@@ -182,6 +187,8 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.root.let {
                 hideKeyboard(it)
             }
+            val login: LoginData? = Prefs.init().userInfo
+            name.text=login?.name
             mBinding.drawerLayout.openDrawer(LEFT)
 
         }

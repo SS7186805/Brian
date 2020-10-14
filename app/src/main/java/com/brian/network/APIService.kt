@@ -17,9 +17,10 @@ import retrofit2.http.*
 import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.util.concurrent.TimeUnit
 
 
-const val BASE_URL = "http://1.6.98.142/brain/"
+const val BASE_URL = "http://1.6.98.142/brian_m4/"
 
 interface APIService {
 
@@ -68,7 +69,9 @@ interface APIService {
                 OkHttpClient.Builder().addInterceptor(provideHeaderInterceptor()!!)
                     .addInterceptor(ForbiddenInterceptor())
                     .addInterceptor(provideHttpLoggingInterceptor()!!)
-                    .addInterceptor(ExceptionInterceptor()).build()
+                    .addInterceptor(ExceptionInterceptor())
+                    .writeTimeout(1, TimeUnit.MINUTES)
+                    .readTimeout(1, TimeUnit.MINUTES).build()
 
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

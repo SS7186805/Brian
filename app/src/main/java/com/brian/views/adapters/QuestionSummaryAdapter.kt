@@ -16,14 +16,10 @@ class QuestionSummaryAdapter(override val layoutId: Int) :
     override fun bind(holder: ViewHolder, item: AnswersItem, position: Int) {
         holder.binding.questionSet = item
 
-
-        if(item.isCorrect==1){
-            holder.binding.option.setCardBackgroundColor(Color.GREEN)
-        }
-        if (item.isCorrect==item.isTrue){
-            if(item.isTrue==1){
+        if(item.selected==item.answer){
+            if(item.isCorrect==1){
                 holder.binding.option.setCardBackgroundColor(Color.GREEN)
-            }else if(item.isTrue==0){
+            }else if(item.isCorrect==0){
                 holder.binding.option.setCardBackgroundColor(Color.RED)
             }
         }

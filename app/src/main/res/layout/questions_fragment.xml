@@ -204,12 +204,12 @@
                     android:id="@+id/description"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_5"
                     android:fontFamily="@font/century_gothic"
                     android:text="@string/dummy_content_short"
                     android:textColor="@color/text_Color_drawer_item"
                     android:textSize="@dimen/px40"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/Questiontitle" />
 

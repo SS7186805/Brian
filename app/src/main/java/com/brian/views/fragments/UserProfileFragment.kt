@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
+import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.*
+import com.brian.models.LoginData
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
@@ -44,7 +46,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
             findNavController().navigateUp()
         }
         setAdapter()
-
+        val login: LoginData = Prefs.init().userInfo!!
+        mBinding.type.text=login.userType
         return mBinding.root
     }
 

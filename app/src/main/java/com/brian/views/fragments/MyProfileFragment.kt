@@ -55,8 +55,10 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     private fun setupObserver(){
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
-                if (!TextUtils.isEmpty(it))
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                if (!TextUtils.isEmpty(it)){
+
+                }
+                    //Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             })
         }
     }
@@ -106,9 +108,9 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     override fun onClickYes() {
         mViewModel.logOut()
         Prefs.init().isLogIn="false"
+        Toast.makeText(requireContext(),"Logged out successfully!", Toast.LENGTH_SHORT).show()
         startActivity(Intent(requireContext(),AccountHandlerActivity::class.java))
         (requireActivity() as HomeActivity).finish()
-
     }
 
     override fun onClickNo() {

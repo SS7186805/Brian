@@ -35,6 +35,8 @@ import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentRegisterBinding
 import com.brian.internals.DialogUtil
 import com.brian.internals.Utils
+import com.brian.models.BaseResponse
+import com.brian.models.LoginData
 import com.brian.models.RegisterRequest
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
@@ -42,6 +44,7 @@ import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.header_layout.*
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -87,8 +90,11 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 
         list.add("Players")
         list.add("Coaches")
-        list.add("Scouts")
         list.add("Trainers")
+        list.add("Scouts")
+        list.add("Managers")
+        list.add("Parents")
+
 
         val arrayAdapter: ArrayAdapter<String> =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
@@ -105,7 +111,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regUserType.showDropDown()
         }
 
-        if (checkPermission()) selectImage() else requestPermission()
+//        if (checkPermission()) selectImage() else requestPermission()
         return mBinding.root
     }
 
@@ -127,7 +133,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     DialogUtil.build(requireContext()) {
                         title = getString(R.string.success)
                         dialogType = DialogUtil.DialogType.SUCCESS
-                        message = "success"
+                        message =  getString(R.string.register_message)
                         successClickListener = this@RegisterFragment
                     }
                 }
@@ -135,26 +141,35 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PERMISSION_REQUEST_CODE -> {
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//    }
+//
+//    override fun onResume() {
+//        super.onResume()
+//        mViewModel.showMessage.postValue("")
+//    }
 
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                ) {
-                    selectImage()
-                } else {
-                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
-                }
-                return
-            }
-
-            else -> {
-            }
-        }
-    }
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
+//    ) {
+//        when (requestCode) {
+//            PERMISSION_REQUEST_CODE -> {
+//
+//                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+//                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
+//                ) {
+//                    selectImage()
+//                } else {
+//                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
+//                }
+//                return
+//            }
+//
+//            else -> {
+//            }
+//        }
+//    }
 
 
     private fun checkPermission(): Boolean {
@@ -300,7 +315,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     inner class ClickHandler {
 
         fun onclickAddImage() {
-            if (checkPermission()) selectImage() else requestPermission()
+
+            if (checkPermission()){
+                selectImage()
+            }
+            else{
+                requestPermission()
+            }
         }
 
         fun onRegisterClick() {
@@ -328,6 +349,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         }
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -340,9 +362,16 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regName.setText(getString(R.string.user_name))
             mBinding.regEmail.setText("abc@gmail.com")
             mBinding.regDOB.setText(Utils.init.getCurrentDate())
-            mBinding.regDOB.visibility = GONE
-            mBinding.regUserType.visibility = GONE
-            mBinding.calender.visibility = GONE
+//            val login: LoginData? = Prefs.init().userInfo
+//            mBinding.regDOB.isEnabled=false
+//            mBinding.regDOB.setText(login?.dob)
+//            mBinding.regUserType.isEnabled=false
+//            mBinding.regUserType.setText(login?.userType)
+
+
+//            mBinding.regDOB.visibility = GONE
+//            mBinding.regUserType.visibility = GONE
+//            mBinding.calender.visibility = GONE
 
         }
     }

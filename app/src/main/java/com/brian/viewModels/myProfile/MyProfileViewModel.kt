@@ -11,16 +11,16 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
 
     var change = ObservableField<ChangePassword>(ChangePassword())
 
-    init {
-        change.get()?.apply {
-            old_password = "123456"
-            new_password = "1234567"
-            confirm_password = "1234567"
-        }
-    }
+//    init {
+//        change.get()?.apply {
+//            old_password = "123456"
+//            new_password = "1234567"
+//            confirm_password = "1234567"
+//        }
+//    }
 
     fun changePassword() {
-        if (validation()) {
+//        if (validation()) {
             showLoading.postValue(true)
             myProfileRepository.changePassword(change.get()!!) { isSuccess, message, response ->
                 if (isSuccess) {
@@ -31,21 +31,18 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
                     showMessage.postValue(message)
                 }
             }
-        }
+       // }
     }
 
     fun validation(): Boolean {
         if (TextUtils.isEmpty(change.get()!!.old_password)) {
-            showMessage.postValue("Enter Old Password")
+            showMessage.postValue("Pleae enter Old Password")
             return false
         } else if (TextUtils.isEmpty(change.get()!!.new_password)) {
-            showMessage.postValue("Enter New Pasword")
+            showMessage.postValue("Please enter New Pasword")
             return false
         } else if (TextUtils.isEmpty(change.get()!!.confirm_password)) {
-            showMessage.postValue("Enter Confirm Pasword")
-            return false
-        } else if (change.get()!!.new_password != change.get()!!.confirm_password) {
-            showMessage.postValue("Enter Same Pasword")
+            showMessage.postValue("Please enter Confirm Pasword")
             return false
         }
         return true
