@@ -7,26 +7,16 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.GameSummaryFragmentBinding
-import com.brian.databinding.PitcherFragmentBinding
-import com.brian.databinding.TrainingVideosBinding
-import com.brian.models.AnswersItem
+import com.brian.internals.interfaces.onBackPress
 import com.brian.models.QuestionData
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.GameSummaryAdapter
-import com.brian.views.adapters.QuestionAdapter
-import com.brian.views.adapters.QuestionSummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.game_summary_fragment.*
-import kotlinx.android.synthetic.main.question_item.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -65,10 +55,13 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
         mBinding.recyclerGameSummary.adapter = gameSummaryAdapter
     }
 
+
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -88,4 +81,10 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
         }
 
     }
+
+
+
+
+
+
 }

@@ -38,6 +38,7 @@
             app:layout_constraintGuide_percent="0.97" />
 
         <ScrollView
+            android:id="@+id/registerScroll"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -227,7 +228,6 @@
                     android:layout_marginBottom="@dimen/margin_80"
                     android:background="@drawable/bt_bg_dialog"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:onClick="@{() -> viewModel.onSignUpClick()}"
                     android:padding="@dimen/margin_10"
                     android:text="@string/register"
                     android:textAllCaps="false"

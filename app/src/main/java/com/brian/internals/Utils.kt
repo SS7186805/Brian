@@ -10,15 +10,15 @@ import android.text.Spanned
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.DatePicker
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.brian.R
 import com.brian.models.LoginData
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -197,7 +197,7 @@ class Utils private constructor() {
         )
         if (disableFutureDate) {
             val dob = Calendar.getInstance()
-            dob.set(Calendar.YEAR, 2004)
+            dob.set(Calendar.YEAR, 2008)
             datePickerDialog?.datePicker?.maxDate = dob.time.time
         } else {
             startDate?.let {
@@ -288,8 +288,26 @@ fun String.convertJSON(className: LoginData): LoginData {
     return Gson().fromJson<LoginData>(this, LoginData::class.java)
 }
 
-fun <T>List<T>.toArrayList():ArrayList<T>{
+fun <T> List<T>.toArrayList(): ArrayList<T> {
     val temp = ArrayList<T>()
     temp.addAll(this)
     return temp
+}
+
+fun ScrollView.scrollToEditText(et: View) {
+    smoothScrollTo(et.left, et.top)
+}
+
+fun Context.showToast(msg: String) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+}
+
+fun Activity.keyboardListener(keyboard: (isOpen: Boolean) -> Unit) {
+    KeyboardVisibilityEvent.setEventListener(
+        this,
+        object : KeyboardVisibilityEventListener {
+            override fun onVisibilityChanged(isOpen: Boolean) {
+                keyboard(isOpen)
+            }
+        })
 }

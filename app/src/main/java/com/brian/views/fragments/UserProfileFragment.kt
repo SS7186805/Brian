@@ -20,6 +20,7 @@ import com.brian.views.adapters.BadgesAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
+import kotlin.math.log
 
 class UserProfileFragment : ScopedFragment(), KodeinAware {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
@@ -48,6 +49,7 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         setAdapter()
         val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text=login.userType
+        mBinding.dob.text= "Born on: ${login.dob}"
         return mBinding.root
     }
 

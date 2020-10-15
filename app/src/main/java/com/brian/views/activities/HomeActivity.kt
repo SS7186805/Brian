@@ -20,6 +20,7 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ActivityMainBinding
+import com.brian.internals.interfaces.onBackPress
 import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
@@ -246,11 +247,15 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
     override fun onBackPressed() {
-        if (!navController.navigateUp()) {
+        if(navController.currentDestination?.id==R.id.gameSummaryFragment){
+            navController.navigate(R.id.homeFragment)
+        }
+        else if (!navController.navigateUp()) {
             finish()
         }
-
     }
+
+
 }
 
 

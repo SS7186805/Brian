@@ -46,8 +46,31 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler{
 
         fun onPitcherClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Pitcher" ))
         }
-
+        fun onCatcherClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Catcher" ))
+        }
+        fun onFirstBaseClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "FirstBase" ))
+        }
+        fun onSecondBaseClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "SecondBase" ))
+        }
+        fun onThirdBaseClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "ThirdBase" ))
+        }
+        fun onShortStepClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "ShortStep" ))
+        }
+        fun onLeftFieldClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "LeftField" ))
+        }
+        fun onCenterFieldClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "CenterField" ))
+        }
+        fun onRightFieldClick(){
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "RightField" ))
+        }
     }
 }

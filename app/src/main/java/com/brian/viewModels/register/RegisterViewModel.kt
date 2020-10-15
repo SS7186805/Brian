@@ -138,6 +138,7 @@ class RegisterViewModel(
                 if (isSuccess) {
                     user_name = response?.data?.name
                     showLoading.postValue(false)
+                    registerSuccess.postValue(true)
                     showMessage.postValue(response?.message)
                     if (response?.data is LoginData) {
                         val loginData: LoginData = response?.data
@@ -148,6 +149,7 @@ class RegisterViewModel(
 
                 } else {
                     showLoading.postValue(false)
+                    registerSuccess.postValue(false)
                     showMessage.postValue(message)
                 }
             }

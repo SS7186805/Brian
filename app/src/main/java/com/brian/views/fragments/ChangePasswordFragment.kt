@@ -14,6 +14,7 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChangePasswordFragmentBinding
+import com.brian.internals.ClickGuard
 import com.brian.internals.DialogUtil
 import com.brian.viewModels.myProfile.MyProfileViewModel
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
@@ -50,13 +51,20 @@ class ChangePasswordFragment : ScopedFragment(), KodeinAware, DialogUtil.Success
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
-
+        setupClickListeners()
         return mBinding.root
     }
 
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(MyProfileViewModel::class.java)
+    }
+
+    private fun setupClickListeners() {
+        mBinding.apply {
+            update.setOnClickListener { mViewModel.changePassword() }
+            ClickGuard.guard(update)
+        }
     }
 
     private fun setupObserver(){

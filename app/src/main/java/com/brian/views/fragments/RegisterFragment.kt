@@ -6,25 +6,21 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Log
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ScrollView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
@@ -33,19 +29,15 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentRegisterBinding
-import com.brian.internals.DialogUtil
-import com.brian.internals.Utils
-import com.brian.models.BaseResponse
+import com.brian.internals.*
 import com.brian.models.LoginData
-import com.brian.models.RegisterRequest
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
+import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.header_layout.*
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -98,21 +90,36 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 
         val arrayAdapter: ArrayAdapter<String> =
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
-        mBinding.regUserType.setAdapter(arrayAdapter)
-        mBinding.regUserType.setInputType(0)
+        mBinding.apply {
+            regUserType.setAdapter(arrayAdapter)
+            regUserType.setInputType(0)
+            regUserType.setOnClickListener {
+                regUserType.showDropDown()
+            }
+            regUserType.setOnFocusChangeListener { v, hasFocus ->
+                regUserType.showDropDown()
+            }
 
+            regPassword.setOnFocusChangeListener { v, hasFocus ->
+               if(hasFocus) registerScroll.scrollToEditText(v)
+            }
 
-        mBinding.regUserType.setOnClickListener {
-            mBinding.regUserType.showDropDown()
-
+            regCnfPassword.setOnFocusChangeListener { v, hasFocus ->
+                if(hasFocus) registerScroll.scrollToEditText(v)
+            }
         }
 
-        mBinding.regUserType.setOnFocusChangeListener { v, hasFocus ->
-            mBinding.regUserType.showDropDown()
-        }
 
-//        if (checkPermission()) selectImage() else requestPermission()
+        keyboardListener()
+        setupClickListeners()
         return mBinding.root
+    }
+
+    private fun setupClickListeners() {
+        mBinding.apply {
+            registerButton.setOnClickListener { mViewModel.onSignUpClick() }
+            ClickGuard.guard(registerButton)
+        }
     }
 
     private fun setupObserver() {
@@ -133,7 +140,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     DialogUtil.build(requireContext()) {
                         title = getString(R.string.success)
                         dialogType = DialogUtil.DialogType.SUCCESS
-                        message =  getString(R.string.register_message)
+                        message = getString(R.string.register_message)
                         successClickListener = this@RegisterFragment
                     }
                 }
@@ -141,63 +148,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         }
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        mViewModel.showMessage.postValue("")
-//    }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-//    ) {
-//        when (requestCode) {
-//            PERMISSION_REQUEST_CODE -> {
-//
-//                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-//                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-//                ) {
-//                    selectImage()
-//                } else {
-//                    Toast.makeText(context, "Permission Denied", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//
-//            else -> {
-//            }
-//        }
-//    }
-
-
-    private fun checkPermission(): Boolean {
-        return (ContextCompat.checkSelfPermission(
-            requireContext(),
-            CAMERA
-        ) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED) &&
-                ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE, CAMERA),
-            PERMISSION_REQUEST_CODE
-        )
-    }
-
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
+        mViewModel.showMessage.postValue("")
     }
 
     private fun selectImage() {
@@ -223,11 +177,21 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         builder.show()
     }
 
+    fun base64(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        val encoded: String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+        return encoded
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 val photo = data?.getExtras()?.get("data") as Bitmap
+                var imagestr = base64(photo)
                 val uri_image = getImageUri(photo)
                 image_path = uri_image?.let { getPath(it) }
                 val file = File(image_path)
@@ -238,7 +202,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 )
                 println("filePart->$filePart")
 //                mViewModel.authRequest.get()!!.profile_picture = filePart
-              //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
+                //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
+                mViewModel.authRequest.get()!!.profile_picture = imagestr
                 circler_image.setImageBitmap(photo)
             } else if (requestCode == 2) {
                 val SelectedImage = data?.data as Uri
@@ -251,7 +216,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 )
                 println("filePart->$filePart")
 //                mViewModel.authRequest.get()!!.profile_picture = filePart
-              //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
+                //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
 
 //                val selectedImage = data?.data
 //                val filePath = arrayOf(MediaStore.Images.Media.DATA)
@@ -311,16 +276,12 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         return result
     }
 
-
     inner class ClickHandler {
 
         fun onclickAddImage() {
 
-            if (checkPermission()){
+            runWithPermissions(CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE) {
                 selectImage()
-            }
-            else{
-                requestPermission()
             }
         }
 
@@ -362,20 +323,37 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regName.setText(getString(R.string.user_name))
             mBinding.regEmail.setText("abc@gmail.com")
             mBinding.regDOB.setText(Utils.init.getCurrentDate())
-//            val login: LoginData? = Prefs.init().userInfo
-//            mBinding.regDOB.isEnabled=false
-//            mBinding.regDOB.setText(login?.dob)
-//            mBinding.regUserType.isEnabled=false
-//            mBinding.regUserType.setText(login?.userType)
+            mBinding.regDOB.isEnabled = false
+            mBinding.regUserType.isEnabled = false
 
 
-//            mBinding.regDOB.visibility = GONE
-//            mBinding.regUserType.visibility = GONE
-//            mBinding.calender.visibility = GONE
+            val login: LoginData? = Prefs.init().userInfo
+            mBinding.regName.setText(login?.name)
+
+            mViewModel.authRequest.get()?.apply {
+                dob = login?.dob
+                user_type = login?.userType
+                name = login?.name
+                email = login?.email
+            }
 
         }
     }
+    fun keyboardListener() {
+        requireActivity().keyboardListener { isOpen ->
+            if (!isOpen) {
+//                mBinding.regName.requestFocus()
+//                mBinding.regName.requestFocusFromTouch()
+//                mBinding.regEmail.requestFocus()
+//                mBinding.regEmail.requestFocusFromTouch()
+//                mBinding.regPassword.requestFocus()
+//                mBinding.regPassword.requestFocusFromTouch()
+//                mBinding.regCnfPassword.requestFocus()
+//                mBinding.regCnfPassword.requestFocusFromTouch()
 
+            }
+        }
+    }
     override fun onOkayClick() {
         if (arguments?.getString("edit").equals("edit")) {
             findNavController().navigateUp()
@@ -386,6 +364,5 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             (requireActivity() as AccountHandlerActivity).finish()
 
         }
-
     }
 }

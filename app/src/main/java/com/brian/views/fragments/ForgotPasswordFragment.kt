@@ -13,6 +13,7 @@ import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentForgotPasswordBinding
 import com.brian.databinding.FragmentLoginBinding
+import com.brian.internals.ClickGuard
 import com.brian.internals.DialogUtil
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
@@ -47,7 +48,16 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        setupClickListeners()
         return mBinding.root
+    }
+
+    private fun setupClickListeners() {
+        mBinding.apply {
+            btnSend.setOnClickListener { mViewModel.onSendClick() }
+            ClickGuard.guard(btnSend)
+        }
     }
 
     private fun setupViewModel() {

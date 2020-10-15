@@ -36,7 +36,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text = getString(R.string.situation_name)
+//        mBinding.toolbar.tvTitle.text = getString(R.string.situation_name)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -48,12 +48,33 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         var list = arguments?.getParcelableArrayList<DataItem>("list")
+        var name = arguments?.getString("name")
+
+        SetUpScreen(name!!)
 
         for (item in list!!) {
             if (item.situationName.equals("Pitcher")) {
                 tv_data.text = item.description
                 break
             }
+        }
+    }
+
+    private fun SetUpScreen(name:String){
+
+        when(name){
+            "Pitcher" ->  mBinding.toolbar.tvTitle.text = "Pitcher"
+            "Catcher" ->  mBinding.toolbar.tvTitle.text = "Catcher"
+            "FirstBase" ->  mBinding.toolbar.tvTitle.text = "FirstBase"
+            "SecondBase" ->  mBinding.toolbar.tvTitle.text = "SecondBase"
+            "ThirdBase" ->  mBinding.toolbar.tvTitle.text = "ThirdBase"
+            "ShortStep" ->  mBinding.toolbar.tvTitle.text = "ShortStep"
+            "LeftField" ->  mBinding.toolbar.tvTitle.text = "LeftField"
+            "CenterField" ->  mBinding.toolbar.tvTitle.text = "CenterField"
+            "RightField" ->  mBinding.toolbar.tvTitle.text = "RightField"
+
+            else->""
+
         }
     }
 

@@ -81,7 +81,7 @@
                     android:id="@+id/lCatcher"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onCatcherClick()}"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_10"
@@ -118,7 +118,7 @@
                     app:layout_constraintEnd_toStartOf="@id/guideMid"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_20"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onFirstBaseClick()}"
                     android:layout_marginTop="@dimen/margin_20"
                     android:layout_marginEnd="@dimen/margin_10"
                     android:layout_height="@dimen/margin_115">
@@ -148,7 +148,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lSecondBase"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onSecondBaseClick()}"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lCatcher"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +185,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lThird"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onThirdBaseClick()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lFirst"
                     app:layout_constraintEnd_toStartOf="@id/guideMid"
@@ -220,7 +220,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lShortStep"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onShortStepClick()}"
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lSecondBase"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -257,7 +257,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lLeftField"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onLeftFieldClick()}"
 
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lThird"
@@ -296,7 +296,7 @@
                     app:layout_constraintStart_toStartOf="@id/guideMid"
                     app:layout_constraintTop_toBottomOf="@id/lShortStep"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onCenterFieldClick()}"
                     android:background="@drawable/dashboard_item_bg"
                     android:layout_marginStart="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_20"
@@ -330,7 +330,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:id="@+id/lRightField"
-                    android:onClick="@{()-> clickHandler.onPitcherClick()}"
+                    android:onClick="@{()-> clickHandler.onRightFieldClick()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/lLeftField"
                     app:layout_constraintEnd_toEndOf="parent"
