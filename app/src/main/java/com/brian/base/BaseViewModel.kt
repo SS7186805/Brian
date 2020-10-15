@@ -7,5 +7,6 @@ open class BaseViewModel : ViewModel() {
 
     var showMessage = MutableLiveData("")
     var showLoading = MutableLiveData(false)
+    var registerSuccess = MutableLiveData<Boolean>()
 
 }

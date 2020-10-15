@@ -25,9 +25,11 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
             myProfileRepository.changePassword(change.get()!!) { isSuccess, message, response ->
                 if (isSuccess) {
                     showLoading.postValue(false)
-                    showMessage.postValue(response?.message)
+                  //  showMessage.postValue(response?.message)
+                    registerSuccess.postValue(true)
                 } else {
                     showLoading.postValue(false)
+                    registerSuccess.postValue(false)
                     showMessage.postValue(message)
                 }
             }

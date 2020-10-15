@@ -35,6 +35,7 @@ import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
+import com.bumptech.glide.Glide
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -305,6 +306,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 user_type = login?.userType
                 name = login?.name
                 email = login?.email
+                Glide.with(requireContext()).load(login?.profilePicture).into( mBinding.circlerImage)
             }
 
         }

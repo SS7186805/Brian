@@ -24,7 +24,7 @@ class RegisterViewModel(
 
     var isediting: Boolean = false
 
-    var registerSuccess = MutableLiveData<Boolean>()
+
 
     var authRequest = ObservableField<RegisterRequest>(RegisterRequest())
 
@@ -64,7 +64,7 @@ class RegisterViewModel(
                     if (isSuccess) {
                         showLoading.postValue(false)
                         registerSuccess.postValue(true)
-                        showMessage.postValue(response?.message)
+//                        showMessage.postValue(response?.message)
                         if (response?.data is LoginData) {
                             val loginData: LoginData = response?.data
 //                        Prefs.init().accessToken = loginData.accessToken!!
@@ -179,7 +179,7 @@ class RegisterViewModel(
                 if (isSuccess) {
                     showLoading.postValue(false)
                     registerSuccess.postValue(true)
-                    showMessage.postValue(response?.message)
+                   // showMessage.postValue(response?.message)
 
                 } else {
                     showLoading.postValue(false)

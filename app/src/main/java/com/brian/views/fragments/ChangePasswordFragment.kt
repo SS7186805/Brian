@@ -67,18 +67,18 @@ class ChangePasswordFragment : ScopedFragment(), KodeinAware, DialogUtil.Success
         }
     }
 
-    private fun setupObserver(){
+    private fun setupObserver() {
         mViewModel.apply {
             showLoading.observe(viewLifecycleOwner, Observer {
-                if (it)
+                if (it) {
                     progress_bar.visibility = View.VISIBLE
+                } else {
+                    progress_bar.visibility = View.GONE
+                }
             })
 
-            showMessage.observe(viewLifecycleOwner, Observer {
-                progress_bar.visibility = View.GONE
-                if (!TextUtils.isEmpty(it))
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                if(it == "Password has been changed successfully."){
+            registerSuccess.observe(viewLifecycleOwner, Observer {
+                if (it) {
                     DialogUtil.build(requireContext()) {
                         title = getString(R.string.success)
                         dialogType = DialogUtil.DialogType.SUCCESS
@@ -86,6 +86,12 @@ class ChangePasswordFragment : ScopedFragment(), KodeinAware, DialogUtil.Success
                         successClickListener = this@ChangePasswordFragment
                     }
                 }
+            })
+
+
+            showMessage.observe(viewLifecycleOwner, Observer {
+                if (!TextUtils.isEmpty(it))
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             })
         }
     }

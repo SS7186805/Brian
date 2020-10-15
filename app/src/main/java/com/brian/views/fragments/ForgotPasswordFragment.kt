@@ -108,8 +108,6 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
     }
 
     override fun onOkayClick() {
-
         findNavController().navigate(R.id.loginFragment)
-
     }
 }

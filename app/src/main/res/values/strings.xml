@@ -2,7 +2,7 @@
     <string name="app_name">Baseball Bee</string>
 
     <string name="success">Success</string>
-    <string name="reset_password_mesage">A reset Password link has been sent\nto your registered email address.</string>
+    <string name="reset_password_mesage">A reset Password link has been sent to your registered email address.</string>
     <string name="okay">Okay</string>
     <string name="pitcher">Pitcher</string>
     <string name="catcher">Catcher</string>

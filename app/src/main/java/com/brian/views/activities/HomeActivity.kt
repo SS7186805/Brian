@@ -193,8 +193,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             }
             val login: LoginData? = Prefs.init().userInfo
             name.text=login?.name
-//            var profile:CircleImageView=profilePic
-//            Glide.with(view.context).load(login?.profilePicture as Uri).into(profile)
+            Glide.with(applicationContext).load(login?.profilePicture).into(profilePic)
 
 
             mBinding.drawerLayout.openDrawer(LEFT)

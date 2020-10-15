@@ -17,6 +17,7 @@ import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.BadgesAdapter
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -50,6 +51,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text=login.userType
         mBinding.dob.text= "Born on: ${login.dob}"
+        mBinding.username.text=login?.name
+        Glide.with(requireContext()).load(login.profilePicture).into( mBinding.profilePic)
         return mBinding.root
     }
 

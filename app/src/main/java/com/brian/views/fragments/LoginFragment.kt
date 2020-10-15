@@ -102,13 +102,14 @@ class LoginFragment : ScopedFragment(), KodeinAware {
     private fun setupObserver() {
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
-                println("it = ${it}")
                 if (!TextUtils.isEmpty(it)) {
                     requireContext().showToast(it)
                     showMessage.postValue("")
                 }
+            })
 
-                if (it == "User logged in successfully.") {
+            registerSuccess.observe(viewLifecycleOwner, Observer {
+                if(it){
                     Prefs.init().isLogIn = "true"
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                     (requireActivity() as AccountHandlerActivity).finish()
