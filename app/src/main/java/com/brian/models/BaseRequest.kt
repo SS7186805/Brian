@@ -43,5 +43,5 @@ data class RegisterRequest(
 //    var profile_picture: @RawValue MultipartBody.Part? = null
 
     @field:SerializedName("profile_picture")
-    var profile_picture: String? = null
+    var profile_picture: @RawValue MultipartBody.Part? = null
 ) : Parcelable, BaseRequest

@@ -162,8 +162,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             override fun onClick(dialog: DialogInterface, item: Int) {
                 if (options[item] == "Take Photo") {
                     val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    /*  val f = File(Environment.getExternalStorageDirectory(), "temp.jpg")
-                      intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f))*/
                     startActivityForResult(intent, 1)
                 } else if (options[item] == "Choose from Gallery") {
                     val intent =
@@ -191,55 +189,27 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         if (resultCode == RESULT_OK) {
             if (requestCode == 1) {
                 val photo = data?.getExtras()?.get("data") as Bitmap
-                var imagestr = base64(photo)
+//                var imagestr = base64(photo)
                 val uri_image = getImageUri(photo)
                 image_path = uri_image?.let { getPath(it) }
                 val file = File(image_path)
                 val filePart = MultipartBody.Part.createFormData(
-                    "text",
+                    "profile_picture",
                     file.name,
                     RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 )
-                println("filePart->$filePart")
-//                mViewModel.authRequest.get()!!.profile_picture = filePart
-                //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
-                mViewModel.authRequest.get()!!.profile_picture = imagestr
+                mViewModel.authRequest.get()!!.profile_picture = filePart
                 circler_image.setImageBitmap(photo)
             } else if (requestCode == 2) {
                 val SelectedImage = data?.data as Uri
                 image_path = SelectedImage?.let { getPath(it) }
                 val file = File(image_path)
                 val filePart = MultipartBody.Part.createFormData(
-                    "file",
+                    "profile_picture",
                     file.name,
                     RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 )
-                println("filePart->$filePart")
-//                mViewModel.authRequest.get()!!.profile_picture = filePart
-                //  mViewModel.authRequest.get()!!.profile_picture = file.absolutePath
-
-//                val selectedImage = data?.data
-//                val filePath = arrayOf(MediaStore.Images.Media.DATA)
-//                val c: Cursor? =
-//                    selectedImage?.let {
-//                        context?.getContentResolver()?.query(
-//                            it,
-//                            filePath,
-//                            null,
-//                            null,
-//                            null
-//                        )
-//                    }
-//                c?.moveToFirst()
-//
-//                val columnIndex: Int = c!!.getColumnIndex(filePath[0])
-//                val picturePath: String = c!!.getString(columnIndex)
-//                c.close()
-//                val thumbnail = BitmapFactory.decodeFile(picturePath)
-//                Log.w(
-//                    "path of image from gallery......******************.........",
-//                    picturePath + ""
-//                )
+                mViewModel.authRequest.get()!!.profile_picture = filePart
                 circler_image.setImageURI(SelectedImage)
             }
         }
@@ -350,7 +320,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 //                mBinding.regPassword.requestFocusFromTouch()
 //                mBinding.regCnfPassword.requestFocus()
 //                mBinding.regCnfPassword.requestFocusFromTouch()
-
+//                mBinding.circlerImage.requestFocus()
+//                mBinding.circlerImage.requestFocusFromTouch()
             }
         }
     }

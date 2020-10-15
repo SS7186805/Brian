@@ -5,14 +5,25 @@ import com.brian.models.DefensiveResponse
 import com.brian.models.RegisterRequest
 import com.brian.network.APIService
 import com.brian.network.dataSource.authDataSource.AuthenticationDataSource
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class AuthenticationDataSourceImp(private val apiService: APIService) : AuthenticationDataSource {
     override suspend fun SignUpResponse(registerRequest: RegisterRequest): BaseResponse {
         var response = BaseResponse()
-        println(response)
         try {
-            response = apiService.signUp(registerRequest)
-            println(response)
+            var params = HashMap<String, RequestBody>()
+            params["name"] =  RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.name!!)
+            params["email"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.email!!)
+            params["dob"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.dob!!)
+            params["user_type"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.user_type!!)
+            params["password"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.password!!)
+            params["device_type"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.deviceType!!)
+            params["device_token"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.deviceToken!!)
+
+            response = apiService.signUp(params,registerRequest.profile_picture!!)
         } catch (e: Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -57,8 +68,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
         var response = BaseResponse()
         try {
             response = apiService.editProfile(register)
-        }
-        catch (e:java.lang.Exception){
+        } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
         }

@@ -136,6 +136,7 @@ class RegisterViewModel(
             authenticationRepository.LoginResponse(authRequest.get()!!)
             { isSuccess, message, response ->
                 if (isSuccess) {
+                    println(response)
                     user_name = response?.data?.name
                     showLoading.postValue(false)
                     registerSuccess.postValue(true)

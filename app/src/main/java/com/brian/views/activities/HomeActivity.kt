@@ -1,6 +1,7 @@
 package com.brian.views.activities
 
 import android.annotation.SuppressLint
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ import com.brian.internals.interfaces.onBackPress
 import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.header_layout.*
@@ -190,6 +193,10 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             }
             val login: LoginData? = Prefs.init().userInfo
             name.text=login?.name
+//            var profile:CircleImageView=profilePic
+//            Glide.with(view.context).load(login?.profilePicture as Uri).into(profile)
+
+
             mBinding.drawerLayout.openDrawer(LEFT)
 
         }
@@ -223,8 +230,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             navigateFragments(item.text)
 
         }
-
-
     }
 
     private fun navigateFragments(text: String) {
@@ -254,7 +259,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             finish()
         }
     }
-
 
 }
 

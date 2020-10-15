@@ -36,9 +36,9 @@ interface APIService {
 //    @Part profile_picture: MultipartBody.Part?): BaseResponse
 
     //    @Multipart
-//    @FormUrlEncoded
+    @Multipart
     @POST("api/v1/register")
-    suspend fun signUp(@Body request: RegisterRequest): BaseResponse
+    suspend fun signUp(@PartMap request: HashMap<String,RequestBody>,@Part profile_picture: MultipartBody.Part): BaseResponse
 
     @POST("api/v1/login")
     suspend fun login(@Body request: RegisterRequest): BaseResponse

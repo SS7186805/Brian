@@ -81,7 +81,6 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
     private fun setupObserver(){
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
-                progress_bar.visibility = View.GONE
                 if (!TextUtils.isEmpty(it)){
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 }
@@ -100,6 +99,8 @@ class ForgotPasswordFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessC
             showLoading.observe(viewLifecycleOwner, Observer {
                 if(it){
                     progress_bar.visibility = View.VISIBLE
+                }else{
+                    progress_bar.visibility = View.GONE
                 }
             })
         }
