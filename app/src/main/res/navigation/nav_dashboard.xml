@@ -132,6 +132,8 @@
         android:name="com.brian.views.fragments.ChatFragment"
         tools:layout="@layout/chat_fragment" />
 
+
+
 </navigation>
 
 
