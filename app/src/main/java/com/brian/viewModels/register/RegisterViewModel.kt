@@ -108,7 +108,10 @@ class RegisterViewModel(
     }
 
     fun SignUpvalidate(): Boolean {
-        if (TextUtils.isEmpty(authRequest.get()!!.name)) {
+        if(authRequest.get()!!.profile_picture == null){
+            showMessage.postValue(resourcesProvider.getString(R.string.set_profile))
+            return false
+        } else if (TextUtils.isEmpty(authRequest.get()!!.name)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
             return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
@@ -131,9 +134,6 @@ class RegisterViewModel(
             return false
         } else if (authRequest.get()!!.password != authRequest.get()!!.cnf_password) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_same_password))
-            return false
-        }else if (authRequest.get()!!.profile_picture == null){
-            showMessage.postValue(resourcesProvider.getString(R.string.set_profile))
             return false
         }
         return true
