@@ -51,19 +51,17 @@ class LoginFragment : ScopedFragment(), KodeinAware {
             clickHandler = ClickHandler()
         }
         setupClickListeners()
-        keyboardListener()
+      //  keyboardListener()
 
 
-        mBinding.etPassword.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mBinding.root.requestFocus()
-                }
-                return true
-            }
-
-
-        })
+//        mBinding.etPassword.setOnEditorActionListener(object : TextView.OnEditorActionListener {
+//            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    mBinding.root.requestFocus()
+//                }
+//                return true
+//            }
+//        })
         return mBinding.root
     }
 

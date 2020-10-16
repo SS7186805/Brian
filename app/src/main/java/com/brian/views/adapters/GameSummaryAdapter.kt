@@ -15,15 +15,15 @@ class GameSummaryAdapter(override val layoutId: Int) :
         holder.binding.gameSummary = item
         holder.binding.title.text = "Question ${position + 1}"
 
-        var correctOption: Int = 0
+        var correctOption: String = ""
         for (i in 0 until item.answers!!.size) {
             if (item.answers[i].isCorrect == 1) {
-                correctOption = i+1
+                correctOption = item.answers[i].answer.toString()
                 break
             }
         }
 
-        holder.binding.correctOption.text = "Option ${correctOption}"
+        holder.binding.correctOption.text = correctOption
 
         holder.binding.QuestionSummaryRecycler.layoutManager =
             GridLayoutManager(holder.binding.QuestionSummaryRecycler.context, 2)

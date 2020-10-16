@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_dashboard"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.brian.views.fragments.VideoViewFragment"
+        tools:layout="@layout/fragment_video_view"/>
 
 
     <fragment

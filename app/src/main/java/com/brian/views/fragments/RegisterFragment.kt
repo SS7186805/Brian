@@ -15,8 +15,7 @@ import android.text.TextUtils
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.OnTouchListener
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ScrollView
@@ -53,12 +52,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     lateinit var mBinding: FragmentRegisterBinding
     lateinit var mViewModel: RegisterViewModel
 
-    //  var registerRequest = ObservableField<RegisterRequest>(RegisterRequest())
     private var datePickerDialog: DatePickerDialog? = null
     var image_path: String? = null
-    var profile_pic: MultipartBody.Part? = null
-
-    private val PERMISSION_REQUEST_CODE: Int = 101
 
     var list = ArrayList<String>()
 
@@ -126,12 +121,15 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     private fun setupObserver() {
         mViewModel.apply {
             showLoading.observe(viewLifecycleOwner, Observer {
-                if (it)
-                    progress_bar.visibility = View.VISIBLE
+                if (it){
+                    mBinding.progressBar.visibility = VISIBLE
+                }else{
+                    mBinding.progressBar.visibility = GONE
+                }
             })
 
             showMessage.observe(viewLifecycleOwner, Observer {
-                progress_bar.visibility = View.GONE
+
                 if (!TextUtils.isEmpty(it))
                     Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             })
@@ -199,7 +197,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     file.name,
                     RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 )
-                mViewModel.authRequest.get()!!.profile_picture = filePart
+                mViewModel.authRequest.get()?.profile_picture = filePart
                 circler_image.setImageBitmap(photo)
             } else if (requestCode == 2) {
                 val SelectedImage = data?.data as Uri
@@ -210,7 +208,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     file.name,
                     RequestBody.create("image/*".toMediaTypeOrNull(), file)
                 )
-                mViewModel.authRequest.get()!!.profile_picture = filePart
+                mViewModel.authRequest.get()?.profile_picture = filePart
                 circler_image.setImageURI(SelectedImage)
             }
         }

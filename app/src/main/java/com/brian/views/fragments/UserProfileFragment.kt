@@ -50,6 +50,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         setAdapter()
         val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text=login.userType
+
+
         mBinding.dob.text= "Born on: ${login.dob}"
         mBinding.username.text=login?.name
         Glide.with(requireContext()).load(login.profilePicture).into( mBinding.profilePic)

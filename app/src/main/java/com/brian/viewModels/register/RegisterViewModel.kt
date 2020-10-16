@@ -13,6 +13,9 @@ import com.brian.models.LoginData
 import com.brian.models.RegisterRequest
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.authRepository.authRepository.AuthenticationRepository
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 
 class RegisterViewModel(
@@ -125,6 +128,9 @@ class RegisterViewModel(
             return false
         } else if (authRequest.get()!!.password != authRequest.get()!!.cnf_password) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_same_password))
+            return false
+        }else if (authRequest.get()!!.profile_picture == null){
+            showMessage.postValue(resourcesProvider.getString(R.string.set_profile))
             return false
         }
         return true

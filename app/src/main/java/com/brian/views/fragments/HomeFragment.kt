@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentHomeBinding
-import com.brian.databinding.FragmentLoginBinding
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import org.kodein.di.KodeinAware
@@ -42,7 +41,6 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
-
     inner class ClickHandler{
 
         fun onPitcherClick(){
@@ -52,25 +50,25 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Catcher" ))
         }
         fun onFirstBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "FirstBase" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "First Base" ))
         }
         fun onSecondBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "SecondBase" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Second Base" ))
         }
         fun onThirdBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "ThirdBase" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Third Base" ))
         }
         fun onShortStepClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "ShortStep" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Short Step" ))
         }
         fun onLeftFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "LeftField" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Left Field" ))
         }
         fun onCenterFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "CenterField" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Center Field" ))
         }
         fun onRightFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "RightField" ))
+            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Right Field" ))
         }
     }
 }

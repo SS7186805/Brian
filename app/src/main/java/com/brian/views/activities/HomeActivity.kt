@@ -1,8 +1,6 @@
 package com.brian.views.activities
 
-import android.annotation.SuppressLint
-import android.net.Uri
-import android.os.Build
+
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -10,7 +8,6 @@ import android.view.Gravity.LEFT
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -21,17 +18,13 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ActivityMainBinding
-import com.brian.internals.interfaces.onBackPress
 import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
 import com.bumptech.glide.Glide
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.header_layout.*
-import kotlinx.android.synthetic.main.header_layout.view.*
-import kotlinx.android.synthetic.main.messages.*
 
 
 class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListener {
@@ -253,8 +246,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     override fun onBackPressed() {
         if(navController.currentDestination?.id==R.id.gameSummaryFragment){
             navController.navigate(R.id.homeFragment)
-        }
-        else if (!navController.navigateUp()) {
+        } else if (!navController.navigateUp()) {
             finish()
         }
     }

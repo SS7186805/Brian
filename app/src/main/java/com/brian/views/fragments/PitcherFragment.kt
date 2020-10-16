@@ -65,13 +65,13 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
         when(name){
             "Pitcher" ->  mBinding.toolbar.tvTitle.text = "Pitcher"
             "Catcher" ->  mBinding.toolbar.tvTitle.text = "Catcher"
-            "FirstBase" ->  mBinding.toolbar.tvTitle.text = "FirstBase"
-            "SecondBase" ->  mBinding.toolbar.tvTitle.text = "SecondBase"
-            "ThirdBase" ->  mBinding.toolbar.tvTitle.text = "ThirdBase"
-            "ShortStep" ->  mBinding.toolbar.tvTitle.text = "ShortStep"
-            "LeftField" ->  mBinding.toolbar.tvTitle.text = "LeftField"
-            "CenterField" ->  mBinding.toolbar.tvTitle.text = "CenterField"
-            "RightField" ->  mBinding.toolbar.tvTitle.text = "RightField"
+            "First Base" ->  mBinding.toolbar.tvTitle.text = "First Base"
+            "Second Base" ->  mBinding.toolbar.tvTitle.text = "Second Base"
+            "Third Base" ->  mBinding.toolbar.tvTitle.text = "Third Base"
+            "Short Step" ->  mBinding.toolbar.tvTitle.text = "Short Step"
+            "Left Field" ->  mBinding.toolbar.tvTitle.text = "Left Field"
+            "Center Field" ->  mBinding.toolbar.tvTitle.text = "Center Field"
+            "Right Field" ->  mBinding.toolbar.tvTitle.text = "Right Field"
 
             else->""
 

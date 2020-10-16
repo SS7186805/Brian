@@ -4,13 +4,18 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
+import android.provider.MediaStore
 import android.text.InputFilter
 import android.text.Spanned
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
 import com.brian.R
 import com.brian.models.LoginData
@@ -23,6 +28,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.InputStream
 import java.text.ParseException
@@ -310,4 +316,8 @@ fun Activity.keyboardListener(keyboard: (isOpen: Boolean) -> Unit) {
                 keyboard(isOpen)
             }
         })
+}
+
+fun isValide(email:String):Boolean{
+    return Patterns.EMAIL_ADDRESS.matcher(email).matches()
 }
