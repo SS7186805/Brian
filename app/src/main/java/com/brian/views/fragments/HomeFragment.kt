@@ -12,6 +12,7 @@ import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentHomeBinding
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
+import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -30,6 +31,12 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         mBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
+        }
+
+        mBinding.toolbar.tvTitle.setText(getString(R.string.baseball_bee))
+
+        mBinding.toolbar.ivBack.setOnClickListener{
+            findNavController().navigate(R.id.mainScreenFragment)
         }
 
         mViewModel.getDefensive()

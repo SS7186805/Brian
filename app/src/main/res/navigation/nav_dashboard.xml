@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_dashboard"
-    app:startDestination="@id/home">
+    app:startDestination="@id/mainScreenFragment">
 
     <fragment
-        android:id="@+id/home"
+        android:id="@+id/mainScreenFragment"
+        android:name="com.brian.views.fragments.MainScreenFragment"
+        android:label="fragment_main_screen"
+        tools:layout="@layout/fragment_main_screen" />
+
+    <fragment
+        android:id="@+id/videoViewFragment"
         android:name="com.brian.views.fragments.VideoViewFragment"
-        tools:layout="@layout/fragment_video_view"/>
+        android:label="fragment_video_view"
+        tools:layout="@layout/fragment_video_view" />
 
 
     <fragment
@@ -30,6 +37,7 @@
         android:id="@+id/questionsFragment"
         android:name="com.brian.views.fragments.QuestionsFragment"
         tools:layout="@layout/questions_fragment" />
+
     <fragment
         android:id="@+id/gameSummaryFragment"
         android:name="com.brian.views.fragments.GameSummaryFragment"
@@ -132,6 +140,12 @@
         android:name="com.brian.views.fragments.ChatFragment"
         tools:layout="@layout/chat_fragment" />
 
+
+    <fragment
+        android:id="@+id/getStartTrainingFragment"
+        android:name="com.brian.views.fragments.GetStartTraining"
+        android:label="fragment_get_start_training"
+        tools:layout="@layout/fragment_get_start_training" />
 
 
 </navigation>

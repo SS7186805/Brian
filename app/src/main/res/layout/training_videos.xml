@@ -21,6 +21,10 @@
         android:layout_height="match_parent">
 
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
@@ -38,8 +42,6 @@
 
 
 
-
-
         <include
             android:id="@+id/type1"
             layout="@layout/training_videos_item"
@@ -48,7 +50,7 @@
             android:layout_marginTop="@dimen/margin_30"
             app:layout_constraintEnd_toEndOf="@+id/endGuide"
             app:layout_constraintStart_toStartOf="@+id/startGuide"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
         <include

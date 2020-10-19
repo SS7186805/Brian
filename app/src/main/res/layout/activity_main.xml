@@ -75,7 +75,7 @@
                         android:fontFamily="@font/century_gothic"
                         android:textColor="@color/dashboard_item_color"
                         android:textSize="@dimen/px65"
-                        android:text="@string/defensive_situation"
+                        android:text="@string/home_toolbar"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -14,14 +14,10 @@
     <string name="left_field">Left Field</string>
     <string name="right_field">Right Field</string>
     <string name="defensive_situation">Defensive Situation</string>
-    <string name="Home">Home</string>
-    <string name="Baseball_Bee_Simulator">Baseball Bee Simulator</string>
-    <string name="buzz_feed">Buzz Feed</string>
+    <string name="home_toolbar">Home</string>
+    <string name="buzz_feed">Get Buzz</string>
     <string name="training_videos">Training Videos</string>
     <string name="my_friends">My Friends</string>
-    <string name="frist_point">\u0020 \u0020 \u0020 Check you Knowledge of 7,000+ Defensive\nSituations(content include in the free app)</string>
-    <string name="third_point">\u0020 \u0020 \u0020  Challenge your real-world teammates to play Games you have played... and track your status on the LeaderBoard</string>
-    <string name="second_point">\u0020 \u0020 \u0020  Play Custom Game created by you real-\nworld Coaches</string>
     <string name="mesages">Messages</string>
     <string name="teams">Teams</string>
     <string name="challenges">Challenges</string>
@@ -104,7 +100,7 @@
     <string name="send">Send</string>
     <string name="forgot_password_title">Forgot Password</string>
     <string name="register">Register</string>
-    <string name="register_message">You have been successfully registered\nwith Baseball Bee.</string>
+    <string name="register_message">You have been successfully registered with Baseball Bee.</string>
     <string name="team_created">Team created successfully.</string>
     <string name="enter_message">Enter Message</string>
     <string name="contact_us_message">Thank you for contacting us. We will reach you out shortly.</string>
@@ -137,7 +133,11 @@
     <string name="password_size">Enter password must be 8 digit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="set_profile">\"Please set profile picture. \"</string>
-
+    <string name="frist_point">\u0020 \u0020 \u0020 Check you Knowledge of 7,000+ Defensive\nSituations(content include in the free app)</string>
+    <string name="third_point">\u0020 \u0020 \u0020  Challenge your real-world teammates to play Games you have played... and track your status on the LeaderBoard</string>
+    <string name="second_point">\u0020 \u0020 \u0020  Play Custom Game created by you real-\nworld Coaches</string>
+    <string name="get_started">Get Started</string>
+    <string name="set_profile">Please set the Profile Picture</string>
+    <string name="baseball_bee">Baseball Bee simulator</string>
 
 </resources>

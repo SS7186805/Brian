@@ -173,7 +173,7 @@
                         android:layout_height="22dp"
                         android:layout_marginStart="@dimen/margin_20"
                         android:layout_marginTop="@dimen/margin_17"
-                        android:src="@drawable/calendar"
+                        android:src="@drawable/dob"
                         app:tint="@color/yellow">
 
                     </ImageView>

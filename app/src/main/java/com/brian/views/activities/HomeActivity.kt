@@ -73,7 +73,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         arguments: Bundle?
     ) {
 
-        if (destination.id == R.id.pitcherFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
+        if (destination.id == R.id.pitcherFragment ||destination.id == R.id.homeFragment||destination.id == R.id.trainingVideosFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
             || destination.id == R.id.buzzFeedDetailsFragment || destination.id == R.id.usersFragment
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
             ||destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
@@ -83,7 +83,10 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
+        }
 
+        if (destination.id == R.id.videoViewFragment){
+            mBinding.toolbar.visibility = GONE
         }
 
         if(destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment ||destination.id == R.id.teamFragment ){
@@ -102,7 +105,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
         when(id){
 
-            R.id.homeFragment->mBinding.toolbar.tvTitle.text=getString(R.string.defensive_situation)
+            R.id.mainScreenFragment->mBinding.toolbar.tvTitle.text=getString(R.string.home_toolbar)
             R.id.trainingVideosFragment->mBinding.toolbar.tvTitle.text=getString(R.string.training_videos)
             R.id.buzzFeedFragment->mBinding.toolbar.tvTitle.text=getString(R.string.buzz_feed)
             R.id.myFriendsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_friends)
@@ -126,7 +129,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         itemsList.add(
             NavigationItem(
                 R.drawable.ic_defensive,
-                getString(R.string.defensive_situation),
+                getString(R.string.home_toolbar),
                 true
             )
         )
@@ -228,8 +231,8 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         drawerLayout.closeDrawer(Gravity.LEFT)
         mBinding.tvTitle.setText(text)
         when (text) {
-            getString(R.string.defensive_situation) -> navController.navigate(R.id.homeFragment)
-            getString(R.string.training_videos) -> navController.navigate(R.id.trainingVideosFragment)
+            getString(R.string.home_toolbar) -> navController.navigate(R.id.mainScreenFragment)
+            getString(R.string.training_videos) -> navController.navigate(R.id.getStartTrainingFragment)
             getString(R.string.buzz_feed) -> navController.navigate(R.id.buzzFeedFragment)
             getString(R.string.my_friends) -> navController.navigate(R.id.myFriendsFragment)
             getString(R.string.mesages) -> navController.navigate(R.id.messagesFragment)
