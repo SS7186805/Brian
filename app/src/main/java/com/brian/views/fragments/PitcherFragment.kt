@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
@@ -24,6 +25,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: HomescreenViewModelFactory by instance()
     lateinit var mBinding: PitcherFragmentBinding
     lateinit var mViewModel: HomeViewModel
+    var nextName = ""
 
 
     override fun onCreateView(
@@ -60,20 +62,20 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
         }
     }
 
-    private fun SetUpScreen(name:String){
+    private fun SetUpScreen(name: String) {
+        nextName = name
+        when (name) {
+            "Pitcher" -> mBinding.toolbar.tvTitle.text = "Pitcher"
+            "Catcher" -> mBinding.toolbar.tvTitle.text = "Catcher"
+            "First Base" -> mBinding.toolbar.tvTitle.text = "First Base"
+            "Second Base" -> mBinding.toolbar.tvTitle.text = "Second Base"
+            "Third Base" -> mBinding.toolbar.tvTitle.text = "Third Base"
+            "Short Step" -> mBinding.toolbar.tvTitle.text = "Short Step"
+            "Left Field" -> mBinding.toolbar.tvTitle.text = "Left Field"
+            "Center Field" -> mBinding.toolbar.tvTitle.text = "Center Field"
+            "Right Field" -> mBinding.toolbar.tvTitle.text = "Right Field"
 
-        when(name){
-            "Pitcher" ->  mBinding.toolbar.tvTitle.text = "Pitcher"
-            "Catcher" ->  mBinding.toolbar.tvTitle.text = "Catcher"
-            "First Base" ->  mBinding.toolbar.tvTitle.text = "First Base"
-            "Second Base" ->  mBinding.toolbar.tvTitle.text = "Second Base"
-            "Third Base" ->  mBinding.toolbar.tvTitle.text = "Third Base"
-            "Short Step" ->  mBinding.toolbar.tvTitle.text = "Short Step"
-            "Left Field" ->  mBinding.toolbar.tvTitle.text = "Left Field"
-            "Center Field" ->  mBinding.toolbar.tvTitle.text = "Center Field"
-            "Right Field" ->  mBinding.toolbar.tvTitle.text = "Right Field"
-
-            else->""
+            else -> ""
 
         }
     }
@@ -86,7 +88,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler {
 
         fun onPitchClick() {
-            findNavController().navigate(R.id.questionsFragment)
+            findNavController().navigate(R.id.questionsFragment, bundleOf("name" to nextName))
 
         }
 

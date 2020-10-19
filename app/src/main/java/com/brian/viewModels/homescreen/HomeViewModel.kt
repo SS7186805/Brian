@@ -29,9 +29,11 @@ class HomeViewModel(
     }
 
     fun questionRespone() {
+        showLoading.postValue(true)
         homeRepository.questionResponse() { isSuccess, message, response ->
             if (isSuccess) {
                 data.postValue(response?.data!!)
+                showLoading.postValue(false)
             } else {
 
             }

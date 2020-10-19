@@ -2,6 +2,7 @@ package com.brian.viewModels.myProfile
 
 import android.text.TextUtils
 import androidx.databinding.ObservableField
+import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.models.ChangePassword
 import com.brian.models.QuestionData
@@ -20,12 +21,12 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
 //    }
 
     fun changePassword() {
-//        if (validation()) {
+        if (validation()) {
             showLoading.postValue(true)
             myProfileRepository.changePassword(change.get()!!) { isSuccess, message, response ->
                 if (isSuccess) {
                     showLoading.postValue(false)
-                  //  showMessage.postValue(response?.message)
+                    //  showMessage.postValue(response?.message)
                     registerSuccess.postValue(true)
                 } else {
                     showLoading.postValue(false)
@@ -33,7 +34,7 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
                     showMessage.postValue(message)
                 }
             }
-       // }
+        }
     }
 
     fun validation(): Boolean {
@@ -45,6 +46,9 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
             return false
         } else if (TextUtils.isEmpty(change.get()!!.confirm_password)) {
             showMessage.postValue("Please enter Confirm Pasword")
+            return false
+        }else if (change.get()!!.new_password != change.get()!!.confirm_password) {
+            showMessage.postValue("New password and confirm password doesn't match.")
             return false
         }
         return true

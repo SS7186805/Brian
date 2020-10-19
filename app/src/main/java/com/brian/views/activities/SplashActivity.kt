@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
 import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedActivity
@@ -17,8 +18,7 @@ class SplashActivity : ScopedActivity() {
         Handler().postDelayed({
 
             if(Prefs.init().isLogIn.equals("true")){
-                startActivity(Intent(this,HomeActivity::class.java))
-
+                    startActivity(Intent(this,HomeActivity::class.java))
             }else{
                 startActivity(Intent(this,AccountHandlerActivity::class.java))
             }

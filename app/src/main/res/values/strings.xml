@@ -124,6 +124,7 @@
     <string name="Select_User_type">Please select user type.</string>
     <string name="Enter_passowrd">Please enter password.</string>
     <string name="Enter_confirm_password">Please enter confirm password.</string>
+    <string name="password_Size">Password should be at least 6 characters long.</string>
     <string name="Enter_same_password">Password and confirm password doesn\'t match.</string>
 
     <!--API Error Msg-->

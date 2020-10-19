@@ -56,7 +56,7 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text = getString(R.string.situation_name)
+//        mBinding.toolbar.tvTitle.text = getString(R.string.situation_name)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -96,9 +96,24 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
                 setupRecycler()
                 questionAdapter.setNewItems(answerlist)
             })
+
+            showLoading.observe(viewLifecycleOwner, Observer {
+                if(it){
+                    mBinding.QProgressBar.visibility = View.VISIBLE
+                }else{
+                    mBinding.QProgressBar.visibility = View.GONE
+                }
+            })
         }
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        var pageName=arguments?.getString("name")
+        mBinding.toolbar.tvTitle.text = pageName
+
+
+    }
     override fun onClick(data: AnswersItem, position: Int,correct:Boolean) {
 //        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()
         ++currentSelect

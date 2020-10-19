@@ -12,12 +12,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
+import android.text.method.Touch
 import android.util.Base64
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -46,7 +50,7 @@ import org.kodein.di.generic.instance
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
+class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener,OnTouchListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: FragmentRegisterBinding
@@ -106,8 +110,12 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
         }
 
 
+        mBinding.regUserType.setOnTouchListener(this)
+
         keyboardListener()
         setupClickListeners()
+      //  mBinding.regCnfPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         return mBinding.root
     }
 
@@ -335,5 +343,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             (requireActivity() as AccountHandlerActivity).finish()
 
         }
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        if(v?.id==R.id.reg_User_type){
+            Utils.init.hideKeyBoard(requireContext(),mBinding.root)
+
+        }
+        return false
     }
 }

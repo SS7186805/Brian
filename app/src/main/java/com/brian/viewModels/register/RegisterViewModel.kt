@@ -126,7 +126,10 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_passowrd))
             return false
-        } else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {
+        }else if (authRequest.get()!!.password!!.length<=6) {
+            showMessage.postValue(resourcesProvider.getString(R.string.password_Size))
+            return false
+        }  else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_confirm_password))
             return false
         } else if (authRequest.get()!!.password != authRequest.get()!!.cnf_password) {

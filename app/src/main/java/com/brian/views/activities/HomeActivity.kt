@@ -12,6 +12,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
@@ -46,6 +47,10 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         navController.addOnDestinationChangedListener(this)
         setAdapter()
         setDrawer()
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.homeFragment, true)
+            .build()
 
     }
 
@@ -98,21 +103,24 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
 
-    fun setDestinationName(id:Int){
+    fun setDestinationName(id: Int){
 
         when(id){
 
-            R.id.homeFragment->mBinding.toolbar.tvTitle.text=getString(R.string.defensive_situation)
-            R.id.trainingVideosFragment->mBinding.toolbar.tvTitle.text=getString(R.string.training_videos)
-            R.id.buzzFeedFragment->mBinding.toolbar.tvTitle.text=getString(R.string.buzz_feed)
-            R.id.myFriendsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_friends)
-            R.id.messagesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mesages)
-            R.id.challenegesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.challenges)
-            R.id.teamFragment->mBinding.toolbar.tvTitle.text=getString(R.string.teams)
-            R.id.myStatsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mystats)
-            R.id.leaderBoards->mBinding.toolbar.tvTitle.text=getString(R.string.leaderboards)
-            R.id.contactUsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.contact_us)
-            R.id.myProfileFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_profile)
+            R.id.homeFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.defensive_situation)
+            R.id.trainingVideosFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.training_videos)
+            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed)
+            R.id.myFriendsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
+            R.id.messagesFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mesages)
+            R.id.challenegesFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.challenges)
+            R.id.teamFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.teams)
+            R.id.myStatsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mystats)
+            R.id.leaderBoards -> mBinding.toolbar.tvTitle.text = getString(R.string.leaderboards)
+            R.id.contactUsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.contact_us)
+            R.id.myProfileFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_profile)
         }
 
     }
@@ -122,54 +130,113 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
         mBinding.recycler.layoutManager = LinearLayoutManager(this)
 
-        //Add Items
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_defensive,
-                getString(R.string.defensive_situation),
-                true
+
+        var userInfo = Prefs.init().userInfo
+
+        if (userInfo!!.userType.equals("Players")) {
+            //Add Items
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_defensive,
+                    getString(R.string.defensive_situation),
+                    true
+                )
             )
-        )
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_youtube1,
-                getString(R.string.training_videos),
-                false
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_youtube1,
+                    getString(R.string.training_videos),
+                    false
+                )
             )
-        )
-        itemsList.add(NavigationItem(R.drawable.ic_buzz, getString(R.string.buzz_feed), false))
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_my_friends2,
-                getString(R.string.my_friends),
-                false
+            itemsList.add(NavigationItem(R.drawable.ic_buzz, getString(R.string.buzz_feed), false))
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_my_friends2,
+                    getString(R.string.my_friends),
+                    false
+                )
             )
-        )
-        itemsList.add(NavigationItem(R.drawable.ic_message1, getString(R.string.mesages), false))
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_challenge,
-                getString(R.string.challenges),
-                false
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_message1,
+                    getString(R.string.mesages),
+                    false
+                )
             )
-        )
-        itemsList.add(NavigationItem(R.drawable.ic_teams1, getString(R.string.teams), false))
-        itemsList.add(NavigationItem(R.drawable.ic_stats2, getString(R.string.mystats), false))
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_leaderboard1,
-                getString(R.string.leaderboards),
-                false
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_challenge,
+                    getString(R.string.challenges),
+                    false
+                )
             )
-        )
-        itemsList.add(NavigationItem(R.drawable.ic_phone1, getString(R.string.contact_us), false))
-        itemsList.add(
-            NavigationItem(
-                R.drawable.ic_my_profile1,
-                getString(R.string.my_profile),
-                false
+            itemsList.add(NavigationItem(R.drawable.ic_teams1, getString(R.string.teams), false))
+            itemsList.add(NavigationItem(R.drawable.ic_stats2, getString(R.string.mystats), false))
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_leaderboard1,
+                    getString(R.string.leaderboards),
+                    false
+                )
             )
-        )
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_phone1,
+                    getString(R.string.contact_us),
+                    false
+                )
+            )
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_my_profile1,
+                    getString(R.string.my_profile),
+                    false
+                )
+            )
+
+
+        } else {
+
+
+         navController.navigate(R.id.action_firstFragment_to_secondFragment);
+
+
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_challenge,
+                    getString(R.string.challenges),
+                    false
+                )
+            )
+
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_message1,
+                    getString(R.string.mesages),
+                    false
+                )
+            )
+
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_leaderboard1,
+                    getString(R.string.leaderboards),
+                    false
+                )
+            )
+
+            itemsList.add(
+                NavigationItem(
+                    R.drawable.ic_my_profile1,
+                    getString(R.string.my_profile),
+                    false
+                )
+            )
+
+
+
+    }
 
         itemAdapter = NavigationItemAdapter(R.layout.navigation_item, this)
         mBinding.recycler.adapter = itemAdapter
@@ -244,6 +311,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
     override fun onBackPressed() {
+
         if(navController.currentDestination?.id==R.id.gameSummaryFragment){
             navController.navigate(R.id.homeFragment)
         } else if (!navController.navigateUp()) {
