@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppParentTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".views.activities.MainHomeActivity"></activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.brian"

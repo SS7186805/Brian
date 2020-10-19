@@ -87,7 +87,10 @@ class RegisterViewModel(
         if (TextUtils.isEmpty(authRequest.get()!!.name)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
             return false
-        } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
+        }else if(authRequest.get()!!.name!!.length>15){
+            showMessage.postValue("please enter name less then 15 character")
+        }
+        else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(authRequest.get()!!.email).matches()) {
