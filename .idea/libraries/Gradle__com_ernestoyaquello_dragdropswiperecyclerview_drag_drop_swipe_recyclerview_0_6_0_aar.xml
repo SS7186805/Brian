@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:0.6.0@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33664ef8e6f7dab6e19c4a95968d4774/jetified-drag-drop-swipe-recyclerview-0.6.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33664ef8e6f7dab6e19c4a95968d4774/jetified-drag-drop-swipe-recyclerview-0.6.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/33664ef8e6f7dab6e19c4a95968d4774/jetified-drag-drop-swipe-recyclerview-0.6.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.ernestoyaquello.dragdropswiperecyclerview/drag-drop-swipe-recyclerview/0.6.0/81c52e6b37eb0f400d88d90eb0c9baf62c93b261/drag-drop-swipe-recyclerview-0.6.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
