@@ -143,11 +143,18 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             })
 
             registerSuccess.observe(viewLifecycleOwner, Observer {
-                if (it) {
+                if (!mViewModel.isediting) {
                     DialogUtil.build(requireContext()) {
                         title = getString(R.string.success)
                         dialogType = DialogUtil.DialogType.SUCCESS
                         message = getString(R.string.register_message)
+                        successClickListener = this@RegisterFragment
+                    }
+                }else{
+                    DialogUtil.build(requireContext()) {
+                        title = getString(R.string.success)
+                        dialogType = DialogUtil.DialogType.SUCCESS
+                        message = getString(R.string.updated_message)
                         successClickListener = this@RegisterFragment
                     }
                 }
@@ -320,16 +327,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     fun keyboardListener() {
         requireActivity().keyboardListener { isOpen ->
             if (!isOpen) {
-//                mBinding.regName.requestFocus()
-//                mBinding.regName.requestFocusFromTouch()
-//                mBinding.regEmail.requestFocus()
-//                mBinding.regEmail.requestFocusFromTouch()
-//                mBinding.regPassword.requestFocus()
-//                mBinding.regPassword.requestFocusFromTouch()
-//                mBinding.regCnfPassword.requestFocus()
-//                mBinding.regCnfPassword.requestFocusFromTouch()
-//                mBinding.circlerImage.requestFocus()
-//                mBinding.circlerImage.requestFocusFromTouch()
+                mBinding.regCnfPassword.requestFocus()
+                mBinding.Rlayout.requestFocusFromTouch()
             }
         }
     }

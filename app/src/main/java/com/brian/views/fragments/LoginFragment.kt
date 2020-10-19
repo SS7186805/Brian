@@ -73,8 +73,9 @@ class LoginFragment : ScopedFragment(), KodeinAware {
     private fun setupClickListeners() {
         mBinding.apply {
             btnLogin.setOnClickListener { mViewModel.onLoginClick() }
-
-            ClickGuard.guard(btnLogin)
+            tvForgotPswd.setOnClickListener { clickHandler!!.onForgotPasswordClick() }
+            signUpLayout.setOnClickListener { clickHandler!!.onRegisterClick() }
+            ClickGuard.guard(btnLogin,tvForgotPswd,signUpLayout)
         }
     }
 

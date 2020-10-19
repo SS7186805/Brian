@@ -55,8 +55,8 @@
 
 
         <TextView
+            android:id="@+id/pitcher"
             android:layout_width="wrap_content"
-            android:onClick="@{()-> clickHandler.onPitchClick()}"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             android:text="@string/pitch"

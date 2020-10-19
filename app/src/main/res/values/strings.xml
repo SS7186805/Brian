@@ -14,6 +14,7 @@
     <string name="left_field">Left Field</string>
     <string name="right_field">Right Field</string>
     <string name="defensive_situation">Defensive Situation</string>
+    <string name="Home">Home</string>
     <string name="home_toolbar">Home</string>
     <string name="buzz_feed">Get Buzz</string>
     <string name="training_videos">Training Videos</string>
@@ -100,7 +101,8 @@
     <string name="send">Send</string>
     <string name="forgot_password_title">Forgot Password</string>
     <string name="register">Register</string>
-    <string name="register_message">You have been successfully registered with Baseball Bee.</string>
+    <string name="register_message">You have been successfully registered with Baseball Bee and Bee more fit!.</string>
+    <string name="updated_message">You have been successfully updated with Baseball Bee.</string>
     <string name="team_created">Team created successfully.</string>
     <string name="enter_message">Enter Message</string>
     <string name="contact_us_message">Thank you for contacting us. We will reach you out shortly.</string>

@@ -53,12 +53,6 @@ class NavigationItemAdapter(override val layoutId: Int, val context: Context) :
 
 
 
-
-
-
-
-
-
         holder.binding.mainItem.setOnClickListener {
 
             listener?.onClick(position, item)

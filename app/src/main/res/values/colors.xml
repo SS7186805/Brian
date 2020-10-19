@@ -7,7 +7,7 @@
     <color name="blackTheme">#121213</color>
     <color name="dashboard_item_color">#fec60a</color>
     <color name="text_Color_drawer_item">#aaaaaa</color>
-    <color name="edit_text_color">#aaaaaa</color>
+    <color name="edit_text_color">#fff</color>
     <color name="item_bg_drawer_item">#1c1c1b</color>
     <color name="black">#000</color>
     <color name="icon_color">#AAAAAA</color>

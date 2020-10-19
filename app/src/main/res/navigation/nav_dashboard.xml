@@ -9,17 +9,20 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.brian.views.fragments.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
-
-    <fragment
-        android:id="@+id/videoViewFragment"
-        android:name="com.brian.views.fragments.VideoViewFragment"
-        tools:layout="@layout/fragment_video_view">
+        tools:layout="@layout/fragment_main_screen" >
         <action
             android:id="@+id/action_firstFragment_to_secondFragment"
             app:popUpTo="@+id/challenegesFragment"
             app:popUpToInclusive="true"
             app:destination="@id/challenegesFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/videoViewFragment"
+        android:name="com.brian.views.fragments.VideoViewFragment"
+        tools:layout="@layout/fragment_video_view">
+
     </fragment>
 
 

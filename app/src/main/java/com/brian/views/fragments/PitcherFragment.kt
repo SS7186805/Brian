@@ -12,9 +12,11 @@ import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.PitcherFragmentBinding
 import com.brian.databinding.TrainingVideosBinding
+import com.brian.internals.ClickGuard
 import com.brian.models.DataItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.pitcher_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import org.kodein.di.KodeinAware
@@ -42,6 +44,8 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        setupClickListeners()
 
         return mBinding.root
     }
@@ -83,6 +87,17 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+    }
+
+    private fun setupClickListeners(){
+
+        mBinding.apply {
+            pitcher.setOnClickListener{ clickHandler!!.onPitchClick()}
+
+            ClickGuard.guard(pitcher)
+        }
+
+
     }
 
     inner class ClickHandler {

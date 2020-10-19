@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentHomeBinding
+import com.brian.internals.ClickGuard
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -34,12 +35,13 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         }
 
         mBinding.toolbar.tvTitle.setText(getString(R.string.baseball_bee))
-
         mBinding.toolbar.ivBack.setOnClickListener{
             findNavController().navigate(R.id.mainScreenFragment)
         }
 
         mViewModel.getDefensive()
+
+        setupClickListeners()
 
         return mBinding.root
     }
@@ -47,6 +49,24 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     private fun setupViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+    }
+
+    private fun setupClickListeners(){
+
+        mBinding.apply {
+            Pitcher.setOnClickListener{ clickHandler!!.onPitcherClick()}
+            Catcher.setOnClickListener{clickHandler!!.onCatcherClick()}
+            First.setOnClickListener{clickHandler!!.onFirstBaseClick()}
+            SecondBase.setOnClickListener{clickHandler!!.onSecondBaseClick()}
+            Third.setOnClickListener{clickHandler!!.onThirdBaseClick()}
+            ShortStep.setOnClickListener{clickHandler!!.onShortStepClick()}
+            LeftField.setOnClickListener{clickHandler!!.onLeftFieldClick()}
+            Center.setOnClickListener{clickHandler!!.onCenterFieldClick()}
+            RightField.setOnClickListener{clickHandler!!.onRightFieldClick()}
+
+            ClickGuard.guard(Pitcher,Catcher,First,SecondBase,Third,ShortStep,LeftField,Center,RightField)
+        }
+
     }
     inner class ClickHandler{
 

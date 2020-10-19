@@ -55,7 +55,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     }
 
 
-    fun setDrawer(){
+    fun setDrawer() {
         val toggel = object : ActionBarDrawerToggle(
             this,
             mBinding.drawerLayout,
@@ -72,55 +72,58 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
         mBinding.drawerLayout.setDrawerListener(toggel)
     }
+
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
         arguments: Bundle?
     ) {
 
-        if (destination.id == R.id.pitcherFragment ||destination.id == R.id.homeFragment||destination.id == R.id.trainingVideosFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
+        if (destination.id == R.id.pitcherFragment || destination.id == R.id.homeFragment || destination.id == R.id.trainingVideosFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
             || destination.id == R.id.buzzFeedDetailsFragment || destination.id == R.id.usersFragment
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
-            ||destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
-            ||destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
-            ||destination.id == R.id.challengeType || destination.id == R.id.chatFragment ||  destination.id == R.id.register || destination.id == R.id.myTeamfragment
+            || destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
+            || destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
+            || destination.id == R.id.challengeType || destination.id == R.id.chatFragment || destination.id == R.id.register || destination.id == R.id.myTeamfragment
         ) {
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
         }
 
-        if (destination.id == R.id.videoViewFragment){
+        if (destination.id == R.id.videoViewFragment) {
             mBinding.toolbar.visibility = GONE
         }
 
-        if(destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment ||destination.id == R.id.teamFragment ){
-            mBinding.toolbar.iAdd.visibility= VISIBLE
+        if (destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment || destination.id == R.id.teamFragment) {
+            mBinding.toolbar.iAdd.visibility = VISIBLE
 
-        }else{
-            mBinding.toolbar.iAdd.visibility= GONE
+        } else {
+            mBinding.toolbar.iAdd.visibility = GONE
 
         }
         setDestinationName(destination.id)
     }
 
 
+    fun setDestinationName(id: Int) {
 
-    fun setDestinationName(id: Int){
+        when (id) {
 
-        when(id){
-
-            R.id.mainScreenFragment->mBinding.toolbar.tvTitle.text=getString(R.string.home_toolbar)
-            R.id.trainingVideosFragment->mBinding.toolbar.tvTitle.text=getString(R.string.training_videos)
-            R.id.buzzFeedFragment->mBinding.toolbar.tvTitle.text=getString(R.string.buzz_feed)
-            R.id.myFriendsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_friends)
-            R.id.messagesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mesages)
-            R.id.challenegesFragment->mBinding.toolbar.tvTitle.text=getString(R.string.challenges)
-            R.id.teamFragment->mBinding.toolbar.tvTitle.text=getString(R.string.teams)
-            R.id.myStatsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.mystats)
-            R.id.leaderBoards->mBinding.toolbar.tvTitle.text=getString(R.string.leaderboards)
-            R.id.contactUsFragment->mBinding.toolbar.tvTitle.text=getString(R.string.contact_us)
-            R.id.myProfileFragment->mBinding.toolbar.tvTitle.text=getString(R.string.my_profile)
+            R.id.mainScreenFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.home_toolbar)
+            R.id.trainingVideosFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.training_videos)
+            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed)
+            R.id.myFriendsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
+            R.id.messagesFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mesages)
+            R.id.challenegesFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.challenges)
+            R.id.teamFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.teams)
+            R.id.myStatsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mystats)
+            R.id.leaderBoards -> mBinding.toolbar.tvTitle.text = getString(R.string.leaderboards)
+            R.id.contactUsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.contact_us)
+            R.id.myProfileFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_profile)
         }
 
     }
@@ -138,7 +141,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             itemsList.add(
                 NavigationItem(
                     R.drawable.ic_defensive,
-                    getString(R.string.defensive_situation),
+                    getString(R.string.Home),
                     true
                 )
             )
@@ -197,11 +200,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
         } else {
-
-
-         navController.navigate(R.id.action_firstFragment_to_secondFragment);
-
-
+            navController.navigate(R.id.action_firstFragment_to_secondFragment);
             itemsList.add(
                 NavigationItem(
                     R.drawable.ic_challenge,
@@ -233,10 +232,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
                     false
                 )
             )
-
-
-
-    }
+        }
 
         itemAdapter = NavigationItemAdapter(R.layout.navigation_item, this)
         mBinding.recycler.adapter = itemAdapter
@@ -252,7 +248,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
                 hideKeyboard(it)
             }
             val login: LoginData? = Prefs.init().userInfo
-            name.text=login?.name
+            name.text = login?.name
             Glide.with(applicationContext).load(login?.profilePicture).into(profilePic)
 
 
@@ -261,16 +257,16 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         }
 
         fun onClickAdd() {
-            if(navController.currentDestination?.id == R.id.myFriendsFragment){
+            if (navController.currentDestination?.id == R.id.myFriendsFragment) {
                 navController.navigate(R.id.usersFragment)
 
             }
-            if(navController.currentDestination?.id == R.id.challenegesFragment){
+            if (navController.currentDestination?.id == R.id.challenegesFragment) {
                 navController.navigate(R.id.createChallengeFragment)
 
             }
 
-            if(navController.currentDestination?.id == R.id.teamFragment){
+            if (navController.currentDestination?.id == R.id.teamFragment) {
                 navController.navigate(R.id.createTeamFragment)
 
             }
@@ -312,7 +308,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
     override fun onBackPressed() {
 
-        if(navController.currentDestination?.id==R.id.gameSummaryFragment){
+        if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
         } else if (!navController.navigateUp()) {
             finish()

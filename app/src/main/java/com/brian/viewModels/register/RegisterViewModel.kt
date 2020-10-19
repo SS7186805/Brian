@@ -52,7 +52,8 @@ class RegisterViewModel(
                     if (isSuccess) {
                         println(response)
                         showLoading.postValue(false)
-                        showMessage.postValue(response?.message)
+                        registerSuccess.postValue(true)
+                       // showMessage.postValue(response?.message)
                     } else {
                         showLoading.postValue(false)
                         showMessage.postValue(message)

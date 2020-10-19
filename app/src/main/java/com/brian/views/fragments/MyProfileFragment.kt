@@ -15,6 +15,7 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MyProfileFragmentBinding
+import com.brian.internals.ClickGuard
 import com.brian.internals.DialogUtil
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
@@ -42,7 +43,7 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-
+        setupClickListeners()
 
         return mBinding.root
     }
@@ -60,6 +61,22 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
                 }
                     //Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             })
+        }
+    }
+
+    private fun setupClickListeners(){
+        mBinding.apply {
+
+            viewProfile.setOnClickListener{ clickHandler!!.onViewProfileClick() }
+            editProfile.setOnClickListener{ clickHandler!!.onEditProfileClick() }
+            changePassword.setOnClickListener{ clickHandler!!.onChangePasswordClick() }
+            myChallenges.setOnClickListener{ clickHandler!!.onMyChallengesClick() }
+            badgesEarned.setOnClickListener{ clickHandler!!.onBadgesEarnedClick() }
+            myTeams.setOnClickListener{ clickHandler!!.onMyTeamsClick() }
+            logout.setOnClickListener{ clickHandler!!.onLogoutClick() }
+
+            ClickGuard.guard(viewProfile,editProfile,changePassword,myChallenges,myTeams,badgesEarned ,logout)
+
         }
     }
 
