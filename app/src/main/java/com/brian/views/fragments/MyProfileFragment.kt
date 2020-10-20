@@ -66,7 +66,6 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
 
     private fun setupClickListeners(){
         mBinding.apply {
-
             viewProfile.setOnClickListener{ clickHandler!!.onViewProfileClick() }
             editProfile.setOnClickListener{ clickHandler!!.onEditProfileClick() }
             changePassword.setOnClickListener{ clickHandler!!.onChangePasswordClick() }
@@ -75,8 +74,7 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
             myTeams.setOnClickListener{ clickHandler!!.onMyTeamsClick() }
             logout.setOnClickListener{ clickHandler!!.onLogoutClick() }
 
-            ClickGuard.guard(viewProfile,editProfile,changePassword,myChallenges,myTeams,badgesEarned ,logout)
-
+            ClickGuard.guard(viewProfile,editProfile,changePassword,myChallenges,myTeams,badgesEarned,logout)
         }
     }
 

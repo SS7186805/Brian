@@ -9,14 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.FragmentLoginBinding
 import com.brian.databinding.PitcherFragmentBinding
-import com.brian.databinding.TrainingVideosBinding
 import com.brian.internals.ClickGuard
 import com.brian.models.DataItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.pitcher_fragment.*
 import kotlinx.android.synthetic.main.toolbar_layout.view.*
 import org.kodein.di.KodeinAware
@@ -27,7 +24,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: HomescreenViewModelFactory by instance()
     lateinit var mBinding: PitcherFragmentBinding
     lateinit var mViewModel: HomeViewModel
-    var nextName = ""
+    var nextPageName = ""
 
 
     override fun onCreateView(
@@ -67,7 +64,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun SetUpScreen(name: String) {
-        nextName = name
+        nextPageName = name
         when (name) {
             "Pitcher" -> mBinding.toolbar.tvTitle.text = "Pitcher"
             "Catcher" -> mBinding.toolbar.tvTitle.text = "Catcher"
@@ -103,7 +100,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler {
 
         fun onPitchClick() {
-            findNavController().navigate(R.id.questionsFragment, bundleOf("name" to nextName))
+            findNavController().navigate(R.id.questionsFragment, bundleOf("name" to nextPageName))
 
         }
 

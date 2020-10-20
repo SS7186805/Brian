@@ -111,8 +111,6 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
         super.onActivityCreated(savedInstanceState)
         var pageName=arguments?.getString("name")
         mBinding.toolbar.tvTitle.text = pageName
-
-
     }
     override fun onClick(data: AnswersItem, position: Int,correct:Boolean) {
 //        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()

@@ -251,7 +251,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             name.text = login?.name
             Glide.with(applicationContext).load(login?.profilePicture).into(profilePic)
 
-
             mBinding.drawerLayout.openDrawer(LEFT)
 
         }
@@ -308,8 +307,11 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
     override fun onBackPressed() {
 
+
         if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
+        } else if(navController.currentDestination?.id == R.id.homeFragment){
+            navController.navigate(R.id.mainScreenFragment)
         } else if (!navController.navigateUp()) {
             finish()
         }
