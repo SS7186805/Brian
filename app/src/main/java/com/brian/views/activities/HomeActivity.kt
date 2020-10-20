@@ -79,7 +79,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         arguments: Bundle?
     ) {
 
-        if (destination.id == R.id.pitcherFragment || destination.id == R.id.homeFragment || destination.id == R.id.trainingVideosFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
+        if (destination.id == R.id.videoViewFragment || destination.id == R.id.pitcherFragment || destination.id == R.id.homeFragment || destination.id == R.id.trainingVideosFragment || destination.id == R.id.questionsFragment || destination.id == R.id.gameSummaryFragment
             || destination.id == R.id.buzzFeedDetailsFragment || destination.id == R.id.usersFragment
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
             || destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
@@ -89,10 +89,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
-        }
-
-        if (destination.id == R.id.videoViewFragment) {
-            mBinding.toolbar.visibility = GONE
         }
 
         if (destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment || destination.id == R.id.teamFragment) {
@@ -125,7 +121,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             R.id.contactUsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.contact_us)
             R.id.myProfileFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_profile)
         }
-
     }
 
 
@@ -200,12 +195,12 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
         } else {
-            navController.navigate(R.id.action_firstFragment_to_secondFragment);
+            navController.navigate(R.id.action_homeFragment_to_challengeFragment);
             itemsList.add(
                 NavigationItem(
                     R.drawable.ic_challenge,
                     getString(R.string.challenges),
-                    false
+                    true
                 )
             )
 
@@ -310,11 +305,22 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 //        if(mBinding.drawerLayout.openDrawer(Gravity.LEFT) == mBinding.drawerLayout.openDrawer(Gravity.LEFT)){
 //            drawerLayout.closeDrawer(Gravity.LEFT)
 //        }
-//
+
+//        if(mBinding.drawerLayout.isDrawerOpen(drawerLayout)){
+//            mBinding.drawerLayout.closeDrawer(LEFT)
+//        }
         if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
-        } else if(navController.currentDestination?.id == R.id.homeFragment){
+        } else if(navController.currentDestination?.id == R.id.mainScreenFragment){
+            finish()
+        }else if(navController.currentDestination?.id == R.id.homeFragment || navController.currentDestination?.id == R.id.getStartTrainingFragment || navController.currentDestination?.id == R.id.myFriendsFragment ||
+               navController.currentDestination?.id == R.id.buzzFeedFragment || navController.currentDestination?.id == R.id.messagesFragment || navController.currentDestination?.id == R.id.challenegesFragment ||
+            navController.currentDestination?.id == R.id.teamFragment || navController.currentDestination?.id == R.id.myStatsFragment || navController.currentDestination?.id == R.id.leaderBoards ||
+                navController.currentDestination?.id == R.id.contactUsFragment || navController.currentDestination?.id == R.id.myProfileFragment){
+
+            itemAdapter?.notifyDataSetChanged()
             navController.navigate(R.id.mainScreenFragment)
+
         } else if (!navController.navigateUp()) {
             finish()
         }

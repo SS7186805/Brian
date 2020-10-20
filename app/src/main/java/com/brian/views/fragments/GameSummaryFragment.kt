@@ -17,6 +17,7 @@ import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.GameSummaryAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.game_summary_fragment.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -67,6 +68,8 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         correctAnswer= arguments?.getInt("correctAnswer")!!
         wrongeAnswer=arguments?.getInt("wrongeAnswer")!!
+        mBinding.tScore.text =  "Score:${correctAnswer*100}"
+        mBinding.average.text = "Average:${(correctAnswer*100)/5}%"
         gameSummarylist=arguments?.getParcelableArrayList<QuestionData>("questionSammary")!!
         println(gameSummarylist)
         gameSummaryAdapter.setNewItems(gameSummarylist)

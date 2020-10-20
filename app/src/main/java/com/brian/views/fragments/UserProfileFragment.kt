@@ -11,6 +11,7 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.*
+import com.brian.internals.Utils
 import com.brian.models.LoginData
 import com.brian.viewModels.login.LoginViewModel
 import com.brian.viewModels.login.LoginViewModelFactory
@@ -50,6 +51,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         setAdapter()
         val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text=login.userType
+
+       // var date = Utils.init.selectDate()
 
 
         mBinding.dob.text= "Born on: ${login.dob}"

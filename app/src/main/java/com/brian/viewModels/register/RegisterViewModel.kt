@@ -1,6 +1,8 @@
 package com.brian.viewModels.register
 
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.text.TextUtils
 import android.util.Patterns
 import androidx.databinding.ObservableField
@@ -16,6 +18,7 @@ import com.brian.repository.authRepository.authRepository.AuthenticationReposito
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import java.io.File
 
 
 class RegisterViewModel(
@@ -88,10 +91,10 @@ class RegisterViewModel(
         if (TextUtils.isEmpty(authRequest.get()!!.name)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
             return false
-        }else if(authRequest.get()!!.name!!.length>15){
-            showMessage.postValue("please enter name less then 15 character")
-        }
-        else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
+        }else if(authRequest.get()!!.name!!.length<2){
+            showMessage.postValue(resourcesProvider.getString(R.string.name_length))
+            return false
+        }else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(authRequest.get()!!.email).matches()) {
@@ -115,6 +118,9 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.name)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
             return false
+        }else if(authRequest.get()!!.name!!.length<2){
+            showMessage.postValue(resourcesProvider.getString(R.string.name_length))
+            return false
         } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
             return false
@@ -130,7 +136,7 @@ class RegisterViewModel(
         } else if (TextUtils.isEmpty(authRequest.get()!!.password)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_passowrd))
             return false
-        }else if (authRequest.get()!!.password!!.length<=6) {
+        }else if (authRequest.get()!!.password!!.length<6) {
             showMessage.postValue(resourcesProvider.getString(R.string.password_Size))
             return false
         }  else if (TextUtils.isEmpty(authRequest.get()!!.cnf_password)) {

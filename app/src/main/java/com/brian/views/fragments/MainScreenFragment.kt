@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import kotlinx.android.synthetic.main.fragment_main_screen.*
 
 
 class MainScreenFragment : Fragment() {
+    lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +26,11 @@ class MainScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navController = Navigation.findNavController(requireActivity(), R.id.main_dash_fragment)
+
         GetStart.setOnClickListener {
-            findNavController().navigate(R.id.videoViewFragment)
+
+            navController.navigate(R.id.action_mainScreenFragment_to_videoViewFragment)
         }
 
         }

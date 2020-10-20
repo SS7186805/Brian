@@ -9,12 +9,20 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.brian.views.fragments.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" >
+        tools:layout="@layout/fragment_main_screen">
         <action
-            android:id="@+id/action_firstFragment_to_secondFragment"
+            android:id="@+id/action_homeFragment_to_challengeFragment"
+            app:destination="@id/challenegesFragment"
             app:popUpTo="@+id/challenegesFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/challenegesFragment" />
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_mainScreenFragment_to_videoViewFragment"
+            app:destination="@id/videoViewFragment"
+            app:enterAnim="@anim/enter_transition"
+            app:exitAnim="@anim/exit_transitioin"
+            app:popEnterAnim="@anim/enter_pop_transition"
+            app:popExitAnim="@anim/exit_pop_transition" />
 
     </fragment>
 
@@ -23,6 +31,13 @@
         android:name="com.brian.views.fragments.VideoViewFragment"
         tools:layout="@layout/fragment_video_view">
 
+        <action
+            android:id="@+id/action_videoViewFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/enter_transition"
+            app:exitAnim="@anim/exit_transitioin"
+            app:popEnterAnim="@anim/enter_pop_transition"
+            app:popExitAnim="@anim/exit_pop_transition" />
     </fragment>
 
 

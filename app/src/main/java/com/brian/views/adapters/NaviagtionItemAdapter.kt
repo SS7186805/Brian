@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat
 import com.brian.R
 import com.brian.base.BaseRecyclerAdapter
 import com.brian.databinding.NavigationItemBinding
+import com.brian.internals.ClickGuard
 import com.brian.views.NavigationItem
 
 

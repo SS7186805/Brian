@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
+import com.brian.internals.Utils
 import kotlinx.android.synthetic.main.fragment_video_view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 
 
-class VideoViewFragment :ScopedFragment(), KodeinAware {
-  //  lateinit var videoView: VideoView
+class VideoViewFragment : ScopedFragment(), KodeinAware {
+
     override val kodein by closestKodein()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,16 +29,12 @@ class VideoViewFragment :ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         videoView.setVideoURI(Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.videoview))
-
         videoView.requestFocus()
-
         videoView.start()
-
         videoView.setOnCompletionListener {
-            findNavController().navigate(R.id.homeFragment)
+            videoView.resume()
+            findNavController().navigate(R.id.action_videoViewFragment_to_homeFragment)
         }
     }
 }
