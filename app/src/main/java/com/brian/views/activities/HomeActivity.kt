@@ -307,7 +307,10 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
     override fun onBackPressed() {
 
-
+//        if(mBinding.drawerLayout.openDrawer(Gravity.LEFT) == mBinding.drawerLayout.openDrawer(Gravity.LEFT)){
+//            drawerLayout.closeDrawer(Gravity.LEFT)
+//        }
+//
         if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
         } else if(navController.currentDestination?.id == R.id.homeFragment){
