@@ -1,6 +1,7 @@
 package com.brian.views.fragments
 
 import android.Manifest.permission.*
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -61,6 +62,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 
     var list = ArrayList<String>()
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -100,14 +102,25 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 regUserType.showDropDown()
             }
 
-      /*      regPassword.setOnFocusChangeListener { v, hasFocus ->
-                if (hasFocus) registerScroll.scrollToEditText(v)
-            }
-
-            regCnfPassword.setOnFocusChangeListener { v, hasFocus ->
-                if (hasFocus) registerScroll.scrollToEditText(v)
-            }*/
+//           regPassword.setOnFocusChangeListener { v, hasFocus ->
+//                if (hasFocus) registerScroll.scrollToEditText(v)
+//            }
+//
+//            regCnfPassword.setOnFocusChangeListener { v, hasFocus ->
+//                if (hasFocus) registerScroll.scrollToEditText(v)
+//            }
         }
+
+        mBinding.regEmail.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+
+                Utils.init.hideKeyBoard(requireContext(), mBinding.root)
+
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
    mBinding.regCnfPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -320,7 +333,6 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 //            mBinding.regDOB.isEnabled = false
             mBinding.regUserType.isEnabled = false
 
-
             val login: LoginData? = Prefs.init().userInfo
             //   mBinding.regName.setText(login?.name)
 
@@ -337,9 +349,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                     Glide.with(requireContext()).load(login.profilePicture)
                         .into(mBinding.circlerImage)
                 }
-
             }
-
         }
     }
 
