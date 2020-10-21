@@ -39,13 +39,16 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
 
     fun validation(): Boolean {
         if (TextUtils.isEmpty(change.get()!!.old_password)) {
-            showMessage.postValue("Pleae enter Old Password")
+            showMessage.postValue("Please enter old password.")
             return false
         } else if (TextUtils.isEmpty(change.get()!!.new_password)) {
-            showMessage.postValue("Please enter New Pasword")
+            showMessage.postValue("Please enter new pasword.")
             return false
-        } else if (TextUtils.isEmpty(change.get()!!.confirm_password)) {
-            showMessage.postValue("Please enter Confirm Pasword")
+        } else if (change.get()!!.new_password!!.length<6){
+            showMessage.postValue("Password must be at least 6 characters long.")
+            return false
+        }else if (TextUtils.isEmpty(change.get()!!.confirm_password)) {
+            showMessage.postValue("Please enter confirm pasword.")
             return false
         }else if (change.get()!!.new_password != change.get()!!.confirm_password) {
             showMessage.postValue("New password and confirm password doesn't match.")

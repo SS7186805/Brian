@@ -1,11 +1,14 @@
 package com.brian.views.fragments
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +19,7 @@ import com.brian.base.ScopedFragment
 import com.brian.databinding.ChangePasswordFragmentBinding
 import com.brian.internals.ClickGuard
 import com.brian.internals.DialogUtil
+import com.brian.internals.Utils
 import com.brian.viewModels.myProfile.MyProfileViewModel
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
 import com.brian.viewModels.register.RegisterViewModel
@@ -51,6 +55,16 @@ class ChangePasswordFragment : ScopedFragment(), KodeinAware, DialogUtil.Success
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        mBinding.confirmPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE){
+                v.clearFocus()
+                Utils.init.hideKeyBoard(requireContext(),mBinding.root)
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
         setupClickListeners()
         return mBinding.root
     }
