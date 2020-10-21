@@ -29,9 +29,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: UserProfileFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-    var list=ArrayList<String>()
-    var badgesAdapter:BadgesAdapter?=null
-
+    var list = ArrayList<String>()
+    var badgesAdapter: BadgesAdapter? = null
 
 
     override fun onCreateView(
@@ -44,20 +43,23 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text=getString(R.string.user_profile)
+        mBinding.toolbar.tvTitle.text = getString(R.string.user_profile)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
         setAdapter()
         val login: LoginData = Prefs.init().userInfo!!
-        mBinding.type.text=login.userType
+        mBinding.type.text = login.userType
 
-       // var date = Utils.init.selectDate()
+        mBinding.dob.text = "Born on: ${login.dob}"
+        mBinding.username.text = login?.name
 
+        if (login?.profilePicture == null) {
+            Glide.with(requireContext()).load(R.drawable.ic_use_r).into(mBinding.profilePic)
+        } else {
+            Glide.with(requireContext()).load(login.profilePicture).into(mBinding.profilePic)
+        }
 
-        mBinding.dob.text= "Born on: ${login.dob}"
-        mBinding.username.text=login?.name
-        Glide.with(requireContext()).load(login.profilePicture).into( mBinding.profilePic)
         return mBinding.root
     }
 
@@ -67,17 +69,18 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    fun setAdapter(){
-        mBinding.recycler.layoutManager=GridLayoutManager(requireContext(),4)
-        badgesAdapter=BadgesAdapter(R.layout.badge_item)
-        mBinding.recycler.adapter=badgesAdapter
-        for(i in 0 until 8){
+    fun setAdapter() {
+        mBinding.recycler.layoutManager = GridLayoutManager(requireContext(), 4)
+        badgesAdapter = BadgesAdapter(R.layout.badge_item)
+        mBinding.recycler.adapter = badgesAdapter
+        for (i in 0 until 8) {
             list.add("")
         }
         badgesAdapter!!.addNewItems(list)
 
     }
-    inner class ClickHandler{
+
+    inner class ClickHandler {
 
 
     }

@@ -19,6 +19,7 @@ import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentLoginBinding
 import com.brian.internals.ClickGuard
+import com.brian.internals.Utils
 import com.brian.internals.keyboardListener
 import com.brian.internals.showToast
 import com.brian.viewModels.register.RegisterViewModel
@@ -52,16 +53,14 @@ class LoginFragment : ScopedFragment(), KodeinAware {
         }
         setupClickListeners()
       //  keyboardListener()
-
-
-//        mBinding.etPassword.setOnEditorActionListener(object : TextView.OnEditorActionListener {
-//            override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    mBinding.root.requestFocus()
-//                }
-//                return true
-//            }
-//        })
+        mBinding.etPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+                Utils.init.hideKeyBoard(requireContext(), mBinding.root)
+                return@OnEditorActionListener true
+            }
+            false
+        })
         return mBinding.root
     }
 

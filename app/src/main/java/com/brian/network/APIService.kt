@@ -38,7 +38,7 @@ interface APIService {
     //    @Multipart
     @Multipart
     @POST("api/v1/register")
-    suspend fun signUp(@PartMap request: HashMap<String,RequestBody>,@Part profile_picture: MultipartBody.Part): BaseResponse
+    suspend fun signUp(@PartMap request: HashMap<String,RequestBody>,@Part profile_picture: MultipartBody.Part?): BaseResponse
 
     @POST("api/v1/login")
     suspend fun login(@Body request: RegisterRequest): BaseResponse
@@ -55,8 +55,9 @@ interface APIService {
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse
 
+    @Multipart
     @POST("api/v1/profile")
-    suspend fun editProfile(@Body request: RegisterRequest): BaseResponse
+    suspend fun editProfile(@PartMap request: HashMap<String,RequestBody>, @Part profile_picture: MultipartBody.Part?): BaseResponse
 
     @GET("api/v1/get-question-randomly")
     suspend fun questionResponse(): QuestionResponse

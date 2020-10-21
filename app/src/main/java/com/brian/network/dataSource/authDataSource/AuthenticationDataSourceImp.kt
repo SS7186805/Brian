@@ -23,7 +23,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
             params["device_type"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.deviceType!!)
             params["device_token"] = RequestBody.create("text/plain".toMediaTypeOrNull(), registerRequest.deviceToken!!)
 
-            response = apiService.signUp(params,registerRequest.profile_picture!!)
+            response = apiService.signUp(params,registerRequest.profile_picture)
         } catch (e: Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -67,7 +67,11 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
     override suspend fun editProfile(register: RegisterRequest): BaseResponse {
         var response = BaseResponse()
         try {
-            response = apiService.editProfile(register)
+            var params = HashMap<String, RequestBody>()
+            params["name"] =  RequestBody.create("text/plain".toMediaTypeOrNull(), register.name!!)
+            params["email"] = RequestBody.create("text/plain".toMediaTypeOrNull(), register.email!!)
+            params["dob"] = RequestBody.create("text/plain".toMediaTypeOrNull(), register.dob!!)
+            response = apiService.editProfile(params,register.profile_picture)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.Gravity.LEFT
+import android.view.Gravity.START
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -23,6 +25,7 @@ import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.header_layout.*
@@ -35,6 +38,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     val mClickHandler by lazy { ClickHandler() }
     var itemsList = ArrayList<NavigationItem>()
     var itemAdapter: NavigationItemAdapter? = null
+    var ivProfile: ImageView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,26 +51,29 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         navController.addOnDestinationChangedListener(this)
         setAdapter()
         setDrawer()
-
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.homeFragment, true)
-            .build()
-
+        ivProfile =
+            mBinding.navigationView.getHeaderView(0).findViewById<ImageView>(R.id.profilePic)
+        ivProfile?.let {
+            Glide.with(this@HomeActivity).load(Prefs.init().userInfo?.profilePicture)
+                .error(R.drawable.ic_use_r).into(it)
+        }
     }
 
 
-    fun setDrawer() {
+    private fun setDrawer() {
         val toggel = object : ActionBarDrawerToggle(
             this,
             mBinding.drawerLayout,
             R.string.app_name,
             R.string.app_name
         ) {
-
-
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 val moveFactor: Float = mBinding.recycler.getWidth() * slideOffset
                 mBinding.frameLayout.setTranslationX(moveFactor)
+                ivProfile?.let {
+                    Glide.with(this@HomeActivity).load(Prefs.init().userInfo?.profilePicture)
+                        .error(R.drawable.ic_use_r).into(it)
+                }
             }
         }
 
@@ -103,9 +110,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
     fun setDestinationName(id: Int) {
-
         when (id) {
-
             R.id.mainScreenFragment -> mBinding.toolbar.tvTitle.text =
                 getString(R.string.home_toolbar)
             R.id.trainingVideosFragment -> mBinding.toolbar.tvTitle.text =
@@ -124,13 +129,9 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     }
 
 
-    fun setAdapter() {
-
+    private fun setAdapter() {
         mBinding.recycler.layoutManager = LinearLayoutManager(this)
-
-
-        var userInfo = Prefs.init().userInfo
-
+        val userInfo = Prefs.init().userInfo
         if (userInfo!!.userType.equals("Players")) {
             //Add Items
             itemsList.add(
@@ -195,7 +196,8 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
 
         } else {
-            navController.navigate(R.id.action_homeFragment_to_challengeFragment);
+            navController.navigate(R.id.action_homeFragment_to_challengeFragment)
+
             itemsList.add(
                 NavigationItem(
                     R.drawable.ic_challenge,
@@ -242,12 +244,9 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.root.let {
                 hideKeyboard(it)
             }
-            val login: LoginData? = Prefs.init().userInfo
+            val login = Prefs.init().userInfo
             name.text = login?.name
-            Glide.with(applicationContext).load(login?.profilePicture).into(profilePic)
-
             mBinding.drawerLayout.openDrawer(LEFT)
-
         }
 
         fun onClickAdd() {
@@ -268,9 +267,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         }
 
         override fun onClick(position: Int, item: NavigationItem) {
-
-            Log.e("OnClick", "OnClick")
-
             for (i in 0 until itemsList.size) {
                 itemsList[i].isSelected = i == position
             }
@@ -311,12 +307,13 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 //        }
         if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
-        } else if(navController.currentDestination?.id == R.id.mainScreenFragment){
+        } else if (navController.currentDestination?.id == R.id.mainScreenFragment) {
             finish()
-        }else if(navController.currentDestination?.id == R.id.homeFragment || navController.currentDestination?.id == R.id.getStartTrainingFragment || navController.currentDestination?.id == R.id.myFriendsFragment ||
-               navController.currentDestination?.id == R.id.buzzFeedFragment || navController.currentDestination?.id == R.id.messagesFragment || navController.currentDestination?.id == R.id.challenegesFragment ||
+        } else if (navController.currentDestination?.id == R.id.homeFragment || navController.currentDestination?.id == R.id.getStartTrainingFragment || navController.currentDestination?.id == R.id.myFriendsFragment ||
+            navController.currentDestination?.id == R.id.buzzFeedFragment || navController.currentDestination?.id == R.id.messagesFragment || navController.currentDestination?.id == R.id.challenegesFragment ||
             navController.currentDestination?.id == R.id.teamFragment || navController.currentDestination?.id == R.id.myStatsFragment || navController.currentDestination?.id == R.id.leaderBoards ||
-                navController.currentDestination?.id == R.id.contactUsFragment || navController.currentDestination?.id == R.id.myProfileFragment){
+            navController.currentDestination?.id == R.id.contactUsFragment || navController.currentDestination?.id == R.id.myProfileFragment
+        ) {
 
             itemAdapter?.notifyDataSetChanged()
             navController.navigate(R.id.mainScreenFragment)

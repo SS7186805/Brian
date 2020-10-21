@@ -20,10 +20,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.ScrollView
-import android.widget.Toast
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
@@ -39,6 +36,8 @@ import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.util.Util
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -50,7 +49,8 @@ import org.kodein.di.generic.instance
 import java.io.ByteArrayOutputStream
 import java.io.File
 
-class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener,OnTouchListener {
+class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener,
+    OnTouchListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: FragmentRegisterBinding
@@ -100,21 +100,31 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 regUserType.showDropDown()
             }
 
-            regPassword.setOnFocusChangeListener { v, hasFocus ->
-               if(hasFocus) registerScroll.scrollToEditText(v)
+      /*      regPassword.setOnFocusChangeListener { v, hasFocus ->
+                if (hasFocus) registerScroll.scrollToEditText(v)
             }
 
             regCnfPassword.setOnFocusChangeListener { v, hasFocus ->
-                if(hasFocus) registerScroll.scrollToEditText(v)
-            }
+                if (hasFocus) registerScroll.scrollToEditText(v)
+            }*/
         }
 
+   mBinding.regCnfPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                v.clearFocus()
+
+                Utils.init.hideKeyBoard(requireContext(), mBinding.root)
+
+                return@OnEditorActionListener true
+            }
+            false
+        })
 
         mBinding.regUserType.setOnTouchListener(this)
 
-        keyboardListener()
+//        keyboardListener()
         setupClickListeners()
-      //  mBinding.regCnfPassword.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
 
         return mBinding.root
     }
@@ -129,9 +139,9 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     private fun setupObserver() {
         mViewModel.apply {
             showLoading.observe(viewLifecycleOwner, Observer {
-                if (it){
+                if (it) {
                     mBinding.progressBar.visibility = VISIBLE
-                }else{
+                } else {
                     mBinding.progressBar.visibility = GONE
                 }
             })
@@ -150,7 +160,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                         message = getString(R.string.register_message)
                         successClickListener = this@RegisterFragment
                     }
-                }else{
+                } else {
                     DialogUtil.build(requireContext()) {
                         title = getString(R.string.success)
                         dialogType = DialogUtil.DialogType.SUCCESS
@@ -307,23 +317,32 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regName.setText(getString(R.string.user_name))
             mBinding.regEmail.setText("abc@gmail.com")
             mBinding.regDOB.setText(Utils.init.getCurrentDate())
-            mBinding.regDOB.isEnabled = false
+//            mBinding.regDOB.isEnabled = false
             mBinding.regUserType.isEnabled = false
 
 
             val login: LoginData? = Prefs.init().userInfo
-            mBinding.regName.setText(login?.name)
+            //   mBinding.regName.setText(login?.name)
 
             mViewModel.authRequest.get()?.apply {
                 dob = login?.dob
                 user_type = login?.userType
                 name = login?.name
                 email = login?.email
-                Glide.with(requireContext()).load(login?.profilePicture).into( mBinding.circlerImage)
+
+                if (login?.profilePicture == null) {
+                    Glide.with(requireContext()).load(R.drawable.ic_use_r)
+                        .into(mBinding.circlerImage)
+                } else {
+                    Glide.with(requireContext()).load(login.profilePicture)
+                        .into(mBinding.circlerImage)
+                }
+
             }
 
         }
     }
+
     fun keyboardListener() {
         requireActivity().keyboardListener { isOpen ->
             if (!isOpen) {
@@ -332,10 +351,10 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             }
         }
     }
+
     override fun onOkayClick() {
         if (arguments?.getString("edit").equals("edit")) {
             findNavController().navigateUp()
-
         } else {
             Prefs.init().isLogIn = "true"
             startActivity(Intent(requireContext(), HomeActivity::class.java))
@@ -345,9 +364,8 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
     }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        if(v?.id==R.id.reg_User_type){
-            Utils.init.hideKeyBoard(requireContext(),mBinding.root)
-
+        if (v?.id == R.id.reg_User_type) {
+            Utils.init.hideKeyBoard(requireContext(), mBinding.root)
         }
         return false
     }

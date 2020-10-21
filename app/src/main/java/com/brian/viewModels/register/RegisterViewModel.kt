@@ -51,12 +51,17 @@ class RegisterViewModel(
         if (isediting) {
             if (editValidation()) {
                 showLoading.postValue(true)
+                println(authRequest.get()!!)
                 authenticationRepository.editProfile(authRequest.get()!!) { isSuccess, message, response ->
                     if (isSuccess) {
                         println(response)
                         showLoading.postValue(false)
                         registerSuccess.postValue(true)
                        // showMessage.postValue(response?.message)
+                        if (response?.data is LoginData) {
+                            val loginData: LoginData = response?.data
+                            Prefs.init().userInfo = loginData
+                        }
                     } else {
                         showLoading.postValue(false)
                         showMessage.postValue(message)
@@ -112,10 +117,7 @@ class RegisterViewModel(
     }
 
     fun SignUpvalidate(): Boolean {
-        if(authRequest.get()!!.profile_picture == null){
-            showMessage.postValue(resourcesProvider.getString(R.string.set_profile))
-            return false
-        } else if (TextUtils.isEmpty(authRequest.get()!!.name)) {
+         if (TextUtils.isEmpty(authRequest.get()!!.name)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_name))
             return false
         }else if(authRequest.get()!!.name!!.length<2){
@@ -159,7 +161,7 @@ class RegisterViewModel(
                     user_name = response?.data?.name
                     showLoading.postValue(false)
                     registerSuccess.postValue(true)
-                    showMessage.postValue(response?.message)
+                 //   showMessage.postValue(response?.message)
                     if (response?.data is LoginData) {
                         val loginData: LoginData = response?.data
 //                        Prefs.init().accessToken = loginData.accessToken!!

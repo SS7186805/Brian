@@ -37,7 +37,7 @@ data class LoginData(
 	val createdAt: String? = null,
 
 	@field:SerializedName("profile_picture")
-	val profilePicture: @RawValue Any? = null,
+	var profilePicture: @RawValue Any? = null,
 
 	@field:SerializedName("device_type")
 	val deviceType: String? = null,
@@ -64,7 +64,7 @@ data class LoginData(
 	val deviceToken: String? = null,
 
 	@field:SerializedName("name")
-	val name: String? = null,
+	var name: String? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,
