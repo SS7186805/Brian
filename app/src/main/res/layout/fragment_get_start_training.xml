@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.fragments.GetStartTraining"
-    android:background="#F8000000">
+    android:background="@color/blackTheme">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_one"
@@ -15,7 +30,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30dp"
         android:background="#000"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
@@ -24,7 +38,7 @@
             android:id="@+id/baseball_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Baseball.com"
+            android:text="BeMoreFit.com"
             android:textColor="@color/yellow"
             android:textSize="@dimen/px70"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +67,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="#000"
         app:layout_constraintTop_toBottomOf="@+id/container_one"
         android:paddingTop="10dp"
@@ -85,8 +99,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="#000"
-        android:layout_marginTop="30dp"
-        android:paddingTop="10dp">
+        android:paddingTop="20dp">
 
 
         <TextView
@@ -112,9 +125,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view"
-            app:layout_constraintBottom_toTopOf="@id/GetStart_one"
             android:text="Speed/Balance &amp; Agility"
             android:textColor="#fff"
+            app:layout_constraintBottom_toTopOf="@id/GetStart_one"
             android:textSize="@dimen/px55"
             android:fontFamily="@font/century_gothic"
             android:layout_marginTop="25dp"/>
@@ -144,9 +157,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/GetStart_one"
-            android:text="Strength/Endurance &amp; Contraction"
-            app:layout_constraintBottom_toTopOf="@+id/GetStart_second"
+            android:text="Strength/Endurance &amp; Contractions"
             android:textColor="#fff"
+            app:layout_constraintBottom_toTopOf="@id/GetStart_second"
             android:textSize="@dimen/px55"
             android:fontFamily="@font/century_gothic"
             android:layout_marginTop="0dp"/>
@@ -165,10 +178,11 @@
             android:layout_height="@dimen/profile_btn_size"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:layout_marginBottom="30dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+
 

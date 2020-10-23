@@ -19,4 +19,15 @@ class MyProfileRepositoryImp(private val myProfileDataSource: MyProfileDataSourc
         }
 
     }
+
+    override fun viewProfile(onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit) {
+        GlobalScope.launch ( Dispatchers.Main){
+            val response = myProfileDataSource.viewProfile()
+            if (response.error != null){
+                onResult(false,response.error!!,null)
+            }else{
+                onResult(true,response.message!!,response)
+            }
+        }
+    }
 }

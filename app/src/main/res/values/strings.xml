@@ -40,8 +40,8 @@
     <string name="option3">Option 3</string>
     <string name="correctAnswer">Correct Answer</string>
     <string name="next">Next</string>
-    <string name="score">Score: 300</string>
-    <string name="average">Average: 50%</string>
+    <string name="score">Score:\u0020 300</string>
+    <string name="average">Average:\u0020 50%</string>
     <string name="total_questions">Total Questions</string>
     <string name="correct_answers">Correct Answers</string>
     <string name="incorrect_answers">Incorrect Answers</string>
@@ -136,12 +136,13 @@
     <string name="password_size">Enter password must be 8 digit</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="frist_point">\u0020 \u0020 \u0020 Check you Knowledge of 7,000+ Defensive\nSituations(content include in the free app)</string>
+    <string name="frist_point">\u0020 \u0020 \u0020 Check your Knowledge of 7,000+ Defensive Situations(content included in the free app)</string>
     <string name="third_point">\u0020 \u0020 \u0020  Challenge your real-world teammates to play Games you have played... and track your status on the LeaderBoard</string>
-    <string name="second_point">\u0020 \u0020 \u0020  Play Custom Game created by you real-\nworld Coaches</string>
+    <string name="second_point">\u0020 \u0020 \u0020  Play Custom Game created by your real-world Coaches</string>
     <string name="get_started">Get Started</string>
     <string name="set_profile">Please set the Profile Picture</string>
     <string name="baseball_bee">Baseball Bee Simulator</string>
     <string name="name_length">Name must be at least 2 characters long.</string>
+    <string name="name_length_max">Name should not be greater than 30 characters.</string>
 
 </resources>

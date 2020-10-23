@@ -104,7 +104,7 @@
                 android:paddingBottom="@dimen/margin_10"
                 android:text="@string/correctAnswer"
                 android:textColor="@color/green"
-                android:textSize="@dimen/px40"
+                android:textSize="@dimen/px55"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/QuestionSummaryRecycler" />
 
@@ -118,7 +118,7 @@
                 android:layout_marginTop="@dimen/margin_20"
                 android:text="@string/option1"
                 android:textColor="@color/green"
-                android:textSize="@dimen/px40"
+                android:textSize="@dimen/px55"
                 app:layout_constraintStart_toEndOf="@+id/correctAnswer"
                 app:layout_constraintTop_toBottomOf="@+id/QuestionSummaryRecycler"/>
 

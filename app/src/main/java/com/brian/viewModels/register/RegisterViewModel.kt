@@ -99,6 +99,9 @@ class RegisterViewModel(
         }else if(authRequest.get()!!.name!!.length<2){
             showMessage.postValue(resourcesProvider.getString(R.string.name_length))
             return false
+        }else if(authRequest.get()!!.name!!.length>30){
+            showMessage.postValue(resourcesProvider.getString(R.string.name_length_max))
+            return false
         }else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
             return false
@@ -123,7 +126,10 @@ class RegisterViewModel(
         }else if(authRequest.get()!!.name!!.length<2){
             showMessage.postValue(resourcesProvider.getString(R.string.name_length))
             return false
-        } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
+        }else if(authRequest.get()!!.name!!.length>30){
+             showMessage.postValue(resourcesProvider.getString(R.string.name_length_max))
+             return false
+         } else if (TextUtils.isEmpty(authRequest.get()!!.email)) {
             showMessage.postValue(resourcesProvider.getString(R.string.Enter_your_email))
             return false
         } else if (!Patterns.EMAIL_ADDRESS.matcher(authRequest.get()!!.email).matches()) {

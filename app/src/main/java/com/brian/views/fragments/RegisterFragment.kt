@@ -122,7 +122,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             false
         })
 
-   mBinding.regCnfPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+        mBinding.regCnfPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 v.clearFocus()
 
@@ -327,14 +327,15 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mBinding.regCnfPassword.visibility = GONE
             mBinding.registerButton.setText(getString(R.string.update))
             mBinding.toolbar.tvTitle.setText(getString(R.string.editProfile))
-            mBinding.regName.setText(getString(R.string.user_name))
-            mBinding.regEmail.setText("abc@gmail.com")
-            mBinding.regDOB.setText(Utils.init.getCurrentDate())
+//            mBinding.regName.setText(getString(R.string.user_name))
+//            mBinding.regEmail.setText("abc@gmail.com")
+//            mBinding.regDOB.setText(Utils.init.getCurrentDate())
 //            mBinding.regDOB.isEnabled = false
-            mBinding.regUserType.isEnabled = false
+            //  mBinding.regUserType.isEnabled = false
 
             val login: LoginData? = Prefs.init().userInfo
             //   mBinding.regName.setText(login?.name)
+            // mBinding.regUserType.setText(login?.userType)
 
             mViewModel.authRequest.get()?.apply {
                 dob = login?.dob

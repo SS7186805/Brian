@@ -578,7 +578,7 @@
                         android:layout_below="@id/iRight"
                         android:textSize="@dimen/px65"
                         android:fontFamily="@font/century_gothic_bold"
-                        android:layout_marginTop="@dimen/margin_15"
+                        android:layout_marginTop="@dimen/margin_5"
                         android:textColor="@android:color/black"
                         android:layout_centerHorizontal="true"
                         android:text="@string/right_field"

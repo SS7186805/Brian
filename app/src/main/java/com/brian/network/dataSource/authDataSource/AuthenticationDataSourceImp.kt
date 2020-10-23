@@ -71,6 +71,7 @@ class AuthenticationDataSourceImp(private val apiService: APIService) : Authenti
             params["name"] =  RequestBody.create("text/plain".toMediaTypeOrNull(), register.name!!)
             params["email"] = RequestBody.create("text/plain".toMediaTypeOrNull(), register.email!!)
             params["dob"] = RequestBody.create("text/plain".toMediaTypeOrNull(), register.dob!!)
+            params["user_type"] = RequestBody.create("text/plain".toMediaTypeOrNull(), register.user_type!!)
             response = apiService.editProfile(params,register.profile_picture)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()

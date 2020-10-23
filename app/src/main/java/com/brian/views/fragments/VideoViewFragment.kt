@@ -29,6 +29,7 @@ class VideoViewFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       // Utils.init.setupFullScreen(requireActivity())
         videoView.setVideoURI(Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.videoview))
         videoView.requestFocus()
         videoView.start()

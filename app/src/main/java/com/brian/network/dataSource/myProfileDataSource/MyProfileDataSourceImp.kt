@@ -15,4 +15,16 @@ class MyProfileDataSourceImp(private val apiService: APIService):MyProfileDataSo
         }
         return response
     }
+
+    override suspend fun viewProfile(): BaseResponse {
+        var response = BaseResponse()
+        try {
+            response = apiService.viewProfile()
+        }
+        catch (e:java.lang.Exception){
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
 }

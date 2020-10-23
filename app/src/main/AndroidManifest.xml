@@ -12,14 +12,15 @@
         android:allowBackup="true"
         android:icon="@drawable/app_icon"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:resizeableActivity="false"
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppParentTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.activities.MainHomeActivity"></activity>
+        <activity android:name=".VedioViewActivity"></activity>
+        <activity android:name=".views.activities.MainHomeActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

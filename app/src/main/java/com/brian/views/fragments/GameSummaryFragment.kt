@@ -68,8 +68,8 @@ class GameSummaryFragment : ScopedFragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         correctAnswer= arguments?.getInt("correctAnswer")!!
         wrongeAnswer=arguments?.getInt("wrongeAnswer")!!
-        mBinding.tScore.text =  "Score:${correctAnswer*100}"
-        mBinding.average.text = "Average:${(correctAnswer*100)/5}%"
+        mBinding.tScore.text =  "Score: ${correctAnswer*100}"
+        mBinding.average.text = "Average: ${(correctAnswer*100)/5}%"
         gameSummarylist=arguments?.getParcelableArrayList<QuestionData>("questionSammary")!!
         println(gameSummarylist)
         gameSummaryAdapter.setNewItems(gameSummarylist)

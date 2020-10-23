@@ -62,6 +62,9 @@ interface APIService {
     @GET("api/v1/get-question-randomly")
     suspend fun questionResponse(): QuestionResponse
 
+    @GET("api/v1/profile")
+    suspend fun viewProfile() : BaseResponse
+
 
     companion object {
 

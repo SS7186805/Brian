@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.myProfile.MyProfileViewModel" />
 
         <variable
             name="clickHandler"

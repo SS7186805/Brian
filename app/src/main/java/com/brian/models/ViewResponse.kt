@@ -5,16 +5,14 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
 
-
-
 @Parcelize
-data class BaseResponse(
+data class ViewResponse(
 
 	@field:SerializedName("result")
 	val result: String? = null,
 
 	@field:SerializedName("data")
-	val data: @RawValue LoginData? = null,
+	val data: Data? = null,
 
 	@field:SerializedName("error")
 	var error: String? = null,
@@ -23,9 +21,8 @@ data class BaseResponse(
 	val message: String? = null
 ) : Parcelable
 
-
 @Parcelize
-data class LoginData(
+data class Data(
 
 	@field:SerializedName("is_block")
 	val isBlock: Int? = null,
@@ -37,7 +34,7 @@ data class LoginData(
 	val createdAt: String? = null,
 
 	@field:SerializedName("profile_picture")
-	var profilePicture: @RawValue Any? = null,
+	val profilePicture:@RawValue Any? = null,
 
 	@field:SerializedName("device_type")
 	val deviceType: String? = null,
@@ -46,19 +43,13 @@ data class LoginData(
 	val badgesEarneda: BadgesEarneda? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt: @RawValue Any? = null,
+	val deletedAt: String? = null,
 
 	@field:SerializedName("weekly_situation")
 	val weeklySituation:@RawValue Any? = null,
 
 	@field:SerializedName("weekly_complete_challenge")
 	val weeklyCompleteChallenge:@RawValue Any? = null,
-
-	@field:SerializedName("access_token")
-	val accessToken: String? = null,
-
-	@field:SerializedName("refresh_token")
-	val refreshToken: String? = null,
 
 	@field:SerializedName("user_type")
 	val userType: String? = null,
@@ -73,7 +64,7 @@ data class LoginData(
 	val deviceToken: String? = null,
 
 	@field:SerializedName("name")
-	var name: String? = null,
+	val name: String? = null,
 
 	@field:SerializedName("id")
 	val id: Int? = null,
@@ -83,7 +74,7 @@ data class LoginData(
 ) : Parcelable
 
 @Parcelize
-data class BadgesEarneda(
+data class BadgesEarned(
 
 	@field:SerializedName("first_page_url")
 	val firstPageUrl: String? = null,
@@ -121,4 +112,3 @@ data class BadgesEarneda(
 	@field:SerializedName("current_page")
 	val currentPage: Int? = null
 ) : Parcelable
-

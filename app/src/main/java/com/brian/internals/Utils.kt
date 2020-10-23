@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.Fragment
 import com.brian.R
 import com.brian.models.LoginData
 import com.bumptech.glide.Glide
@@ -114,6 +115,7 @@ class Utils private constructor() {
             statusBarColor = Color.TRANSPARENT
         }
     }
+
 
     fun hideKeyBoard(context: Context, view: View) {
         val inputManager: InputMethodManager? =
