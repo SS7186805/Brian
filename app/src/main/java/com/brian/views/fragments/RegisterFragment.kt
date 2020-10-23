@@ -331,7 +331,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 //            mBinding.regEmail.setText("abc@gmail.com")
 //            mBinding.regDOB.setText(Utils.init.getCurrentDate())
 //            mBinding.regDOB.isEnabled = false
-            //  mBinding.regUserType.isEnabled = false
+             mBinding.regUserType.isEnabled = false
 
             val login: LoginData? = Prefs.init().userInfo
             //   mBinding.regName.setText(login?.name)
