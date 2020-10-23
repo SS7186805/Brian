@@ -63,14 +63,16 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
 
     fun viewProfile() {
         myProfileRepository.viewProfile { isSuccess, message, response ->
+
             if (isSuccess) {
+
                 if (response?.data is LoginData) {
                     val loginData: LoginData = response?.data
                     Prefs.init().userInfo = loginData
                     this@MyProfileViewModel.loginData.postValue(loginData)
                 }
             } else {
-
+//                 showMessage.postValue(message)
             }
 
         }

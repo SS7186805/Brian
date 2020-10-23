@@ -63,9 +63,13 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         mViewModel.loginData.observe(viewLifecycleOwner, Observer {
             setData()
         })
+//        mViewModel.showMessage.observe(viewLifecycleOwner, Observer {
+//
+//        })
     }
 
     private fun setData() {
+
         val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text = login.userType
         mBinding.dob.text = "Born on: ${login.dob}"

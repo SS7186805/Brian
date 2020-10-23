@@ -25,13 +25,19 @@ class HomeFragment : ScopedFragment(), KodeinAware {
     lateinit var mBinding: FragmentHomeBinding
     lateinit var mViewModel: HomeViewModel
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        requireActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         mBinding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()

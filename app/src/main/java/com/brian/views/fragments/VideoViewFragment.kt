@@ -1,9 +1,11 @@
 package com.brian.views.fragments
 
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -30,11 +32,18 @@ class VideoViewFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // Utils.init.setupFullScreen(requireActivity())
-        requireActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        requireActivity().getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
         videoView.setVideoURI(Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.videoview))
+        videoView.setBackgroundColor(Color.WHITE)
         videoView.requestFocus()
         videoView.start()
+        videoView.setBackgroundColor(Color.TRANSPARENT)
+
+
         videoView.setOnCompletionListener {
             videoView.resume()
             findNavController().navigate(R.id.action_videoViewFragment_to_homeFragment)

@@ -9,6 +9,7 @@ import android.view.Gravity.START
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.databinding.DataBindingUtil
@@ -43,7 +44,6 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setStatusBarColor()
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         mBinding.clickHandler = mClickHandler

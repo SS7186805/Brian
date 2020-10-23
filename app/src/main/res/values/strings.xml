@@ -144,5 +144,6 @@
     <string name="baseball_bee">Baseball Bee Simulator</string>
     <string name="name_length">Name must be at least 2 characters long.</string>
     <string name="name_length_max">Name should not be greater than 30 characters.</string>
+    <string name="unauthenciated">Unauthenticated.</string>
 
 </resources>
