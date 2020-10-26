@@ -32,7 +32,7 @@ class VideoViewFragment : ScopedFragment(), KodeinAware {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+       // Utils.init.setupFullScreen(requireActivity())
         requireActivity().getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
