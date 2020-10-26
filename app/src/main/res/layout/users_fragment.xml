@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.users.UsersViewModel" />
 
         <variable
             name="clickHandler"
@@ -65,6 +65,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"
             android:id="@+id/recycler"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginTop="@dimen/margin_30"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"

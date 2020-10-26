@@ -1,8 +1,7 @@
-package com.brian.repository.authRepository.myProfileRepository
+package com.brian.repository.myProfileRepository
 
-import android.provider.Settings
 import com.brian.models.*
-import com.brian.network.dataSource.myProfileDataSource.MyProfileDataSource
+import com.brian.dataSource.myProfileDataSource.MyProfileDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

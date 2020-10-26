@@ -80,6 +80,7 @@ data class LoginData(
 
 	@field:SerializedName("email")
 	val email: String? = null
+
 ) : Parcelable
 
 @Parcelize
@@ -122,3 +123,27 @@ data class BadgesEarneda(
 	val currentPage: Int? = null
 ) : Parcelable
 
+
+class QueryParams {
+	@field:SerializedName("page")
+	var page: Int? = null
+
+	@field:SerializedName("limit")
+	var limit: Int? = null
+}
+
+
+class SearchQuery {
+	@field:SerializedName("search_name")
+	var search_name: String = ""
+
+}
+
+class SendRequestParams {
+	@field:SerializedName("receiver_user_id")
+
+	var receiver_user_id: String = ""
+	@field:SerializedName("action")
+	var action: String?=null
+
+}

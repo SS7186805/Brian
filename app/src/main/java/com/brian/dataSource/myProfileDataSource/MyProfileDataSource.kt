@@ -1,4 +1,4 @@
-package com.brian.network.dataSource.myProfileDataSource
+package com.brian.dataSource.myProfileDataSource
 
 import com.brian.models.*
 

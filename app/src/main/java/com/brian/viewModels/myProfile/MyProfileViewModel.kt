@@ -3,13 +3,11 @@ package com.brian.viewModels.myProfile
 import android.text.TextUtils
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.base.Prefs
 import com.brian.models.ChangePassword
 import com.brian.models.LoginData
-import com.brian.models.QuestionData
-import com.brian.repository.authRepository.myProfileRepository.MyProfileRepository
+import com.brian.repository.myProfileRepository.MyProfileRepository
 
 class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) : BaseViewModel() {
 

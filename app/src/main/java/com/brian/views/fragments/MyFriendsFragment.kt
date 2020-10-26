@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MyFriendsFragmentBinding
@@ -37,7 +36,7 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        setAdapter()
+//        setAdapter()
         return mBinding.root
     }
 
@@ -46,36 +45,34 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
 
-    fun setAdapter() {
-        list.clear()
-        friendsAdapter = MyFriendsAdapter(R.layout.my_friends_item)
+//    fun setAdapter() {
+//        list.clear()
+//        friendsAdapter = MyFriendsAdapter(R.layout.my_friends_item)
+//
+//        if(arguments?.getString("no").equals("no")){
+//
+//            list.add(MyFriends(false, true, false))
+//            list.add(MyFriends(false, true, false))
+//            list.add(MyFriends(false, true, false))
+//            list.add(MyFriends(false, true, false))
+//        }else{
+//            list.add(MyFriends(false, false, false))
+//            list.add(MyFriends(false, false, false))
+//            list.add(MyFriends(false, true, false))
+//            list.add(MyFriends(false, true, false))
+//        }
+//
+//
+//
+//        mBinding.recycler.layoutManager = LinearLayoutManager(requireContext())
+//        mBinding.recycler.adapter = friendsAdapter
+//        friendsAdapter!!.listener = this.mClickHandler
+//        friendsAdapter!!.addNewItems(list)
+//    }
 
-        if(arguments?.getString("no").equals("no")){
 
-            list.add(MyFriends(false, true, false))
-            list.add(MyFriends(false, true, false))
-            list.add(MyFriends(false, true, false))
-            list.add(MyFriends(false, true, false))
-        }else{
-            list.add(MyFriends(false, false, false))
-            list.add(MyFriends(false, false, false))
-            list.add(MyFriends(false, true, false))
-            list.add(MyFriends(false, true, false))
-        }
+    inner class ClickHandler{
 
-
-
-        mBinding.recycler.layoutManager = LinearLayoutManager(requireContext())
-        mBinding.recycler.adapter = friendsAdapter
-        friendsAdapter!!.listener = this.mClickHandler
-        friendsAdapter!!.addNewItems(list)
-    }
-
-
-    inner class ClickHandler : MyFriendsAdapter.onViewClick {
-        override fun onAprroveClick() {
-            findNavController().navigate(R.id.userProfileFragment)
-        }
 
     }
 }

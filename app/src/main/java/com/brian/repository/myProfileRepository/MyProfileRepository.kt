@@ -1,4 +1,4 @@
-package com.brian.repository.authRepository.myProfileRepository
+package com.brian.repository.myProfileRepository
 
 import com.brian.models.*
 

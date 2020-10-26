@@ -1,0 +1,70 @@
+package com.brian.repository.usersRepositary
+
+import com.brian.dataSource.users.UsersDataSource
+import com.brian.models.ResponseSearchUsers
+import com.brian.models.ResponseSendRequest
+import com.brian.models.SearchQuery
+import com.brian.models.SendRequestParams
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+class UsersRepositoryImp(private val usersDataSource: UsersDataSource) :
+    UsersRepository {
+
+
+    override fun searchUsers(
+        queryParams: SearchQuery,
+        onResult: (isSuccess: Boolean, message: String, response: ResponseSearchUsers?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.getSearchUsers(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun sendRequest(
+        queryParams: SendRequestParams,
+        onResult: (isSuccess: Boolean, message: String, response: ResponseSendRequest?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.sendRequest(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun cancelRequest(
+        queryParams: SendRequestParams,
+        onResult: (isSuccess: Boolean, message: String, response: ResponseSendRequest?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.cancelRequest(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun acceptRejectRequest(
+        queryParams: SendRequestParams,
+        onResult: (isSuccess: Boolean, message: String, response: ResponseSendRequest?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.cancelRequest(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
+}

@@ -2,7 +2,6 @@ package com.brian.network
 
 import android.content.Intent
 import android.os.Looper
-import android.support.v4.media.MediaBrowserCompat
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
@@ -11,10 +10,8 @@ import com.brian.base.MainApplication
 import com.brian.base.Prefs
 import com.brian.models.*
 import com.brian.views.activities.AccountHandlerActivity
-import com.brian.views.activities.HomeActivity
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.android.parcel.RawValue
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.HttpException
@@ -25,7 +22,7 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
-import java.util.logging.Handler
+import kotlin.jvm.Throws
 
 
 const val BASE_URL = "http://1.6.98.142/brian_m4/"
@@ -63,8 +60,18 @@ interface APIService {
     @POST("api/v1/change-password")
     suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
 
+    @POST("api/v1/search-friends")
+    suspend fun searchUsers(@Body params: SearchQuery): ResponseSearchUsers
+
+    @POST("api/v1/send-friend-request")
+    suspend fun sendFriendRequest(@Body params: SendRequestParams): ResponseSendRequest
+
+    @POST("api/v1/cancel-request")
+    suspend fun cancelFriendRequest(@Body params: SendRequestParams): ResponseSendRequest
+
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse
+
 
     @Multipart
     @POST("api/v1/profile")
@@ -78,6 +85,13 @@ interface APIService {
 
     @GET("api/v1/profile")
     suspend fun viewProfile(): BaseResponse
+
+
+    @GET("api/v1/training-videos")
+    suspend fun getTrainingVideos(@Query("page") page: Int?): ResponseTrainingVideos
+
+    @GET("api/v1/buzz-feeds")
+    suspend fun getBuzzFeed(@Query("page") page: Int?): ResponseBuzzFeed
 
 
     companion object {

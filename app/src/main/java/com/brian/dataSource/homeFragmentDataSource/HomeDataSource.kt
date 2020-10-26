@@ -1,4 +1,4 @@
-package com.brian.network.dataSource.homeFragmentDataSource
+package com.brian.dataSource.homeFragmentDataSource
 
 import com.brian.models.DefensiveResponse
 import com.brian.models.QuestionResponse

@@ -1,24 +1,16 @@
 package com.brian.viewModels.register
 
 
-import android.graphics.Bitmap
-import android.net.Uri
 import android.text.TextUtils
 import android.util.Patterns
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.base.Prefs
-import com.brian.models.BaseResponse
 import com.brian.models.LoginData
 import com.brian.models.RegisterRequest
 import com.brian.providers.resources.ResourcesProvider
-import com.brian.repository.authRepository.authRepository.AuthenticationRepository
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
+import com.brian.repository.authRepository.AuthenticationRepository
 
 
 class RegisterViewModel(

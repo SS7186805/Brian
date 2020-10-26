@@ -6,6 +6,9 @@
     <data>
 
         <variable
+            name="item"
+            type="com.brian.models.BuzzFeedDataItem" />
+        <variable
             name="viewModel"
             type="com.brian.viewModels.register.RegisterViewModel" />
 
@@ -44,19 +47,22 @@
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/svSafariImages2"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="250dp"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:sliderAnimationDuration="1000"
             app:sliderAutoCycleEnabled="true"
+
             app:sliderIndicatorAnimationDuration="1000"
             app:sliderIndicatorGravity="center_horizontal|bottom"
             app:sliderIndicatorMargin="@dimen/dp0"
             app:sliderIndicatorMarginBottom="@dimen/dp0"
             app:sliderIndicatorOrientation="horizontal"
             app:sliderIndicatorPadding="@dimen/margin_3"
+            app:sliderIndicatorMarginLeft="@dimen/margin_50"
+            app:sliderIndicatorMarginRight="@dimen/margin_50"
             app:sliderIndicatorRadius="@dimen/margin_2"
             app:sliderIndicatorSelectedColor="@color/yellow"
             app:sliderIndicatorUnselectedColor="@color/edit_text_color"
@@ -125,7 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_25"
             android:fontFamily="@font/century_gothic_bold"
-            android:text="@string/title"
+            android:text="@{item.title}"
             android:textColor="@color/yellow"
             android:textSize="@dimen/px60"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
@@ -137,9 +143,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
             android:fontFamily="@font/century_gothic"
-            android:text="@string/dummy_content"
             android:textColor="@color/text_Color_drawer_item"
             android:textSize="@dimen/px45"
+            android:text="@{item.description}"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@id/title" />

@@ -3,7 +3,7 @@ package com.brian.viewModels.homescreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.brian.providers.resources.ResourcesProvider
-import com.brian.repository.authRepository.homeRepository.HomeRepository
+import com.brian.repository.homeRepository.HomeRepository
 
 class HomescreenViewModelFactory(private val homeRepository: HomeRepository,
                                  private val resourcesProvider: ResourcesProvider

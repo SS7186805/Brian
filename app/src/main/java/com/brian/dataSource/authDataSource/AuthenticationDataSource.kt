@@ -1,8 +1,6 @@
-package com.brian.network.dataSource.authDataSource
+package com.brian.dataSource.authDataSource
 
-import androidx.databinding.ObservableField
 import com.brian.models.BaseResponse
-import com.brian.models.DefensiveResponse
 import com.brian.models.RegisterRequest
 
 interface AuthenticationDataSource  {

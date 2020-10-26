@@ -1,10 +1,8 @@
-package com.brian.repository.authRepository.authRepository
+package com.brian.repository.authRepository
 
-import android.util.Log
 import com.brian.models.BaseResponse
-import com.brian.models.DefensiveResponse
 import com.brian.models.RegisterRequest
-import com.brian.network.dataSource.authDataSource.AuthenticationDataSource
+import com.brian.dataSource.authDataSource.AuthenticationDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

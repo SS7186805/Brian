@@ -1,8 +1,6 @@
-package com.brian.repository.authRepository.authRepository
+package com.brian.repository.authRepository
 
-import androidx.databinding.ObservableField
 import com.brian.models.BaseResponse
-import com.brian.models.DefensiveResponse
 import com.brian.models.RegisterRequest
 
 interface AuthenticationRepository{

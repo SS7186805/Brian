@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppParentTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VedioViewActivity"></activity>
+        <activity android:name=".views.activities.VideoViewActivity"></activity>
+        <activity android:name=".VedioViewActivity" />
         <activity android:name=".views.activities.MainHomeActivity" />
 
         <provider

@@ -2,7 +2,7 @@ package com.brian.viewModels.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.brian.repository.authRepository.authRepository.AuthenticationRepository
+import com.brian.repository.authRepository.AuthenticationRepository
 
 class LoginViewModelFactory(private val authenticationRepository: AuthenticationRepository
 ) :

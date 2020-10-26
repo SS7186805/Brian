@@ -4,24 +4,35 @@ import android.app.Application
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandler
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandlerImpl
 import com.brian.network.APIService
-import com.brian.network.dataSource.authDataSource.AuthenticationDataSource
-import com.brian.network.dataSource.authDataSource.AuthenticationDataSourceImp
-import com.brian.network.dataSource.homeFragmentDataSource.HomeDataSource
-import com.brian.network.dataSource.homeFragmentDataSource.HomeDataSourceImp
-import com.brian.network.dataSource.myProfileDataSource.MyProfileDataSource
-import com.brian.network.dataSource.myProfileDataSource.MyProfileDataSourceImp
+import com.brian.dataSource.authDataSource.AuthenticationDataSource
+import com.brian.dataSource.authDataSource.AuthenticationDataSourceImp
+import com.brian.dataSource.homeFragmentDataSource.HomeDataSource
+import com.brian.dataSource.homeFragmentDataSource.HomeDataSourceImp
+import com.brian.dataSource.myProfileDataSource.MyProfileDataSource
+import com.brian.dataSource.myProfileDataSource.MyProfileDataSourceImp
+import com.brian.dataSource.trainingDataSource.TrainingAndBuzzDataSource
+import com.brian.dataSource.trainingDataSource.TrainingAndBuzzDataSourceImp
+import com.brian.dataSource.users.UsersDataSource
+import com.brian.dataSource.users.UsersDataSourceImp
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.providers.resources.ResourcesProviderImpl
-import com.brian.repository.authRepository.authRepository.AuthenticationRepository
-import com.brian.repository.authRepository.authRepository.AuthenticationRepositoryImpl
-import com.brian.repository.authRepository.homeRepository.HomeRepository
-import com.brian.repository.authRepository.homeRepository.HomeRepositoryImp
-import com.brian.repository.authRepository.myProfileRepository.MyProfileRepository
-import com.brian.repository.authRepository.myProfileRepository.MyProfileRepositoryImp
+import com.brian.repository.authRepository.AuthenticationRepository
+import com.brian.repository.authRepository.AuthenticationRepositoryImpl
+import com.brian.repository.homeRepository.HomeRepository
+import com.brian.repository.homeRepository.HomeRepositoryImp
+import com.brian.repository.myProfileRepository.MyProfileRepository
+import com.brian.repository.myProfileRepository.MyProfileRepositoryImp
+import com.brian.repository.trainingVideosRepositary.TrainingAndBuzzRepository
+import com.brian.repository.trainingVideosRepositary.TrainingAndBuzzRepositoryImp
+import com.brian.repository.usersRepositary.UsersRepository
+import com.brian.repository.usersRepositary.UsersRepositoryImp
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
 import com.brian.viewModels.register.RegisterViewModelFactory
+import com.brian.viewModels.trainingVideos.BuzzFeedViewModelFactory
+import com.brian.viewModels.trainingVideos.TrainingsViewModelFactory
+import com.brian.viewModels.users.UsersViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -58,20 +69,38 @@ class MainApplication : Application(),KodeinAware{
         bind<HomeRepository>() with singleton{
             HomeRepositoryImp(instance())
         }
+
+        bind<TrainingAndBuzzRepository>() with singleton{
+            TrainingAndBuzzRepositoryImp(instance())
+        }
         bind<HomeDataSource>() with singleton{
             HomeDataSourceImp(instance())
         }
         bind<MyProfileDataSource>() with singleton {
             MyProfileDataSourceImp(instance())
         }
+
+        bind<TrainingAndBuzzDataSource>() with singleton {
+            TrainingAndBuzzDataSourceImp(instance())
+        }
+        bind<UsersDataSource>() with singleton {
+            UsersDataSourceImp(instance())
+        }
         bind<MyProfileRepository>() with singleton {
             MyProfileRepositoryImp(instance())
+        }
+
+        bind<UsersRepository>() with singleton {
+            UsersRepositoryImp(instance())
         }
         //Factory
         bind() from singleton { RegisterViewModelFactory(instance(),instance()) }
         bind() from singleton { HomescreenViewModelFactory(instance(),instance()) }
         bind() from singleton { MyProfileViewModelFactory(instance()) }
         bind() from singleton { LoginViewModelFactory(instance()) }
+        bind() from singleton { BuzzFeedViewModelFactory(instance(), instance()) }
+        bind() from singleton { TrainingsViewModelFactory(instance(), instance()) }
+        bind() from singleton { UsersViewModelFactory(instance(), instance()) }
     }
 
     companion object {

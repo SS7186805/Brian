@@ -9,11 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.BuzzFeedDetailsFragmentBinding
-import com.brian.databinding.FragmentLoginBinding
-import com.brian.databinding.PitcherFragmentBinding
-import com.brian.databinding.TrainingVideosBinding
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
+import com.brian.models.BuzzFeedDataItem
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.SlideViewRecyclerAdapter
@@ -26,7 +22,7 @@ class BuzzFeedDetailsFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: BuzzFeedDetailsFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-
+    var buzzFeedDetails = BuzzFeedDataItem()
 
 
     override fun onCreateView(
@@ -39,7 +35,7 @@ class BuzzFeedDetailsFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text=getString(R.string.buzz_feed_details)
+        mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed_details)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -56,16 +52,19 @@ class BuzzFeedDetailsFragment : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val images = mutableListOf<Int>()
-        for (i in 0..4) {
-            images.add(R.drawable.buzz_details)
-        }
-        mBinding.svSafariImages2.setSliderAdapter(SlideViewRecyclerAdapter(images))
+
+        buzzFeedDetails =
+            arguments?.getParcelable<BuzzFeedDataItem>(getString(R.string.buzz_feed_details))!!
+        mBinding.item = buzzFeedDetails
+
+        val images = buzzFeedDetails.buzzFeedFiles
+        mBinding.svSafariImages2.setSliderAdapter(SlideViewRecyclerAdapter(images!!))
+
     }
 
-    inner class ClickHandler{
+    inner class ClickHandler {
 
-        fun onPitchClick(){
+        fun onPitchClick() {
             findNavController().navigate(R.id.questionsFragment)
 
         }

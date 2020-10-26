@@ -2,7 +2,7 @@ package com.brian.viewModels.myProfile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.brian.repository.authRepository.myProfileRepository.MyProfileRepository
+import com.brian.repository.myProfileRepository.MyProfileRepository
 
 class MyProfileViewModelFactory(private val myProfileRepository: MyProfileRepository):ViewModelProvider.NewInstanceFactory() {
 

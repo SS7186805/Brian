@@ -22,6 +22,7 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.databinding.library.baseAdapters.BR.viewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
@@ -94,7 +95,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
         mBinding.apply {
             regUserType.setAdapter(arrayAdapter)
-            regUserType.setInputType(0)
+            regUserType.threshold=100
             regUserType.setOnClickListener {
                 regUserType.showDropDown()
             }
@@ -331,7 +332,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
 //            mBinding.regEmail.setText("abc@gmail.com")
 //            mBinding.regDOB.setText(Utils.init.getCurrentDate())
 //            mBinding.regDOB.isEnabled = false
-             mBinding.regUserType.isEnabled = false
+//             mBinding.regUserType.isEnabled = false
 
             val login: LoginData? = Prefs.init().userInfo
             //   mBinding.regName.setText(login?.name)

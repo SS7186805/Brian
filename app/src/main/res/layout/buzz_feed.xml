@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.trainingVideos.BuzzFeedViewModel" />
 
         <variable
             name="clickHandler"
@@ -34,52 +34,16 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
-
-        <include
-            android:id="@+id/type1"
-            layout="@layout/buzz_feed_item"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFeed"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_30"
-            android:onClick="@{()-> clickHandler.goToBuzzFeedDetails()}"
-            app:layout_constraintEnd_toEndOf="@+id/endGuide"
-            app:layout_constraintStart_toStartOf="@+id/startGuide"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toTopOf="parent" />
-
-
-        <include
-            android:id="@+id/type2"
-            layout="@layout/buzz_feed_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:onClick="@{()-> clickHandler.goToBuzzFeedDetails()}"
-            app:layout_constraintEnd_toEndOf="@+id/endGuide"
-            app:layout_constraintStart_toStartOf="@+id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/type1" />
-
-        <include
-            android:id="@+id/type3"
-            layout="@layout/buzz_feed_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:onClick="@{()-> clickHandler.goToBuzzFeedDetails()}"
-            app:layout_constraintEnd_toEndOf="@+id/endGuide"
-            app:layout_constraintStart_toStartOf="@+id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/type2" />
-
-        <include
-            android:id="@+id/type4"
-            layout="@layout/buzz_feed_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_15"
-            android:onClick="@{()-> clickHandler.goToBuzzFeedDetails()}"
-            app:layout_constraintEnd_toEndOf="@+id/endGuide"
-            app:layout_constraintStart_toStartOf="@+id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/type3" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

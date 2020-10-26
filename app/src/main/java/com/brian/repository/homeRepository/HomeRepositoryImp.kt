@@ -1,8 +1,8 @@
-package com.brian.repository.authRepository.homeRepository
+package com.brian.repository.homeRepository
 
 import com.brian.models.DefensiveResponse
 import com.brian.models.QuestionResponse
-import com.brian.network.dataSource.homeFragmentDataSource.HomeDataSource
+import com.brian.dataSource.homeFragmentDataSource.HomeDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
