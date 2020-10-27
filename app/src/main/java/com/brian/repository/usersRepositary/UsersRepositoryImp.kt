@@ -1,10 +1,7 @@
 package com.brian.repository.usersRepositary
 
 import com.brian.dataSource.users.UsersDataSource
-import com.brian.models.ResponseSearchUsers
-import com.brian.models.ResponseSendRequest
-import com.brian.models.SearchQuery
-import com.brian.models.SendRequestParams
+import com.brian.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,6 +16,30 @@ class UsersRepositoryImp(private val usersDataSource: UsersDataSource) :
     ) {
         GlobalScope.launch(Dispatchers.Main) {
             val response = usersDataSource.getSearchUsers(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun searchMyUsers(
+        queryParams: SearchQuery,
+        onResult: (isSuccess: Boolean, message: String, response: ResponseMyFriends?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.getSearchMyUsers(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
+
+    override fun getMyFriends(onResult: (isSuccess: Boolean, message: String, response: ResponseMyFriends?) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.getMyFriends()
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
@@ -60,11 +81,12 @@ class UsersRepositoryImp(private val usersDataSource: UsersDataSource) :
         onResult: (isSuccess: Boolean, message: String, response: ResponseSendRequest?) -> Unit
     ) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = usersDataSource.cancelRequest(queryParams)
+            val response = usersDataSource.acceptRejectRequest(queryParams)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
-        }    }
+        }
+    }
 }

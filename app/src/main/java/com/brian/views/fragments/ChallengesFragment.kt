@@ -13,10 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengesFragmentBinding
-import com.brian.databinding.MyChallengesItemBinding
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
-import com.brian.views.adapters.ChallengeRequestsAdapter
 import com.brian.views.adapters.MyChallenges
 import com.brian.views.adapters.MyChallengesAdapter
 import com.google.android.material.tabs.TabLayout
@@ -28,12 +26,11 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: ChallengesFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-    var myChallengesAdapter:MyChallengesAdapter?=null
-    var challengeRequestsAdapter:MyChallengesAdapter?=null
-    var myChallenges=ArrayList<MyChallenges>()
-    var challengeRequests=ArrayList<MyChallenges>()
+    var myChallengesAdapter: MyChallengesAdapter? = null
+    var challengeRequestsAdapter: MyChallengesAdapter? = null
+    var myChallenges = ArrayList<MyChallenges>()
+    var challengeRequests = ArrayList<MyChallenges>()
     private val mClickHandler = ClickHandler()
-
 
 
     override fun onCreateView(
@@ -58,27 +55,27 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     }
 
 
-    fun setAdapter(){
-        mBinding.rMyChallenges.layoutManager=LinearLayoutManager(requireContext())
-        mBinding.rChallengeRequests.layoutManager=LinearLayoutManager(requireContext())
+    fun setAdapter() {
+        mBinding.rMyChallenges.layoutManager = LinearLayoutManager(requireContext())
+        mBinding.rChallengeRequests.layoutManager = LinearLayoutManager(requireContext())
 
         //Add My Challenges
-        myChallenges.add((MyChallenges(false,false,false)))
-        myChallenges.add((MyChallenges(true,false,false)))
-        myChallenges.add((MyChallenges(true,true,false)))
+        myChallenges.add((MyChallenges(false, false, false)))
+        myChallenges.add((MyChallenges(true, false, false)))
+        myChallenges.add((MyChallenges(true, true, false)))
 
         //Add Challenge Requests
-        challengeRequests.add((MyChallenges(false,false,true)))
-        challengeRequests.add((MyChallenges(false,false,true)))
-        challengeRequests.add((MyChallenges(false,false,true)))
+        challengeRequests.add((MyChallenges(false, false, true)))
+        challengeRequests.add((MyChallenges(false, false, true)))
+        challengeRequests.add((MyChallenges(false, false, true)))
 
-        myChallengesAdapter= MyChallengesAdapter(R.layout.my_challenges_item)
-        challengeRequestsAdapter=MyChallengesAdapter(R.layout.my_challenges_item)
+        myChallengesAdapter = MyChallengesAdapter(R.layout.my_challenges_item)
+        challengeRequestsAdapter = MyChallengesAdapter(R.layout.my_challenges_item)
 
-        challengeRequestsAdapter!!.listener=this.mClickHandler
+        challengeRequestsAdapter!!.listener = this.mClickHandler
 
-        mBinding.rMyChallenges.adapter=myChallengesAdapter
-        mBinding.rChallengeRequests.adapter=challengeRequestsAdapter
+        mBinding.rMyChallenges.adapter = myChallengesAdapter
+        mBinding.rChallengeRequests.adapter = challengeRequestsAdapter
 
         myChallengesAdapter!!.addNewItems(myChallenges)
         challengeRequestsAdapter!!.addNewItems(challengeRequests)
@@ -102,12 +99,12 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     @SuppressLint("NewApi")
     override fun onTabSelected(tab: TabLayout.Tab?) {
 
-        if(tab?.position==0){
-            mBinding.rMyChallenges.visibility=VISIBLE
-            mBinding.rChallengeRequests.visibility=GONE
-        }else{
-            mBinding.rMyChallenges.visibility= GONE
-            mBinding.rChallengeRequests.visibility= VISIBLE
+        if (tab?.position == 0) {
+            mBinding.rMyChallenges.visibility = VISIBLE
+            mBinding.rChallengeRequests.visibility = GONE
+        } else {
+            mBinding.rMyChallenges.visibility = GONE
+            mBinding.rChallengeRequests.visibility = VISIBLE
         }
 
     }

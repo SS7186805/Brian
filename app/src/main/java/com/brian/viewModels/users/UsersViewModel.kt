@@ -9,11 +9,13 @@ import android.text.TextWatcher
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.models.MyFriendsDataItem
 import com.brian.models.SearchQuery
 import com.brian.models.SendRequestParams
 import com.brian.models.UserDataItem
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.usersRepositary.UsersRepository
+import com.brian.views.adapters.AllUsersAdapter
 import com.brian.views.adapters.MyFriendsAdapter
 
 
@@ -30,12 +32,16 @@ class UsersViewModel(
     var usersList =
         MutableLiveData<ArrayList<UserDataItem>>().apply { value = ArrayList() }
     var myFriends =
-        MutableLiveData<ArrayList<UserDataItem>>().apply { value = ArrayList() }
-    lateinit var usersAdapter: MyFriendsAdapter
+        MutableLiveData<ArrayList<MyFriendsDataItem>>().apply { value = ArrayList() }
+    lateinit var usersAdapter: AllUsersAdapter
+    lateinit var myFriendsAdapter: MyFriendsAdapter
     var searchQuery = SearchQuery()
     var sendRequestParams = SendRequestParams()
-    var allVideosLoaded = false
+    var allFriendsLoaded = false
+    var allUsersLoaded = false
     var currentPage = 1
+    var currentPageMyFriends = 1
+    var type = ""
     var context: Context? = null
 
     init {
@@ -49,9 +55,15 @@ class UsersViewModel(
                 workRunnable?.let { handler.removeCallbacks(it) }
                 workRunnable = Runnable {
                     usersList.postValue(ArrayList())
+                    myFriends.postValue(ArrayList())
                     currentPage = 1
                     searchQuery.search_name = s.toString()
-                    getUsers()
+                    if (type.equals(resourcesProvider.getString(R.string.yes))) {
+                        getMyUsers()
+                    } else {
+                        getUsers()
+
+                    }
                 }
                 handler.postDelayed(workRunnable!!, 500 /*delay*/)
             }
@@ -62,11 +74,14 @@ class UsersViewModel(
     }
 
     private fun initRecyclerAdapters() {
-        usersAdapter = MyFriendsAdapter(
+        usersAdapter = AllUsersAdapter(
+            R.layout.users_item, resourcesProvider
+
+        )
+        myFriendsAdapter = MyFriendsAdapter(
             R.layout.my_friends_item, resourcesProvider
 
         )
-        getUsers()
 
     }
 
@@ -75,9 +90,26 @@ class UsersViewModel(
         usersRepository.searchUsers(searchQuery) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allVideosLoaded = response?.data?.data.isNullOrEmpty()
+                allUsersLoaded = response?.data?.data.isNullOrEmpty()
                 currentPage = response?.data?.currentPage!!
                 usersList.postValue(response?.data.data)
+            } else {
+                usersList.postValue(ArrayList())
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+
+    fun getMyUsers() {
+        showLoading.postValue(true)
+        usersRepository.searchMyUsers(searchQuery) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                allUsersLoaded = response?.data?.data.isNullOrEmpty()
+                currentPage = response?.data?.currentPage!!
+                myFriends.postValue(response?.data.data)
             } else {
                 usersList.postValue(ArrayList())
                 showMessage.postValue(message)
@@ -122,7 +154,7 @@ class UsersViewModel(
         }
     }
 
-    fun acceptRejectRequest(position: Int,action:String) {
+    fun acceptRejectRequest(position: Int, action: String) {
         showLoading.postValue(true)
         sendRequestParams.receiver_user_id = usersList.value!![position].id.toString()
         sendRequestParams.action = action
@@ -142,14 +174,37 @@ class UsersViewModel(
     }
 
 
-    fun getMyFriends() {
+    fun acceptRejectRequestFriends(position: Int, action: String) {
         showLoading.postValue(true)
-        usersRepository.searchUsers(searchQuery) { isSuccess, message, response ->
+        sendRequestParams.receiver_user_id = myFriends.value!![position].senderUserId.toString()
+        sendRequestParams.action = action
+        usersRepository.acceptRejectRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allVideosLoaded = response?.data?.data.isNullOrEmpty()
-                currentPage = response?.data?.currentPage!!
-                usersList.postValue(response?.data.data)
+                myFriendsAdapter.list[position].isAccepted =
+                    if (action.contains(resourcesProvider.getString(R.string.accept))) resourcesProvider.getString(
+                        R.string.yes
+                    ) else resourcesProvider.getString(R.string.No)
+                myFriendsAdapter.notifyItemChanged(position)
+
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+
+    fun getMyFriends() {
+        showLoading.postValue(true)
+        usersRepository.getMyFriends() { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                allFriendsLoaded = response?.data?.data.isNullOrEmpty()
+                currentPageMyFriends = response?.data?.currentPage!!
+                myFriends.postValue(response?.data.data)
+
             } else {
                 showMessage.postValue(message)
             }

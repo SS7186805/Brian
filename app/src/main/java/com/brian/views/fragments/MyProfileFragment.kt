@@ -21,7 +21,6 @@ import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
-import kotlinx.android.synthetic.main.fragment_register.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -53,28 +52,36 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
 
-    private fun setupObserver(){
+    private fun setupObserver() {
         mViewModel.apply {
             showMessage.observe(viewLifecycleOwner, Observer {
-                if (!TextUtils.isEmpty(it)){
+                if (!TextUtils.isEmpty(it)) {
 
                 }
-                    //Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
             })
         }
     }
 
-    private fun setupClickListeners(){
+    private fun setupClickListeners() {
         mBinding.apply {
-            viewProfile.setOnClickListener{ clickHandler!!.onViewProfileClick() }
-            editProfile.setOnClickListener{ clickHandler!!.onEditProfileClick() }
-            changePassword.setOnClickListener{ clickHandler!!.onChangePasswordClick() }
-            myChallenges.setOnClickListener{ clickHandler!!.onMyChallengesClick() }
-            badgesEarned.setOnClickListener{ clickHandler!!.onBadgesEarnedClick() }
-            myTeams.setOnClickListener{ clickHandler!!.onMyTeamsClick() }
-            logout.setOnClickListener{ clickHandler!!.onLogoutClick() }
+            viewProfile.setOnClickListener { clickHandler!!.onViewProfileClick() }
+            editProfile.setOnClickListener { clickHandler!!.onEditProfileClick() }
+            changePassword.setOnClickListener { clickHandler!!.onChangePasswordClick() }
+            myChallenges.setOnClickListener { clickHandler!!.onMyChallengesClick() }
+            badgesEarned.setOnClickListener { clickHandler!!.onBadgesEarnedClick() }
+            myTeams.setOnClickListener { clickHandler!!.onMyTeamsClick() }
+            logout.setOnClickListener { clickHandler!!.onLogoutClick() }
 
-            ClickGuard.guard(viewProfile,editProfile,changePassword,myChallenges,myTeams,badgesEarned,logout)
+            ClickGuard.guard(
+                viewProfile,
+                editProfile,
+                changePassword,
+                myChallenges,
+                myTeams,
+                badgesEarned,
+                logout
+            )
         }
     }
 
@@ -122,9 +129,9 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
 
     override fun onClickYes() {
         mViewModel.logOut()
-        Prefs.init().isLogIn="false"
-        Toast.makeText(requireContext(),"Logged out successfully!", Toast.LENGTH_SHORT).show()
-        startActivity(Intent(requireContext(),AccountHandlerActivity::class.java))
+        Prefs.init().isLogIn = "false"
+        Toast.makeText(requireContext(), "Logged out successfully!", Toast.LENGTH_SHORT).show()
+        startActivity(Intent(requireContext(), AccountHandlerActivity::class.java))
         (requireActivity() as HomeActivity).finish()
     }
 

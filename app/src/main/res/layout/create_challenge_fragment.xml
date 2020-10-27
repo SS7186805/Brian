@@ -7,7 +7,8 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.challenges.ChallengesViewModel" />
+
 
         <variable
             name="clickHandler"
@@ -50,6 +51,7 @@
             android:drawablePadding="@dimen/margin_10"
             android:hint="@string/challenge_title"
             android:paddingStart="@dimen/margin_20"
+            android:inputType="text"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/px55"
             android:singleLine="true"
@@ -82,6 +84,7 @@
                 android:paddingStart="@dimen/margin_55"
                 android:textColorHint="#7e7e7e"
                 android:inputType="none"
+                android:textColor="@color/edit_text_color"
                 android:focusable="false"
                 android:paddingEnd="@dimen/margin_15"
                 android:drawableRight="@drawable/ic_baseline_arrow_forward"
@@ -153,10 +156,11 @@
             android:drawablePadding="@dimen/margin_10"
             android:onClick="@{()-> clickHandler.onSelectUser()}"
             android:hint="@string/select_user"
+            android:textColor="@color/edit_text_color"
             android:paddingStart="@dimen/margin_20"
             android:textSize="@dimen/px55"
             android:paddingEnd="@dimen/margin_15"
-            android:inputType="none"
+            android:inputType="text"
             android:focusable="false"
             android:drawableRight="@drawable/ic_baseline_arrow_forward"
             android:fontFamily="@font/century_gothic"

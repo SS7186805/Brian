@@ -53,6 +53,7 @@ class Utils private constructor() {
         fun setImage(image: ImageView, url: String?) {
             if (!url.isNullOrEmpty()) {
                 Glide.with(image.context).load(url).centerCrop()
+                    .placeholder(R.drawable.ic_use_r)
                     .into(image)
             }
         }
@@ -214,6 +215,61 @@ class Utils private constructor() {
         }
         datePickerDialog?.show()
     }
+
+    fun selectDateWithTime(
+        context: Context?,
+        startFrom: String,
+        editText: TextView,
+        disableFutureDate: Boolean
+    ) {
+        datePickerDialog?.let {
+            if (it.isShowing) {
+                return
+            }
+        }
+        val calendar = Calendar.getInstance()
+        val dateFormats = listOf("yyyy-MM-dd", "yyyy/MM/dd", "dd/MM/yyyy")
+        var date: Date? = null
+        var startDate: Date? = null
+        for (dateFormat in dateFormats) {
+            try {
+                startDate = SimpleDateFormat(dateFormat).parse(startFrom)
+                date = SimpleDateFormat(dateFormat).parse(editText.text.toString())
+            } catch (e: java.lang.Exception) {
+                Log.d("Exception", "getFormattedDate: unable to parse date.")
+            }
+        }
+        if (date != null) {
+            calendar.time = date
+        }
+
+        var currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format( Date());
+
+        val mYear = calendar[Calendar.YEAR]
+        val mMonth = calendar[Calendar.MONTH]
+        val mDay = calendar[Calendar.DAY_OF_MONTH]
+        datePickerDialog = DatePickerDialog(
+            context!!,
+            OnDateSetListener { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
+                editText.text =
+                    getFormattedDate(year.toString() + "-" + (month + 1) + "-" + dayOfMonth) +" "+ currentTime
+            },
+            mYear,
+            mMonth,
+            mDay
+        )
+        if (disableFutureDate) {
+            val dob = Calendar.getInstance()
+            dob.set(Calendar.YEAR, 2008)
+            datePickerDialog?.datePicker?.maxDate = dob.time.time
+        } else {
+            startDate?.let {
+                datePickerDialog?.datePicker?.minDate = it.time
+            }
+        }
+        datePickerDialog?.show()
+    }
+
 
     fun getFormattedDate(time: String): String {
         val dateFormats = listOf("yyyy-MM-dd", "yyyy/MM/dd")

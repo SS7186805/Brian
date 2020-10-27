@@ -1,47 +1,29 @@
-package com.brian.repository.usersRepositary
+package com.brian.repository.challenges
 
 import com.brian.models.*
 
-interface UsersRepository {
+interface ChallengesRepository {
 
-    fun searchUsers(
-        queryParams: SearchQuery,
+    fun getChallenges(
         onResult: (
             isSuccess: Boolean,
             message: String,
-            response: ResponseSearchUsers?
-        ) -> Unit
-    )
-
-    fun searchMyUsers(
-        queryParams: SearchQuery,
-        onResult: (
-            isSuccess: Boolean,
-            message: String,
-            response: ResponseMyFriends?
+            response: ResponseChallengeType?
         ) -> Unit
     )
 
 
 
-
-    fun getMyFriends(
+    fun createChallenge(
+        queryParams: CreateChallengeParams,
         onResult: (
             isSuccess: Boolean,
             message: String,
-            response: ResponseMyFriends?
+            response: ResponseCreateChallenge?
         ) -> Unit
     )
 
-    fun sendRequest(
-        queryParams: SendRequestParams,
-        onResult: (
-            isSuccess: Boolean,
-            message: String,
-            response: ResponseSendRequest?
-        ) -> Unit
-    )
-
+    /*
     fun cancelRequest(
         queryParams: SendRequestParams,
         onResult: (
@@ -58,7 +40,7 @@ interface UsersRepository {
             message: String,
             response: ResponseSendRequest?
         ) -> Unit
-    )
+    )*/
 
 
 }

@@ -1,15 +1,15 @@
-package com.brian.dataSource.users
+package com.brian.dataSource.challenges
 
 import com.brian.models.*
 import com.brian.network.APIService
 
-class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
+class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesDataSource {
 
 
-    override suspend fun getSearchUsers(queryParams: SearchQuery): ResponseSearchUsers {
-        var response = ResponseSearchUsers()
+    override suspend fun getChallenges(): ResponseChallengeType {
+        var response = ResponseChallengeType()
         try {
-            response = apiService.searchUsers(queryParams)
+            response = apiService.getChallenges()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -17,10 +17,10 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
         return response
     }
 
-    override suspend fun getSearchMyUsers(queryParams: SearchQuery): ResponseMyFriends {
-        var response = ResponseMyFriends()
+    override suspend fun createChallenge(queryParams: CreateChallengeParams): ResponseCreateChallenge {
+        var response = ResponseCreateChallenge()
         try {
-            response = apiService.searchMyUsers(queryParams)
+            response = apiService.createChallenge(queryParams)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -28,27 +28,6 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
         return response
     }
 
-    override suspend fun getMyFriends(): ResponseMyFriends {
-        var response = ResponseMyFriends()
-        try {
-            response = apiService.getMyFriends()
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            response.error = APIService.getErrorMessageFromGenericResponse(e)
-        }
-        return response
-    }
-
-    override suspend fun sendRequest(queryParams: SendRequestParams): ResponseSendRequest {
-        var response = ResponseSendRequest()
-        try {
-            response = apiService.sendFriendRequest(queryParams)
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            response.error = APIService.getErrorMessageFromGenericResponse(e)
-        }
-        return response
-    }
 
     override suspend fun cancelRequest(queryParams: SendRequestParams): ResponseSendRequest {
         var response = ResponseSendRequest()

@@ -6,6 +6,8 @@ import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandlerImpl
 import com.brian.network.APIService
 import com.brian.dataSource.authDataSource.AuthenticationDataSource
 import com.brian.dataSource.authDataSource.AuthenticationDataSourceImp
+import com.brian.dataSource.challenges.ChallenegesDataSourceImp
+import com.brian.dataSource.challenges.ChallengesDataSource
 import com.brian.dataSource.homeFragmentDataSource.HomeDataSource
 import com.brian.dataSource.homeFragmentDataSource.HomeDataSourceImp
 import com.brian.dataSource.myProfileDataSource.MyProfileDataSource
@@ -18,6 +20,8 @@ import com.brian.providers.resources.ResourcesProvider
 import com.brian.providers.resources.ResourcesProviderImpl
 import com.brian.repository.authRepository.AuthenticationRepository
 import com.brian.repository.authRepository.AuthenticationRepositoryImpl
+import com.brian.repository.challenges.ChallengesRepository
+import com.brian.repository.challenges.ChallengesRepositoryImp
 import com.brian.repository.homeRepository.HomeRepository
 import com.brian.repository.homeRepository.HomeRepositoryImp
 import com.brian.repository.myProfileRepository.MyProfileRepository
@@ -26,6 +30,7 @@ import com.brian.repository.trainingVideosRepositary.TrainingAndBuzzRepository
 import com.brian.repository.trainingVideosRepositary.TrainingAndBuzzRepositoryImp
 import com.brian.repository.usersRepositary.UsersRepository
 import com.brian.repository.usersRepositary.UsersRepositoryImp
+import com.brian.viewModels.challenges.ChallengesViewModelFactory
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
@@ -70,6 +75,10 @@ class MainApplication : Application(),KodeinAware{
             HomeRepositoryImp(instance())
         }
 
+        bind<ChallengesRepository>() with singleton{
+            ChallengesRepositoryImp(instance())
+        }
+
         bind<TrainingAndBuzzRepository>() with singleton{
             TrainingAndBuzzRepositoryImp(instance())
         }
@@ -86,6 +95,10 @@ class MainApplication : Application(),KodeinAware{
         bind<UsersDataSource>() with singleton {
             UsersDataSourceImp(instance())
         }
+
+        bind<ChallengesDataSource>() with singleton {
+            ChallenegesDataSourceImp(instance())
+        }
         bind<MyProfileRepository>() with singleton {
             MyProfileRepositoryImp(instance())
         }
@@ -101,6 +114,7 @@ class MainApplication : Application(),KodeinAware{
         bind() from singleton { BuzzFeedViewModelFactory(instance(), instance()) }
         bind() from singleton { TrainingsViewModelFactory(instance(), instance()) }
         bind() from singleton { UsersViewModelFactory(instance(), instance()) }
+        bind() from singleton { ChallengesViewModelFactory(instance(), instance()) }
     }
 
     companion object {

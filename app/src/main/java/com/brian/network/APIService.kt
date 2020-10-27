@@ -5,7 +5,6 @@ import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
-import com.brian.BuildConfig
 import com.brian.base.MainApplication
 import com.brian.base.Prefs
 import com.brian.models.*
@@ -22,25 +21,13 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
-import kotlin.jvm.Throws
 
 
 const val BASE_URL = "http://1.6.98.142/brian_m4/"
 
 interface APIService {
 
-//    @Multipart
-//    @POST("api/v1/register")
-//    suspend fun signUp(@Part name: MultipartBody.Part,
-//    @Part email : MultipartBody.Part,
-//    @Part dob:MultipartBody.Part,
-//    @Part user_type:MultipartBody.Part,
-//    @Part password:MultipartBody.Part,
-//    @Part device_type:MultipartBody.Part,
-//    @Part device_token:MultipartBody.Part,
-//    @Part profile_picture: MultipartBody.Part?): BaseResponse
 
-    //    @Multipart
     @Multipart
     @POST("api/v1/register")
     suspend fun signUp(
@@ -57,17 +44,35 @@ interface APIService {
     @GET("api/v1/get-defensive-situation")
     suspend fun getDefensiveSituation(): DefensiveResponse
 
+    @GET("api/v1/my-friends")
+    suspend fun getMyFriends(): ResponseMyFriends
+
+    @GET("api/v1/challenge-list-admin")
+    suspend fun getChallenges(): ResponseChallengeType
+
     @POST("api/v1/change-password")
     suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
 
+    @POST("api/v1/create-challenge")
+    suspend fun createChallenge(@Body createChallenge: CreateChallengeParams): ResponseCreateChallenge
+
     @POST("api/v1/search-friends")
     suspend fun searchUsers(@Body params: SearchQuery): ResponseSearchUsers
+
+
+    @POST("api/v1/users")
+    suspend fun searchMyUsers(@Body params: SearchQuery): ResponseMyFriends
+
+
 
     @POST("api/v1/send-friend-request")
     suspend fun sendFriendRequest(@Body params: SendRequestParams): ResponseSendRequest
 
     @POST("api/v1/cancel-request")
     suspend fun cancelFriendRequest(@Body params: SendRequestParams): ResponseSendRequest
+
+    @POST("api/v1/accept-reject-friend-req")
+    suspend fun acceptRejectRequest(@Body params: SendRequestParams): ResponseSendRequest
 
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse
@@ -148,7 +153,7 @@ interface APIService {
                         Log.d("API Logging", "response => $message")
                     }
                 })
-            httpLoggingInterceptor.setLevel(if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE)
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
             return httpLoggingInterceptor
         }
 

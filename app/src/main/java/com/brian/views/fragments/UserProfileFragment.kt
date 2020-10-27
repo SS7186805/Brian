@@ -11,21 +11,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
-import com.brian.databinding.*
-import com.brian.internals.Utils
+import com.brian.databinding.UserProfileFragmentBinding
 import com.brian.models.LoginData
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
 import com.brian.viewModels.myProfile.MyProfileViewModel
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
-import com.brian.viewModels.register.RegisterViewModel
-import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.BadgesAdapter
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import kotlin.math.log
 
 class UserProfileFragment : ScopedFragment(), KodeinAware {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
@@ -102,18 +96,6 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     override fun onResume() {
         super.onResume()
         mViewModel.viewProfile()
-
-//        val login: LoginData = Prefs.init().userInfo!!
-//        mBinding.type.text = login.userType
-//
-//        mBinding.dob.text = "Born on: ${login.dob}"
-//        mBinding.username.text = login.name
-//
-//        if (login?.profilePicture == null) {
-//            Glide.with(requireContext()).load(R.drawable.ic_use_r).into(mBinding.profilePic)
-//        } else {
-//            Glide.with(requireContext()).load(login.profilePicture).into(mBinding.profilePic)
-//        }
 
     }
 

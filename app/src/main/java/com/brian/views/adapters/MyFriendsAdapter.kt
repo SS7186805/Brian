@@ -1,42 +1,31 @@
 package com.brian.views.adapters
 
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.brian.R
 import com.brian.base.BaseRecyclerAdapter
 import com.brian.databinding.MyFriendsItemBinding
-import com.brian.models.UserDataItem
+import com.brian.models.MyFriendsDataItem
 import com.brian.providers.resources.ResourcesProvider
 
 
 class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvider) :
-    BaseRecyclerAdapter<MyFriendsItemBinding, UserDataItem>() {
+    BaseRecyclerAdapter<MyFriendsItemBinding, MyFriendsDataItem>() {
 
     var listener: onViewClick? = null
+    var rowIndex = 0
 
-    override fun bind(holder: ViewHolder, item: UserDataItem, position: Int) {
+    override fun bind(holder: ViewHolder, item: MyFriendsDataItem, position: Int) {
 
         holder.binding.item = item
 
-        if (item.reqSendBySelf!!.contains(context.getString(R.string.No)) && item.reqSendByOther!!.contains(
-                context.getString(R.string.yes)
-            ) && item.isAccepted!!.contains(context.getString(R.string.No))
+        if (item.isAccepted!!.contains(context.getString(R.string.No))
         ) {
             holder.binding.btnAccept.visibility = VISIBLE
             holder.binding.btnReject.visibility = VISIBLE
-        } else if (item.reqSendBySelf!!.contains(context.getString(R.string.No)) && item.reqSendByOther!!.contains(
-                context.getString(R.string.No)
-            ) && item.isAccepted!!.contains(context.getString(R.string.No))
-        ) {
-            holder.binding.btnSendRequest.visibility = VISIBLE
-        } else if (item.reqSendBySelf!!.contains(context.getString(R.string.yes)) && item.reqSendByOther!!.contains(
-                context.getString(R.string.no)
-            ) && item.isAccepted!!.contains(context.getString(R.string.No))
-        ) {
-            holder.binding.btnCancelRequest.visibility = VISIBLE
-
         } else {
-            holder.binding.friends.visibility = VISIBLE
-
+            holder.binding.btnAccept.visibility = GONE
+            holder.binding.btnReject.visibility = GONE
         }
 
 
@@ -44,13 +33,6 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
             listener?.viewUserProfile(position)
         }
 
-        holder.binding.btnCancelRequest.setOnClickListener {
-            listener?.cancelrequest(position)
-        }
-
-        holder.binding.btnSendRequest.setOnClickListener {
-            listener?.sendRequest(position)
-        }
 
         holder.binding.btnAccept.setOnClickListener {
             listener?.acceptRequest(position)
@@ -60,8 +42,11 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
             listener?.rejectRequest(position)
         }
 
-        holder.binding.friends.setOnClickListener {
-            listener?.removeFriend(position)
+
+        holder.itemView.setOnClickListener {
+            item.isSelected=!item.isSelected
+            holder.binding.clView.isSelected = item.isSelected
+            notifyDataSetChanged()
         }
 
 
@@ -69,11 +54,8 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
 
     interface onViewClick {
         fun viewUserProfile(position: Int)
-        fun sendRequest(position: Int)
-        fun cancelrequest(position: Int)
         fun acceptRequest(position: Int)
         fun rejectRequest(position: Int)
-        fun removeFriend(position: Int)
 
     }
 
