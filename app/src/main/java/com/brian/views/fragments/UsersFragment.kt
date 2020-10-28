@@ -31,7 +31,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     lateinit var mBinding: UsersFragmentBinding
     lateinit var mViewModel: UsersViewModel
     private val mClickHandler = ClickHandler()
-    var listener:onSelect?=null
+    var listener: onSelect? = null
+    var isChallenegeType = false
 
 
     override fun onCreateView(
@@ -63,19 +64,22 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
         mBinding.etSearchBar.addTextChangedListener(mViewModel.textWatcher)
         mViewModel.usersAdapter.listener = this.mClickHandler
-        setupRecyclers()
-        setupScrollListener()
-        setupObserver()
 
-        if (arguments?.getString(getString(R.string.challenge_type))?.contains(getString(R.string.yes))!!) {
+
+        if (arguments?.getString(getString(R.string.challenge_type)).equals(getString(R.string.yes))) {
+            isChallenegeType = true
             mViewModel.getMyUsers()
             mViewModel.type = getString(R.string.yes)
 
         } else {
+            isChallenegeType = false
             mViewModel.getUsers()
             mViewModel.type = getString(R.string.no)
 
         }
+        setupRecyclers()
+        setupScrollListener()
+        setupObserver()
 
 
         return mBinding.root
@@ -154,7 +158,7 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     private fun setupScrollListener() {
         mBinding.apply {
 
-            if (arguments?.getString(getString(R.string.challenge_type))?.contains(getString(R.string.yes))!!) {
+            if (arguments?.getString(getString(R.string.challenge_type)).equals(getString(R.string.yes))) {
                 recycler.setOnScrollChangeListener { _, _, _, _, _ ->
 
                     if (mViewModel.myFriends.value?.isNotEmpty()!!) {
@@ -194,7 +198,7 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         mBinding.apply {
 
 
-            if (arguments?.getString(getString(R.string.challenge_type))?.contains(getString(R.string.yes))!!) {
+            if (isChallenegeType) {
                 recycler.apply {
                     adapter = mViewModel.myFriendsAdapter
                 }
@@ -220,9 +224,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         requireView().setOnKeyListener { v, keyCode, event ->
             if (event.action === KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
 
-                Log.e("OnBaclPrese","Onbaclpressed")
-               onBackPressed()
-
+                Log.e("OnBaclPrese", "Onbaclpressed")
+                onBackPressed()
 
 
                 // handle back button's click listener
@@ -232,15 +235,15 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun onBackPressed() {
-        var selectedUsers=ArrayList<MyFriendsDataItem>()
-        for (user in mViewModel.myFriends.value!!){
-            if(user.isSelected){
+        var selectedUsers = ArrayList<MyFriendsDataItem>()
+        for (user in mViewModel.myFriends.value!!) {
+            if (user.isSelected) {
                 selectedUsers.add(user)
             }
 
         }
 
-        Log.e("Listernerrr","Lisuefh${listener}")
+        Log.e("Listernerrr", "Lisuefh${listener}")
 
         getActivity()?.getIntent()?.putExtra("key", selectedUsers);
 
@@ -250,8 +253,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    interface onSelect{
-        fun onSelectUsers(selectedUsers:ArrayList<MyFriendsDataItem>)
+    interface onSelect {
+        fun onSelectUsers(selectedUsers: ArrayList<MyFriendsDataItem>)
     }
 
 }

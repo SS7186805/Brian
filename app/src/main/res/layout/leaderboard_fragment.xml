@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -84,6 +84,7 @@
             android:layout_width="0dp"
             android:id="@+id/rChallenges"
             android:layout_marginTop="@dimen/margin_20"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -95,6 +96,7 @@
             android:id="@+id/rPlayers"
             android:visibility="gone"
             android:layout_marginTop="@dimen/margin_20"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintBottom_toBottomOf="parent"

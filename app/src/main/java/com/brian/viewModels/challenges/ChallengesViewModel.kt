@@ -7,12 +7,12 @@ import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.models.ChallengeTypeDataItem
 import com.brian.models.CreateChallengeParams
+import com.brian.models.DataItemMyChalleneges
 import com.brian.models.ResponseCreateChallenge
-import com.brian.models.UserDataItem
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.challenges.ChallengesRepository
 import com.brian.views.adapters.ChallengeTypeAdapter
-import com.brian.views.adapters.MyFriendsAdapter
+import com.brian.views.adapters.MyChallengesAdapter
 
 
 class ChallengesViewModel(
@@ -21,20 +21,26 @@ class ChallengesViewModel(
 ) : BaseViewModel() {
 
 
-    var usersList =
-        MutableLiveData<ArrayList<UserDataItem>>().apply { value = ArrayList() }
     var allChallenges =
         MutableLiveData<ArrayList<ChallengeTypeDataItem>>().apply { value = ArrayList() }
+    var myChallenges =
+        MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
+    var challengeRequests =
+        MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
+
     var createChallengeResponse =
         MutableLiveData<ResponseCreateChallenge>()
 
 
     lateinit var allChallengesAdapter: ChallengeTypeAdapter
-    lateinit var myFriendsAdapter: MyFriendsAdapter
+    lateinit var myChallengesAdapter: MyChallengesAdapter
+    lateinit var challengeRequestsAdapter: MyChallengesAdapter
     var createChallengeParams = CreateChallengeParams()
-    var allFriendsLoaded = false
+    var myChallengesLoaded = false
+    var challengeRequestsLoaded = false
     var allChallengesLoaded = false
-    var currentPage = 1
+    var currentPageMyChalleneges = 1
+    var currentPageChallenegesRequests = 1
     var currentPageAllChalleneges = 1
     var context: Context? = null
 
@@ -48,8 +54,13 @@ class ChallengesViewModel(
             R.layout.challenge_type, resourcesProvider
 
         )
-        myFriendsAdapter = MyFriendsAdapter(
-            R.layout.my_friends_item, resourcesProvider
+        myChallengesAdapter = MyChallengesAdapter(
+            R.layout.my_challenges_item, resourcesProvider
+
+        )
+
+        challengeRequestsAdapter = MyChallengesAdapter(
+            R.layout.my_challenges_item, resourcesProvider
 
         )
 
@@ -77,6 +88,38 @@ class ChallengesViewModel(
                 allChallengesLoaded = response?.data?.data.isNullOrEmpty()
                 currentPageAllChalleneges = response?.data?.currentPage!!
                 allChallenges.postValue(response?.data.data)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getMyChallenges() {
+        showLoading.postValue(true)
+        challengesRepository.getMyChallenges() { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                allChallengesLoaded = response?.data?.data.isNullOrEmpty()
+                currentPageAllChalleneges = response?.data?.currentPage!!
+                myChallenges.postValue(response?.data.data)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getChallengesRequests() {
+        showLoading.postValue(true)
+        challengesRepository.getChallengesRequests() { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                allChallengesLoaded = response?.data?.data.isNullOrEmpty()
+                currentPageAllChalleneges = response?.data?.currentPage!!
+                challengeRequests.postValue(response?.data.data)
 
             } else {
                 showMessage.postValue(message)

@@ -2,31 +2,26 @@ package com.brian.views.activities
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Gravity.LEFT
-import android.view.Gravity.START
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ActivityMainBinding
-import com.brian.models.LoginData
 import com.brian.views.NavigationItem
 import com.brian.views.adapters.NavigationItemAdapter
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.header_layout.*
@@ -251,7 +246,10 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
         fun onClickAdd() {
             if (navController.currentDestination?.id == R.id.myFriendsFragment) {
-                navController.navigate(R.id.usersFragment)
+                navController.navigate(
+                    R.id.usersFragment,
+                    bundleOf(getString(R.string.challenge_type) to getString(R.string.no))
+                )
 
             }
             if (navController.currentDestination?.id == R.id.challenegesFragment) {

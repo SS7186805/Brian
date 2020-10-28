@@ -1,70 +1,71 @@
 package com.brian.views.adapters
 
-import android.content.Context
 import android.util.Log
-import android.view.View.*
-import androidx.core.content.ContextCompat
-import com.brian.R
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.brian.base.BaseRecyclerAdapter
-import com.brian.databinding.BadgeItemBinding
+import com.brian.base.Prefs
 import com.brian.databinding.MyChallengesItemBinding
-import com.brian.databinding.NavigationItemBinding
-import com.brian.views.NavigationItem
+import com.brian.models.DataItemMyChalleneges
+import com.brian.providers.resources.ResourcesProvider
 
 
+class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: ResourcesProvider) :
+    BaseRecyclerAdapter<MyChallengesItemBinding, DataItemMyChalleneges>() {
 
-class MyChallengesAdapter (override val layoutId: Int) : BaseRecyclerAdapter<MyChallengesItemBinding, MyChallenges>(){
+    var listener: onViewClick? = null
 
-    var listener:onViewClick?=null
+    override fun bind(holder: ViewHolder, item: DataItemMyChalleneges, position: Int) {
 
-    override fun bind(holder: ViewHolder, item: MyChallenges, position: Int) {
+        holder.binding.item = item
 
-        if(item.isAccepted){
-            holder.binding.lAcceptReject.visibility=GONE
-            holder.binding.check.visibility= VISIBLE
+        Log.e("UserId", Prefs.init().userInfo?.id.toString())
 
-        }else{
-            holder.binding.lAcceptReject.visibility= VISIBLE
-            holder.binding.check.visibility= INVISIBLE
-
-        }
-
-        if(item.cancelChallenge){
-            holder.binding.cancelChallenge.visibility= VISIBLE
-            holder.binding.lAcceptReject.visibility=GONE
-            holder.binding.check.visibility= INVISIBLE
-            holder.binding.videoImage.visibility= GONE
-
-
-        }
-
-        if(item.isRequest){
-            holder.binding.accept.text="Approve"
-            holder.binding.videoImage.visibility= GONE
+        if (Prefs.init().userInfo?.id == item.challengeToUserId) {
+            if (item.isAccepted == 1 && item.isApproved == 0) {
+                holder.binding.bWaitingApproval.visibility = VISIBLE
+            } else if (item.isAccepted == 0 && item.isApproved == 0) {
+                holder.binding.lAcceptReject.visibility = VISIBLE
+                holder.binding.accept.visibility = VISIBLE
+                holder.binding.approve.visibility = GONE
+            } else if (item.isAccepted == 1 && item.isApproved == 1) {
+                holder.binding.check.visibility = VISIBLE
+            } else if (item.isAccepted == 1 && item.isApproved == 2) {
+                holder.binding.cancel.visibility = VISIBLE
+            }
 
         }
 
+        if (Prefs.init().userInfo?.id != item.challengeToUserId) {
+            if (item.isAccepted == 1 && item.isApproved == 0) {
+                holder.binding.lAcceptReject.visibility = VISIBLE
+                holder.binding.accept.visibility = GONE
+                holder.binding.approve.visibility = VISIBLE
+            } else if (item.isAccepted == 1 && item.isApproved == 1) {
+                holder.binding.check.visibility = VISIBLE
+            } else if (item.isAccepted == 1 && item.isApproved == 2) {
+                holder.binding.cancel.visibility = VISIBLE
+            } else {
+                holder.binding.cancelChallenge.visibility = VISIBLE
 
-        holder.binding.accept.setOnClickListener{
-            if(holder.binding.accept.text.contains("Approve")){
+            }
+
+        }
+
+        holder.binding.accept.setOnClickListener {
+            if (holder.binding.accept.text.contains("Approve")) {
                 listener?.onAprroveClick()
             }
         }
 
 
-
-
-
-
     }
 
 
-    interface onViewClick{
-       fun onAprroveClick()
+    interface onViewClick {
+        fun onAprroveClick()
 
     }
-
-
 
 
 }

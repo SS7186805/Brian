@@ -17,6 +17,28 @@ class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesD
         return response
     }
 
+    override suspend fun getMyChallenges(): ResponseMyChallenges {
+        var response = ResponseMyChallenges()
+        try {
+            response = apiService.getMyChallenges()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
+    override suspend fun getChallengesRequests(): ResponseMyChallenges {
+        var response = ResponseMyChallenges()
+        try {
+            response = apiService.getChallengesRequests()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
     override suspend fun createChallenge(queryParams: CreateChallengeParams): ResponseCreateChallenge {
         var response = ResponseCreateChallenge()
         try {

@@ -1,27 +1,27 @@
 package com.brian.views.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ContactUsFragmentBinding
-import com.brian.internals.DialogUtil
+import com.brian.internals.*
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class ContactUsFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickListener {
+class ContactUsFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: ContactUsFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-
-
 
 
     override fun onCreateView(
@@ -36,6 +36,7 @@ class ContactUsFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickL
         }
 
 
+        setupObserver()
         return mBinding.root
     }
 
@@ -45,17 +46,17 @@ class ContactUsFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickL
     }
 
 
+    inner class ClickHandler {
 
+        fun onCreateClick() {
 
-    inner class ClickHandler{
+            if (Validator.init.validateContactUsData(mBinding, requireContext())) {
+                mViewModel.contactUsParams.title = mBinding.title.text.toString()
+                mViewModel.contactUsParams.description = mBinding.message.text.toString()
+                mViewModel.contactUs()
 
-        fun onCreateClick(){
-            DialogUtil.build(requireContext()) {
-                title = getString(R.string.success)
-                dialogType = DialogUtil.DialogType.SUCCESS
-                message = getString(R.string.contact_us_message)
-                successClickListener = this@ContactUsFragment
             }
+
         }
 
 
@@ -64,6 +65,36 @@ class ContactUsFragment : ScopedFragment(), KodeinAware,DialogUtil.SuccessClickL
     override fun onOkayClick() {
         findNavController().navigateUp()
 
+    }
+
+
+    private fun setupObserver() {
+        mViewModel.apply {
+            showMessage.observe(viewLifecycleOwner, Observer {
+                if (!TextUtils.isEmpty(it)) {
+                    requireContext().showToast(it)
+                    showMessage.postValue("")
+                }
+            })
+
+
+
+            contactUsResponse.observe(viewLifecycleOwner, Observer {
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    DialogUtil.build(requireContext()) {
+                        title = getString(R.string.success)
+                        dialogType = DialogUtil.DialogType.SUCCESS
+                        message = getString(R.string.contact_us_message)
+                        successClickListener = this@ContactUsFragment
+                    }
+                }
+
+            })
+
+            showLoading.observe(viewLifecycleOwner, Observer {
+                if (it) showProgress(requireContext()) else hideProgress()
+            })
+        }
     }
 
 

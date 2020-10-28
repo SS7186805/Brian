@@ -153,5 +153,6 @@
     <string name="challenge_type_empty">Please select challenge type.</string>
     <string name="date_empty">Please select date and time.</string>
     <string name="select_user_message">Please select users.</string>
+    <string name="waiting_for_approval">Waiting For Approval</string>
 
 </resources>

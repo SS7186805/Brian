@@ -50,7 +50,7 @@ class MyTeamsFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler{
         fun onClickTeam(){
-            findNavController().navigate(R.id.usersFragment, bundleOf("team" to "team"))
+            findNavController().navigate(R.id.usersFragment, bundleOf("team" to "team", getString(R.string.challenge_type) to getString(R.string.no)))
         }
 
     }

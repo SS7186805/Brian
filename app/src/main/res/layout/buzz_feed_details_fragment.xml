@@ -8,6 +8,7 @@
         <variable
             name="item"
             type="com.brian.models.BuzzFeedDataItem" />
+
         <variable
             name="viewModel"
             type="com.brian.viewModels.register.RegisterViewModel" />
@@ -43,7 +44,6 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
-
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/svSafariImages2"
             android:layout_width="match_parent"
@@ -70,7 +70,6 @@
             app:sliderStartAutoCycle="true" />
 
 
-
         <ImageView
             android:id="@+id/image"
             android:layout_width="0dp"
@@ -91,29 +90,13 @@
             android:layout_marginTop="@dimen/margin_15"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            app:layout_constraintTop_toBottomOf="@id/image"
-          >
+            app:layout_constraintTop_toBottomOf="@id/image">
 
             <View
                 android:layout_width="12dp"
                 android:layout_height="12dp"
-                android:background="@drawable/slider_dot"
-                />
+                android:background="@drawable/slider_dot" />
 
-
-            <View
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/empty_dot"
-              />
-
-            <View
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:layout_marginLeft="@dimen/margin_5"
-                android:background="@drawable/empty_dot"
-                />
 
             <View
                 android:layout_width="12dp"
@@ -121,6 +104,17 @@
                 android:layout_marginLeft="@dimen/margin_5"
                 android:background="@drawable/empty_dot" />
 
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/empty_dot" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:background="@drawable/empty_dot" />
 
 
         </LinearLayout>
@@ -149,7 +143,6 @@
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@id/title" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.*
-import com.brian.internals.DialogUtil
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
+import com.brian.databinding.MyChallengesFragmentBinding
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.adapters.MyChallenges
@@ -26,9 +22,8 @@ class MyChallenegesFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: RegisterViewModelFactory by instance()
     lateinit var mBinding: MyChallengesFragmentBinding
     lateinit var mViewModel: RegisterViewModel
-    var myChallengesAdapter:MyChallengesAdapter?=null
-    var myChallenges=ArrayList<MyChallenges>()
-
+    var myChallengesAdapter: MyChallengesAdapter? = null
+    var myChallenges = ArrayList<MyChallenges>()
 
 
     override fun onCreateView(
@@ -41,11 +36,10 @@ class MyChallenegesFragment : ScopedFragment(), KodeinAware {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text=getString(R.string.my_challenges)
+        mBinding.toolbar.tvTitle.text = getString(R.string.my_challenges)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
-        setAdapter()
 
         return mBinding.root
     }
@@ -54,7 +48,7 @@ class MyChallenegesFragment : ScopedFragment(), KodeinAware {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
-
+/*
     fun setAdapter(){
         mBinding.recycler.layoutManager= LinearLayoutManager(requireContext())
 
@@ -70,11 +64,11 @@ class MyChallenegesFragment : ScopedFragment(), KodeinAware {
 
         myChallengesAdapter!!.addNewItems(myChallenges)
 
-    }
+    }*/
 
-    inner class ClickHandler{
+    inner class ClickHandler {
 
-        fun onSelectChallenge(){
+        fun onSelectChallenge() {
 
         }
 

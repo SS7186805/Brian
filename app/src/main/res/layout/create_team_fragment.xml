@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20"
+            android:onClick="@{() -> clickHandler.onSelectImage()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
@@ -51,6 +52,7 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/margin_120"
+                android:id="@+id/ivImage"
                 android:layout_height="@dimen/margin_120"
                 android:src="@drawable/ic_profile" />
 

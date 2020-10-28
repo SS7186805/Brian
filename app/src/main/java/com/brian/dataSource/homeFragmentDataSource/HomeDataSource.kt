@@ -1,11 +1,14 @@
 package com.brian.dataSource.homeFragmentDataSource
 
-import com.brian.models.DefensiveResponse
-import com.brian.models.QuestionResponse
+import com.brian.models.*
 
 interface HomeDataSource {
     suspend fun getDefensive(): DefensiveResponse
 
     suspend fun questionResponse() : QuestionResponse
+    suspend fun getChallenges() : ResponseLeaderboard
+    suspend fun getPlayers() : ResponseLeaderboard
+    suspend fun getStats() : ResponseMyStats
+    suspend fun createTeam(createTeam:CreateTeamParams) : ResponseCreateTeam
 
 }

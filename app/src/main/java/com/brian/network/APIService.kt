@@ -9,6 +9,7 @@ import com.brian.base.MainApplication
 import com.brian.base.Prefs
 import com.brian.models.*
 import com.brian.views.activities.AccountHandlerActivity
+import com.google.android.exoplayer2.text.span.RubySpan
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.*
@@ -21,6 +22,7 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.Throws
 
 
 const val BASE_URL = "http://1.6.98.142/brian_m4/"
@@ -50,6 +52,12 @@ interface APIService {
     @GET("api/v1/challenge-list-admin")
     suspend fun getChallenges(): ResponseChallengeType
 
+    @GET("api/v1/my-challenges")
+    suspend fun getMyChallenges(): ResponseMyChallenges
+
+    @GET("api/v1/challenge-req")
+    suspend fun getChallengesRequests(): ResponseMyChallenges
+
     @POST("api/v1/change-password")
     suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
 
@@ -64,7 +72,6 @@ interface APIService {
     suspend fun searchMyUsers(@Body params: SearchQuery): ResponseMyFriends
 
 
-
     @POST("api/v1/send-friend-request")
     suspend fun sendFriendRequest(@Body params: SendRequestParams): ResponseSendRequest
 
@@ -73,6 +80,12 @@ interface APIService {
 
     @POST("api/v1/accept-reject-friend-req")
     suspend fun acceptRejectRequest(@Body params: SendRequestParams): ResponseSendRequest
+
+    @POST("api/v1/contact-us")
+    suspend fun contactUs(@Body params: ContactUsParams): BaseResponse
+
+    @POST("api/v1/create-team")
+    suspend fun createTeam(@Body params: CreateTeamParams): ResponseCreateTeam
 
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse
@@ -87,6 +100,20 @@ interface APIService {
 
     @GET("api/v1/get-question-randomly")
     suspend fun questionResponse(): QuestionResponse
+
+    @GET("api/v1/leaderboard/challenges")
+    suspend fun getChallengesLeaderBoard(): ResponseLeaderboard
+
+    @GET("api/v1/leaderboard/players")
+    suspend fun getPlayers(): ResponseLeaderboard
+
+    @GET("api/v1/my-status")
+    suspend fun getStats(): ResponseMyStats
+
+    @GET("api/v1/my-status")
+    suspend fun getMyTeams(): ResponseMyStats
+
+
 
     @GET("api/v1/profile")
     suspend fun viewProfile(): BaseResponse

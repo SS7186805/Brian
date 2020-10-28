@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout>
+<layout xmlns:bind="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.brian.models.DataItemMyChalleneges" />
+    </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -22,9 +30,9 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardVideoImage"
                 android:layout_width="0dp"
-                app:cardCornerRadius="@dimen/margin_10"
-                app:cardBackgroundColor="@color/card_background_training"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/card_background_training"
+                app:cardCornerRadius="@dimen/margin_10"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -32,14 +40,14 @@
                 <FrameLayout
                     android:id="@+id/videoImage"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_150"
-                  >
+                    android:layout_height="@dimen/margin_150">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/video_full">
+                        android:src="@drawable/video_full"
+                        bind:imageUrl="@{item.challenge.image}">
 
                     </ImageView>
 
@@ -52,14 +60,13 @@
             </androidx.cardview.widget.CardView>
 
 
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic_bold"
-                android:text="@string/title"
+                android:text="@{item.challengeTitle}"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/px40"
                 app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
                 android:fontFamily="@font/century_gothic"
-                android:text="@string/challenge_type"
+                android:text="@{item.challenge.challengeName}"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/px40"
                 app:layout_constraintStart_toStartOf="parent"
@@ -84,9 +91,9 @@
                 android:layout_width="@dimen/margin_35"
                 android:layout_height="@dimen/margin_35"
                 android:layout_marginTop="@dimen/margin_10"
-                android:src="@drawable/profile_pic"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/type" />
+                app:layout_constraintTop_toBottomOf="@id/type"
+                bind:imageUrl="@{item.otherUserDetails.profilePicture}" />
 
             <TextView
                 android:id="@+id/username"
@@ -94,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic"
-                android:text="@string/user_name"
+                android:text="@{item.otherUserDetails.name}"
                 android:textColor="@color/text_color_grey"
                 android:textSize="@dimen/px45"
                 app:layout_constraintBottom_toBottomOf="@id/profilePic"
@@ -112,12 +119,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/profilePic" />
 
+
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
+                android:paddingBottom="@dimen/margin_5"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/profilePic" />
+
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/century_gothic"
-                android:text="@string/time_text"
+                android:text="@{item.createdAt}"
                 android:textColor="@color/text_color_grey"
                 android:textSize="@dimen/px40"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -128,12 +146,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_15"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/time">
 
                 <TextView
-                    android:id="@+id/accept"
+                    android:id="@+id/approve"
                     android:layout_width="@dimen/margin_120"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_20"
@@ -148,6 +167,27 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/px40"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/accept"
+                    android:layout_width="@dimen/margin_120"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20"
+                    android:background="@drawable/btn_bg"
+                    android:backgroundTint="@color/green"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:paddingStart="@dimen/margin_30"
+                    android:paddingTop="@dimen/margin_9"
+                    android:paddingEnd="@dimen/margin_30"
+                    android:paddingBottom="@dimen/margin_9"
+                    android:text="@string/accept"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/px40"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,6 +232,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/lAcceptReject" />
 
+
+            <TextView
+                android:id="@+id/bWaitingApproval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_20"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/yellow"
+                android:fontFamily="@font/century_gothic_bold"
+                android:paddingLeft="@dimen/margin_20"
+                android:paddingTop="@dimen/margin_10"
+                android:paddingRight="@dimen/margin_20"
+                android:paddingBottom="@dimen/margin_10"
+                android:text="@string/waiting_for_approval"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px40"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lAcceptReject" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

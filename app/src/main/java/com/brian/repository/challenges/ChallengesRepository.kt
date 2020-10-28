@@ -13,6 +13,24 @@ interface ChallengesRepository {
     )
 
 
+    fun getMyChallenges(
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseMyChallenges?
+        ) -> Unit
+    )
+
+
+    fun getChallengesRequests(
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseMyChallenges?
+        ) -> Unit
+    )
+
+
 
     fun createChallenge(
         queryParams: CreateChallengeParams,

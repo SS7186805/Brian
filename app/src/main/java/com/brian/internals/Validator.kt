@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Patterns
 import android.widget.Toast
 import com.brian.R
+import com.brian.databinding.ContactUsFragmentBinding
 import com.brian.databinding.CreateChallengeFragmentBinding
 
 class Validator {
@@ -37,6 +38,20 @@ class Validator {
             Toast.makeText(context, context.getString(R.string.select_user_message), Toast.LENGTH_SHORT).show()
             return false
         }else {
+            return true
+        }
+        return true
+
+    }
+
+    fun validateContactUsData(binding: ContactUsFragmentBinding, context: Context): Boolean {
+        if (binding.title.text.isNullOrBlank()) {
+            Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
+            return false
+        }  else if (binding.message.text.isNullOrBlank()) {
+            Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
+            return false
+        } else {
             return true
         }
         return true

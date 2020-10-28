@@ -97,7 +97,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
                 if (it.isNotEmpty()) {
                     mViewModel.allChallengesAdapter.setNewItems(it)
                 } else {
-                    if (currentPage == 1) {
+                    if (currentPageAllChalleneges == 1) {
                         mViewModel.allChallengesAdapter.setNewItems(it)
                     }
                 }
@@ -114,10 +114,10 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
         mBinding.apply {
             recycler.setOnScrollChangeListener { _, _, _, _, _ ->
 
-                if (mViewModel.usersList.value?.isNotEmpty()!!) {
+                if (mViewModel.allChallenges.value?.isNotEmpty()!!) {
                     val view = recycler.getChildAt(recycler.childCount - 1)
                     val diff = view.bottom - (recycler.height + recycler.scrollY)
-                    val offset = mViewModel.usersList.value?.size
+                    val offset = mViewModel.allChallenges.value?.size
                     if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChallengesLoaded) {
                         mViewModel.getAllChallenges()
                     }

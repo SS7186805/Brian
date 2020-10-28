@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
@@ -86,7 +86,8 @@
                         android:layout_marginStart="@dimen/margin_22"
                         android:layout_marginTop="27dp"
                         android:fontFamily="@font/digital_medium"
-                        android:text="12"
+                        android:text="0"
+                        android:id="@+id/tvChalleneges"
                         android:textColor="@color/black"
                         android:textSize="@dimen/px200" />
                 </FrameLayout>
@@ -147,6 +148,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/century_gothic_bold"
                         android:text="50 %"
+                        android:id="@+id/tvAverage"
                         android:textColor="@color/yellow"
                         android:textSize="@dimen/px60" />
                 </FrameLayout>

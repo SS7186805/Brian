@@ -3,6 +3,7 @@ package com.brian.repository.authRepository
 import com.brian.models.BaseResponse
 import com.brian.models.RegisterRequest
 import com.brian.dataSource.authDataSource.AuthenticationDataSource
+import com.brian.models.ContactUsParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -70,6 +71,20 @@ class AuthenticationRepositoryImpl(private val authenticationDataSource: Authent
     override fun logOutResponse(onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main){
             val response = authenticationDataSource.LogOutResponse()
+            if(response.error != null){
+                onResult(false,response.error!!,null)
+            }else{
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun contactUs(
+        contactUsParams: ContactUsParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main){
+            val response = authenticationDataSource.contactUs(contactUsParams)
             if(response.error != null){
                 onResult(false,response.error!!,null)
             }else{

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:bind="http://schemas.android.com/tools">
 
 
     <data>
+
+        <variable
+            name="item"
+            type="com.brian.models.LeaderboardDataItem" />
 
     </data>
 
@@ -22,8 +26,8 @@
             android:id="@+id/friend_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/profile_pic"
             android:layout_marginStart="@dimen/margin_10"
+            bind:imageUrl="@{item.profilePicture}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,10 +36,10 @@
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/century_gothic_bold"
-            android:text="Joe Duo"
-            android:textColor="#fec60a"
             android:layout_marginStart="@dimen/margin_10"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@{item.name}"
+            android:textColor="#fec60a"
             android:textSize="@dimen/px55"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

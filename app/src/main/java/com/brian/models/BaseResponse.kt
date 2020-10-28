@@ -4,6 +4,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
+import okhttp3.MultipartBody
 
 
 @Parcelize
@@ -147,9 +148,18 @@ class SendRequestParams {
 
 }
 
+class ContactUsParams {
+    @field:SerializedName("title")
+    var title: String = ""
+
+    @field:SerializedName("description")
+    var description: String? = null
+
+}
+
 data class CreateChallengeParams(
     @field:SerializedName("challenge_id")
-    var challenge_id: Int?=null,
+    var challenge_id: Int? = null,
 
     @field:SerializedName("challenge_to_user")
     var challenge_to_user: String? = null,
@@ -161,3 +171,17 @@ data class CreateChallengeParams(
     var date_and_time: String? = null
 
 )
+
+data class CreateTeamParams(
+    @field:SerializedName("team_name")
+    var team_name: String? = null,
+
+    @field:SerializedName("users")
+    var users: String? = null,
+
+    @field:SerializedName("image")
+    var image: MultipartBody.Part? = null
+
+
+)
+
