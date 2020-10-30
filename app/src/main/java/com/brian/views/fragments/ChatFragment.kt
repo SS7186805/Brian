@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.*
-import com.brian.viewModels.login.LoginViewModel
-import com.brian.viewModels.login.LoginViewModelFactory
+import com.brian.databinding.ChatFragmentBinding
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.view.*
@@ -25,20 +23,20 @@ class ChatFragment : ScopedFragment(), KodeinAware {
     lateinit var mViewModel: RegisterViewModel
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        getActivity()?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        getActivity()?.getWindow()
+            ?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         mBinding = ChatFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text=getString(R.string.user_name)
+        mBinding.toolbar.tvTitle.text = getString(R.string.user_name)
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
@@ -51,7 +49,7 @@ class ChatFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(RegisterViewModel::class.java)
     }
 
-    inner class ClickHandler{
+    inner class ClickHandler {
 
 
     }

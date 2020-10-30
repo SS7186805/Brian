@@ -18,6 +18,8 @@ class SwipeToDeleteAdapter(dataSet: ArrayList<AllChatsDataItem> = ArrayList())
     }
 
     override fun onBindViewHolder(item: AllChatsDataItem, viewHolder: ViewHolder, position: Int) {
+
+
         viewHolder.itemView.setOnClickListener{
             listener?.onAprroveClick()
         }

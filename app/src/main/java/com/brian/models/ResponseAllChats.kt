@@ -69,7 +69,7 @@ data class AllChatsDataItem(
     val createdAt: String? = null,
 
     @field:SerializedName("last_message")
-    val lastMessage: String? = null,
+    val lastMessage: LastMessage? = null,
 
     @field:SerializedName("other_user_detail")
     val otherUserDetail: OtherUserDetailChat? = null,
@@ -88,6 +88,42 @@ data class AllChatsDataItem(
 
     @field:SerializedName("delete_by_sender_user")
     val deleteBySenderUser: Int? = null
+)
+
+data class LastMessage(
+
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null,
+
+    @field:SerializedName("thumbnail_video")
+    val thumbnailVideo: Any? = null,
+
+    @field:SerializedName("file_name")
+    val fileName: Any? = null,
+
+    @field:SerializedName("chat_room_id")
+    val chatRoomId: Int? = null,
+
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
+
+    @field:SerializedName("type_of_file")
+    val typeOfFile: String? = null,
+
+    @field:SerializedName("id")
+    val id: Int? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null,
+
+    @field:SerializedName("deleted_at")
+    val deletedAt: Any? = null,
+
+    @field:SerializedName("sender_user_id")
+    val senderUserId: Int? = null,
+
+    @field:SerializedName("receiver_user_id")
+    val receiverUserId: Int? = null
 )
 
 data class OtherUserDetailChat(

@@ -60,11 +60,10 @@ abstract class BaseRecyclerAdapter<T : ViewDataBinding, R> :
         }
     }
 
-    fun removeItem(predicate: (R) -> Boolean) {
-        val targetPos = list.indexOfFirst(predicate)
-        if (targetPos != -1) {
-            list.removeAt(targetPos)
-            notifyItemRemoved(targetPos)
+    fun removeItem(position: Int) {
+        if (position != -1) {
+            list.removeAt(position)
+            notifyItemRemoved(position)
         }
     }
 

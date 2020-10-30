@@ -9,19 +9,19 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MessagesFragmentBinding
+import com.brian.internals.SwipeToDeleteCallback
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
 import com.brian.viewModels.messages.MessagesViewModel
 import com.brian.viewModels.messages.MessagesViewModelFactory
 import com.brian.views.adapters.MessageData
+import com.brian.views.adapters.MyMessagesAdapter
 import com.brian.views.adapters.SwipeToDeleteAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -69,18 +69,12 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
 
     private fun setupRecycler() {
 
-        mAdapter = SwipeToDeleteAdapter(mViewModel.allChats.value!!)
-        mAdapter.listener = this.mClickHandler
+        mViewModel.messagesAdapter.listener = this.mClickHandler
         mBinding.recycler.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            swipeListener = onItemSwipeListener
-            adapter = mAdapter
-            dragListener = null
-            disableSwipeDirection(DragDropSwipeRecyclerView.ListOrientation.DirectionFlag.RIGHT)
-            behindSwipedItemLayoutId = R.layout.layout_behind_item
-            orientation =
-                DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+            adapter = mViewModel.messagesAdapter
+
         }
+        enableSwipeToDelete()
     }
 
     private fun setupViewModel() {
@@ -90,9 +84,11 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    inner class ClickHandler : SwipeToDeleteAdapter.onViewClick {
+    inner class ClickHandler : MyMessagesAdapter.onViewClick {
 
-        override fun onAprroveClick() {
+        override fun onChatClick() {
+            mViewModel.allChats.value?.clear()
+            mViewModel.messagesAdapter.clearData()
             findNavController().navigate(R.id.chatFragment)
         }
     }
@@ -109,8 +105,7 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
 
             allChats.observe(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
-                    mAdapter.dataSet = mViewModel.allChats.value!!
-                    mAdapter.notifyDataSetChanged()
+                    messagesAdapter.addNewItems(it)
                 }
 
             })
@@ -124,39 +119,31 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     private fun setupScrollListener() {
         mBinding.apply {
             recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-                val view = recycler.getChildAt(recycler.childCount - 1)
-                val diff = view.bottom - (recycler.height + recycler.scrollY)
-                val offset = mViewModel.allChats.value?.size
-                if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChatsLoaded) {
-                    mViewModel.getAllChats()
+                if(mViewModel.allChats.value?.isNotEmpty()!!){
+                    val view = recycler.getChildAt(recycler.childCount - 1)
+                    val diff = view.bottom - (recycler.height + recycler.scrollY)
+                    val offset = mViewModel.allChats.value?.size
+                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChatsLoaded) {
+                        mViewModel.getAllChats()
+                    }
                 }
+
             }
 
         }
     }
 
 
-    fun swipeAction() {
-
-        val simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
-            ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.DOWN or ItemTouchHelper.UP
-            ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
-                //Remove swiped item from list and notify the RecyclerView
+    private fun enableSwipeToDelete() {
+        val swipeToDeleteCallback = object : SwipeToDeleteCallback(requireContext()) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
                 val position = viewHolder.adapterPosition
+                mViewModel.messagesAdapter.removeItem(position)
+
+
             }
         }
-        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
-        itemTouchHelper.attachToRecyclerView(mBinding.recycler)
+        val itemTouchhelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchhelper.attachToRecyclerView(mBinding.recycler)
     }
 }
