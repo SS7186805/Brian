@@ -9,7 +9,6 @@ import com.brian.base.MainApplication
 import com.brian.base.Prefs
 import com.brian.models.*
 import com.brian.views.activities.AccountHandlerActivity
-import com.google.android.exoplayer2.text.span.RubySpan
 import com.google.gson.Gson
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.*
@@ -58,6 +57,9 @@ interface APIService {
     @GET("api/v1/challenge-req")
     suspend fun getChallengesRequests(): ResponseMyChallenges
 
+    @GET("api/v1/all-chats")
+    suspend fun getAllChats(): ResponseAllChats
+
     @POST("api/v1/change-password")
     suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
 
@@ -84,8 +86,12 @@ interface APIService {
     @POST("api/v1/contact-us")
     suspend fun contactUs(@Body params: ContactUsParams): BaseResponse
 
+    @Multipart
     @POST("api/v1/create-team")
-    suspend fun createTeam(@Body params: CreateTeamParams): ResponseCreateTeam
+    suspend fun createTeam(
+        @PartMap request: HashMap<String, RequestBody>,
+        @Part profile_picture: MultipartBody.Part?
+    ): ResponseCreateTeam
 
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse
@@ -110,13 +116,12 @@ interface APIService {
     @GET("api/v1/my-status")
     suspend fun getStats(): ResponseMyStats
 
-    @GET("api/v1/my-status")
-    suspend fun getMyTeams(): ResponseMyStats
+    @GET("api/v1/teams")
+    suspend fun getMyTeams(): ResponseMyTeams
 
 
-
-    @GET("api/v1/profile")
-    suspend fun viewProfile(): BaseResponse
+    @GET("api/v1/profile/{id}")
+    suspend fun viewProfile(@Path("id") id: String): BaseResponse
 
 
     @GET("api/v1/training-videos")

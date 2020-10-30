@@ -4,13 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
 import com.brian.internals.toArrayList
-import com.brian.models.DataItem
-import com.brian.models.DataMyStats
-import com.brian.models.LeaderboardDataItem
-import com.brian.models.QuestionData
+import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.homeRepository.HomeRepository
 import com.brian.views.adapters.LeaderboardChallengeAdapter
+import com.brian.views.adapters.MyTeamMembersAdapter
+import com.brian.views.adapters.MyTeamsAdapter
 
 class HomeViewModel(
     private val homeRepository: HomeRepository,
@@ -22,13 +21,22 @@ class HomeViewModel(
 
     lateinit var myChallengesAdapter: LeaderboardChallengeAdapter
     lateinit var playersAdapter: LeaderboardChallengeAdapter
+    lateinit var myTeamsAdapter: MyTeamsAdapter
+    lateinit var teamPlayersAdapter: MyTeamMembersAdapter
     var challenges =
         MutableLiveData<ArrayList<LeaderboardDataItem>>().apply { value = ArrayList() }
     var players =
         MutableLiveData<ArrayList<LeaderboardDataItem>>().apply { value = ArrayList() }
 
+    var myTeams =
+        MutableLiveData<ArrayList<DataItemMyTeam>>().apply { value = ArrayList() }
+
     var myStats =
         MutableLiveData<DataMyStats>()
+    var allTeamsLoaded = false
+
+    var createTeamParams = CreateTeamParams()
+
 
     init {
         initRecyclerAdapters()
@@ -42,6 +50,16 @@ class HomeViewModel(
         )
         playersAdapter = LeaderboardChallengeAdapter(
             R.layout.leaderboard, resourcesProvider
+
+        )
+
+        myTeamsAdapter = MyTeamsAdapter(
+            R.layout.teams, resourcesProvider
+
+        )
+
+        teamPlayersAdapter = MyTeamMembersAdapter(
+            R.layout.team_players_item, resourcesProvider
 
         )
 
@@ -118,11 +136,43 @@ class HomeViewModel(
 
     fun createTeam() {
         showLoading.postValue(true)
-        homeRepository.getMyStats() { isSuccess, message, response ->
+        homeRepository.createTeam(createTeamParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                showMessage.postValue(response?.result)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+
+    fun getMyTeams() {
+        myTeams.value?.clear()
+        showLoading.postValue(true)
+        homeRepository.getMyTeams() { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
 
-                myStats.postValue(response?.data)
+                myTeams.postValue(response?.data?.data)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getTeamMembers() {
+        myTeams.value?.clear()
+        showLoading.postValue(true)
+        homeRepository.getMyTeams() { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+
+                myTeams.postValue(response?.data?.data)
 
             } else {
                 showMessage.postValue(message)

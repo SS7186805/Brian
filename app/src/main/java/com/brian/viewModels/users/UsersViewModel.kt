@@ -17,6 +17,7 @@ import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.usersRepositary.UsersRepository
 import com.brian.views.adapters.AllUsersAdapter
 import com.brian.views.adapters.MyFriendsAdapter
+import com.brian.views.adapters.SelectFriendsAdapter
 
 
 class UsersViewModel(
@@ -34,6 +35,7 @@ class UsersViewModel(
     var myFriends =
         MutableLiveData<ArrayList<MyFriendsDataItem>>().apply { value = ArrayList() }
     lateinit var usersAdapter: AllUsersAdapter
+    lateinit var selectFriendsAdapter: SelectFriendsAdapter
     lateinit var myFriendsAdapter: MyFriendsAdapter
     var searchQuery = SearchQuery()
     var sendRequestParams = SendRequestParams()
@@ -78,6 +80,11 @@ class UsersViewModel(
             R.layout.users_item, resourcesProvider
 
         )
+        selectFriendsAdapter = SelectFriendsAdapter(
+            R.layout.my_friends_item, resourcesProvider
+
+        )
+
         myFriendsAdapter = MyFriendsAdapter(
             R.layout.my_friends_item, resourcesProvider
 
@@ -181,11 +188,11 @@ class UsersViewModel(
         usersRepository.acceptRejectRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                myFriendsAdapter.list[position].isAccepted =
+                selectFriendsAdapter.list[position].isAccepted =
                     if (action.contains(resourcesProvider.getString(R.string.accept))) resourcesProvider.getString(
                         R.string.yes
                     ) else resourcesProvider.getString(R.string.No)
-                myFriendsAdapter.notifyItemChanged(position)
+                selectFriendsAdapter.notifyItemChanged(position)
 
 
             } else {

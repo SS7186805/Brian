@@ -9,7 +9,9 @@ interface MyProfileRepository {
         response: BaseResponse?
     ) -> Unit)
 
-    fun viewProfile(onResult: (
+    fun viewProfile(
+        id:String,
+        onResult: (
         isSuccess: Boolean,
         message: String,
         response: BaseResponse?

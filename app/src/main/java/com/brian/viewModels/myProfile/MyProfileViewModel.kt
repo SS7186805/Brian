@@ -14,13 +14,6 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
     var change = ObservableField<ChangePassword>(ChangePassword())
     var loginData = MutableLiveData<LoginData>()
 
-//    init {
-//        change.get()?.apply {
-//            old_password = "123456"
-//            new_password = "1234567"
-//            confirm_password = "1234567"
-//        }
-//    }
 
     fun changePassword() {
         if (validation()) {
@@ -59,8 +52,8 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
         return true
     }
 
-    fun viewProfile() {
-        myProfileRepository.viewProfile { isSuccess, message, response ->
+    fun viewProfile(id: String) {
+        myProfileRepository.viewProfile(id) { isSuccess, message, response ->
 
             if (isSuccess) {
 
@@ -70,7 +63,7 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
                     this@MyProfileViewModel.loginData.postValue(loginData)
                 }
             } else {
-//                 showMessage.postValue(message)
+                showMessage.postValue(message)
             }
 
         }

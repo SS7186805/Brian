@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.brian.R
 import com.brian.databinding.ContactUsFragmentBinding
 import com.brian.databinding.CreateChallengeFragmentBinding
+import com.brian.databinding.CreateTeamFragmentBinding
 
 class Validator {
 
@@ -49,6 +50,20 @@ class Validator {
             Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
             return false
         }  else if (binding.message.text.isNullOrBlank()) {
+            Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
+            return false
+        } else {
+            return true
+        }
+        return true
+
+    }
+
+    fun validateCreateTeam(binding: CreateTeamFragmentBinding, context: Context): Boolean {
+        if (binding.etTeamName.text.isNullOrBlank()) {
+            Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
+            return false
+        }  else if (binding.etSelectUser.text.isNullOrBlank()) {
             Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
             return false
         } else {

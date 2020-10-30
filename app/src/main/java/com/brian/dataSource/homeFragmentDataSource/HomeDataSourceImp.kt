@@ -2,6 +2,8 @@ package com.brian.dataSource.homeFragmentDataSource
 
 import com.brian.models.*
 import com.brian.network.APIService
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody
 
 class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
 
@@ -60,17 +62,30 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
         return response
     }
 
-    override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getMyTeams(): ResponseMyTeams {
+        var response = ResponseMyTeams()
+        try {
+            response = apiService.getMyTeams()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
     }
 
-    /*  override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
-          var response = ResponseMyStats()
-          try {
-              response = apiService.getStats()
-          } catch (e: java.lang.Exception) {
-              e.printStackTrace()
-              response.error = APIService.getErrorMessageFromGenericResponse(e)
-          }
-          return response    }*/
+    override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
+        var response = ResponseCreateTeam()
+        try {
+            var params = HashMap<String, RequestBody>()
+            params["team_name"] = RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.team_name!!)
+            params["users"] = RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.users!!)
+            response = apiService.createTeam(params,createTeam.image)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
+
 }

@@ -9,6 +9,7 @@ interface HomeDataSource {
     suspend fun getChallenges() : ResponseLeaderboard
     suspend fun getPlayers() : ResponseLeaderboard
     suspend fun getStats() : ResponseMyStats
+    suspend fun getMyTeams() : ResponseMyTeams
     suspend fun createTeam(createTeam:CreateTeamParams) : ResponseCreateTeam
 
 }

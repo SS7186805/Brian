@@ -89,7 +89,10 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
     inner class ClickHandler {
 
         fun onViewProfileClick() {
-            findNavController().navigate(R.id.userProfileFragment)
+            findNavController().navigate(
+                R.id.userProfileFragment,
+                bundleOf(getString(R.string.user_id) to Prefs.init().userInfo?.id)
+            )
 
         }
 

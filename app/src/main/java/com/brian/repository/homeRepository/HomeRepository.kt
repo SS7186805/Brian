@@ -52,4 +52,13 @@ interface HomeRepository {
         ) -> Unit
     )
 
+    fun getMyTeams(
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseMyTeams?
+        ) -> Unit
+    )
+
+
 }

@@ -53,7 +53,10 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler : MyFriendsAdapter.onViewClick {
         override fun viewUserProfile(position: Int) {
-            findNavController().navigate(R.id.userProfileFragment, bundleOf(getString(R.string.challenge_type) to getString(R.string.no)))
+            findNavController().navigate(
+                R.id.userProfileFragment,
+                bundleOf(getString(R.string.user_id) to mViewModel.myFriends.value!![position].otherUserDetail?.id.toString())
+            )
 
         }
 

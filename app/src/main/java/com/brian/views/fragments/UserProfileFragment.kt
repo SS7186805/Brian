@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
-import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.UserProfileFragmentBinding
+import com.brian.models.BadgesEarneda
 import com.brian.models.LoginData
 import com.brian.viewModels.myProfile.MyProfileViewModel
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
@@ -28,6 +28,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     lateinit var mViewModel: MyProfileViewModel
     var list = ArrayList<String>()
     var badgesAdapter: BadgesAdapter? = null
+    var userData = LoginData()
+    var id = ""
 
 
     override fun onCreateView(
@@ -44,27 +46,25 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
-//        mViewModel.viewProfile()
-        setAdapter()
-        setData()
+
         setObserver()
 
 
         return mBinding.root
     }
 
+
     private fun setObserver() {
         mViewModel.loginData.observe(viewLifecycleOwner, Observer {
-            setData()
+            if (it != null) {
+                setData(it)
+
+            }
         })
-//        mViewModel.showMessage.observe(viewLifecycleOwner, Observer {
-//
-//        })
     }
 
-    private fun setData() {
+    private fun setData(login: LoginData) {
 
-        val login: LoginData = Prefs.init().userInfo!!
         mBinding.type.text = login.userType
         mBinding.dob.text = "Born on: ${login.dob}"
         mBinding.username.text = login.name
@@ -75,6 +75,7 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
             Glide.with(requireContext()).load(login.profilePicture).into(mBinding.profilePic)
         }
 
+
     }
 
     private fun setupViewModel() {
@@ -83,19 +84,17 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    fun setAdapter() {
+    fun setBadgesAdapter(list: BadgesEarneda) {
         mBinding.recycler.layoutManager = GridLayoutManager(requireContext(), 4)
         badgesAdapter = BadgesAdapter(R.layout.badge_item)
         mBinding.recycler.adapter = badgesAdapter
-        for (i in 0 until 8) {
-            list.add("")
-        }
-        badgesAdapter!!.addNewItems(list)
+
     }
 
     override fun onResume() {
         super.onResume()
-        mViewModel.viewProfile()
+        id = arguments?.getString(getString(R.string.user_id))!!
+        mViewModel.viewProfile(id)
 
     }
 

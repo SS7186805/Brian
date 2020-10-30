@@ -9,7 +9,7 @@ import com.brian.models.MyFriendsDataItem
 import com.brian.providers.resources.ResourcesProvider
 
 
-class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvider) :
+class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesProvider) :
     BaseRecyclerAdapter<MyFriendsItemBinding, MyFriendsDataItem>() {
 
     var listener: onViewClick? = null
@@ -44,7 +44,9 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
 
 
         holder.itemView.setOnClickListener {
-            listener?.viewUserProfile(position)
+            item.isSelected=!item.isSelected
+            holder.binding.clView.isSelected = item.isSelected
+            notifyDataSetChanged()
         }
 
 

@@ -16,10 +16,10 @@ class MyProfileDataSourceImp(private val apiService: APIService):MyProfileDataSo
         return response
     }
 
-    override suspend fun viewProfile(): BaseResponse {
+    override suspend fun viewProfile(id:String): BaseResponse {
         var response = BaseResponse()
         try {
-            response = apiService.viewProfile()
+            response = apiService.viewProfile(id)
         }
         catch (e:java.lang.Exception){
             e.printStackTrace()

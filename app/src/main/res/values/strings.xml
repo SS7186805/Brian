@@ -154,5 +154,6 @@
     <string name="date_empty">Please select date and time.</string>
     <string name="select_user_message">Please select users.</string>
     <string name="waiting_for_approval">Waiting For Approval</string>
+    <string name="user_id">User_id</string>
 
 </resources>

@@ -4,10 +4,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.brian.R
+import com.brian.models.AllChatsDataItem
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 
-class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
-    : DragDropSwipeAdapter<MessageData, SwipeToDeleteAdapter.ViewHolder>(dataSet) {
+class SwipeToDeleteAdapter(dataSet: ArrayList<AllChatsDataItem> = ArrayList())
+    : DragDropSwipeAdapter<AllChatsDataItem, SwipeToDeleteAdapter.ViewHolder>(dataSet) {
 
     var listener: onViewClick? = null
 
@@ -16,7 +17,7 @@ class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
 
     }
 
-    override fun onBindViewHolder(item: MessageData, viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(item: AllChatsDataItem, viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.setOnClickListener{
             listener?.onAprroveClick()
         }
@@ -24,7 +25,7 @@ class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
 
 
 
-    override fun getViewToTouchToStartDraggingItem(item: MessageData, viewHolder: SwipeToDeleteAdapter.ViewHolder, position: Int): View? {
+    override fun getViewToTouchToStartDraggingItem(item: AllChatsDataItem, viewHolder: SwipeToDeleteAdapter.ViewHolder, position: Int): View? {
         // We return the view holder's view on which the user has to touch to drag the item
         return viewHolder.itemView.findViewById(R.id.tvTime)
     }
@@ -35,4 +36,6 @@ class SwipeToDeleteAdapter(dataSet: List<MessageData> = emptyList())
         fun onAprroveClick()
 
     }
+
+
 }

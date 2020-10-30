@@ -70,11 +70,22 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
         onResult: (isSuccess: Boolean, message: String, response: ResponseCreateTeam?) -> Unit
     ) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = homeDataSource.getStats()
+            val response = homeDataSource.createTeam(register)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
-//                onResult(true, response.message!!, response)
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
+    override fun getMyTeams(onResult: (isSuccess: Boolean, message: String, response: ResponseMyTeams?) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = homeDataSource.getMyTeams()
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
             }
         }
     }

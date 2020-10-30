@@ -11,7 +11,11 @@ data class ResponseCreateTeam(
     val data: CreateTeamData? = null,
 
     @field:SerializedName("message")
-    val message: String? = null
+    val message: String? = null,
+
+
+    @field:SerializedName("error")
+    var error: String? = null
 )
 
 data class CreateTeamData(

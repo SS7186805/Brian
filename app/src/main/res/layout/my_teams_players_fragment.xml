@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.messages.MessagesViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.brian.views.fragments.MessagesFragment.ClickHandler" />
+            type="com.brian.views.fragments.MyTeamPlayersFragment.ClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,13 +19,17 @@
         android:layout_height="match_parent"
         android:background="@color/blackTheme">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/startGuide"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.00" />
+            app:layout_constraintGuide_percent="0.0" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/endGuide"
@@ -34,17 +38,18 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="1" />
 
-
-        <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
-            app:item_layout="@layout/messages"
-            android:layout_marginTop="@dimen/margin_30"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_60"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="0dp"/>
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.brian.models.DataItemMyTeam" />
+            type="com.brian.models.MyTeamMembersItem" />
     </data>
 
 
@@ -28,7 +28,7 @@
                 android:layout_width="@dimen/margin_50"
                 android:layout_height="@dimen/margin_50"
                 android:scaleType="centerCrop"
-                bind:imageUrl="@{item.image}"
+                bind:imageUrl="@{item.user.profilePicture}"
                 android:src="@drawable/team_logo"
                 app:civ_circle_background_color="@color/yellow"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -42,8 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic_bold"
-                android:text="@{item.teamName}"
-                android:textAllCaps="true"
+                android:text="@{item.user.name}"
                 android:textColor="#fec60a"
                 android:textSize="@dimen/px55"
                 app:layout_constraintBottom_toTopOf="@+id/iv_11players"
@@ -57,6 +56,7 @@
                 android:fontFamily="@font/century_gothic"
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/px45"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tv_Workgym"
                 app:layout_constraintTop_toBottomOf="@+id/tv_Workgym" />

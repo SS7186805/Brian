@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.brian.models.AllChatsDataItem" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
         android:id="@+id/view"
-        android:paddingStart="@dimen/margin_8"
-        android:paddingEnd="@dimen/margin_8"
-        android:paddingTop="@dimen/margin_10"
-        android:paddingBottom="@dimen/margin_10"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_5"
         android:background="@color/card_background_training"
-        >
+        android:paddingStart="@dimen/margin_8"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingEnd="@dimen/margin_8"
+        android:paddingBottom="@dimen/margin_10">
 
 
         <ImageView
@@ -20,9 +27,10 @@
             android:layout_width="@dimen/margin_55"
             android:layout_height="@dimen/margin_55"
             android:layout_marginStart="@dimen/margin_10"
-            android:src="@drawable/profile_pic_1"
+            android:src="@drawable/ic_use_r"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            bind:imageUrl="@{item.otherUserDetail.profilePicture}" />
 
 
         <TextView
@@ -30,10 +38,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
-            android:fontFamily="@font/century_gothic"
-            android:text="Joe Duo"
             android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/century_gothic"
+            android:singleLine="true"
+            android:text="@{item.otherUserDetail.name}"
             android:textColor="#fec60a"
             android:textSize="@dimen/px50"
             android:textStyle="bold"
@@ -48,9 +58,10 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="20dp"
+            android:ellipsize="end"
             android:fontFamily="@font/century_gothic"
             android:singleLine="true"
-            android:text="Lorem Ipsum is simply dummy text of the printing and  typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a gallery of type and scrambled it to make a type specimen book."
+            android:text="@{item.lastMessage}"
             android:textColor="#aaaaaa"
             android:textSize="@dimen/px35"
             app:layout_constraintEnd_toStartOf="@id/tvTime"

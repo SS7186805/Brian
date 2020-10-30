@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -94,7 +95,18 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler : AllUsersAdapter.onViewClick {
 
         override fun viewUserProfile(position: Int) {
-            findNavController().navigate(R.id.userProfileFragment)
+
+            var id = ""
+            if (isChallenegeType) {
+                id = mViewModel.myFriends.value!![position].senderUserId.toString()
+            } else {
+                id = mViewModel.usersList.value!![position].senderId.toString()
+
+            }
+            findNavController().navigate(
+                R.id.userProfileFragment,
+                bundleOf(getString(R.string.user_id) to id)
+            )
         }
 
         override fun sendRequest(position: Int) {
@@ -140,10 +152,10 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
             myFriends.observe(viewLifecycleOwner, Observer {
                 if (it.isNotEmpty()) {
-                    mViewModel.myFriendsAdapter.setNewItems(it)
+                    mViewModel.selectFriendsAdapter.setNewItems(it)
                 } else {
                     if (currentPage == 1) {
-                        mViewModel.myFriendsAdapter.setNewItems(it)
+                        mViewModel.selectFriendsAdapter.setNewItems(it)
                     }
                 }
 
@@ -200,7 +212,7 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
             if (isChallenegeType) {
                 recycler.apply {
-                    adapter = mViewModel.myFriendsAdapter
+                    adapter = mViewModel.selectFriendsAdapter
                 }
             } else {
                 recycler.apply {
