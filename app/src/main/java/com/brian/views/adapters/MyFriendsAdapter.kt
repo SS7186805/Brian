@@ -43,15 +43,20 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
         }
 
 
-        holder.itemView.setOnClickListener {
+        holder.binding.friendImage.setOnClickListener {
             listener?.viewUserProfile(position)
         }
+        holder.itemView.setOnClickListener {
+            listener?.startChat(position)
+        }
+
 
 
     }
 
     interface onViewClick {
         fun viewUserProfile(position: Int)
+        fun startChat(position: Int)
         fun acceptRequest(position: Int)
         fun rejectRequest(position: Int)
 

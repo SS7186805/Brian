@@ -15,8 +15,28 @@ class LeaderboardChallengeAdapter(
 
     override fun bind(holder: ViewHolder, item: LeaderboardDataItem, position: Int) {
 
+
         holder.binding.item = item
-        holder.binding.tvChallenges.setText("${item.weeklyCompleteChallenge} ${if (item.weeklyCompleteChallenge == 1) "Challenge" else "Challenges"}")
+
+        if (position == 0) {
+            holder.binding.tvRank.setText("1")
+        } else if (position == 1) {
+            holder.binding.tvRank.setText("2")
+
+        } else if (position == 2) {
+            holder.binding.tvRank.setText("3")
+
+        }
+
+        if (item.userType?.contains("Players")!!) {
+
+            holder.binding.tvChallenges.setText("${item.weeklySituation?.toInt()}% Situations")
+
+
+        } else {
+            holder.binding.tvChallenges.setText("${item.weeklyCompleteChallenge} ${if (item.weeklyCompleteChallenge == 1) "Challenge" else "Challenges"}")
+
+        }
 
 
     }

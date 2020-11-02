@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.messages.MessagesViewModel" />
 
         <variable
             name="clickHandler"
-            type="com.brian.views.fragments.ChatFragment.ClickHandler" />
+            type="com.brian.views.activities.ChatActivity.ClickHandler" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,13 +23,24 @@
 
         <include
             android:id="@+id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            layout="@layout/toolbar_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            layout="@layout/toolbar_layout" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingHorizontal="@dimen/margin_10"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/layout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,8 +58,8 @@
                 android:id="@+id/Attach_file"
                 android:layout_width="@dimen/margin_20"
                 android:layout_height="@dimen/margin_20"
-                android:src="@drawable/attach"
                 android:layout_marginStart="@dimen/margin_10"
+                android:src="@drawable/attach"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/et_message"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,27 +69,28 @@
                 android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="3"
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_marginRight="@dimen/margin_10"
                 android:background="@drawable/message_bar"
                 android:fontFamily="@font/century_gothic"
-                android:padding="@dimen/margin_10"
                 android:hint="Enter Message"
-                android:textColorHint="#4c4c4c"
+                android:maxLines="3"
+                android:padding="@dimen/margin_10"
                 android:textColor="@color/edit_text_color"
+                android:textColorHint="#4c4c4c"
                 android:textSize="@dimen/px40"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/btn_send"
                 app:layout_constraintStart_toEndOf="@id/Attach_file"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/btn_send"
                 android:layout_width="@dimen/margin_20"
                 android:layout_height="@dimen/margin_20"
-                android:src="@drawable/send"
                 android:layout_marginEnd="@dimen/margin_10"
+                android:onClick="@{()-> clickHandler.onSendMessage()}"
+                android:src="@drawable/send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/et_message"

@@ -5,14 +5,12 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
-import com.brian.models.ChallengeTypeDataItem
-import com.brian.models.CreateChallengeParams
-import com.brian.models.DataItemMyChalleneges
-import com.brian.models.ResponseCreateChallenge
+import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.challenges.ChallengesRepository
 import com.brian.views.adapters.ChallengeTypeAdapter
 import com.brian.views.adapters.MyChallengesAdapter
+import com.brian.views.adapters.MyChallengesRequestsAdapter
 
 
 class ChallengesViewModel(
@@ -34,8 +32,10 @@ class ChallengesViewModel(
 
     lateinit var allChallengesAdapter: ChallengeTypeAdapter
     lateinit var myChallengesAdapter: MyChallengesAdapter
-    lateinit var challengeRequestsAdapter: MyChallengesAdapter
+    lateinit var challengeRequestsAdapter: MyChallengesRequestsAdapter
     var createChallengeParams = CreateChallengeParams()
+    var rejectChallengeRequestParams = CreateChatRoomParams()
+    var acceptChallengeRequestParams = AcceptChallengeParams()
     var myChallengesLoaded = false
     var challengeRequestsLoaded = false
     var allChallengesLoaded = false
@@ -59,7 +59,7 @@ class ChallengesViewModel(
 
         )
 
-        challengeRequestsAdapter = MyChallengesAdapter(
+        challengeRequestsAdapter = MyChallengesRequestsAdapter(
             R.layout.my_challenges_item, resourcesProvider
 
         )
@@ -120,6 +120,33 @@ class ChallengesViewModel(
                 allChallengesLoaded = response?.data?.data.isNullOrEmpty()
                 currentPageAllChalleneges = response?.data?.currentPage!!
                 challengeRequests.postValue(response?.data.data)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun rejectChallengeRequests() {
+        showLoading.postValue(true)
+        challengesRepository.rejectChallengesRequests(rejectChallengeRequestParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun acceptChallengeRequests() {
+        showLoading.postValue(true)
+        challengesRepository.acceptChallengeRequests(acceptChallengeRequestParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+
 
             } else {
                 showMessage.postValue(message)

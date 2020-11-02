@@ -3,10 +3,10 @@ package com.brian.viewModels.messages
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
-import com.brian.models.AllChatsDataItem
-import com.brian.models.MyFriendsDataItem
+import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.messages.MessagesRepository
+import com.brian.views.adapters.ChatAdapter
 import com.brian.views.adapters.MyMessagesAdapter
 
 
@@ -18,9 +18,15 @@ class MessagesViewModel(
 
     var allChats =
         MutableLiveData<ArrayList<AllChatsDataItem>>().apply { value = ArrayList() }
-    var myFriends =
-        MutableLiveData<ArrayList<MyFriendsDataItem>>().apply { value = ArrayList() }
+    var allMessages =
+        MutableLiveData<ArrayList<AllMessagesDataItem>>().apply { value = ArrayList() }
+    var sendMessageResponse = MutableLiveData<ResponseSendMessage>()
+    var getAllChatParams = GetAllMessagesParams()
+    var createChatRoomParams = CreateChatRoomParams()
+    var resCreateChatRoomParams = MutableLiveData<ResponseCreateChatRoom>()
+
     lateinit var messagesAdapter: MyMessagesAdapter
+    lateinit var chatAdapter: ChatAdapter
     var allFriendsLoaded = false
     var allChatsLoaded = false
     var currentPageAllChats = 1
@@ -37,6 +43,10 @@ class MessagesViewModel(
 
         )
 
+        chatAdapter = ChatAdapter(
+            resourcesProvider, allMessages.value!!
+        )
+
 
     }
 
@@ -49,6 +59,45 @@ class MessagesViewModel(
                 allChatsLoaded = response?.data?.data.isNullOrEmpty()
                 currentPageAllChats = response?.data?.currentPage!!
                 allChats.postValue(response?.data.data)
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun sendMessage(sendMessageParams: SendMessageParams) {
+        showLoading.postValue(true)
+        messagesRepository.sendMessage(sendMessageParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                sendMessageResponse.postValue(response)
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getAllMessages() {
+        showLoading.postValue(true)
+        messagesRepository.getAllMessages(getAllChatParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                allMessages.postValue(response?.data?.data)
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun createChatRoom() {
+        showLoading.postValue(true)
+        messagesRepository.creteChatRoom(createChatRoomParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                resCreateChatRoomParams.postValue(response)
             } else {
                 showMessage.postValue(message)
             }

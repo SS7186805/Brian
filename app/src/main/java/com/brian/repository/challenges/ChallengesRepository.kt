@@ -31,6 +31,24 @@ interface ChallengesRepository {
     )
 
 
+    fun rejectChallengesRequests(
+        queryParams: CreateChatRoomParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
+        ) -> Unit
+    )
+
+    fun acceptChallengeRequests(
+        queryParams: AcceptChallengeParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
+        ) -> Unit
+    )
+
 
     fun createChallenge(
         queryParams: CreateChallengeParams,

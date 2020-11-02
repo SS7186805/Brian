@@ -1,5 +1,6 @@
 package com.brian.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.brian.internals.showProgress
 import com.brian.internals.showToast
 import com.brian.viewModels.users.UsersViewModel
 import com.brian.viewModels.users.UsersViewModelFactory
+import com.brian.views.activities.ChatActivity
 import com.brian.views.adapters.MyFriendsAdapter
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -60,6 +62,21 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
 
         }
 
+        override fun startChat(position: Int) {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ChatActivity::class.java
+                ).putExtra(
+                    getString(R.string.other_user_id),
+                    mViewModel.myFriends.value!![position]?.otherUserDetail?.id
+                ).putExtra(
+                    getString(R.string.user),
+                    mViewModel.myFriends.value!![position]?.otherUserDetail?.name
+                )
+            )
+        }
+
         override fun acceptRequest(position: Int) {
             mViewModel.acceptRejectRequestFriends(position, getString(R.string.accept))
         }
@@ -89,6 +106,12 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
                     if (currentPage == 1) {
                         mViewModel.myFriendsAdapter.setNewItems(it)
                     }
+                }
+
+                if(myFriends.value.isNullOrEmpty()){
+                    mBinding.tvNobadges.visibility=View.VISIBLE
+                }else{
+                    mBinding.tvNobadges.visibility=View.GONE
                 }
 
             })

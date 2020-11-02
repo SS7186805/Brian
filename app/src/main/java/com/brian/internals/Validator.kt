@@ -50,7 +50,7 @@ class Validator {
             Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
             return false
         }  else if (binding.message.text.isNullOrBlank()) {
-            Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.please_enter_message), Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true
@@ -64,7 +64,7 @@ class Validator {
             Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
             return false
         }  else if (binding.etSelectUser.text.isNullOrBlank()) {
-            Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.select_user_message), Toast.LENGTH_SHORT).show()
             return false
         } else {
             return true

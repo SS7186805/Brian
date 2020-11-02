@@ -63,7 +63,10 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
             getActivity()?.getIntent()?.putExtra(
                 getString(R.string.title),
                 mViewModel.allChallenges.value!![position].challengeName
-            )?.putExtra(getString(R.string.id), mViewModel.allChallenges.value!![position].id.toString())
+            )?.putExtra(
+                getString(R.string.id),
+                mViewModel.allChallenges.value!![position].id.toString()
+            )
             findNavController().navigateUp()
 
         }

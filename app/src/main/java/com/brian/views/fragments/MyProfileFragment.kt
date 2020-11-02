@@ -91,7 +91,7 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
         fun onViewProfileClick() {
             findNavController().navigate(
                 R.id.userProfileFragment,
-                bundleOf(getString(R.string.user_id) to Prefs.init().userInfo?.id)
+                bundleOf(getString(R.string.user_id) to Prefs.init().userInfo?.id.toString())
             )
 
         }
@@ -107,12 +107,12 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
         }
 
         fun onMyTeamsClick() {
-            findNavController().navigate(R.id.myTeamfragment)
+            findNavController().navigate(R.id.teamFragment)
 
         }
 
         fun onMyChallengesClick() {
-            findNavController().navigate(R.id.myChallengesFragment)
+//            findNavController().navigate(R.id.myChallengesFragment)
         }
 
         fun onChangePasswordClick() {

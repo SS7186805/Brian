@@ -39,7 +39,7 @@ data class LeaderboardDataItem(
 	val deletedAt: Any? = null,
 
 	@field:SerializedName("weekly_situation")
-	val weeklySituation: Any? = null,
+	val weeklySituation: Double? = null,
 
 	@field:SerializedName("weekly_complete_challenge")
 	val weeklyCompleteChallenge: Int? = 0,

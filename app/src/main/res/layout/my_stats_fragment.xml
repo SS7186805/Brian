@@ -40,8 +40,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_130"
             android:layout_marginTop="@dimen/margin_40"
-            app:cardCornerRadius="@dimen/margin_10"
             app:cardBackgroundColor="@color/item_bg_drawer_item"
+            app:cardCornerRadius="@dimen/margin_10"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toTopOf="parent">
@@ -55,10 +55,10 @@
                     android:id="@+id/tv_clng_cmplt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
                     android:text="Challenges Completed"
                     android:textColor="@color/yellow"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:textSize="@dimen/px70"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,6 +80,7 @@
                         android:src="@drawable/ic_challenges_completed" />
 
                     <TextView
+                        android:id="@+id/tvChalleneges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -87,7 +88,6 @@
                         android:layout_marginTop="27dp"
                         android:fontFamily="@font/digital_medium"
                         android:text="0"
-                        android:id="@+id/tvChalleneges"
                         android:textColor="@color/black"
                         android:textSize="@dimen/px200" />
                 </FrameLayout>
@@ -102,8 +102,8 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_135"
             android:layout_marginTop="@dimen/margin_20"
-            app:cardCornerRadius="@dimen/margin_10"
             app:cardBackgroundColor="@color/item_bg_drawer_item"
+            app:cardCornerRadius="@dimen/margin_10"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@+id/cv_type1">
@@ -143,12 +143,12 @@
                         android:src="@drawable/ic_percentage" />
 
                     <TextView
+                        android:id="@+id/tvAverage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/century_gothic_bold"
                         android:text="50 %"
-                        android:id="@+id/tvAverage"
                         android:textColor="@color/yellow"
                         android:textSize="@dimen/px60" />
                 </FrameLayout>
@@ -163,18 +163,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_20"
-            app:cardCornerRadius="@dimen/margin_10"
             app:cardBackgroundColor="@color/item_bg_drawer_item"
+            app:cardCornerRadius="@dimen/margin_10"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@+id/cv_type2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_150"
+                android:background="@color/item_bg_drawer_item"
                 android:paddingTop="@dimen/margin_10"
-                android:paddingBottom="@dimen/margin_20"
-                android:layout_height="match_parent"
-                android:background="@color/item_bg_drawer_item">
+                android:paddingBottom="@dimen/margin_20">
 
                 <TextView
                     android:id="@+id/tv_Badges_earn"
@@ -189,64 +189,77 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_marginStart="@dimen/margin_20"
-                    android:layout_marginEnd="@dimen/margin_20"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_15"
+                    android:fontFamily="@font/century_gothic"
+                    android:text="@string/no_badges_found"
+                    android:textColor="@color/yellow"
+                    android:layout_marginTop="@dimen/margin_30"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_15"
+                    android:layout_marginEnd="@dimen/margin_20"
+                    android:visibility="gone"
                     android:weightSum="4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_Badges_earn">
 
                     <ImageView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="@dimen/margin_65"
+                        android:layout_weight="1"
+                        android:padding="@dimen/margin_5"
                         android:scaleType="centerCrop"
                         android:src="@drawable/badges_earned"
-                        android:padding="@dimen/margin_5"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:layout_width="0dp"
+                        android:layout_height="@dimen/margin_65"
                         android:layout_marginStart="@dimen/margin_10"
                         android:layout_weight="1"
-                        android:layout_height="@dimen/margin_65"
+                        android:padding="@dimen/margin_5"
                         android:scaleType="centerCrop"
                         android:src="@drawable/badges_earned"
-                        android:padding="@dimen/margin_5"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_marginStart="@dimen/margin_10"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
                         android:layout_height="@dimen/margin_65"
-                        android:src="@drawable/badges_earned"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_weight="1"
                         android:padding="@dimen/margin_5"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/badges_earned"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:layout_marginStart="@dimen/margin_10"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
                         android:layout_height="@dimen/margin_65"
-                        android:src="@drawable/badges_earned"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_weight="1"
                         android:padding="@dimen/margin_5"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/badges_earned"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </LinearLayout>
 

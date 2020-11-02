@@ -185,3 +185,56 @@ data class CreateTeamParams(
 
 )
 
+data class SendMessageParams(
+
+    @field:SerializedName("other_user_id")
+    var other_user_id: Int? = null,
+
+    @field:SerializedName("chat_room_id")
+    var chat_room_id: Int? = null,
+
+    @field:SerializedName("message")
+    var message: String? = null,
+
+
+    @field:SerializedName("type_of_file")
+    var type_of_file: String? = null,
+
+    @field:SerializedName("file_name")
+    var file_name: MultipartBody.Part? = null
+
+
+)
+
+class GetAllMessagesParams {
+    @field:SerializedName("chat_room_id")
+    var chat_room_id: Int? = null
+
+}
+
+class CreateChatRoomParams {
+    @field:SerializedName("other_user_id")
+    var other_user_id: Int? = null
+    @field:SerializedName("user_challenge_id")
+    var user_challenge_id: Int? = null
+
+}
+
+class AcceptChallengeParams {
+    @field:SerializedName("user_challenge_id")
+    var user_challenge_id: Int? = null
+
+    @field:SerializedName("status")
+    var status: Int? = null
+
+    @field:SerializedName("file_name")
+    var file_name: MultipartBody.Part? = null
+
+
+}
+
+
+
+
+
+

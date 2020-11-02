@@ -12,6 +12,10 @@ class ResourcesProviderImpl(private val context: Context) : ResourcesProvider {
     override fun getString(id: Int): String {
         return context.getString(id)
     }
+    override fun getContext(): Context {
+        return context
+    }
+
 
     override fun getStringArray(id: Int): Array<String> {
         return context.resources.getStringArray(id)

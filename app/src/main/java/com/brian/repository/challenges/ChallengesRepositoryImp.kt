@@ -1,10 +1,7 @@
 package com.brian.repository.challenges
 
 import com.brian.dataSource.challenges.ChallengesDataSource
-import com.brian.models.CreateChallengeParams
-import com.brian.models.ResponseChallengeType
-import com.brian.models.ResponseCreateChallenge
-import com.brian.models.ResponseMyChallenges
+import com.brian.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -45,6 +42,32 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
             }
         }
     }
+
+    override fun rejectChallengesRequests(
+        queryParams: CreateChatRoomParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = challengesDataSource.rejectChallengeRequest(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
+
+    override fun acceptChallengeRequests(
+        queryParams: AcceptChallengeParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = challengesDataSource.acceptChallengeRequest(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
 
     override fun createChallenge(
         queryParams: CreateChallengeParams,

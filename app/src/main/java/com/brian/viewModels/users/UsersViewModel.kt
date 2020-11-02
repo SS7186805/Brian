@@ -188,11 +188,11 @@ class UsersViewModel(
         usersRepository.acceptRejectRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                selectFriendsAdapter.list[position].isAccepted =
+                myFriendsAdapter.list[position].isAccepted =
                     if (action.contains(resourcesProvider.getString(R.string.accept))) resourcesProvider.getString(
                         R.string.yes
                     ) else resourcesProvider.getString(R.string.No)
-                selectFriendsAdapter.notifyItemChanged(position)
+                myFriendsAdapter.notifyItemChanged(position)
 
 
             } else {

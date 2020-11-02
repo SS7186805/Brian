@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.challenges.ChallengesViewModel" />
 
         <variable
             name="clickHandler"
             type="com.brian.views.fragments.ChallengeFragment.ClickHandler" />
+
+        <variable
+            name="item"
+            type="com.brian.models.DataItemMyChalleneges" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blackTheme">
@@ -41,16 +47,16 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
             android:id="@+id/profileCard"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_marginBottom="@dimen/margin_10"
             app:cardBackgroundColor="@color/item_bg_drawer_item"
-            app:cardCornerRadius="@dimen/margin_10">
+            app:cardCornerRadius="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,19 +66,17 @@
                 android:padding="@dimen/margin_10">
 
 
-
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:text="@string/title"
+                    android:text="@{item.challengeTitle}"
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/px40"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
@@ -81,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_3"
                     android:fontFamily="@font/century_gothic"
-                    android:text="@string/challenge_type"
+                    android:text="@{item.challenge.challengeName}"
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/px40"
                     app:layout_constraintStart_toStartOf="parent"
@@ -93,9 +97,10 @@
                     android:layout_width="@dimen/margin_35"
                     android:layout_height="@dimen/margin_35"
                     android:layout_marginTop="@dimen/margin_8"
-                    android:src="@drawable/profile_pic"
+                    android:src="@drawable/ic_use_r"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/type" />
+                    app:layout_constraintTop_toBottomOf="@id/type"
+                    bind:imageUrl="@{item.otherUserDetails.profilePicture}" />
 
                 <TextView
                     android:id="@+id/username"
@@ -103,13 +108,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
                     android:fontFamily="@font/century_gothic"
-                    android:text="@string/user_name"
                     android:includeFontPadding="false"
+                    android:text="@{item.otherUserDetails.name}"
                     android:textColor="@color/text_color_grey"
                     android:textSize="@dimen/px40"
                     app:layout_constraintStart_toEndOf="@id/profilePic"
                     app:layout_constraintTop_toTopOf="@id/profilePic" />
-
 
 
                 <TextView
@@ -117,13 +121,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/century_gothic"
-                    android:text="@string/time_text"
+                    android:text="@{item.createdAt}"
                     android:textColor="@color/text_color_grey"
                     android:textSize="@dimen/px40"
                     app:layout_constraintStart_toStartOf="@id/username"
                     app:layout_constraintTop_toBottomOf="@id/username" />
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -133,32 +135,43 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
             android:id="@+id/addCard"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_150"
             android:layout_marginTop="@dimen/margin_20"
-            app:cardCornerRadius="@dimen/margin_10"
             app:cardBackgroundColor="#0c0c0c"
-            app:layout_constraintTop_toBottomOf="@id/profileCard"
-            android:layout_height="@dimen/margin_150">
+            app:cardCornerRadius="@dimen/margin_10"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/profileCard">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:id="@+id/clAddVideo"
+                android:background="#0c0c0c"
+                android:layout_width="375dp"
+                android:layout_height="match_parent"
+                android:onClick="@{()->clickHandler.addVideo()}">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:background="#0c0c0c"
+                    android:id="@+id/videoView"
+                    android:layout_height="match_parent">
+
+                </ImageView>
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="4dp"
                     android:src="@drawable/ic_add"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
 
 
         <TextView
@@ -169,12 +182,12 @@
             android:gravity="center"
             android:onClick="@{()-> clickHandler.onSubmitClick()}"
             android:text="@string/submit"
-            android:textSize="@dimen/px60"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/addCard"
+            android:textSize="@dimen/px60"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            app:layout_constraintStart_toStartOf="@id/startGuide" />
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/addCard" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

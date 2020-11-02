@@ -78,6 +78,12 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
                     mViewModel.myTeamsAdapter.setNewItems(it)
                 }
 
+                if(myTeams.value.isNullOrEmpty()){
+                    mBinding.tvNobadges.visibility=View.VISIBLE
+                }else{
+                    mBinding.tvNobadges.visibility=View.GONE
+                }
+
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {

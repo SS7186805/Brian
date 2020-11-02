@@ -127,104 +127,70 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
     private fun setAdapter() {
         mBinding.recycler.layoutManager = LinearLayoutManager(this)
         val userInfo = Prefs.init().userInfo
-        if (userInfo!!.userType.equals("Players")) {
-            //Add Items
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_defensive,
-                    getString(R.string.Home),
-                    true
-                )
+
+        //Add Items
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_defensive,
+                getString(R.string.Home),
+                true
             )
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_youtube1,
-                    getString(R.string.training_videos),
-                    false
-                )
+        )
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_youtube1,
+                getString(R.string.training_videos),
+                false
             )
-            itemsList.add(NavigationItem(R.drawable.ic_buzz, getString(R.string.buzz_feed), false))
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_my_friends2,
-                    getString(R.string.my_friends),
-                    false
-                )
+        )
+        itemsList.add(NavigationItem(R.drawable.ic_buzz, getString(R.string.buzz_feed), false))
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_my_friends2,
+                getString(R.string.my_friends),
+                false
             )
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_message1,
-                    getString(R.string.mesages),
-                    false
-                )
+        )
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_message1,
+                getString(R.string.mesages),
+                false
             )
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_challenge,
-                    getString(R.string.challenges),
-                    false
-                )
+        )
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_challenge,
+                getString(R.string.challenges),
+                false
             )
-            itemsList.add(NavigationItem(R.drawable.ic_teams1, getString(R.string.teams), false))
-            itemsList.add(NavigationItem(R.drawable.ic_stats2, getString(R.string.mystats), false))
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_leaderboard1,
-                    getString(R.string.leaderboards),
-                    false
-                )
+        )
+        itemsList.add(NavigationItem(R.drawable.ic_teams1, getString(R.string.teams), false))
+        itemsList.add(NavigationItem(R.drawable.ic_stats2, getString(R.string.mystats), false))
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_leaderboard1,
+                getString(R.string.leaderboards),
+                false
             )
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_phone1,
-                    getString(R.string.contact_us),
-                    false
-                )
+        )
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_phone1,
+                getString(R.string.contact_us),
+                false
             )
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_my_profile1,
-                    getString(R.string.my_profile),
-                    false
-                )
+        )
+        itemsList.add(
+            NavigationItem(
+                R.drawable.ic_my_profile1,
+                getString(R.string.my_profile),
+                false
             )
+        )
 
 
-        } else {
-            navController.navigate(R.id.action_homeFragment_to_challengeFragment)
 
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_challenge,
-                    getString(R.string.challenges),
-                    true
-                )
-            )
-
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_message1,
-                    getString(R.string.mesages),
-                    false
-                )
-            )
-
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_leaderboard1,
-                    getString(R.string.leaderboards),
-                    false
-                )
-            )
-
-            itemsList.add(
-                NavigationItem(
-                    R.drawable.ic_my_profile1,
-                    getString(R.string.my_profile),
-                    false
-                )
-            )
-        }
 
         itemAdapter = NavigationItemAdapter(R.layout.navigation_item, this)
         mBinding.recycler.adapter = itemAdapter

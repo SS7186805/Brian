@@ -22,7 +22,6 @@ import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.databinding.library.baseAdapters.BR.viewModel
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader

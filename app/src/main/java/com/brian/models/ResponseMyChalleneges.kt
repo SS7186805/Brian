@@ -1,6 +1,8 @@
 package com.brian.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class ResponseMyChallenges(
 
@@ -18,6 +20,7 @@ data class ResponseMyChallenges(
 	var error: String? = null
 )
 
+@Parcelize
 data class OtherUserDetails(
 
 	@field:SerializedName("is_block")
@@ -33,16 +36,16 @@ data class OtherUserDetails(
 	val profilePicture: String? = null,
 
 	@field:SerializedName("device_type")
-	val deviceType: Any? = null,
+	val deviceType: String? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt: Any? = null,
+	val deletedAt: String? = null,
 
 	@field:SerializedName("weekly_situation")
-	val weeklySituation: Any? = null,
+	val weeklySituation: String? = null,
 
 	@field:SerializedName("weekly_complete_challenge")
-	val weeklyCompleteChallenge: Any? = null,
+	val weeklyCompleteChallenge: String? = null,
 
 	@field:SerializedName("user_type")
 	val userType: String? = null,
@@ -54,7 +57,7 @@ data class OtherUserDetails(
 	val dob: String? = null,
 
 	@field:SerializedName("device_token")
-	val deviceToken: Any? = null,
+	val deviceToken: String? = null,
 
 	@field:SerializedName("name")
 	val name: String? = null,
@@ -64,8 +67,9 @@ data class OtherUserDetails(
 
 	@field:SerializedName("email")
 	val email: String? = null
-)
+):Parcelable
 
+@Parcelize
 data class Challenge(
 
 	@field:SerializedName("image")
@@ -84,9 +88,10 @@ data class Challenge(
 	val id: Int? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt: Any? = null
-)
+	val deletedAt: String? = null
+):Parcelable
 
+@Parcelize
 data class ChallengesData(
 
 	@field:SerializedName("first_page_url")
@@ -111,7 +116,7 @@ data class ChallengesData(
 	val lastPageUrl: String? = null,
 
 	@field:SerializedName("next_page_url")
-	val nextPageUrl: Any? = null,
+	val nextPageUrl: String? = null,
 
 	@field:SerializedName("from")
 	val from: Int? = null,
@@ -120,12 +125,13 @@ data class ChallengesData(
 	val to: Int? = null,
 
 	@field:SerializedName("prev_page_url")
-	val prevPageUrl: Any? = null,
+	val prevPageUrl: String? = null,
 
 	@field:SerializedName("current_page")
 	val currentPage: Int? = null
-)
+):Parcelable
 
+@Parcelize
 data class DataItemMyChalleneges(
 
 	@field:SerializedName("is_accepted")
@@ -138,7 +144,7 @@ data class DataItemMyChalleneges(
 	val otherUserDetails: OtherUserDetails? = null,
 
 	@field:SerializedName("file_name")
-	val fileName: Any? = null,
+	val fileName: String? = null,
 
 	@field:SerializedName("challenge_to_user_id")
 	val challengeToUserId: Int? = null,
@@ -147,10 +153,10 @@ data class DataItemMyChalleneges(
 	val createdAt: String? = null,
 
 	@field:SerializedName("type_of_file")
-	val typeOfFile: Any? = null,
+	val typeOfFile: String? = null,
 
 	@field:SerializedName("deleted_at")
-	val deletedAt: Any? = null,
+	val deletedAt: String? = null,
 
 	@field:SerializedName("challenge_from_user_id")
 	val challengeFromUserId: Int? = null,
@@ -162,7 +168,7 @@ data class DataItemMyChalleneges(
 	val dateAndTime: String? = null,
 
 	@field:SerializedName("thumbnail_video")
-	val thumbnailVideo: Any? = null,
+	val thumbnailVideo: String? = null,
 
 	@field:SerializedName("is_approved")
 	val isApproved: Int? = null,
@@ -175,4 +181,4 @@ data class DataItemMyChalleneges(
 
 	@field:SerializedName("id")
 	val id: Int? = null
-)
+):Parcelable

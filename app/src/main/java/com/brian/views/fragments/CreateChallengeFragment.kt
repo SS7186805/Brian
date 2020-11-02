@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
+
 class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: ChallengesViewModelFactory by instance()
@@ -52,6 +53,10 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+    }
+
+    fun clear() {
+        activity?.viewModelStore?.clear()
     }
 
     override fun onResume() {
@@ -145,6 +150,7 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
 
 
     override fun onOkayClick() {
+        clear()
         findNavController().navigateUp()
     }
 

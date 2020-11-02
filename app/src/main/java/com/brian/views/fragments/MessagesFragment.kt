@@ -1,5 +1,6 @@
 package com.brian.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
@@ -19,6 +19,7 @@ import com.brian.internals.showProgress
 import com.brian.internals.showToast
 import com.brian.viewModels.messages.MessagesViewModel
 import com.brian.viewModels.messages.MessagesViewModelFactory
+import com.brian.views.activities.ChatActivity
 import com.brian.views.adapters.MessageData
 import com.brian.views.adapters.MyMessagesAdapter
 import com.brian.views.adapters.SwipeToDeleteAdapter
@@ -62,10 +63,18 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupScrollListener()
 
-        mViewModel.getAllChats()
         return mBinding.root
     }
 
+
+    override fun onResume() {
+        super.onResume()
+
+        mViewModel.allChats.value?.clear()
+        mViewModel.messagesAdapter.clearData()
+        mViewModel.getAllChats()
+
+    }
 
     private fun setupRecycler() {
 
@@ -86,10 +95,24 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler : MyMessagesAdapter.onViewClick {
 
-        override fun onChatClick() {
+        override fun onChatClick(position: Int) {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ChatActivity::class.java
+                ).putExtra(
+                    getString(R.string.other_user_id),
+                    mViewModel.allChats.value!![position]?.otherUserDetail?.id
+                ).putExtra(
+                    getString(R.string.chat_room_id),
+                    mViewModel.allChats.value!![position]?.lastMessage?.chatRoomId
+                ).putExtra(
+                    getString(R.string.user),
+                    mViewModel.allChats.value!![position]?.otherUserDetail?.name
+                )
+            )
             mViewModel.allChats.value?.clear()
             mViewModel.messagesAdapter.clearData()
-            findNavController().navigate(R.id.chatFragment)
         }
     }
 
@@ -108,6 +131,12 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
                     messagesAdapter.addNewItems(it)
                 }
 
+                if(allChats.value.isNullOrEmpty()){
+                    mBinding.tvNobadges.visibility=View.VISIBLE
+                }else{
+                    mBinding.tvNobadges.visibility=View.GONE
+                }
+
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {
@@ -119,7 +148,7 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     private fun setupScrollListener() {
         mBinding.apply {
             recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-                if(mViewModel.allChats.value?.isNotEmpty()!!){
+                if (mViewModel.allChats.value?.isNotEmpty()!!) {
                     val view = recycler.getChildAt(recycler.childCount - 1)
                     val diff = view.bottom - (recycler.height + recycler.scrollY)
                     val offset = mViewModel.allChats.value?.size

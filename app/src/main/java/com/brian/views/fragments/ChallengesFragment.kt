@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import com.brian.internals.showToast
 import com.brian.viewModels.challenges.ChallengesViewModel
 import com.brian.viewModels.challenges.ChallengesViewModelFactory
 import com.brian.views.adapters.MyChallengesAdapter
+import com.brian.views.adapters.MyChallengesRequestsAdapter
 import com.google.android.material.tabs.TabLayout
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -48,6 +50,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         setupScrollListener()
         mViewModel.getMyChallenges()
         mViewModel.getChallengesRequests()
+        mViewModel.challengeRequestsAdapter.listener = this.mClickHandler
+        mViewModel.myChallengesAdapter.listener = this.mClickHandler
 
         mBinding.tabs.setOnTabSelectedListener(this)
         return mBinding.root
@@ -59,9 +63,23 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     }
 
 
-    inner class ClickHandler : MyChallengesAdapter.onViewClick {
+    inner class ClickHandler : MyChallengesAdapter.onViewClick,
+        MyChallengesRequestsAdapter.onViewClick {
         override fun onAprroveClick() {
             findNavController().navigate(R.id.challenegeFragment)
+        }
+
+        override fun onRequestAcceptClick(position: Int) {
+            findNavController().navigate(
+                R.id.challenegeFragment,
+                bundleOf(getString(R.string.challenge) to mViewModel.challengeRequests.value!![position])
+            )
+        }
+
+        override fun onRequestRejectClick(position: Int) {
+            mViewModel.rejectChallengeRequestParams.user_challenge_id =
+                mViewModel.challengeRequests.value!![position].challengeId
+            mViewModel.rejectChallengeRequests()
         }
 
     }
@@ -77,6 +95,9 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     override fun onTabSelected(tab: TabLayout.Tab?) {
 
         if (tab?.position == 0) {
+            if(mViewModel.myChallenges.value?.isEmpty()!!){
+
+            }
             mBinding.rMyChallenges.visibility = VISIBLE
             mBinding.rChallengeRequests.visibility = GONE
         } else {

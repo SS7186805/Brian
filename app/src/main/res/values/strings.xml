@@ -155,5 +155,16 @@
     <string name="select_user_message">Please select users.</string>
     <string name="waiting_for_approval">Waiting For Approval</string>
     <string name="user_id">User_id</string>
+    <string name="please_enter_message">Please enter message.</string>
+    <string name="user">user_name</string>
+    <string name="other_user_id">Other_User_id</string>
+    <string name="chat_room_id">chat_room_id</string>
+    <string name="challenge_name">Challenge_Name</string>
+    <string name="select_video_message">Please upload video</string>
+    <string name="request_accept">Request has been accepted successfully.</string>
+    <string name="no_badges_found">No badges found...</string>
+    <string name="challengers">Challengers</string>
+    <string name="user_type_empty">Please select user</string>
+    <string name="no_data_found">no data found...</string>
 
 </resources>

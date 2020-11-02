@@ -60,11 +60,27 @@ interface APIService {
     @GET("api/v1/all-chats")
     suspend fun getAllChats(): ResponseAllChats
 
+    @POST("api/v1/get-chat-by-room-id")
+    suspend fun getAllMessages(@Body getAllMessagesParams: GetAllMessagesParams): ResponseGetAllMessages
+
+    @POST("api/v1/create_chat_room")
+    suspend fun createChatRoom(@Body createChatRoomParams: CreateChatRoomParams): ResponseCreateChatRoom
+
     @POST("api/v1/change-password")
     suspend fun changePassword(@Body changeRequest: ChangePassword): BaseResponse
 
     @POST("api/v1/create-challenge")
     suspend fun createChallenge(@Body createChallenge: CreateChallengeParams): ResponseCreateChallenge
+
+    @Multipart
+    @POST("api/v1/accept-challenge")
+    suspend fun acceptChallengeRequest(
+        @PartMap request: HashMap<String, RequestBody>,
+        @Part profile_picture: MultipartBody.Part?
+    ): BaseResponse
+
+    @POST("api/v1/cancel-challenge-request")
+    suspend fun rejectChallengeRequest(@Body createChallenge: CreateChatRoomParams): BaseResponse
 
     @POST("api/v1/search-friends")
     suspend fun searchUsers(@Body params: SearchQuery): ResponseSearchUsers
@@ -92,6 +108,13 @@ interface APIService {
         @PartMap request: HashMap<String, RequestBody>,
         @Part profile_picture: MultipartBody.Part?
     ): ResponseCreateTeam
+
+    @Multipart
+    @POST("api/v1/send-message")
+    suspend fun sendMessage(
+        @PartMap request: HashMap<String, RequestBody>,
+        @Part file: MultipartBody.Part?
+    ): ResponseSendMessage
 
     @POST("api/v1/logout")
     suspend fun logOut(): BaseResponse

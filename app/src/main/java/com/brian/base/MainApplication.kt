@@ -1,9 +1,10 @@
 package com.brian.base
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandler
 import com.ayuka.mvvmdemo.data.network.error.NetworkErrorHandlerImpl
-import com.brian.network.APIService
 import com.brian.dataSource.authDataSource.AuthenticationDataSource
 import com.brian.dataSource.authDataSource.AuthenticationDataSourceImp
 import com.brian.dataSource.challenges.ChallenegesDataSourceImp
@@ -18,6 +19,7 @@ import com.brian.dataSource.trainingDataSource.TrainingAndBuzzDataSource
 import com.brian.dataSource.trainingDataSource.TrainingAndBuzzDataSourceImp
 import com.brian.dataSource.users.UsersDataSource
 import com.brian.dataSource.users.UsersDataSourceImp
+import com.brian.network.APIService
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.providers.resources.ResourcesProviderImpl
 import com.brian.repository.authRepository.AuthenticationRepository
@@ -49,6 +51,7 @@ import org.kodein.di.android.x.androidXModule
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
+
 
 class MainApplication : Application(),KodeinAware{
 
@@ -133,6 +136,17 @@ class MainApplication : Application(),KodeinAware{
     companion object {
         private lateinit var instance: MainApplication
         fun get(): MainApplication = instance
+        fun hasNetwork(): Boolean {
+            return instance.checkIfHasNetwork()
+        }
+    }
+
+
+    private fun checkIfHasNetwork(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
     }
 
 

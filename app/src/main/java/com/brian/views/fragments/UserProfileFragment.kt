@@ -76,6 +76,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         }
 
 
+
+
     }
 
     private fun setupViewModel() {

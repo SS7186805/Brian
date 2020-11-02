@@ -77,7 +77,7 @@ class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
 
 
         override fun onPlayerClick(position: Int) {
-            Log.e("Userid",teamMembers[position].userId.toString())
+            Log.e("Userid", teamMembers[position].userId.toString())
             findNavController().navigate(
                 R.id.userProfileFragment,
                 bundleOf(getString(R.string.user_id) to teamMembers[position].userId.toString())
