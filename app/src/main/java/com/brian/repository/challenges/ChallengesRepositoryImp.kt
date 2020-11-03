@@ -43,20 +43,21 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
         }
     }
 
-    override fun rejectChallengesRequests(
+    override fun cancelMyChallengesRequests(
         queryParams: CreateChatRoomParams,
         onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
     ) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = challengesDataSource.rejectChallengeRequest(queryParams)
+            val response = challengesDataSource.cancelMyChallenge(queryParams)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
                 onResult(true, response.message!!, response)
             }
-        }    }
+        }
+    }
 
-    override fun acceptChallengeRequests(
+    override fun acceptRejectChallengeRequests(
         queryParams: AcceptChallengeParams,
         onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
     ) {
@@ -67,7 +68,23 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
             } else {
                 onResult(true, response.message!!, response)
             }
-        }    }
+        }
+    }
+
+    override fun approveRejectMyChallenge(
+        queryParams: AcceptChallengeParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = challengesDataSource.approveRejectMyChallenge(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }
+    }
+
 
     override fun createChallenge(
         queryParams: CreateChallengeParams,

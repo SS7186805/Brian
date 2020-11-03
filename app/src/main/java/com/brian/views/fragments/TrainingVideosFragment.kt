@@ -3,13 +3,17 @@ package com.brian.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.TrainingVideosBinding
 import com.brian.internals.hideProgress
@@ -28,6 +32,7 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: TrainingsViewModelFactory by instance()
     lateinit var mBinding: TrainingVideosBinding
     lateinit var mViewModel: TrainingViewModel
+    var mEndlessTrainingViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -50,7 +55,9 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupScrollListener()
         setupRecyclers()
+        mViewModel.queryParams.category_id = arguments?.getInt(getString(R.string.id), 0)
         mViewModel.trainingVideosAdapter.listener = this.ClickHandler()
+        mViewModel.getVideos()
 
         return mBinding.root
     }
@@ -62,6 +69,11 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler : TrainingVideosAdapter.onClickEvents {
         override fun onVideoClick(position: Int) {
+
+            Log.e(
+                "positionUrl",
+                "position ${position} Url${mViewModel.videoslist.value!![position].videoUrl}"
+            )
             startActivity(
                 Intent(requireContext(), VideoViewActivity::class.java).putExtra(
                     getString(R.string.training_videos),
@@ -69,6 +81,29 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
                 )
             )
         }
+
+    }
+
+
+    private fun setupScrollListener() {
+
+        mEndlessTrainingViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recyclerVideos.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.videoslist.value?.size)
+
+                    if (mViewModel.videoslist.value!!.size % 10 == 0 && mViewModel.videoslist.value!!.size != 0) {
+                        mViewModel.getVideos()
+                    }
+
+                }
+            }
+
+
+
+        mBinding.recyclerVideos.addOnScrollListener(mEndlessTrainingViewScrollListener!!)
+
 
     }
 
@@ -82,8 +117,13 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
             })
 
             videoslist.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    mViewModel.trainingVideosAdapter.addNewItems(it)
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDatFound.visibility = View.GONE
+                    mViewModel.trainingVideosAdapter.setNewItems(it)
+                } else {
+                    if (mViewModel.videoslist.value!!.size == 0) {
+                        mBinding.tvNoDatFound.visibility = View.VISIBLE
+                    }
                 }
 
             })
@@ -91,20 +131,6 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
             showLoading.observe(viewLifecycleOwner, Observer {
                 if (it) showProgress(requireContext()) else hideProgress()
             })
-        }
-    }
-
-    private fun setupScrollListener() {
-        mBinding.apply {
-            recyclerVideos.setOnScrollChangeListener { _, _, _, _, _ ->
-                val view = recyclerVideos.getChildAt(recyclerVideos.childCount - 1)
-                val diff = view.bottom - (recyclerVideos.height + recyclerVideos.scrollY)
-                val offset = mViewModel.videoslist.value?.size
-                if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allVideosLoaded) {
-                    mViewModel.getVideos()
-                }
-            }
-
         }
     }
 

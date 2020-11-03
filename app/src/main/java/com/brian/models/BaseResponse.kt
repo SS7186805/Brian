@@ -128,14 +128,18 @@ class QueryParams {
     @field:SerializedName("page")
     var page: Int? = null
 
-    @field:SerializedName("limit")
-    var limit: Int? = null
+    @field:SerializedName("category_id")
+    var category_id: Int? = null
 }
 
 
 class SearchQuery {
     @field:SerializedName("search_name")
     var search_name: String = ""
+
+    @field:SerializedName("page")
+    var page: Int? = null
+
 
 }
 
@@ -211,6 +215,13 @@ class GetAllMessagesParams {
     var chat_room_id: Int? = null
 
 }
+
+class CategoryParams {
+    @field:SerializedName("category_id")
+    var category_id: Int? = null
+
+}
+
 
 class CreateChatRoomParams {
     @field:SerializedName("other_user_id")

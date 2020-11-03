@@ -46,7 +46,9 @@
             android:paddingEnd="@dimen/margin_20"
             android:paddingTop="@dimen/margin_10"
             android:paddingBottom="@dimen/margin_10"
+            android:inputType="text"
             android:singleLine="true"
+            android:imeOptions="actionDone"
             android:paddingStart="@dimen/margin_20"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="@dimen/margin_10"
@@ -61,6 +63,18 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="@+id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"/>
+
+        <TextView
+            android:id="@+id/tvNoDataFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/no_data_found"
+            android:textAlignment="center"
+            android:textColor="@color/yellow"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="0dp"

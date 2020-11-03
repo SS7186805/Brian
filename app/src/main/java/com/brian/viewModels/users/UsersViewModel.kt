@@ -6,9 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.internals.plusAssign
 import com.brian.models.MyFriendsDataItem
 import com.brian.models.SearchQuery
 import com.brian.models.SendRequestParams
@@ -41,7 +43,8 @@ class UsersViewModel(
     var sendRequestParams = SendRequestParams()
     var allFriendsLoaded = false
     var allUsersLoaded = false
-    var currentPage = 1
+    var currentPageAllUsers = 1
+    var currentPageMyUsers = 1
     var currentPageMyFriends = 1
     var type = ""
     var context: Context? = null
@@ -57,8 +60,9 @@ class UsersViewModel(
                 workRunnable?.let { handler.removeCallbacks(it) }
                 workRunnable = Runnable {
                     usersList.postValue(ArrayList())
-                    myFriends.postValue(ArrayList())
-                    currentPage = 1
+                    usersAdapter.clearData()
+                    currentPageAllUsers = 1
+                    currentPageMyUsers = 1
                     searchQuery.search_name = s.toString()
                     if (type.equals(resourcesProvider.getString(R.string.yes))) {
                         getMyUsers()
@@ -94,12 +98,18 @@ class UsersViewModel(
 
     fun getUsers() {
         showLoading.postValue(true)
+        Log.e("CurrentPageAllUsersOut", currentPageAllUsers.toString())
+
+        searchQuery.page = currentPageAllUsers
         usersRepository.searchUsers(searchQuery) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
                 allUsersLoaded = response?.data?.data.isNullOrEmpty()
-                currentPage = response?.data?.currentPage!!
-                usersList.postValue(response?.data.data)
+
+                currentPageAllUsers = response?.data?.currentPage!! + 1
+                Log.e("CurrentPageAllUsers", currentPageAllUsers.toString())
+
+                usersList += response?.data.data!!
             } else {
                 usersList.postValue(ArrayList())
                 showMessage.postValue(message)
@@ -111,14 +121,15 @@ class UsersViewModel(
 
     fun getMyUsers() {
         showLoading.postValue(true)
+        searchQuery.page = currentPageMyUsers
         usersRepository.searchMyUsers(searchQuery) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
                 allUsersLoaded = response?.data?.data.isNullOrEmpty()
-                currentPage = response?.data?.currentPage!!
-                myFriends.postValue(response?.data.data)
+                currentPageMyUsers = response?.data?.currentPage!! + 1
+                myFriends += response?.data.data!!
             } else {
-                usersList.postValue(ArrayList())
+                myFriends.postValue(ArrayList())
                 showMessage.postValue(message)
             }
 
@@ -168,11 +179,9 @@ class UsersViewModel(
         usersRepository.cancelRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                usersAdapter.list[position].reqSendBySelf =
+                usersList.value!![position].reqSendBySelf =
                     resourcesProvider.getString(R.string.No)
-                usersAdapter.notifyItemChanged(position)
-
-
+                usersAdapter.notifyItemChanged(position, usersList.value!![position])
             } else {
                 showMessage.postValue(message)
             }
@@ -205,11 +214,11 @@ class UsersViewModel(
 
     fun getMyFriends() {
         showLoading.postValue(true)
-        usersRepository.getMyFriends() { isSuccess, message, response ->
+        usersRepository.getMyFriends(currentPageMyFriends) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
                 allFriendsLoaded = response?.data?.data.isNullOrEmpty()
-                currentPageMyFriends = response?.data?.currentPage!!
+                currentPageMyFriends = response?.data?.currentPage!! + 1
                 myFriends.postValue(response?.data.data)
 
             } else {

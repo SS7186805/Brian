@@ -31,7 +31,7 @@ interface ChallengesRepository {
     )
 
 
-    fun rejectChallengesRequests(
+    fun cancelMyChallengesRequests(
         queryParams: CreateChatRoomParams,
         onResult: (
             isSuccess: Boolean,
@@ -40,7 +40,7 @@ interface ChallengesRepository {
         ) -> Unit
     )
 
-    fun acceptChallengeRequests(
+    fun acceptRejectChallengeRequests(
         queryParams: AcceptChallengeParams,
         onResult: (
             isSuccess: Boolean,
@@ -48,6 +48,16 @@ interface ChallengesRepository {
             response: BaseResponse?
         ) -> Unit
     )
+
+    fun approveRejectMyChallenge(
+        queryParams: AcceptChallengeParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
+        ) -> Unit
+    )
+
 
 
     fun createChallenge(
@@ -58,25 +68,6 @@ interface ChallengesRepository {
             response: ResponseCreateChallenge?
         ) -> Unit
     )
-
-    /*
-    fun cancelRequest(
-        queryParams: SendRequestParams,
-        onResult: (
-            isSuccess: Boolean,
-            message: String,
-            response: ResponseSendRequest?
-        ) -> Unit
-    )
-
-    fun acceptRejectRequest(
-        queryParams: SendRequestParams,
-        onResult: (
-            isSuccess: Boolean,
-            message: String,
-            response: ResponseSendRequest?
-        ) -> Unit
-    )*/
 
 
 }

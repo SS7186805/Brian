@@ -1,10 +1,12 @@
 package com.brian.views.fragments
 
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -35,6 +37,12 @@ class ContactUsFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
             clickHandler = ClickHandler()
         }
 
+        mBinding.message.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        mBinding.message.setRawInputType(InputType.TYPE_CLASS_TEXT);
+
+        mBinding.root.requestFocus()
+
+
 
         setupObserver()
         return mBinding.root
@@ -63,7 +71,7 @@ class ContactUsFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
     }
 
     override fun onOkayClick() {
-        findNavController().navigateUp()
+        findNavController().navigate(R.id.mainScreenFragment)
 
     }
 

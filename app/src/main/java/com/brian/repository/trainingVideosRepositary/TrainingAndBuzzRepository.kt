@@ -2,7 +2,8 @@ package com.brian.repository.trainingVideosRepositary
 
 import com.brian.models.QueryParams
 import com.brian.models.ResponseBuzzFeed
-import com.brian.models.ResponseTrainingVideos
+import com.brian.models.ResponseDataManagement
+import com.brian.models.ResponseTrainingVideosWithCategory
 
 interface TrainingAndBuzzRepository {
 
@@ -11,7 +12,15 @@ interface TrainingAndBuzzRepository {
         onResult: (
             isSuccess: Boolean,
             message: String,
-            response: ResponseTrainingVideos?
+            response: ResponseTrainingVideosWithCategory?
+        ) -> Unit
+    )
+
+    fun getTrainingVideosDataManagement(
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseDataManagement?
         ) -> Unit
     )
 

@@ -86,10 +86,10 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    private fun setupClickListeners(){
+    private fun setupClickListeners() {
 
         mBinding.apply {
-            pitcher.setOnClickListener{ clickHandler!!.onPitchClick()}
+            pitcher.setOnClickListener { clickHandler!!.onPitchClick() }
 
             ClickGuard.guard(pitcher)
         }

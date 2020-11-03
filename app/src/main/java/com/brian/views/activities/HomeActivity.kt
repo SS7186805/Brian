@@ -110,7 +110,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
                 getString(R.string.home_toolbar)
             R.id.trainingVideosFragment -> mBinding.toolbar.tvTitle.text =
                 getString(R.string.training_videos)
-            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed)
+            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed_title)
             R.id.myFriendsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
             R.id.messagesFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mesages)
             R.id.challenegesFragment -> mBinding.toolbar.tvTitle.text =

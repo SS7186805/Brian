@@ -4,7 +4,8 @@ import com.brian.models.*
 
 interface TrainingAndBuzzDataSource {
 
-    suspend fun getTrainingVideos(queryParams: QueryParams) : ResponseTrainingVideos
+    suspend fun getTrainingVideos(queryParams: QueryParams) : ResponseTrainingVideosWithCategory
+    suspend fun getData() : ResponseDataManagement
     suspend fun getBuzzFeed(queryParams: QueryParams) : ResponseBuzzFeed
 
 

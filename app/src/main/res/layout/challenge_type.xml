@@ -25,14 +25,27 @@
             android:background="@color/card_background_training"
             android:padding="@dimen/margin_10">
 
-            <ImageView
-                android:id="@+id/iv_ribbon"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="@dimen/margin_60"
-                android:layout_height="@dimen/margin_60"
+                android:background="@drawable/badge_bcg"
+                android:id="@+id/cvRibbon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                bind:imageUrl="@{item.image}" />
+                android:layout_height="@dimen/margin_60">
+
+                <ImageView
+                    android:id="@+id/iv_ribbon"
+                    android:src="@drawable/exo_ic_default_album_image"
+                    android:layout_width="@dimen/margin_60"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:cropToPadding="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_height="@dimen/margin_60"
+                    bind:imageUrl="@{item.image}" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:layout_width="0dp"
@@ -45,7 +58,7 @@
                 android:textSize="@dimen/px55"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/iv_ribbon"
+                app:layout_constraintStart_toEndOf="@+id/cvRibbon"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

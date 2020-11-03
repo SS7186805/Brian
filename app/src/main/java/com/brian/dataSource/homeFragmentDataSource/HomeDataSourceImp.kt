@@ -73,6 +73,16 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
         return response
     }
 
+    override suspend fun getData(): ResponseDataManagement {
+        var response = ResponseDataManagement()
+        try {
+            response = apiService.getDataHome()
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response    }
+
     override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
         var response = ResponseCreateTeam()
         try {

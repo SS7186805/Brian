@@ -16,7 +16,8 @@
     <string name="defensive_situation">Defensive Situation</string>
     <string name="Home">Home</string>
     <string name="home_toolbar">Home</string>
-    <string name="buzz_feed">Get Buzz</string>
+    <string name="buzz_feed">Get Buzzed</string>
+    <string name="buzz_feed_title">Buzz Feed</string>
     <string name="training_videos">Training Videos</string>
     <string name="my_friends">My Friends</string>
     <string name="mesages">Messages</string>
@@ -149,13 +150,13 @@
     <string name="send_request">Send Request</string>
     <string name="cancel_request">Cancel Request</string>
     <string name="id">id</string>
-    <string name="challenge_title_empty">Please enter title.</string>
+    <string name="challenge_title_empty">Title name should be greater than 2 characters</string>
     <string name="challenge_type_empty">Please select challenge type.</string>
     <string name="date_empty">Please select date and time.</string>
-    <string name="select_user_message">Please select users.</string>
+    <string name="select_user_message">Please select user.</string>
     <string name="waiting_for_approval">Waiting For Approval</string>
     <string name="user_id">User_id</string>
-    <string name="please_enter_message">Please enter message.</string>
+    <string name="please_enter_message">Please enter description.</string>
     <string name="user">user_name</string>
     <string name="other_user_id">Other_User_id</string>
     <string name="chat_room_id">chat_room_id</string>
@@ -166,5 +167,9 @@
     <string name="challengers">Challengers</string>
     <string name="user_type_empty">Please select user</string>
     <string name="no_data_found">no data found...</string>
+    <string name="no_challenges_found_yet_create_new_challenges_to_earn_badges">No challenges found yet,\ncreate new challenges to earn badges</string>
+    <string name="challenge_title_empty_team">Name must be at leat 2 characters long.</string>
+    <string name="challenge_title_empty_message">Please enter challenge title.</string>
+    <string name="challenge_title_validation_message">Challenge title should be at least 2 characters long.</string>
 
 </resources>

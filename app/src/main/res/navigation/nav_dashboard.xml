@@ -38,6 +38,14 @@
             app:exitAnim="@anim/exit_transitioin"
             app:popEnterAnim="@anim/enter_pop_transition"
             app:popExitAnim="@anim/exit_pop_transition" />
+
+        <action
+            android:id="@+id/action_videoViewFragment_to_trainingFragment"
+            app:destination="@id/trainingVideosFragment"
+            app:enterAnim="@anim/enter_transition"
+            app:exitAnim="@anim/exit_transitioin"
+            app:popEnterAnim="@anim/enter_pop_transition"
+            app:popExitAnim="@anim/exit_pop_transition" />
     </fragment>
 
 
@@ -168,7 +176,15 @@
         android:id="@+id/getStartTrainingFragment"
         android:name="com.brian.views.fragments.GetStartTraining"
         android:label="fragment_get_start_training"
-        tools:layout="@layout/fragment_get_start_training" />
+        tools:layout="@layout/fragment_get_start_training">
+        <action
+            android:id="@+id/getStartTrainingFragment_to_videoViewFragment"
+            app:destination="@id/videoViewFragment"
+            app:enterAnim="@anim/enter_transition"
+            app:exitAnim="@anim/exit_transitioin"
+            app:popEnterAnim="@anim/enter_pop_transition"
+            app:popExitAnim="@anim/exit_pop_transition" />
+    </fragment>
 
 
 </navigation>

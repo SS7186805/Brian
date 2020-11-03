@@ -1,9 +1,10 @@
-package com.brian.viewModels.trainingVideos
+package com.brian.viewModels.buzzFeed
 
 
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.internals.plusAssign
 import com.brian.models.BuzzFeedDataItem
 import com.brian.models.QueryParams
 import com.brian.providers.resources.ResourcesProvider
@@ -45,8 +46,8 @@ class BuzzFeedViewModel(
             showLoading.postValue(false)
             if (isSuccess) {
                 allVideosLoaded = response?.data?.data.isNullOrEmpty()
-                currentPage = response?.data?.currentPage!!
-                feedList.postValue(response?.data?.data)
+                currentPage = response?.data?.currentPage!! +1
+                feedList += response?.data?.data!!
             } else {
                 showMessage.postValue(message)
             }

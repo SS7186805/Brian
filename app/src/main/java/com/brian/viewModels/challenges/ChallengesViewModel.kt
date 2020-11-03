@@ -36,6 +36,7 @@ class ChallengesViewModel(
     var createChallengeParams = CreateChallengeParams()
     var rejectChallengeRequestParams = CreateChatRoomParams()
     var acceptChallengeRequestParams = AcceptChallengeParams()
+    var approveRejectMyChallengeRequestParams = AcceptChallengeParams()
     var myChallengesLoaded = false
     var challengeRequestsLoaded = false
     var allChallengesLoaded = false
@@ -128,11 +129,13 @@ class ChallengesViewModel(
         }
     }
 
-    fun rejectChallengeRequests() {
+
+    fun acceptChallengeRequests() {
         showLoading.postValue(true)
-        challengesRepository.rejectChallengesRequests(rejectChallengeRequestParams) { isSuccess, message, response ->
+        challengesRepository.acceptRejectChallengeRequests(acceptChallengeRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
+
 
             } else {
                 showMessage.postValue(message)
@@ -141,12 +144,25 @@ class ChallengesViewModel(
         }
     }
 
-    fun acceptChallengeRequests() {
+    fun approveRejectChallengeRequests() {
         showLoading.postValue(true)
-        challengesRepository.acceptChallengeRequests(acceptChallengeRequestParams) { isSuccess, message, response ->
+        challengesRepository.approveRejectMyChallenge(approveRejectMyChallengeRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
 
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun cancelMyChallengeRequests() {
+        showLoading.postValue(true)
+        challengesRepository.cancelMyChallengesRequests(rejectChallengeRequestParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
 
             } else {
                 showMessage.postValue(message)

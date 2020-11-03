@@ -28,20 +28,42 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/videoImage"
-                android:layout_width="@dimen/margin_80"
-                android:layout_height="@dimen/margin_80"
-                app:cardCornerRadius="@dimen/margin_12"
+                android:layout_width="@dimen/margin_70"
+                android:layout_height="@dimen/margin_70"
                 app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="@dimen/margin_12"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/ivImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/buzz_feed_white"
+                    android:src="@drawable/exo_ic_default_album_image"
                     bind:imageUrl="@{item.buzzFeedFiles.get(0).fileUrl}">
 
+
                 </ImageView>
+
+                <ImageView
+                    android:id="@+id/ivAudio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@android:color/black"
+                    android:src="@drawable/audio"
+                    android:visibility="gone">
+
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/ivVideo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_play"
+                    android:visibility="gone" />
 
 
             </androidx.cardview.widget.CardView>
@@ -64,10 +86,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_10"
-                android:fontFamily="@font/century_gothic"
-                android:text="@{item.description}"
-                android:maxLines="3"
                 android:ellipsize="end"
+                android:fontFamily="@font/century_gothic"
+                android:maxLines="4"
+                android:text="@{item.description}"
                 android:textColor="@color/text_Color_drawer_item"
                 android:textSize="@dimen/px35"
                 app:layout_constraintEnd_toEndOf="parent"

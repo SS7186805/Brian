@@ -72,10 +72,21 @@ class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesD
         return response
     }
 
-    override suspend fun rejectChallengeRequest(queryParams: CreateChatRoomParams): BaseResponse {
+    override suspend fun approveRejectMyChallenge(queryParams: AcceptChallengeParams): BaseResponse {
         var response = BaseResponse()
         try {
-            response = apiService.rejectChallengeRequest(queryParams)
+            response = apiService.approveRejectMyChallenge(queryParams)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
+    override suspend fun cancelMyChallenge(queryParams: CreateChatRoomParams): BaseResponse {
+        var response = BaseResponse()
+        try {
+            response = apiService.cancelMyChallenge(queryParams)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

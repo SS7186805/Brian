@@ -44,6 +44,30 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:sliderAnimationDuration="1000"
+            app:sliderAutoCycleEnabled="false"
+            app:sliderIndicatorAnimationDuration="1000"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="@dimen/dp0"
+            app:sliderIndicatorMarginBottom="@dimen/dp0"
+            app:sliderIndicatorMarginLeft="@dimen/margin_50"
+            app:sliderIndicatorMarginRight="@dimen/margin_50"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="@dimen/margin_3"
+            app:sliderIndicatorRadius="@dimen/margin_2"
+            app:sliderIndicatorSelectedColor="@color/yellow"
+            app:sliderIndicatorUnselectedColor="@color/edit_text_color"
+            app:sliderScrollTimeInSec="3"
+            app:sliderStartAutoCycle="false" />
+
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/svSafariImages2"
             android:layout_width="match_parent"
@@ -53,21 +77,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:sliderAnimationDuration="1000"
-            app:sliderAutoCycleEnabled="true"
-
+            app:sliderAutoCycleEnabled="false"
             app:sliderIndicatorAnimationDuration="1000"
             app:sliderIndicatorGravity="center_horizontal|bottom"
             app:sliderIndicatorMargin="@dimen/dp0"
             app:sliderIndicatorMarginBottom="@dimen/dp0"
-            app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="@dimen/margin_3"
             app:sliderIndicatorMarginLeft="@dimen/margin_50"
             app:sliderIndicatorMarginRight="@dimen/margin_50"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="@dimen/margin_3"
             app:sliderIndicatorRadius="@dimen/margin_2"
             app:sliderIndicatorSelectedColor="@color/yellow"
             app:sliderIndicatorUnselectedColor="@color/edit_text_color"
             app:sliderScrollTimeInSec="3"
-            app:sliderStartAutoCycle="true" />
+            app:sliderStartAutoCycle="false" />
 
 
         <ImageView
@@ -75,9 +98,9 @@
             android:layout_width="0dp"
             android:layout_height="220dp"
             android:layout_marginTop="@dimen/margin_20"
-            android:visibility="gone"
             android:scaleType="centerCrop"
             android:src="@drawable/buzz_details"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -86,10 +109,10 @@
             android:id="@+id/indicators"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
-            android:visibility="gone"
             android:layout_marginTop="@dimen/margin_15"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@id/image">
 
             <View
@@ -120,10 +143,10 @@
         </LinearLayout>
 
         <TextView
-            android:layout_width="0dp"
             android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_25"
+            android:layout_marginTop="@dimen/margin_15"
             android:fontFamily="@font/century_gothic_bold"
             android:text="@{item.title}"
             android:textColor="@color/yellow"
@@ -132,17 +155,26 @@
             app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintTop_toBottomOf="@id/svSafariImages2" />
 
-        <TextView
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_10"
-            android:fontFamily="@font/century_gothic"
-            android:textColor="@color/text_Color_drawer_item"
-            android:textSize="@dimen/px45"
-            android:text="@{item.description}"
+            android:layout_marginBottom="@dimen/margin_10"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/century_gothic"
+                android:text="@{item.description}"
+                android:textColor="@color/text_Color_drawer_item"
+                android:textSize="@dimen/px45" />
+
+        </androidx.core.widget.NestedScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

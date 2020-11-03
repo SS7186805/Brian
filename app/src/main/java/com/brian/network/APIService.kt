@@ -21,7 +21,6 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
-import kotlin.jvm.Throws
 
 
 const val BASE_URL = "http://1.6.98.142/brian_m4/"
@@ -46,7 +45,7 @@ interface APIService {
     suspend fun getDefensiveSituation(): DefensiveResponse
 
     @GET("api/v1/my-friends")
-    suspend fun getMyFriends(): ResponseMyFriends
+    suspend fun getMyFriends(@Query("page") page: Int): ResponseMyFriends
 
     @GET("api/v1/challenge-list-admin")
     suspend fun getChallenges(): ResponseChallengeType
@@ -79,15 +78,21 @@ interface APIService {
         @Part profile_picture: MultipartBody.Part?
     ): BaseResponse
 
+
+    @POST("api/v1/approved-rejected-challenge")
+    suspend fun approveRejectMyChallenge(
+        @Body createChallenge: AcceptChallengeParams
+    ): BaseResponse
+
     @POST("api/v1/cancel-challenge-request")
-    suspend fun rejectChallengeRequest(@Body createChallenge: CreateChatRoomParams): BaseResponse
+    suspend fun cancelMyChallenge(@Body createChallenge: CreateChatRoomParams): BaseResponse
 
     @POST("api/v1/search-friends")
-    suspend fun searchUsers(@Body params: SearchQuery): ResponseSearchUsers
+    suspend fun searchUsers(@Query("page") page: Int, @Body params: SearchQuery): ResponseSearchUsers
 
 
     @POST("api/v1/users")
-    suspend fun searchMyUsers(@Body params: SearchQuery): ResponseMyFriends
+    suspend fun searchMyUsers(@Query("page") page: Int, @Body params: SearchQuery): ResponseMyFriends
 
 
     @POST("api/v1/send-friend-request")
@@ -149,6 +154,16 @@ interface APIService {
 
     @GET("api/v1/training-videos")
     suspend fun getTrainingVideos(@Query("page") page: Int?): ResponseTrainingVideos
+
+    @POST("api/v1/training-videos-by-category-id")
+    suspend fun getTrainingVideosWithCategory(@Query("page") page: Int, @Body params: QueryParams): ResponseTrainingVideosWithCategory
+
+
+    @GET("api/v1/get-training-video-data-management")
+    suspend fun getDataTraining(): ResponseDataManagement
+
+    @GET("api/v1/get-defensive-situation-data-management")
+    suspend fun getDataHome(): ResponseDataManagement
 
     @GET("api/v1/buzz-feeds")
     suspend fun getBuzzFeed(@Query("page") page: Int?): ResponseBuzzFeed

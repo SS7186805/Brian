@@ -40,7 +40,8 @@
             android:text="@string/no_data_found"
             android:textColor="@color/yellow"
             android:fontFamily="@font/century_gothic_bold"
-            android:id="@+id/tvNobadges"
+            android:id="@+id/tvNoDatFound"
+            android:visibility="gone"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="wrap_content"></TextView>

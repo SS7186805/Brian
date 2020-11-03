@@ -3,6 +3,7 @@ package com.brian.views.fragments
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -12,7 +13,11 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
+import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengesFragmentBinding
 import com.brian.internals.hideProgress
@@ -32,6 +37,10 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     lateinit var mBinding: ChallengesFragmentBinding
     lateinit var mViewModel: ChallengesViewModel
     private val mClickHandler = ClickHandler()
+    private lateinit var myChallengeslinearLayoutManager: LinearLayoutManager
+    private lateinit var challengeRequestslinearLayoutManager: LinearLayoutManager
+    var mEndlessMyChallengesRecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
+    var mEndlessChallengeRequestsViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -39,6 +48,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         setupViewModel()
         mBinding = ChallengesFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
@@ -53,6 +63,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         mViewModel.challengeRequestsAdapter.listener = this.mClickHandler
         mViewModel.myChallengesAdapter.listener = this.mClickHandler
 
+
+
         mBinding.tabs.setOnTabSelectedListener(this)
         return mBinding.root
     }
@@ -65,9 +77,6 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
     inner class ClickHandler : MyChallengesAdapter.onViewClick,
         MyChallengesRequestsAdapter.onViewClick {
-        override fun onAprroveClick() {
-            findNavController().navigate(R.id.challenegeFragment)
-        }
 
         override fun onRequestAcceptClick(position: Int) {
             findNavController().navigate(
@@ -77,9 +86,26 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         }
 
         override fun onRequestRejectClick(position: Int) {
+            mViewModel.acceptChallengeRequestParams.user_challenge_id =
+                mViewModel.challengeRequests.value!![position].id
+            mViewModel.acceptChallengeRequestParams.status = 2
+            mViewModel.acceptChallengeRequests()
+        }
+
+        override fun onCancelChallenge(position: Int) {
+            println("mdfndkjfnjkdf")
+            Log.e("MbbjjUserIdkkk", "IDDD${Prefs.init().userInfo?.id.toString()}")
+
             mViewModel.rejectChallengeRequestParams.user_challenge_id =
-                mViewModel.challengeRequests.value!![position].challengeId
-            mViewModel.rejectChallengeRequests()
+                mViewModel.myChallenges.value!![position].id
+            mViewModel.cancelMyChallengeRequests()
+        }
+
+        override fun onApproveRejectChallenge(position: Int, status: Int) {
+            mViewModel.approveRejectMyChallengeRequestParams.user_challenge_id =
+                mViewModel.myChallenges.value!![position].id
+            mViewModel.approveRejectMyChallengeRequestParams.status = status
+            mViewModel.approveRejectChallengeRequests()
         }
 
     }
@@ -95,12 +121,24 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     override fun onTabSelected(tab: TabLayout.Tab?) {
 
         if (tab?.position == 0) {
-            if(mViewModel.myChallenges.value?.isEmpty()!!){
+            mBinding.tvNoDataFound.visibility = GONE
+            if (mViewModel.myChallenges.value?.isEmpty()!!) {
+                mBinding.tvNoMyChalleneges.visibility = VISIBLE
+            } else {
+                mBinding.tvNoMyChalleneges.visibility = GONE
 
             }
             mBinding.rMyChallenges.visibility = VISIBLE
             mBinding.rChallengeRequests.visibility = GONE
         } else {
+
+            mBinding.tvNoMyChalleneges.visibility = GONE
+            if (mViewModel.challengeRequests.value?.isEmpty()!!) {
+                mBinding.tvNoDataFound.visibility = VISIBLE
+            } else {
+                mBinding.tvNoDataFound.visibility = GONE
+
+            }
             mBinding.rMyChallenges.visibility = GONE
             mBinding.rChallengeRequests.visibility = VISIBLE
         }
@@ -118,24 +156,29 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
             })
 
             myChallenges.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    mViewModel.myChallengesAdapter.setNewItems(it)
+
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoMyChalleneges.visibility = View.GONE
+                    mViewModel.myChallengesAdapter.addNewItems(it)
                 } else {
-                    if (currentPageMyChalleneges == 1) {
-                        mViewModel.myChallengesAdapter.setNewItems(it)
+                    if (mViewModel.myChallenges.value!!.size == 0) {
+                        mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
                     }
                 }
+
 
             })
 
             challengeRequests.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    mViewModel.challengeRequestsAdapter.setNewItems(it)
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDataFound.visibility = View.GONE
+                    mViewModel.challengeRequestsAdapter.addNewItems(it)
                 } else {
-                    if (currentPageChallenegesRequests == 1) {
-                        mViewModel.myChallengesAdapter.setNewItems(it)
+                    if (mViewModel.challengeRequests.value!!.size == 0) {
+                        mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
                     }
                 }
+
 
             })
 
@@ -146,41 +189,40 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     }
 
     private fun setupScrollListener() {
-        mBinding.apply {
+        mEndlessMyChallengesRecyclerViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.rMyChallenges.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMORE", "Onloadmore" + mViewModel.myChallenges.value?.size)
 
-
-            rMyChallenges.setOnScrollChangeListener { _, _, _, _, _ ->
-
-                if (mViewModel.myChallenges.value?.isNotEmpty()!!) {
-                    val view = rMyChallenges.getChildAt(rMyChallenges.childCount - 1)
-                    val diff = view.bottom - (rMyChallenges.height + rMyChallenges.scrollY)
-                    val offset = mViewModel.myChallenges.value?.size
-                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.myChallengesLoaded) {
+                    if (mViewModel.myChallenges.value!!.size % 10 == 0 && mViewModel.myChallenges.value!!.size != 0) {
                         mViewModel.getMyChallenges()
                     }
+
                 }
-
-
             }
 
 
-            rChallengeRequests.setOnScrollChangeListener { _, _, _, _, _ ->
+        mEndlessChallengeRequestsViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.rMyChallenges.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMORE", "Onloadmore" + mViewModel.challengeRequests.value!!.size)
 
-                if (mViewModel.challengeRequests.value?.isNotEmpty()!!) {
-                    val view = rChallengeRequests.getChildAt(rChallengeRequests.childCount - 1)
-                    val diff =
-                        view.bottom - (rChallengeRequests.height + rChallengeRequests.scrollY)
-                    val offset = mViewModel.challengeRequests.value?.size
-                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.challengeRequestsLoaded) {
+                    if (mViewModel.challengeRequests.value!!.size % 10 == 0 && mViewModel.challengeRequests.value!!.size != 0) {
                         mViewModel.getChallengesRequests()
+
                     }
+
+
                 }
-
-
             }
 
+        mBinding.rMyChallenges.addOnScrollListener(mEndlessMyChallengesRecyclerViewScrollListener!!)
+        mBinding.rChallengeRequests.addOnScrollListener(
+            mEndlessMyChallengesRecyclerViewScrollListener!!
+        )
 
-        }
     }
 
 
@@ -190,14 +232,19 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
             rMyChallenges.apply {
                 adapter = mViewModel.myChallengesAdapter
+                myChallengeslinearLayoutManager = LinearLayoutManager(context)
+                layoutManager = myChallengeslinearLayoutManager
             }
 
             rChallengeRequests.apply {
                 adapter = mViewModel.challengeRequestsAdapter
+                challengeRequestslinearLayoutManager = LinearLayoutManager(context)
+                layoutManager = challengeRequestslinearLayoutManager
             }
 
 
         }
     }
+
 
 }

@@ -60,5 +60,13 @@ interface HomeRepository {
         ) -> Unit
     )
 
+    fun getData(
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseDataManagement?
+        ) -> Unit
+    )
+
 
 }

@@ -91,6 +91,7 @@
                 android:layout_width="@dimen/margin_35"
                 android:layout_height="@dimen/margin_35"
                 android:layout_marginTop="@dimen/margin_10"
+                android:src="@drawable/ic_use_r"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/type"
                 bind:imageUrl="@{item.otherUserDetails.profilePicture}" />

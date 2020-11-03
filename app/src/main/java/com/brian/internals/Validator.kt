@@ -26,9 +26,13 @@ class Validator {
 
     fun validateCreateChallengeData(binding: CreateChallengeFragmentBinding, context: Context): Boolean {
         if (binding.challengeTitle.text.isNullOrBlank()) {
-            Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.challenge_title_empty_message), Toast.LENGTH_SHORT).show()
             return false
-        }  else if (binding.selectChallengeType.text.isNullOrBlank()) {
+        }
+        else if (binding.challengeTitle.text.length<2) {
+            Toast.makeText(context, context.getString(R.string.challenge_title_validation_message), Toast.LENGTH_SHORT).show()
+            return false
+        }else if (binding.selectChallengeType.text.isNullOrBlank()) {
             Toast.makeText(context, context.getString(R.string.challenge_type_empty), Toast.LENGTH_SHORT).show()
             return false
         } else if (binding.selectDate.text.isNullOrBlank()) {
@@ -46,7 +50,7 @@ class Validator {
     }
 
     fun validateContactUsData(binding: ContactUsFragmentBinding, context: Context): Boolean {
-        if (binding.title.text.isNullOrBlank()) {
+        if (binding.title.text.length<2) {
             Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
             return false
         }  else if (binding.message.text.isNullOrBlank()) {
@@ -60,8 +64,8 @@ class Validator {
     }
 
     fun validateCreateTeam(binding: CreateTeamFragmentBinding, context: Context): Boolean {
-        if (binding.etTeamName.text.isNullOrBlank()) {
-            Toast.makeText(context, context.getString(R.string.challenge_title_empty), Toast.LENGTH_SHORT).show()
+        if (binding.etTeamName.text.length<2) {
+            Toast.makeText(context, context.getString(R.string.challenge_title_empty_team), Toast.LENGTH_SHORT).show()
             return false
         }  else if (binding.etSelectUser.text.isNullOrBlank()) {
             Toast.makeText(context, context.getString(R.string.select_user_message), Toast.LENGTH_SHORT).show()

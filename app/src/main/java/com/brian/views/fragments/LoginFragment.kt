@@ -3,7 +3,6 @@ package com.brian.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -27,8 +26,6 @@ import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
 import kotlinx.android.synthetic.main.fragment_register.*
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -52,7 +49,7 @@ class LoginFragment : ScopedFragment(), KodeinAware {
             clickHandler = ClickHandler()
         }
         setupClickListeners()
-      //  keyboardListener()
+        //  keyboardListener()
         mBinding.etPassword.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 v.clearFocus()
@@ -74,7 +71,7 @@ class LoginFragment : ScopedFragment(), KodeinAware {
             btnLogin.setOnClickListener { mViewModel.onLoginClick() }
             tvForgotPswd.setOnClickListener { clickHandler!!.onForgotPasswordClick() }
             signUpLayout.setOnClickListener { clickHandler!!.onRegisterClick() }
-            ClickGuard.guard(btnLogin,tvForgotPswd,signUpLayout)
+            ClickGuard.guard(btnLogin, tvForgotPswd, signUpLayout)
         }
     }
 
@@ -107,7 +104,7 @@ class LoginFragment : ScopedFragment(), KodeinAware {
             })
 
             registerSuccess.observe(viewLifecycleOwner, Observer {
-                if(it){
+                if (it) {
                     Prefs.init().isLogIn = "true"
                     startActivity(Intent(requireContext(), HomeActivity::class.java))
                     (requireActivity() as AccountHandlerActivity).finish()

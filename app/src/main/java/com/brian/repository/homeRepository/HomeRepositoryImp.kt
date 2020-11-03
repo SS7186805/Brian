@@ -89,4 +89,14 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
             }
         }
     }
+
+    override fun getData(onResult: (isSuccess: Boolean, message: String, response: ResponseDataManagement?) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = homeDataSource.getData()
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
 }

@@ -3,6 +3,7 @@ package com.brian.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,10 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MyFriendsFragmentBinding
 import com.brian.internals.hideProgress
@@ -28,6 +32,7 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: UsersViewModelFactory by instance()
     lateinit var mBinding: MyFriendsFragmentBinding
     lateinit var mViewModel: UsersViewModel
+    var mEndlessFriendsecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -43,9 +48,35 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupRecyclers()
         setupScrollListener()
+        mViewModel.currentPageMyFriends = 1
+        mViewModel.myFriends.value?.clear()
+        mViewModel.myFriendsAdapter.clearData()
         mViewModel.getMyFriends()
         mViewModel.myFriendsAdapter.listener = this.ClickHandler()
         return mBinding.root
+    }
+
+
+    private fun setupScrollListener() {
+
+        mEndlessFriendsecyclerViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.myFriends.value?.size)
+
+                    if (mViewModel.myFriends.value!!.size % 10 == 0 && mViewModel.myFriends.value!!.size != 0) {
+                        mViewModel.getMyFriends()
+                    }
+
+                }
+            }
+
+
+
+        mBinding.recycler.addOnScrollListener(mEndlessFriendsecyclerViewScrollListener!!)
+
+
     }
 
     private fun setupViewModel() {
@@ -100,18 +131,13 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
             })
 
             myFriends.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDatFound.visibility = View.GONE
                     mViewModel.myFriendsAdapter.setNewItems(it)
                 } else {
-                    if (currentPage == 1) {
-                        mViewModel.myFriendsAdapter.setNewItems(it)
+                    if (mViewModel.myFriends.value!!.size == 0) {
+                        mBinding.tvNoDatFound.visibility = View.VISIBLE
                     }
-                }
-
-                if(myFriends.value.isNullOrEmpty()){
-                    mBinding.tvNobadges.visibility=View.VISIBLE
-                }else{
-                    mBinding.tvNobadges.visibility=View.GONE
                 }
 
             })
@@ -119,24 +145,6 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
             showLoading.observe(viewLifecycleOwner, Observer {
                 if (it) showProgress(requireContext()) else hideProgress()
             })
-        }
-    }
-
-    private fun setupScrollListener() {
-        mBinding.apply {
-            recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-
-                if (mViewModel.usersList.value?.isNotEmpty()!!) {
-                    val view = recycler.getChildAt(recycler.childCount - 1)
-                    val diff = view.bottom - (recycler.height + recycler.scrollY)
-                    val offset = mViewModel.myFriends.value?.size
-                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allUsersLoaded) {
-                        mViewModel.getUsers()
-                    }
-                }
-
-            }
-
         }
     }
 

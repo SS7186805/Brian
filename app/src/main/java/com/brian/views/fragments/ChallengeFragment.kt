@@ -69,7 +69,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
 
         mBinding.item =
             arguments?.getParcelable<DataItemMyChalleneges>(getString(R.string.challenge))!!
-        mViewModel.acceptChallengeRequestParams.user_challenge_id = mBinding.item?.challengeId
+        mViewModel.acceptChallengeRequestParams.user_challenge_id = mBinding.item?.id
         mViewModel.acceptChallengeRequestParams.status = 1
 
 

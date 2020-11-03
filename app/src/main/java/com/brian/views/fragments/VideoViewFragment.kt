@@ -9,6 +9,7 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -23,6 +24,8 @@ import org.kodein.di.android.x.closestKodein
 class VideoViewFragment : ScopedFragment(), KodeinAware {
 
     override val kodein by closestKodein()
+    var isTraining=false
+    var categoryId:Int?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +40,10 @@ class VideoViewFragment : ScopedFragment(), KodeinAware {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        videoView.setVideoURI(Uri.parse("android.resource://" + requireContext().getPackageName() + "/" + R.raw.videoview))
+        var path=arguments?.getString("path")
+        isTraining= arguments?.getBoolean(getString(R.string.training_videos))!!
+        categoryId= arguments?.getInt(getString(R.string.id),0)
+        videoView.setVideoPath(path)
         videoView.setBackgroundColor(Color.WHITE)
         videoView.requestFocus()
         videoView.start()
@@ -46,7 +52,13 @@ class VideoViewFragment : ScopedFragment(), KodeinAware {
 
         videoView.setOnCompletionListener {
             videoView.resume()
-            findNavController().navigate(R.id.action_videoViewFragment_to_homeFragment)
+            if(isTraining){
+                findNavController().navigate(R.id.action_videoViewFragment_to_trainingFragment,
+                    bundleOf(getString(R.string.id) to categoryId))
+
+            }else {
+                findNavController().navigate(R.id.action_videoViewFragment_to_homeFragment)
+            }
         }
     }
 }

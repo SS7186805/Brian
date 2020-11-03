@@ -1,6 +1,8 @@
 package com.brian.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.brian.databinding.BuzzFeedDetailsFragmentBinding
 import com.brian.models.BuzzFeedDataItem
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
+import com.brian.views.activities.VideoViewActivity
 import com.brian.views.adapters.SlideViewRecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
@@ -58,15 +61,34 @@ class BuzzFeedDetailsFragment : ScopedFragment(), KodeinAware {
         mBinding.item = buzzFeedDetails
 
         val images = buzzFeedDetails.buzzFeedFiles
-        mBinding.svSafariImages2.setSliderAdapter(SlideViewRecyclerAdapter(images!!))
+        if (buzzFeedDetails.buzzFeedFiles?.size == 1) {
+            Log.e("DISABLEE", "Diable")
+//            mBinding.svSafariImages2.setOnTouchListener { v, event -> tr }
+        }
+        var adapter = SlideViewRecyclerAdapter(images!!)
+        mBinding.svSafariImages2.setSliderAdapter(adapter)
+        adapter.listener = this.ClickHandler()
 
     }
 
-    inner class ClickHandler {
+    inner class ClickHandler : SlideViewRecyclerAdapter.onClickEvents {
 
-        fun onPitchClick() {
-            findNavController().navigate(R.id.questionsFragment)
+        override fun onVideoClick(position: Int, url: String) {
+            startActivity(
+                Intent(requireContext(), VideoViewActivity::class.java).putExtra(
+                    getString(R.string.training_videos),
+                    url
+                )
+            )
+        }
 
+        override fun onAudioClick(position: Int, url: String) {
+            startActivity(
+                Intent(requireContext(), VideoViewActivity::class.java).putExtra(
+                    getString(R.string.training_videos),
+                    url
+                )
+            )
         }
 
     }

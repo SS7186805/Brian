@@ -18,6 +18,8 @@ class HomeViewModel(
 
     var list = ArrayList<DataItem>()
     var data = MutableLiveData<QuestionData>()
+    var homeData = MutableLiveData<ArrayList<DataManagementDataItem>>()
+
 
     lateinit var myChallengesAdapter: LeaderboardChallengeAdapter
     lateinit var playersAdapter: LeaderboardChallengeAdapter
@@ -173,6 +175,20 @@ class HomeViewModel(
             if (isSuccess) {
 
                 myTeams.postValue(response?.data?.data)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getData() {
+        showLoading.postValue(true)
+        homeRepository.getData() { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                homeData.postValue(response?.data!!)
 
             } else {
                 showMessage.postValue(message)

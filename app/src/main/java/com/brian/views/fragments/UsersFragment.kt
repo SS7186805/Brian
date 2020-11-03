@@ -11,7 +11,10 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.UsersFragmentBinding
 import com.brian.internals.hideProgress
@@ -34,6 +37,7 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     private val mClickHandler = ClickHandler()
     var listener: onSelect? = null
     var isChallenegeType = false
+    var mEndlessMyChallengesRecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -140,25 +144,29 @@ class UsersFragment : ScopedFragment(), KodeinAware {
             })
 
             usersList.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
+
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDataFound.visibility = View.GONE
                     mViewModel.usersAdapter.setNewItems(it)
                 } else {
-                    if (currentPage == 1) {
-                        mViewModel.usersAdapter.setNewItems(it)
+                    if (mViewModel.usersList.value!!.size == 0) {
+                        mBinding.tvNoDataFound.visibility = View.VISIBLE
                     }
                 }
+
 
             })
 
             myFriends.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    mViewModel.selectFriendsAdapter.setNewItems(it)
+
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDataFound.visibility = View.GONE
+                    mViewModel.selectFriendsAdapter.addNewItems(it)
                 } else {
-                    if (currentPage == 1) {
-                        mViewModel.selectFriendsAdapter.setNewItems(it)
+                    if (mViewModel.myFriends.value!!.size == 0) {
+                        mBinding.tvNoDataFound.visibility = View.VISIBLE
                     }
                 }
-
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {
@@ -167,42 +175,44 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         }
     }
 
+
     private fun setupScrollListener() {
-        mBinding.apply {
 
-            if (arguments?.getString(getString(R.string.challenge_type)).equals(getString(R.string.yes))) {
-                recycler.setOnScrollChangeListener { _, _, _, _, _ ->
+        if (isChallenegeType) {
+            mEndlessMyChallengesRecyclerViewScrollListener =
+                object :
+                    EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                    override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                        Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.usersList.value?.size)
 
-                    if (mViewModel.myFriends.value?.isNotEmpty()!!) {
-                        val view = recycler.getChildAt(recycler.childCount - 1)
-                        val diff = view.bottom - (recycler.height + recycler.scrollY)
-                        val offset = mViewModel.myFriends.value?.size
-                        if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allFriendsLoaded) {
+                        if (mViewModel.usersList.value!!.size % 10 == 0 && mViewModel.usersList.value!!.size != 0) {
                             mViewModel.getMyUsers()
                         }
+
                     }
-
-
                 }
+        } else {
+            mEndlessMyChallengesRecyclerViewScrollListener =
+                object :
+                    EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                    override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                        Log.e("ONLOADMOREAllUsers", "Onloadmore" + mViewModel.usersList.value?.size)
 
-            } else {
-                recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-
-                    if (mViewModel.usersList.value?.isNotEmpty()!!) {
-                        val view = recycler.getChildAt(recycler.childCount - 1)
-                        val diff = view.bottom - (recycler.height + recycler.scrollY)
-                        val offset = mViewModel.usersList.value?.size
-                        if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allUsersLoaded) {
+                        if (mViewModel.usersList.value!!.size % 10 == 0 && mViewModel.usersList.value!!.size != 0) {
                             mViewModel.getUsers()
                         }
+
                     }
-
-
                 }
-
-            }
-
         }
+
+
+
+
+
+        mBinding.recycler.addOnScrollListener(mEndlessMyChallengesRecyclerViewScrollListener!!)
+
+
     }
 
 

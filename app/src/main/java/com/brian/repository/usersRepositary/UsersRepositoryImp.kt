@@ -37,9 +37,9 @@ class UsersRepositoryImp(private val usersDataSource: UsersDataSource) :
             }
         }    }
 
-    override fun getMyFriends(onResult: (isSuccess: Boolean, message: String, response: ResponseMyFriends?) -> Unit) {
+    override fun getMyFriends(page:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseMyFriends?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = usersDataSource.getMyFriends()
+            val response = usersDataSource.getMyFriends(page)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {

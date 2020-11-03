@@ -13,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.models.LoginData
 import com.bumptech.glide.Glide
@@ -29,6 +30,15 @@ import java.io.InputStream
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
+
+
+operator fun <T> MutableLiveData<ArrayList<T>>.plusAssign(values: List<T>) {
+    val value = (this.value ?: ArrayList()).apply {
+        addAll(values)
+    }
+    this.value = value
+}
 
 
 class Utils private constructor() {
@@ -51,7 +61,9 @@ class Utils private constructor() {
                     .into(image)
             }
         }
+
     }
+
 
     fun toTextRequestBody(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())

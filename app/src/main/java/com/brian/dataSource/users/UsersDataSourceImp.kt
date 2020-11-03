@@ -9,7 +9,7 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
     override suspend fun getSearchUsers(queryParams: SearchQuery): ResponseSearchUsers {
         var response = ResponseSearchUsers()
         try {
-            response = apiService.searchUsers(queryParams)
+            response = apiService.searchUsers(queryParams.page!!,queryParams)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -20,7 +20,7 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
     override suspend fun getSearchMyUsers(queryParams: SearchQuery): ResponseMyFriends {
         var response = ResponseMyFriends()
         try {
-            response = apiService.searchMyUsers(queryParams)
+            response = apiService.searchMyUsers(queryParams.page!!,queryParams)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -28,10 +28,10 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
         return response
     }
 
-    override suspend fun getMyFriends(): ResponseMyFriends {
+    override suspend fun getMyFriends(page:Int): ResponseMyFriends {
         var response = ResponseMyFriends()
         try {
-            response = apiService.getMyFriends()
+            response = apiService.getMyFriends(page)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

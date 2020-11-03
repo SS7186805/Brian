@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.trainingVideosRepositary.TrainingAndBuzzRepository
+import com.brian.viewModels.buzzFeed.BuzzFeedViewModel
 
 class BuzzFeedViewModelFactory(
     private val trainingVideosRepository: TrainingAndBuzzRepository, private val resourcesProvider: ResourcesProvider

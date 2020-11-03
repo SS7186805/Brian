@@ -22,6 +22,10 @@ class VideoViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_video_view)
         initializePlayer(intent.getStringExtra(getString(R.string.training_videos)))
 
+        if (intent.getStringExtra(getString(R.string.training_videos)).endsWith(".mp3")) {
+            ivAudio.visibility = View.VISIBLE
+        }
+
         ivBack.setOnClickListener {
             super.onBackPressed()
         }

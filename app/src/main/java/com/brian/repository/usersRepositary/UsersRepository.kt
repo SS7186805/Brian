@@ -26,6 +26,7 @@ interface UsersRepository {
 
 
     fun getMyFriends(
+        page:Int,
         onResult: (
             isSuccess: Boolean,
             message: String,

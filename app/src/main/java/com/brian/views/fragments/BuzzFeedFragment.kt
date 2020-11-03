@@ -2,6 +2,7 @@ package com.brian.views.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,24 +10,27 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.BuzzFeedBinding
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
-import com.brian.viewModels.trainingVideos.BuzzFeedViewModel
+import com.brian.viewModels.buzzFeed.BuzzFeedViewModel
 import com.brian.viewModels.trainingVideos.BuzzFeedViewModelFactory
 import com.brian.views.adapters.BuzzFeedAdapter
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import java.text.FieldPosition
 
 class BuzzFeedFragment : ScopedFragment(), KodeinAware {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: BuzzFeedViewModelFactory by instance()
     lateinit var mBinding: BuzzFeedBinding
     lateinit var mViewModel: BuzzFeedViewModel
+    var mEndlessBuzzFeedViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -58,7 +62,10 @@ class BuzzFeedFragment : ScopedFragment(), KodeinAware {
 
 
         override fun onVideoClick(position: Int) {
-            findNavController().navigate(R.id.buzzFeedDetailsFragment, bundleOf(getString(R.string.buzz_feed_details) to mViewModel.feedList.value!![position]))
+            findNavController().navigate(
+                R.id.buzzFeedDetailsFragment,
+                bundleOf(getString(R.string.buzz_feed_details) to mViewModel.feedList.value!![position])
+            )
         }
 
     }
@@ -74,8 +81,13 @@ class BuzzFeedFragment : ScopedFragment(), KodeinAware {
             })
 
             feedList.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    mViewModel.buzzFeedAdapter.addNewItems(it)
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDatFound.visibility = View.GONE
+                    mViewModel.buzzFeedAdapter.setNewItems(it)
+                } else {
+                    if (mViewModel.feedList.value!!.size == 0) {
+                        mBinding.tvNoDatFound.visibility = View.VISIBLE
+                    }
                 }
 
             })
@@ -87,19 +99,26 @@ class BuzzFeedFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun setupScrollListener() {
-        mBinding.apply {
-            recyclerFeed.setOnScrollChangeListener { _, _, _, _, _ ->
-                val view = recyclerFeed.getChildAt(recyclerFeed.childCount - 1)
-                val diff = view.bottom - (recyclerFeed.height + recyclerFeed.scrollY)
-                val offset = mViewModel.feedList.value?.size
-                if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allVideosLoaded) {
-                    mViewModel.getBuzzFeed()
+
+        mEndlessBuzzFeedViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recyclerFeed.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.feedList.value?.size)
+
+                    if (mViewModel.feedList.value!!.size % 10 == 0 && mViewModel.feedList.value!!.size != 0) {
+                        mViewModel.getBuzzFeed()
+                    }
+
                 }
             }
 
-        }
-    }
 
+
+        mBinding.recyclerFeed.addOnScrollListener(mEndlessBuzzFeedViewScrollListener!!)
+
+
+    }
 
     private fun setupRecyclers() {
         mBinding.apply {

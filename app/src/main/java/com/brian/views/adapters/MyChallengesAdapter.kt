@@ -52,10 +52,21 @@ class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: Res
 
         }
 
-        holder.binding.accept.setOnClickListener {
-            if (holder.binding.accept.text.contains("Approve")) {
-                listener?.onAprroveClick()
-            }
+        holder.binding.approve.setOnClickListener {
+
+            listener?.onApproveRejectChallenge(position, 1)
+
+        }
+
+        holder.binding.reject.setOnClickListener {
+
+            listener?.onApproveRejectChallenge(position, 2)
+
+        }
+
+
+        holder.binding.cancelChallenge.setOnClickListener {
+            listener?.onCancelChallenge(position)
         }
 
 
@@ -63,7 +74,8 @@ class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: Res
 
 
     interface onViewClick {
-        fun onAprroveClick()
+        fun onCancelChallenge(position: Int)
+        fun onApproveRejectChallenge(position: Int, status: Int)
 
     }
 
