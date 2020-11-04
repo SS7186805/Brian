@@ -89,4 +89,17 @@ class UsersRepositoryImp(private val usersDataSource: UsersDataSource) :
             }
         }
     }
+
+    override fun removeFriend(
+        queryParams: SendRequestParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = usersDataSource.removeFriend(queryParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
 }

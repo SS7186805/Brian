@@ -66,10 +66,6 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
 
     override fun onResume() {
         super.onResume()
-
-
-
-
         if (getActivity()?.getIntent()?.getExtras()?.getParcelableArrayList<MyFriendsDataItem>(
                 "key"
             ) != null
@@ -151,8 +147,10 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
 
             findNavController().navigate(
                 R.id.usersFragment,
-                bundleOf(getString(R.string.challenge_type) to getString(R.string.yes),
-                    getString(R.string.no) to getString(R.string.no))
+                bundleOf(
+                    getString(R.string.challenge_type) to getString(R.string.yes),
+                    getString(R.string.no) to getString(R.string.no)
+                )
             )
 
 

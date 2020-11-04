@@ -72,5 +72,15 @@ class UsersDataSourceImp(private val apiService: APIService) : UsersDataSource {
         return response
     }
 
+    override suspend fun removeFriend(queryParams: SendRequestParams): BaseResponse {
+        var response = BaseResponse()
+        try {
+            response = apiService.removeFriend(queryParams)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response    }
+
 
 }

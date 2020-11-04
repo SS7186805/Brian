@@ -211,6 +211,25 @@ class UsersViewModel(
         }
     }
 
+    fun removeFriend(position: Int) {
+        showLoading.postValue(true)
+        sendRequestParams.receiver_user_id = myFriends.value!![position].senderUserId.toString()
+        usersRepository.removeFriend(sendRequestParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                usersAdapter.list[position].reqSendByOther = resourcesProvider.getString(R.string.No)
+                usersAdapter.list[position].reqSendBySelf = resourcesProvider.getString(R.string.No)
+                usersAdapter.list[position].isAccepted = resourcesProvider.getString(R.string.No)
+                usersAdapter.notifyItemChanged(position)
+
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
 
     fun getMyFriends() {
         showLoading.postValue(true)

@@ -100,13 +100,17 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
         override fun viewUserProfile(position: Int) {
 
+            Log.e("positionnn", position.toString())
+
             var id = ""
             if (isChallenegeType) {
                 id = mViewModel.myFriends.value!![position].senderUserId.toString()
             } else {
-                id = mViewModel.usersList.value!![position].senderId.toString()
+                id = mViewModel.usersList.value!![position].id.toString()
 
             }
+
+            Log.e("IDDD", "IDD${id.toString()}")
             findNavController().navigate(
                 R.id.userProfileFragment,
                 bundleOf(getString(R.string.user_id) to id)
@@ -129,6 +133,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         }
 
         override fun removeFriend(position: Int) {
+            mViewModel.removeFriend(position)
+
         }
 
     }

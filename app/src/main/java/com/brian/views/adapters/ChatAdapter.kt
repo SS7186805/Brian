@@ -3,14 +3,19 @@ package com.brian.views.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
 import com.brian.base.Prefs
 import com.brian.internals.Utils
 import com.brian.models.AllMessagesDataItem
 import com.brian.providers.resources.ResourcesProvider
+import com.bumptech.glide.Glide
 
 class ChatAdapter(
     resourcesProvider: ResourcesProvider,
@@ -77,16 +82,37 @@ class ChatAdapter(
         RecyclerView.ViewHolder(itemView) {
 
         fun setData(chatModel: AllMessagesDataItem) {
+
+
             var tvMessage = itemView.findViewById<TextView>(R.id.tvMessage)
             var tvTime = itemView.findViewById<TextView>(R.id.tvTime)
+            var videoImage = itemView.findViewById<CardView>(R.id.videoImage)
+            var ivVideo = itemView.findViewById<ImageView>(R.id.ivVideo)
 
-            tvMessage.setText(chatModel.message)
+            if (chatModel.typeOfFile?.toString().equals("video")) {
+                tvMessage.visibility = GONE
+                videoImage.visibility = VISIBLE
+                Glide.with(videoImage.context).load(chatModel.fileName).centerCrop()
+                    .placeholder(R.drawable.ic_use_r)
+                    .into(ivVideo)
+
+
+            } else {
+                tvMessage.setText(chatModel.message)
+                tvMessage.visibility = VISIBLE
+                videoImage.visibility = GONE
+
+            }
+
+
+
             if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
                 tvTime.setText(Utils.init.get24HourTime(chatModel.createdAt.toString()))
             } else {
                 tvTime.setText(Utils.init.get12HourTime(chatModel.createdAt.toString()))
             }
         }
+
 
         init {
             /*  ButterKnife.bind(this, itemView)
@@ -102,10 +128,30 @@ class ChatAdapter(
 
 
         fun setData(chatModel: AllMessagesDataItem) {
+
+
             var tvMessage = itemView.findViewById<TextView>(R.id.tvMessage)
             var tvTime = itemView.findViewById<TextView>(R.id.tvTime)
+            var videoImage = itemView.findViewById<CardView>(R.id.videoImage)
+            var ivVideo = itemView.findViewById<ImageView>(R.id.ivVideo)
 
-            tvMessage.setText(chatModel.message)
+            if (chatModel.typeOfFile?.toString().equals("video")) {
+                tvMessage.visibility = GONE
+                videoImage.visibility = VISIBLE
+                Glide.with(videoImage.context).load(chatModel.fileName).centerCrop()
+                    .placeholder(R.drawable.ic_use_r)
+                    .into(ivVideo)
+
+
+            } else {
+                tvMessage.setText(chatModel.message)
+                tvMessage.visibility = VISIBLE
+                videoImage.visibility = GONE
+
+            }
+
+
+
             if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
                 tvTime.setText(Utils.init.get24HourTime(chatModel.createdAt.toString()))
             } else {

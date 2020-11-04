@@ -3,6 +3,7 @@ package com.brian.viewModels.messages
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.internals.plusAssign
 import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.messages.MessagesRepository
@@ -22,8 +23,10 @@ class MessagesViewModel(
         MutableLiveData<ArrayList<AllMessagesDataItem>>().apply { value = ArrayList() }
     var sendMessageResponse = MutableLiveData<ResponseSendMessage>()
     var getAllChatParams = GetAllMessagesParams()
+    var removeChatParams = GetAllMessagesParams()
     var createChatRoomParams = CreateChatRoomParams()
     var resCreateChatRoomParams = MutableLiveData<ResponseCreateChatRoom>()
+    var removeChat = MutableLiveData<BaseResponse>()
 
     lateinit var messagesAdapter: MyMessagesAdapter
     lateinit var chatAdapter: ChatAdapter
@@ -53,12 +56,12 @@ class MessagesViewModel(
     fun getAllChats() {
 
         showLoading.postValue(true)
-        messagesRepository.getMessages() { isSuccess, message, response ->
+        messagesRepository.getMessages(currentPageAllChats) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
                 allChatsLoaded = response?.data?.data.isNullOrEmpty()
-                currentPageAllChats = response?.data?.currentPage!!
-                allChats.postValue(response?.data.data)
+                currentPageAllChats = response?.data?.currentPage!! + 1
+                allChats += response?.data.data!!
             } else {
                 showMessage.postValue(message)
             }
@@ -103,6 +106,22 @@ class MessagesViewModel(
             }
 
         }
+    }
+
+    fun removeChat() {
+        showLoading.postValue(true)
+        messagesRepository.removeChat(removeChatParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                removeChat.postValue(response)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+
+
     }
 
 

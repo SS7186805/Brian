@@ -59,7 +59,7 @@ data class SearchUsersData(
 data class UserDataItem(
 
 	@field:SerializedName("is_accepted")
-	val isAccepted: String? = null,
+	var isAccepted: String? = null,
 
 	@field:SerializedName("is_block")
 	val isBlock: Int? = null,

@@ -10,9 +10,9 @@ class MessagesRepositoryImp(private val messagesDataSource: MessagesDataSource) 
     MessagesRepository {
 
 
-    override fun getMessages(onResult: (isSuccess: Boolean, message: String, response: ResponseAllChats?) -> Unit) {
+    override fun getMessages( page:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseAllChats?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = messagesDataSource.getAllChats()
+            val response = messagesDataSource.getAllChats(page)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
@@ -62,4 +62,17 @@ class MessagesRepositoryImp(private val messagesDataSource: MessagesDataSource) 
             }
         }
     }
+
+    override fun removeChat(
+        sendMessageParams: GetAllMessagesParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = messagesDataSource.removeChat(sendMessageParams)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
 }

@@ -4,10 +4,11 @@ import com.brian.models.*
 
 interface MessagesDataSource {
 
-    suspend fun getAllChats() : ResponseAllChats
+    suspend fun getAllChats( page:Int) : ResponseAllChats
     suspend fun sendMessage(sendMessageParams: SendMessageParams) : ResponseSendMessage
     suspend fun getAllMessages(sendMessageParams: GetAllMessagesParams) : ResponseGetAllMessages
     suspend fun createChatRoom(sendMessageParams: CreateChatRoomParams) : ResponseCreateChatRoom
+    suspend fun removeChat(sendMessageParams: GetAllMessagesParams) : BaseResponse
 
 
 

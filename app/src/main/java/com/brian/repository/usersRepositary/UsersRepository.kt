@@ -23,10 +23,8 @@ interface UsersRepository {
     )
 
 
-
-
     fun getMyFriends(
-        page:Int,
+        page: Int,
         onResult: (
             isSuccess: Boolean,
             message: String,
@@ -58,6 +56,16 @@ interface UsersRepository {
             isSuccess: Boolean,
             message: String,
             response: ResponseSendRequest?
+        ) -> Unit
+    )
+
+
+    fun removeFriend(
+        queryParams: SendRequestParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
         ) -> Unit
     )
 

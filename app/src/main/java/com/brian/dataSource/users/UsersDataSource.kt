@@ -10,6 +10,7 @@ interface UsersDataSource {
     suspend fun sendRequest(queryParams: SendRequestParams) : ResponseSendRequest
     suspend fun cancelRequest(queryParams: SendRequestParams) : ResponseSendRequest
     suspend fun acceptRejectRequest(queryParams: SendRequestParams) : ResponseSendRequest
+    suspend fun removeFriend(queryParams: SendRequestParams) : BaseResponse
 
 
 

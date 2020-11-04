@@ -64,7 +64,7 @@ data class AllMessagesDataItem(
 	val thumbnailVideo: Any? = null,
 
 	@field:SerializedName("file_name")
-	val fileName: Any? = null,
+	val fileName: String? = null,
 
 	@field:SerializedName("chat_room_id")
 	val chatRoomId: Int? = null,
@@ -73,7 +73,7 @@ data class AllMessagesDataItem(
 	val createdAt: String? = null,
 
 	@field:SerializedName("type_of_file")
-	val typeOfFile: Any? = null,
+	val typeOfFile: String? = null,
 
 	@field:SerializedName("other_user_detail")
 	val otherUserDetail: OtherUserDetail? = null,

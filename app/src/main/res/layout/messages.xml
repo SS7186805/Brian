@@ -53,6 +53,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvLastMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -61,7 +62,6 @@
             android:ellipsize="end"
             android:fontFamily="@font/century_gothic"
             android:singleLine="true"
-            android:text="@{item.lastMessage.message}"
             android:textColor="#aaaaaa"
             android:textSize="@dimen/px35"
             app:layout_constraintEnd_toStartOf="@id/tvTime"

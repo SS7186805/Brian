@@ -5,12 +5,14 @@ import com.brian.models.*
 interface MessagesRepository {
 
     fun getMessages(
+        page: Int,
         onResult: (
             isSuccess: Boolean,
             message: String,
             response: ResponseAllChats?
         ) -> Unit
     )
+
     fun sendMessage(
         sendMessageParams: SendMessageParams,
         onResult: (
@@ -36,6 +38,15 @@ interface MessagesRepository {
             isSuccess: Boolean,
             message: String,
             response: ResponseCreateChatRoom?
+        ) -> Unit
+    )
+
+    fun removeChat(
+        sendMessageParams: GetAllMessagesParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
         ) -> Unit
     )
 

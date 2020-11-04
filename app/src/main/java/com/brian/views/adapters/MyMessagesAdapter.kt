@@ -1,5 +1,6 @@
 package com.brian.views.adapters
 
+import android.util.Log
 import com.brian.base.BaseRecyclerAdapter
 import com.brian.databinding.MessagesBinding
 import com.brian.internals.Utils
@@ -14,6 +15,16 @@ class MyMessagesAdapter(override val layoutId: Int, var resourcesProvider: Resou
 
     override fun bind(holder: ViewHolder, item: AllChatsDataItem, position: Int) {
         holder.binding.item = item
+
+
+        Log.e("LastMessage","L${item.lastMessage?.message.toString()}")
+
+        if (item.lastMessage?.message.isNullOrBlank() || item.lastMessage?.message.toString().equals("null")) {
+            holder.binding.tvLastMessage.setText("video")
+        }
+        else{
+            holder.binding.tvLastMessage.setText(item.lastMessage?.message)
+        }
 
         if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
             holder.binding.tvTime.setText(Utils.init.get24HourTime(item.lastMessage?.createdAt.toString()))

@@ -3,14 +3,17 @@ package com.brian.views.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.MessagesFragmentBinding
 import com.brian.internals.SwipeToDeleteCallback
@@ -20,10 +23,7 @@ import com.brian.internals.showToast
 import com.brian.viewModels.messages.MessagesViewModel
 import com.brian.viewModels.messages.MessagesViewModelFactory
 import com.brian.views.activities.ChatActivity
-import com.brian.views.adapters.MessageData
 import com.brian.views.adapters.MyMessagesAdapter
-import com.brian.views.adapters.SwipeToDeleteAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemSwipeListener
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
@@ -34,19 +34,8 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     lateinit var mBinding: MessagesFragmentBinding
     lateinit var mViewModel: MessagesViewModel
     private val mClickHandler = ClickHandler()
-    private lateinit var mAdapter: SwipeToDeleteAdapter
-    private val onItemSwipeListener = object : OnItemSwipeListener<MessageData> {
-        override fun onItemSwiped(
-            position: Int,
-            direction: OnItemSwipeListener.SwipeDirection,
-            item: MessageData
-        ): Boolean {
-            // Handle action of item swiped
-            // Return false to indicate that the swiped item should be removed from the adapter's data set (default behaviour)
-            // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
-            return false
-        }
-    }
+    var mEndlessFriendsecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
+    var removePosition = 0
 
 
     override fun onCreateView(
@@ -69,7 +58,7 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
 
     override fun onResume() {
         super.onResume()
-
+        mViewModel.currentPageAllChats = 1
         mViewModel.allChats.value?.clear()
         mViewModel.messagesAdapter.clearData()
         mViewModel.getAllChats()
@@ -127,15 +116,24 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
             })
 
             allChats.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
-                    messagesAdapter.addNewItems(it)
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNoDataFound.visibility = View.GONE
+                    mViewModel.messagesAdapter.setNewItems(it)
+                } else {
+                    if (mViewModel.allChats.value!!.size == 0) {
+                        mBinding.tvNoDataFound.visibility = View.VISIBLE
+                    }
                 }
 
-                if(allChats.value.isNullOrEmpty()){
-                    mBinding.tvNobadges.visibility=View.VISIBLE
-                }else{
-                    mBinding.tvNobadges.visibility=View.GONE
+
+            })
+
+            removeChat.observe(viewLifecycleOwner, Observer {
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    mViewModel.messagesAdapter.removeItem(removePosition)
+
                 }
+
 
             })
 
@@ -146,28 +144,35 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun setupScrollListener() {
-        mBinding.apply {
-            recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-                if (mViewModel.allChats.value?.isNotEmpty()!!) {
-                    val view = recycler.getChildAt(recycler.childCount - 1)
-                    val diff = view.bottom - (recycler.height + recycler.scrollY)
-                    val offset = mViewModel.allChats.value?.size
-                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChatsLoaded) {
+
+        mEndlessFriendsecyclerViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.allChats.value?.size)
+
+                    if (mViewModel.allChats.value!!.size % 10 == 0 && mViewModel.allChats.value!!.size != 0) {
                         mViewModel.getAllChats()
                     }
-                }
 
+                }
             }
 
-        }
+
+
+        mBinding.recycler.addOnScrollListener(mEndlessFriendsecyclerViewScrollListener!!)
+
+
     }
 
 
     private fun enableSwipeToDelete() {
         val swipeToDeleteCallback = object : SwipeToDeleteCallback(requireContext()) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                val position = viewHolder.adapterPosition
-                mViewModel.messagesAdapter.removeItem(position)
+                removePosition = viewHolder.adapterPosition
+                mViewModel.removeChatParams.chat_room_id =
+                    mViewModel.allChats.value!![removePosition].lastMessage?.chatRoomId
+                mViewModel.removeChat()
 
 
             }
