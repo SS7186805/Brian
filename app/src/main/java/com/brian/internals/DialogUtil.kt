@@ -48,6 +48,17 @@ class DialogUtil() {
                     builder.yesNoDialogClickListener?.onClickNo()
                 }
             }
+            DialogType.YES_NO_TYPE -> {
+                dialog?.setContentView(R.layout.layout_custom_error)
+                dialog?.btYes?.setOnClickListener {
+                    dialog?.cancel()
+                    builder.yesNoDialogClickListener?.onClickYes()
+                }
+                dialog?.btNo?.setOnClickListener {
+                    dialog?.cancel()
+                    builder.yesNoDialogClickListener?.onClickNo()
+                }
+            }
 
 
         }

@@ -6,7 +6,7 @@ import com.brian.models.LeaderboardDataItem
 import com.brian.providers.resources.ResourcesProvider
 
 
-class LeaderboardChallengeAdapter(
+class LeaderboardPlayerAdapter(
     override val layoutId: Int,
     var resourcesProvider: ResourcesProvider
 ) : BaseRecyclerAdapter<LeaderboardBinding, LeaderboardDataItem>() {
@@ -29,7 +29,8 @@ class LeaderboardChallengeAdapter(
         }
 
 
-        holder.binding.tvChallenges.setText("${item.weeklyCompleteChallenge} ${if (item.weeklyCompleteChallenge == 1) "Challenge" else "Challenges"}")
+
+        holder.binding.tvChallenges.setText("${item.weeklySituation?.toInt()}% Situations")
 
 
     }

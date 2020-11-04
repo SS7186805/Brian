@@ -8,6 +8,7 @@ import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.homeRepository.HomeRepository
 import com.brian.views.adapters.LeaderboardChallengeAdapter
+import com.brian.views.adapters.LeaderboardPlayerAdapter
 import com.brian.views.adapters.MyTeamMembersAdapter
 import com.brian.views.adapters.MyTeamsAdapter
 
@@ -19,10 +20,11 @@ class HomeViewModel(
     var list = ArrayList<DataItem>()
     var data = MutableLiveData<QuestionData>()
     var homeData = MutableLiveData<ArrayList<DataManagementDataItem>>()
+    var questionsId = 0
 
 
     lateinit var myChallengesAdapter: LeaderboardChallengeAdapter
-    lateinit var playersAdapter: LeaderboardChallengeAdapter
+    lateinit var playersAdapter: LeaderboardPlayerAdapter
     lateinit var myTeamsAdapter: MyTeamsAdapter
     lateinit var teamPlayersAdapter: MyTeamMembersAdapter
     var challenges =
@@ -38,6 +40,11 @@ class HomeViewModel(
     var allTeamsLoaded = false
 
     var createTeamParams = CreateTeamParams()
+    var submitAnswerParams = SubmitAnswerParams()
+    var selectDefensiveId = 0
+
+    var currentPageChallenges = 1
+    var currentPagePlayers = 1
 
 
     init {
@@ -50,7 +57,7 @@ class HomeViewModel(
             R.layout.leaderboard, resourcesProvider
 
         )
-        playersAdapter = LeaderboardChallengeAdapter(
+        playersAdapter = LeaderboardPlayerAdapter(
             R.layout.leaderboard, resourcesProvider
 
         )
@@ -68,6 +75,19 @@ class HomeViewModel(
     }
 
 
+    fun getSelectDefensive() {
+        homeRepository.getSelectDefensive(submitAnswerParams)
+        { isSuccess, message, response ->
+            if (isSuccess) {
+                selectDefensiveId = response?.data?.id!!
+
+            } else {
+
+            }
+        }
+    }
+
+
     fun getDefensive() {
         homeRepository.getDefensive()
         { isSuccess, message, response ->
@@ -79,13 +99,25 @@ class HomeViewModel(
         }
     }
 
+    fun submitAnswer() {
+        homeRepository.submitAnswer(submitAnswerParams)
+        { isSuccess, message, response ->
+            if (isSuccess) {
+
+            } else {
+
+            }
+        }
+    }
+
     fun questionRespone() {
         showLoading.postValue(true)
-        homeRepository.questionResponse() { isSuccess, message, response ->
+        homeRepository.questionResponse(questionsId) { isSuccess, message, response ->
+            showLoading.postValue(false)
             if (isSuccess) {
                 data.postValue(response?.data!!)
-                showLoading.postValue(false)
             } else {
+                showMessage.postValue(message)
 
             }
 

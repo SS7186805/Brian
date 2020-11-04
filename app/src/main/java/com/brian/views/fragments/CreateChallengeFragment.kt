@@ -27,6 +27,7 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
     private val viewModelFactory: ChallengesViewModelFactory by instance()
     lateinit var mBinding: CreateChallengeFragmentBinding
     lateinit var mViewModel: ChallengesViewModel
+    var newChallenge = ""
 
 
     override fun onCreateView(
@@ -41,8 +42,12 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
         }
         mBinding.toolbar.tvTitle.text = getString(R.string.create_challenge)
         mBinding.toolbar.ivBack.setOnClickListener {
+            getActivity()?.getIntent()?.removeExtra("id")
+            getActivity()?.getIntent()?.removeExtra("key")
             findNavController().navigateUp()
         }
+
+        mBinding.challengeTitle.clearFocus()
 
         Log.e("OnCreateChallenge", "sdsd")
         setupObserver()
@@ -62,37 +67,16 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
     override fun onResume() {
         super.onResume()
 
-        if (getActivity()?.getIntent()?.getExtras()?.getParcelableArrayList<MyFriendsDataItem>("key") != null) {
-            var selectedUsers = getActivity()?.getIntent()?.getExtras()
-                ?.getParcelableArrayList<MyFriendsDataItem>("key")
-            var selectedUsersNames = ""
-            var selecteduserIds = ""
 
-            if (selectedUsers?.isNotEmpty()!!) {
 
-                for (user in selectedUsers!!) {
-                    selectedUsersNames = "${selectedUsersNames}, ${user.uname}"
-                }
 
-                for (user in selectedUsers!!) {
-                    selecteduserIds = "${selecteduserIds}, ${user.otherUserDetail?.id}"
-                }
+        if (getActivity()?.getIntent()?.getExtras()?.getParcelableArrayList<MyFriendsDataItem>(
+                "key"
+            ) != null
+        ) {
+            setUsersData()
 
-                selectedUsersNames =
-                    selectedUsersNames.substring(1, selectedUsersNames.length).trim()
-
-                selecteduserIds =
-                    selecteduserIds.substring(1, selecteduserIds.length).trim()
-                mBinding.selectUser.setText(selectedUsersNames)
-                mViewModel.createChallengeParams.challenge_to_user = selecteduserIds
-            }
         }
-
-
-        Log.e(
-            "IDDD",
-            "xbdbfd${getActivity()?.getIntent()?.getExtras()?.getString(getString(R.string.id))}"
-        )
         if (getActivity()?.getIntent()?.getExtras()?.getString(getString(R.string.id)) != null) {
             mViewModel.createChallengeParams.challenge_id =
                 getActivity()?.getIntent()?.getExtras()?.getString(getString(R.string.id))
@@ -105,6 +89,41 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
             )
 
         }
+    }
+
+
+    fun setUsersData() {
+        var selectedUsers = getActivity()?.getIntent()?.getExtras()
+            ?.getParcelableArrayList<MyFriendsDataItem>("key")
+        var selectedUsersNames = ""
+        var selecteduserIds = ""
+
+        if (selectedUsers?.isNotEmpty()!!) {
+
+            for (user in selectedUsers!!) {
+                selectedUsersNames = "${selectedUsersNames}, ${user.uname}"
+            }
+
+            for (user in selectedUsers!!) {
+                selecteduserIds = "${selecteduserIds}, ${user.otherUserDetail?.id}"
+            }
+
+            selectedUsersNames =
+                selectedUsersNames.substring(1, selectedUsersNames.length).trim()
+
+            selecteduserIds =
+                selecteduserIds.substring(1, selecteduserIds.length).trim()
+            mBinding.selectUser.setText(selectedUsersNames)
+            mViewModel.createChallengeParams.challenge_to_user = selecteduserIds
+        }
+    }
+
+    fun clearData() {
+        mBinding.challengeTitle.setText("")
+        mBinding.selectUser.setText("")
+        mBinding.selectDate.setText("")
+        mBinding.selectChallengeType.setText("")
+
     }
 
     private fun setupViewModel() {
@@ -132,7 +151,8 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
 
             findNavController().navigate(
                 R.id.usersFragment,
-                bundleOf(getString(R.string.challenge_type) to getString(R.string.yes))
+                bundleOf(getString(R.string.challenge_type) to getString(R.string.yes),
+                    getString(R.string.no) to getString(R.string.no))
             )
 
 

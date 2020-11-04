@@ -40,6 +40,7 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         setupViewModel()
         mBinding = MyFriendsFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel

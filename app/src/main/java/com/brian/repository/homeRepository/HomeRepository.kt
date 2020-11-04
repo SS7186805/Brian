@@ -11,7 +11,27 @@ interface HomeRepository {
         ) -> Unit
     )
 
+    fun getSelectDefensive(
+        params: SubmitAnswerParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
+        ) -> Unit
+    )
+
+    fun submitAnswer(
+        params: SubmitAnswerParams,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: BaseResponse?
+        ) -> Unit
+    )
+
+
     fun questionResponse(
+        id: Int,
         onResult: (
             isSuccess: Boolean,
             message: String,

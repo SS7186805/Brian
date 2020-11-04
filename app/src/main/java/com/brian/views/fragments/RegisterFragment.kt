@@ -13,7 +13,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
-import android.text.method.Touch
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -21,7 +20,9 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.loader.content.CursorLoader
@@ -30,15 +31,16 @@ import com.brian.R
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentRegisterBinding
-import com.brian.internals.*
+import com.brian.internals.ClickGuard
+import com.brian.internals.DialogUtil
+import com.brian.internals.Utils
+import com.brian.internals.keyboardListener
 import com.brian.models.LoginData
 import com.brian.viewModels.register.RegisterViewModel
 import com.brian.viewModels.register.RegisterViewModelFactory
 import com.brian.views.activities.AccountHandlerActivity
 import com.brian.views.activities.HomeActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.util.Util
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -94,7 +96,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
         mBinding.apply {
             regUserType.setAdapter(arrayAdapter)
-            regUserType.threshold=100
+            regUserType.threshold = 100
             regUserType.setOnClickListener {
                 regUserType.showDropDown()
             }
@@ -325,6 +327,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             mViewModel.isediting = true
             mBinding.regPassword.visibility = GONE
             mBinding.regCnfPassword.visibility = GONE
+            mBinding.regUserType.isEnabled = false
             mBinding.registerButton.setText(getString(R.string.update))
             mBinding.toolbar.tvTitle.setText(getString(R.string.editProfile))
 //            mBinding.regName.setText(getString(R.string.user_name))
@@ -344,6 +347,7 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
                 email = login?.email
 
                 if (login?.profilePicture == null) {
+
                     Glide.with(requireContext()).load(R.drawable.ic_use_r)
                         .into(mBinding.circlerImage)
                 } else {

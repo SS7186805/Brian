@@ -21,9 +21,35 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
 
     }
 
-    override fun questionResponse(onResult: (isSuccess: Boolean, message: String, response: QuestionResponse?) -> Unit) {
+    override fun getSelectDefensive(
+        params: SubmitAnswerParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = homeDataSource.questionResponse()
+            val response = homeDataSource.getSelectDefensive(params)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
+
+    override fun submitAnswer(
+        params: SubmitAnswerParams,
+        onResult: (isSuccess: Boolean, message: String, response: BaseResponse?) -> Unit
+    ) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = homeDataSource.submitAnswers(params)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }    }
+
+    override fun questionResponse(id:Int,onResult: (isSuccess: Boolean, message: String, response: QuestionResponse?) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = homeDataSource.questionResponse(id)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {

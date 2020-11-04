@@ -4,9 +4,9 @@ import com.brian.models.*
 
 interface ChallengesDataSource {
 
-    suspend fun getChallenges(): ResponseChallengeType
-    suspend fun getMyChallenges(): ResponseMyChallenges
-    suspend fun getChallengesRequests(): ResponseMyChallenges
+    suspend fun getChallenges( id:Int): ResponseChallengeType
+    suspend fun getMyChallenges(id:Int): ResponseMyChallenges
+    suspend fun getChallengesRequests(id:Int): ResponseMyChallenges
     suspend fun createChallenge(queryParams: CreateChallengeParams): ResponseCreateChallenge
     suspend fun acceptChallengeRequest(queryParams: AcceptChallengeParams): BaseResponse
     suspend fun approveRejectMyChallenge(queryParams: AcceptChallengeParams): BaseResponse

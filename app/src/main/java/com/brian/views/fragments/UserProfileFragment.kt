@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.UserProfileFragmentBinding
-import com.brian.models.BadgesEarneda
+import com.brian.internals.Utils
+import com.brian.models.DataBadges
 import com.brian.models.LoginData
 import com.brian.viewModels.myProfile.MyProfileViewModel
 import com.brian.viewModels.myProfile.MyProfileViewModelFactory
@@ -66,7 +67,8 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     private fun setData(login: LoginData) {
 
         mBinding.type.text = login.userType
-        mBinding.dob.text = "Born on: ${login.dob}"
+        mBinding.dob.text =
+            "Born on: ${Utils.init.getUserProfileFormattedDate(login.dob.toString())}"
         mBinding.username.text = login.name
 
         if (login?.profilePicture == null) {
@@ -76,6 +78,13 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
         }
 
 
+        if (login.badgesEarneda?.data?.isNotEmpty()!!) {
+            mBinding.tvNobadges.visibility = View.GONE
+            setBadgesAdapter(login.badgesEarneda?.data!!)
+
+        } else {
+            mBinding.tvNobadges.visibility = View.VISIBLE
+        }
 
 
     }
@@ -86,9 +95,10 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    fun setBadgesAdapter(list: BadgesEarneda) {
+    fun setBadgesAdapter(list: ArrayList<DataBadges>) {
         mBinding.recycler.layoutManager = GridLayoutManager(requireContext(), 4)
         badgesAdapter = BadgesAdapter(R.layout.badge_item)
+        badgesAdapter!!.setNewItems(list)
         mBinding.recycler.adapter = badgesAdapter
 
     }

@@ -14,119 +14,116 @@
             type="com.brian.views.fragments.UserProfileFragment.ClickHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:background="@color/blackTheme"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blackTheme">
 
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"/>
+            layout="@layout/toolbar_layout" />
 
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/startGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.05"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:layout_width="wrap_content"
             android:id="@+id/endGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.97"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintGuide_percent="0.97" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="@dimen/margin_100"
             android:id="@+id/profilePic"
-            android:src="@drawable/ic_use_r"
+            android:layout_width="@dimen/margin_100"
+            android:layout_height="@dimen/margin_100"
             android:layout_marginTop="@dimen/margin_20"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:civ_border_color="@color/yellow"
+            app:civ_border_width="1dp"
+            android:src="@drawable/ic_use_r"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:layout_height="@dimen/margin_100"/>
-        
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:textColor="@color/yellow"
             android:id="@+id/username"
-            android:fontFamily="@font/century_gothic_bold"
-            android:textSize="@dimen/px55"
-            android:text="@string/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_10"
-            app:layout_constraintTop_toBottomOf="@id/profilePic"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/app_name"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/px55"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/profilePic" />
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/type"
-            android:textColor="#bdbcbc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
             android:fontFamily="@font/century_gothic"
-            android:textSize="@dimen/px50"
-            android:text="@string/player"
             android:includeFontPadding="false"
-            android:layout_marginTop="@dimen/margin_5"
-            app:layout_constraintTop_toBottomOf="@id/username"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/dob"
+            android:text="@string/player"
             android:textColor="#bdbcbc"
-            android:fontFamily="@font/century_gothic"
-            android:textSize="@dimen/px45"
-            android:text="@string/dob"
-            android:layout_marginTop="@dimen/margin_5"
-            app:layout_constraintTop_toBottomOf="@id/type"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/badges"
-            android:textColor="@color/yellow"
-            android:fontFamily="@font/century_gothic_bold"
             android:textSize="@dimen/px50"
-            android:layout_marginStart="@dimen/margin_10"
-            android:text="@string/badges_earned"
-            android:layout_marginTop="@dimen/margin_30"
-            app:layout_constraintTop_toBottomOf="@id/dob"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@id/username" />
 
         <TextView
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/badges"
-            android:text="@string/no_badges_found"
-            android:textColor="@color/yellow"
+            android:id="@+id/dob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_5"
+            android:fontFamily="@font/century_gothic"
+            android:text="@string/dob"
+            android:textColor="#bdbcbc"
+            android:textSize="@dimen/px45"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/type" />
+
+        <TextView
+            android:id="@+id/badges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_30"
             android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/badges_earned"
+            android:textColor="@color/yellow"
+            android:textSize="@dimen/px50"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/dob" />
+
+        <TextView
             android:id="@+id/tvNobadges"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/no_badges_found"
             android:textAlignment="center"
+            android:textColor="@color/yellow"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content"></TextView>
+            app:layout_constraintTop_toBottomOf="@id/badges"></TextView>
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="0dp"
             android:id="@+id/recycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_5"
-            app:layout_constraintTop_toBottomOf="@id/badges"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:layout_height="wrap_content"/>
-
-
-
-
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/badges" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

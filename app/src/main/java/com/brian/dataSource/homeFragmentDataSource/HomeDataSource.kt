@@ -4,8 +4,10 @@ import com.brian.models.*
 
 interface HomeDataSource {
     suspend fun getDefensive(): DefensiveResponse
+    suspend fun submitAnswers(submitAnswerParams: SubmitAnswerParams): BaseResponse
+    suspend fun getSelectDefensive(submitAnswerParams: SubmitAnswerParams): BaseResponse
 
-    suspend fun questionResponse() : QuestionResponse
+    suspend fun questionResponse(id:Int) : QuestionResponse
     suspend fun getChallenges() : ResponseLeaderboard
     suspend fun getPlayers() : ResponseLeaderboard
     suspend fun getStats() : ResponseMyStats

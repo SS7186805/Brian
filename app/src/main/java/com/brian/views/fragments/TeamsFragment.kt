@@ -43,7 +43,7 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
         setupRecyclers()
         setupScrollListener()
         mViewModel.getMyTeams()
-        mViewModel.myTeamsAdapter.listener=ClickHandler()
+        mViewModel.myTeamsAdapter.listener = ClickHandler()
 
 
         return mBinding.root
@@ -54,10 +54,13 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    inner class ClickHandler :MyTeamsAdapter.onClickEvents{
+    inner class ClickHandler : MyTeamsAdapter.onClickEvents {
 
         override fun onTeamClick(position: Int) {
-            findNavController().navigate(R.id.myTeamfragment, bundleOf(getString(R.string.team_player) to mViewModel.myTeams.value!![position].teamMembers))
+            findNavController().navigate(
+                R.id.myTeamfragment,
+                bundleOf(getString(R.string.team_player) to mViewModel.myTeams.value!![position].teamMembers)
+            )
         }
 
 
@@ -78,10 +81,10 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
                     mViewModel.myTeamsAdapter.setNewItems(it)
                 }
 
-                if(myTeams.value.isNullOrEmpty()){
-                    mBinding.tvNobadges.visibility=View.VISIBLE
-                }else{
-                    mBinding.tvNobadges.visibility=View.GONE
+                if (myTeams.value.isNullOrEmpty()) {
+                    mBinding.tvNobadges.visibility = View.VISIBLE
+                } else {
+                    mBinding.tvNobadges.visibility = View.GONE
                 }
 
             })

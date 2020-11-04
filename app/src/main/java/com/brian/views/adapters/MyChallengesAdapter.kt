@@ -52,6 +52,12 @@ class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: Res
 
         }
 
+        holder.binding.cardVideoImage.setOnClickListener {
+
+            listener?.onVideoClick(position, item.fileName.toString())
+
+        }
+
         holder.binding.approve.setOnClickListener {
 
             listener?.onApproveRejectChallenge(position, 1)
@@ -76,6 +82,7 @@ class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: Res
     interface onViewClick {
         fun onCancelChallenge(position: Int)
         fun onApproveRejectChallenge(position: Int, status: Int)
+        fun onVideoClick(position: Int, url: String)
 
     }
 

@@ -1,6 +1,5 @@
 package com.brian.views.fragments
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,7 @@ class HomeFragment : ScopedFragment(), KodeinAware {
         }
 
         mBinding.toolbar.tvTitle.setText(getString(R.string.baseball_bee))
-        mBinding.toolbar.ivBack.setOnClickListener{
+        mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigate(R.id.mainScreenFragment)
         }
 
@@ -60,51 +59,151 @@ class HomeFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    private fun setupClickListeners(){
+    private fun setupClickListeners() {
 
         mBinding.apply {
-            Pitcher.setOnClickListener{ clickHandler!!.onPitcherClick()}
-            Catcher.setOnClickListener{clickHandler!!.onCatcherClick()}
-            First.setOnClickListener{clickHandler!!.onFirstBaseClick()}
-            SecondBase.setOnClickListener{clickHandler!!.onSecondBaseClick()}
-            Third.setOnClickListener{clickHandler!!.onThirdBaseClick()}
-            ShortStep.setOnClickListener{clickHandler!!.onShortStepClick()}
-            LeftField.setOnClickListener{clickHandler!!.onLeftFieldClick()}
-            Center.setOnClickListener{clickHandler!!.onCenterFieldClick()}
-            RightField.setOnClickListener{clickHandler!!.onRightFieldClick()}
+            Pitcher.setOnClickListener { clickHandler!!.onPitcherClick() }
+            Catcher.setOnClickListener { clickHandler!!.onCatcherClick() }
+            First.setOnClickListener { clickHandler!!.onFirstBaseClick() }
+            SecondBase.setOnClickListener { clickHandler!!.onSecondBaseClick() }
+            Third.setOnClickListener { clickHandler!!.onThirdBaseClick() }
+            ShortStep.setOnClickListener { clickHandler!!.onShortStepClick() }
+            LeftField.setOnClickListener { clickHandler!!.onLeftFieldClick() }
+            Center.setOnClickListener { clickHandler!!.onCenterFieldClick() }
+            RightField.setOnClickListener { clickHandler!!.onRightFieldClick() }
 
-            ClickGuard.guard(Pitcher,Catcher,First,SecondBase,Third,ShortStep,LeftField,Center,RightField)
+            ClickGuard.guard(
+                Pitcher,
+                Catcher,
+                First,
+                SecondBase,
+                Third,
+                ShortStep,
+                LeftField,
+                Center,
+                RightField
+            )
         }
 
     }
-    inner class ClickHandler{
 
-        fun onPitcherClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Pitcher" ))
+    inner class ClickHandler {
+
+        fun onPitcherClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[0].description,
+                    getString(R.string.name) to getString(R.string.pitcher),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[0].id
+                )
+            )
         }
-        fun onCatcherClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Catcher" ))
+
+        fun onCatcherClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[1].description,
+                    getString(R.string.name) to getString(R.string.catcher),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[1].id
+                )
+            )
         }
-        fun onFirstBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "First Base" ))
+
+        fun onFirstBaseClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[2].description,
+                    getString(R.string.name) to getString(R.string.first_base),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[2].id
+                )
+            )
         }
-        fun onSecondBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Second Base" ))
+
+        fun onSecondBaseClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[3].description,
+                    getString(R.string.name) to getString(R.string.second_base),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[3].id
+                )
+            )
         }
-        fun onThirdBaseClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Third Base" ))
+
+        fun onThirdBaseClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[4].description,
+                    getString(R.string.name) to getString(R.string.third_base),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[4].id
+                )
+            )
         }
-        fun onShortStepClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Short Step" ))
+
+        fun onShortStepClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[5].description,
+                    getString(R.string.name) to getString(R.string.short_step),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[5].id
+                )
+            )
         }
-        fun onLeftFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Left Field" ))
+
+        fun onLeftFieldClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[6].description,
+                    getString(R.string.name) to getString(R.string.left_field),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[6].id
+                )
+            )
         }
-        fun onCenterFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Center Field" ))
+
+        fun onCenterFieldClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[7].description,
+                    getString(R.string.name) to getString(R.string.center_field),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[7].id
+                )
+            )
         }
-        fun onRightFieldClick(){
-            findNavController().navigate(R.id.pitcherFragment, bundleOf("list" to mViewModel.list,"name" to "Right Field" ))
+
+        fun onRightFieldClick() {
+            findNavController().navigate(
+                R.id.pitcherFragment,
+                bundleOf(
+                    getString(R.string.description) to mViewModel.list[8].description,
+                    getString(R.string.name) to getString(R.string.right_field),
+                    getString(
+                        R.string.id
+                    ) to mViewModel.list[8].id
+                )
+            )
         }
     }
 }

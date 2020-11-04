@@ -14,8 +14,7 @@
             type="com.brian.views.fragments.PitcherFragment.ClickHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:background="@color/blackTheme"
         android:layout_height="match_parent">
@@ -23,7 +22,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"/>
+            layout="@layout/toolbar_layout" />
 
 
         <androidx.constraintlayout.widget.Guideline
@@ -31,27 +30,38 @@
             android:id="@+id/startGuide"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <androidx.constraintlayout.widget.Guideline
             android:layout_width="wrap_content"
             android:id="@+id/endGuide"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_data"
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
-            app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintEnd_toEndOf="@id/endGuide"
-            android:text="@string/dummy_content"
-            android:fontFamily="@font/century_gothic"
-            android:textSize="@dimen/px45"
-            android:layout_marginTop="@dimen/margin_20"
-            android:textColor="@color/text_Color_drawer_item"
+            android:id="@+id/svText"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/margin_30"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintBottom_toTopOf="@id/pitcher"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintEnd_toEndOf="@id/endGuide">
+
+            <TextView
+                android:id="@+id/tv_data"
+                android:layout_width="match_parent"
+                app:layout_constraintStart_toStartOf="@id/startGuide"
+                app:layout_constraintEnd_toEndOf="@id/endGuide"
+                android:text="@string/dummy_content"
+                android:fontFamily="@font/century_gothic"
+                android:textSize="@dimen/px45"
+                android:layout_marginTop="@dimen/margin_20"
+                android:textColor="@color/text_Color_drawer_item"
+                android:layout_height="match_parent" />
+        </androidx.core.widget.NestedScrollView>
 
 
         <TextView
@@ -68,13 +78,7 @@
             android:textSize="@dimen/px60"
             android:layout_marginBottom="@dimen/margin_100"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content"/>
-
-
-
-
-
-
+            android:layout_height="wrap_content" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

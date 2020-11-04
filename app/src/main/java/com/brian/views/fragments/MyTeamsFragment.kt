@@ -2,7 +2,6 @@ package com.brian.views.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,25 +11,22 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
 import com.brian.base.ScopedFragment
-import com.brian.databinding.MyTeamsPlayersFragmentBinding
+import com.brian.databinding.MyTeamsFragmentBinding
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
-import com.brian.models.MyTeamMembersItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
-import com.brian.views.adapters.MyTeamMembersAdapter
+import com.brian.views.adapters.MyTeamsAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
+class MyTeamsFragment : ScopedFragment(), KodeinAware {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: HomescreenViewModelFactory by instance()
-    lateinit var mBinding: MyTeamsPlayersFragmentBinding
+    lateinit var mBinding: MyTeamsFragmentBinding
     lateinit var mViewModel: HomeViewModel
-    var teamMembers = ArrayList<MyTeamMembersItem>()
-    var clickHandler = ClickHandler()
 
 
     override fun onCreateView(
@@ -39,34 +35,24 @@ class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
         savedInstanceState: Bundle?
     ): View? {
         setupViewModel()
-        mBinding = MyTeamsPlayersFragmentBinding.inflate(inflater, container, false).apply {
+        mBinding = MyTeamsFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel
             clickHandler = ClickHandler()
         }
-        mBinding.toolbar.tvTitle.text = getString(R.string.team_player)
-        mBinding.toolbar.ivBack.setOnClickListener {
 
+        mBinding.toolbar.tvTitle.text = getString(R.string.my_teams)
+        mBinding.toolbar.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
-        mViewModel.teamPlayersAdapter.listener = this.clickHandler
-
+        setupObserver()
         setupRecyclers()
+        setupScrollListener()
+        mViewModel.getMyTeams()
+        mViewModel.myTeamsAdapter.listener = ClickHandler()
+
+
         return mBinding.root
-    }
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        teamMembers =
-            arguments?.getParcelableArrayList<MyTeamMembersItem>(getString(R.string.team_player)) as ArrayList<MyTeamMembersItem>
-
-        if (teamMembers.isNotEmpty()) {
-            mViewModel.teamPlayersAdapter.setNewItems(teamMembers)
-        }
-
-
     }
 
     private fun setupViewModel() {
@@ -74,16 +60,15 @@ class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
             ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
     }
 
-    inner class ClickHandler : MyTeamMembersAdapter.onClickEvents {
+    inner class ClickHandler : MyTeamsAdapter.onClickEvents {
 
-
-        override fun onPlayerClick(position: Int) {
-            Log.e("Userid", teamMembers[position].userId.toString())
+        override fun onTeamClick(position: Int) {
             findNavController().navigate(
-                R.id.userProfileFragment,
-                bundleOf(getString(R.string.user_id) to teamMembers[position].userId.toString())
+                R.id.myTeamfragment,
+                bundleOf(getString(R.string.team_player) to mViewModel.myTeams.value!![position].teamMembers)
             )
         }
+
 
     }
 
@@ -97,7 +82,18 @@ class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
                 }
             })
 
+            myTeams.observe(viewLifecycleOwner, Observer {
+                if (it.isNotEmpty()) {
+                    mViewModel.myTeamsAdapter.setNewItems(it)
+                }
 
+                if (myTeams.value.isNullOrEmpty()) {
+                    mBinding.tvNobadges.visibility = View.VISIBLE
+                } else {
+                    mBinding.tvNobadges.visibility = View.GONE
+                }
+
+            })
 
             showLoading.observe(viewLifecycleOwner, Observer {
                 if (it) showProgress(requireContext()) else hideProgress()
@@ -105,11 +101,25 @@ class MyTeamPlayersFragment : ScopedFragment(), KodeinAware {
         }
     }
 
+    private fun setupScrollListener() {
+        mBinding.apply {
+            recycler.setOnScrollChangeListener { _, _, _, _, _ ->
+                val view = recycler.getChildAt(recycler.childCount - 1)
+                val diff = view.bottom - (recycler.height + recycler.scrollY)
+                val offset = mViewModel.myTeams.value?.size
+                if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allTeamsLoaded) {
+                    mViewModel.getMyTeams()
+                }
+            }
+
+        }
+    }
+
 
     private fun setupRecyclers() {
         mBinding.apply {
             recycler.apply {
-                adapter = mViewModel.teamPlayersAdapter
+                adapter = mViewModel.myTeamsAdapter
             }
 
         }

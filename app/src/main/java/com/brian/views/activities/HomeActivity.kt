@@ -86,7 +86,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             || destination.id == R.id.createChallengeFragment || destination.id == R.id.userProfileFragment
             || destination.id == R.id.challenegeFragment || destination.id == R.id.createTeamFragment
             || destination.id == R.id.changePasswordFragment || destination.id == R.id.myChallengesFragment
-            || destination.id == R.id.challengeType || destination.id == R.id.chatFragment || destination.id == R.id.register || destination.id == R.id.myTeamfragment
+            || destination.id == R.id.challengeType || destination.id == R.id.myTeams || destination.id == R.id.chatFragment || destination.id == R.id.register || destination.id == R.id.myTeamfragment
         ) {
             mBinding.toolbar.visibility = GONE
         } else {
@@ -110,7 +110,8 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
                 getString(R.string.home_toolbar)
             R.id.trainingVideosFragment -> mBinding.toolbar.tvTitle.text =
                 getString(R.string.training_videos)
-            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.buzz_feed_title)
+            R.id.buzzFeedFragment -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.buzz_feed_title)
             R.id.myFriendsFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
             R.id.messagesFragment -> mBinding.toolbar.tvTitle.text = getString(R.string.mesages)
             R.id.challenegesFragment -> mBinding.toolbar.tvTitle.text =
@@ -219,7 +220,13 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
             }
             if (navController.currentDestination?.id == R.id.challenegesFragment) {
-                navController.navigate(R.id.createChallengeFragment)
+                navController.navigate(
+                    R.id.createChallengeFragment, bundleOf(
+                        getString(
+                            R.string.new_challenge
+                        ) to getString(R.string.yes)
+                    )
+                )
 
             }
 
@@ -262,13 +269,14 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
     override fun onBackPressed() {
 
-//        if(mBinding.drawerLayout.openDrawer(Gravity.LEFT) == mBinding.drawerLayout.openDrawer(Gravity.LEFT)){
-//            drawerLayout.closeDrawer(Gravity.LEFT)
-//        }
 
-//        if(mBinding.drawerLayout.isDrawerOpen(drawerLayout)){
-//            mBinding.drawerLayout.closeDrawer(LEFT)
-//        }
+        if (navController.currentDestination?.id == R.id.createChallengeFragment) {
+            getIntent()?.removeExtra("id")
+            getIntent()?.removeExtra("key")
+        }
+        if (navController.currentDestination?.id == R.id.createTeamFragment) {
+            getIntent()?.removeExtra("key")
+        }
         if (navController.currentDestination?.id == R.id.gameSummaryFragment) {
             navController.navigate(R.id.homeFragment)
         } else if (navController.currentDestination?.id == R.id.mainScreenFragment) {
@@ -284,6 +292,11 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
         } else if (!navController.navigateUp()) {
             finish()
+        }
+
+        if (navController.currentDestination?.id == R.id.createTeamFragment) {
+            getIntent()?.removeExtra("id")
+            getIntent()?.removeExtra("key")
         }
     }
 

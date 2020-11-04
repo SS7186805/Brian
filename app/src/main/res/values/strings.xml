@@ -171,5 +171,9 @@
     <string name="challenge_title_empty_team">Name must be at leat 2 characters long.</string>
     <string name="challenge_title_empty_message">Please enter challenge title.</string>
     <string name="challenge_title_validation_message">Challenge title should be at least 2 characters long.</string>
+    <string name="description">description</string>
+    <string name="error">Error</string>
+    <string name="cancel_challenge_message">Are you sure you want to cancel the challenge?</string>
+    <string name="new_challenge">new_challenge</string>
 
 </resources>

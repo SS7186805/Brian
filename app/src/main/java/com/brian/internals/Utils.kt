@@ -32,7 +32,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-
 operator fun <T> MutableLiveData<ArrayList<T>>.plusAssign(values: List<T>) {
     val value = (this.value ?: ArrayList()).apply {
         addAll(values)
@@ -337,6 +336,24 @@ class Utils private constructor() {
         }
         if (date != null) {
             currentTime = SimpleDateFormat("dd MMMM yyyy").format(date)
+        }
+        return currentTime
+    }
+
+
+    fun getUserProfileFormattedDate(time: String): String {
+        val dateFormats = listOf("yyyy-MM-dd", "yyyy/MM/dd", "dd/MM/yyyy")
+        var currentTime = ""
+        var date: Date? = null
+        for (dateFormat in dateFormats) {
+            try {
+                date = SimpleDateFormat(dateFormat).parse(time)
+            } catch (e: java.lang.Exception) {
+                Log.d("Exception", "getFormattedDate: unable to parse date.")
+            }
+        }
+        if (date != null) {
+            currentTime = SimpleDateFormat("dd/MMM/yyyy").format(date)
         }
         return currentTime
     }

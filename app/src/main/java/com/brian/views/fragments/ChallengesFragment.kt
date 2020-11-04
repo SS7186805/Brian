@@ -1,6 +1,7 @@
 package com.brian.views.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -20,18 +21,21 @@ import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengesFragmentBinding
+import com.brian.internals.DialogUtil
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
 import com.brian.viewModels.challenges.ChallengesViewModel
 import com.brian.viewModels.challenges.ChallengesViewModelFactory
+import com.brian.views.activities.VideoViewActivity
 import com.brian.views.adapters.MyChallengesAdapter
 import com.brian.views.adapters.MyChallengesRequestsAdapter
 import com.google.android.material.tabs.TabLayout
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 
-class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelectedListener {
+class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelectedListener,
+    DialogUtil.YesNoDialogClickListener {
     override val kodein by lazy { (context?.applicationContext as KodeinAware).kodein }
     private val viewModelFactory: ChallengesViewModelFactory by instance()
     lateinit var mBinding: ChallengesFragmentBinding
@@ -58,8 +62,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         setupObserver()
         setupRecyclers()
         setupScrollListener()
-        mViewModel.getMyChallenges()
-        mViewModel.getChallengesRequests()
+
         mViewModel.challengeRequestsAdapter.listener = this.mClickHandler
         mViewModel.myChallengesAdapter.listener = this.mClickHandler
 
@@ -67,6 +70,20 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
         mBinding.tabs.setOnTabSelectedListener(this)
         return mBinding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.myChallenges.value?.clear()
+        mViewModel.challengeRequests.value?.clear()
+        mViewModel.myChallengesAdapter.clearData()
+        mViewModel.challengeRequestsAdapter.clearData()
+        mViewModel.currentPageAllChalleneges = 1
+        mViewModel.currentPageMyChalleneges = 1
+        mViewModel.currentPageChallenegesRequests = 1
+        mViewModel.getMyChallenges()
+        mViewModel.getChallengesRequests()
     }
 
     private fun setupViewModel() {
@@ -96,9 +113,18 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
             println("mdfndkjfnjkdf")
             Log.e("MbbjjUserIdkkk", "IDDD${Prefs.init().userInfo?.id.toString()}")
 
+            DialogUtil.build(requireContext()) {
+                title = getString(R.string.error)
+                dialogType = DialogUtil.DialogType.YES_NO_TYPE
+                message = getString(R.string.cancel_challenge_message)
+                yesNoDialogClickListener = this@ChallengesFragment
+            }
+
+
+
             mViewModel.rejectChallengeRequestParams.user_challenge_id =
                 mViewModel.myChallenges.value!![position].id
-            mViewModel.cancelMyChallengeRequests()
+
         }
 
         override fun onApproveRejectChallenge(position: Int, status: Int) {
@@ -106,6 +132,15 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
                 mViewModel.myChallenges.value!![position].id
             mViewModel.approveRejectMyChallengeRequestParams.status = status
             mViewModel.approveRejectChallengeRequests()
+        }
+
+        override fun onVideoClick(position: Int, url: String) {
+            startActivity(
+                Intent(requireContext(), VideoViewActivity::class.java).putExtra(
+                    getString(R.string.training_videos),
+                    url
+                )
+            )
         }
 
     }
@@ -159,7 +194,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoMyChalleneges.visibility = View.GONE
-                    mViewModel.myChallengesAdapter.addNewItems(it)
+                    mViewModel.myChallengesAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.myChallenges.value!!.size == 0) {
                         mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
@@ -169,10 +204,58 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
             })
 
+            cancelResponse.observe(viewLifecycleOwner, Observer {
+
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    mViewModel.myChallenges.value?.clear()
+                    mViewModel.myChallengesAdapter.clearData()
+                    mViewModel.currentPageAllChalleneges = 1
+                    mViewModel.getMyChallenges()
+                }
+
+
+            })
+            approveRejectResponse.observe(viewLifecycleOwner, Observer {
+
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    mViewModel.myChallenges.value?.clear()
+                    mViewModel.myChallengesAdapter.clearData()
+                    mViewModel.currentPageAllChalleneges = 1
+                    mViewModel.getMyChallenges()
+                }
+
+
+            })
+            rejectRequestResponse.observe(viewLifecycleOwner, Observer {
+
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    mViewModel.challengeRequests.value?.clear()
+                    mViewModel.challengeRequestsAdapter.clearData()
+                    mViewModel.currentPageChallenegesRequests = 1
+                    mViewModel.getChallengesRequests()
+                }
+
+
+            })
+
+
+            cancelResponse.observe(viewLifecycleOwner, Observer {
+
+                if (it.result?.contains(getString(R.string.success))!!) {
+                    mViewModel.myChallenges.value?.clear()
+                    mViewModel.myChallengesAdapter.clearData()
+                    mViewModel.currentPageAllChalleneges = 1
+                    mViewModel.getMyChallenges()
+                }
+
+
+            })
+
+
             challengeRequests.observe(viewLifecycleOwner, Observer {
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoDataFound.visibility = View.GONE
-                    mViewModel.challengeRequestsAdapter.addNewItems(it)
+                    mViewModel.challengeRequestsAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.challengeRequests.value!!.size == 0) {
                         mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
@@ -183,6 +266,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {
+
+                Log.e("ShowLaodingg", it.toString())
                 if (it) showProgress(requireContext()) else hideProgress()
             })
         }
@@ -244,6 +329,13 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
 
         }
+    }
+
+    override fun onClickYes() {
+        mViewModel.cancelMyChallengeRequests()
+    }
+
+    override fun onClickNo() {
     }
 
 

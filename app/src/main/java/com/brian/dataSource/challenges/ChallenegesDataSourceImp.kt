@@ -8,10 +8,10 @@ import okhttp3.RequestBody
 class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesDataSource {
 
 
-    override suspend fun getChallenges(): ResponseChallengeType {
+    override suspend fun getChallenges( id:Int): ResponseChallengeType {
         var response = ResponseChallengeType()
         try {
-            response = apiService.getChallenges()
+            response = apiService.getChallenges(id)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -19,10 +19,10 @@ class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesD
         return response
     }
 
-    override suspend fun getMyChallenges(): ResponseMyChallenges {
+    override suspend fun getMyChallenges(id:Int): ResponseMyChallenges {
         var response = ResponseMyChallenges()
         try {
-            response = apiService.getMyChallenges()
+            response = apiService.getMyChallenges(id)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -30,10 +30,10 @@ class ChallenegesDataSourceImp(private val apiService: APIService) : ChallengesD
         return response
     }
 
-    override suspend fun getChallengesRequests(): ResponseMyChallenges {
+    override suspend fun getChallengesRequests(id:Int): ResponseMyChallenges {
         var response = ResponseMyChallenges()
         try {
-            response = apiService.getChallengesRequests()
+            response = apiService.getChallengesRequests(id)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

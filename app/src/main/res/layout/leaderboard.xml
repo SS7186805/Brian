@@ -27,6 +27,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/margin_10"
+            android:src="@drawable/ic_use_r"
             bind:imageUrl="@{item.profilePicture}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

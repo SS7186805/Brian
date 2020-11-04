@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.internals.plusAssign
 import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.challenges.ChallengesRepository
@@ -23,6 +24,13 @@ class ChallengesViewModel(
         MutableLiveData<ArrayList<ChallengeTypeDataItem>>().apply { value = ArrayList() }
     var myChallenges =
         MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
+
+    var cancelResponse = MutableLiveData<BaseResponse>()
+    var approveRejectResponse = MutableLiveData<BaseResponse>()
+    var rejectRequestResponse = MutableLiveData<BaseResponse>()
+
+    var approvedMyChallenges =
+        MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
     var challengeRequests =
         MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
 
@@ -37,9 +45,6 @@ class ChallengesViewModel(
     var rejectChallengeRequestParams = CreateChatRoomParams()
     var acceptChallengeRequestParams = AcceptChallengeParams()
     var approveRejectMyChallengeRequestParams = AcceptChallengeParams()
-    var myChallengesLoaded = false
-    var challengeRequestsLoaded = false
-    var allChallengesLoaded = false
     var currentPageMyChalleneges = 1
     var currentPageChallenegesRequests = 1
     var currentPageAllChalleneges = 1
@@ -83,12 +88,11 @@ class ChallengesViewModel(
 
     fun getAllChallenges() {
         showLoading.postValue(true)
-        challengesRepository.getChallenges() { isSuccess, message, response ->
+        challengesRepository.getChallenges(currentPageAllChalleneges) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allChallengesLoaded = response?.data?.data.isNullOrEmpty()
-                currentPageAllChalleneges = response?.data?.currentPage!!
-                allChallenges.postValue(response?.data.data)
+                currentPageAllChalleneges = response?.data?.currentPage!! + 1
+                allChallenges += response?.data.data!!
 
             } else {
                 showMessage.postValue(message)
@@ -99,12 +103,29 @@ class ChallengesViewModel(
 
     fun getMyChallenges() {
         showLoading.postValue(true)
-        challengesRepository.getMyChallenges() { isSuccess, message, response ->
+        challengesRepository.getMyChallenges(currentPageAllChalleneges) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allChallengesLoaded = response?.data?.data.isNullOrEmpty()
-                currentPageAllChalleneges = response?.data?.currentPage!!
-                myChallenges.postValue(response?.data.data)
+                currentPageAllChalleneges = response?.data?.currentPage!! + 1
+                myChallenges += response?.data.data!!
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getApprovedMyChallenges() {
+        showLoading.postValue(true)
+        challengesRepository.getMyChallenges(currentPageAllChalleneges) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                currentPageAllChalleneges = response?.data?.currentPage!! + 1
+
+                var approvedList =
+                    response.data.data?.filter { s -> (s.isApproved == 1 && s.isAccepted == 1) }
+                myChallenges += approvedList!!
 
             } else {
                 showMessage.postValue(message)
@@ -115,12 +136,11 @@ class ChallengesViewModel(
 
     fun getChallengesRequests() {
         showLoading.postValue(true)
-        challengesRepository.getChallengesRequests() { isSuccess, message, response ->
+        challengesRepository.getChallengesRequests(currentPageChallenegesRequests) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allChallengesLoaded = response?.data?.data.isNullOrEmpty()
-                currentPageAllChalleneges = response?.data?.currentPage!!
-                challengeRequests.postValue(response?.data.data)
+                currentPageChallenegesRequests = response?.data?.currentPage!! + 1
+                challengeRequests += response?.data.data!!
 
             } else {
                 showMessage.postValue(message)
@@ -135,7 +155,8 @@ class ChallengesViewModel(
         challengesRepository.acceptRejectChallengeRequests(acceptChallengeRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-
+                showMessage.postValue(message)
+                rejectRequestResponse.postValue(response)
 
             } else {
                 showMessage.postValue(message)
@@ -149,6 +170,7 @@ class ChallengesViewModel(
         challengesRepository.approveRejectMyChallenge(approveRejectMyChallengeRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
+                approveRejectResponse.postValue(response)
 
 
             } else {
@@ -163,6 +185,7 @@ class ChallengesViewModel(
         challengesRepository.cancelMyChallengesRequests(rejectChallengeRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
+                cancelResponse.postValue(response)
 
             } else {
                 showMessage.postValue(message)

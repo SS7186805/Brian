@@ -43,7 +43,6 @@
                 android:layout_marginLeft="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic_bold"
                 android:text="@{item.teamName}"
-                android:textAllCaps="true"
                 android:textColor="#fec60a"
                 android:textSize="@dimen/px55"
                 app:layout_constraintBottom_toTopOf="@+id/iv_11players"

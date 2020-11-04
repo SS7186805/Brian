@@ -11,7 +11,6 @@ import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.PitcherFragmentBinding
 import com.brian.internals.ClickGuard
-import com.brian.models.DataItem
 import com.brian.viewModels.homescreen.HomeViewModel
 import com.brian.viewModels.homescreen.HomescreenViewModelFactory
 import kotlinx.android.synthetic.main.pitcher_fragment.*
@@ -25,6 +24,7 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     lateinit var mBinding: PitcherFragmentBinding
     lateinit var mViewModel: HomeViewModel
     var nextPageName = ""
+    var id = ""
 
 
     override fun onCreateView(
@@ -39,8 +39,12 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
         }
 //        mBinding.toolbar.tvTitle.text = getString(R.string.situation_name)
         mBinding.toolbar.ivBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.homeFragment)
         }
+
+        mViewModel.submitAnswerParams.defensive_situation_id =
+            arguments?.getInt(getString(R.string.id), 0)
+        mViewModel.getSelectDefensive()
 
         setupClickListeners()
 
@@ -50,31 +54,36 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        var list = arguments?.getParcelableArrayList<DataItem>("list")
-        var name = arguments?.getString("name")
+        id = arguments?.getInt(getString(R.string.id), 0).toString()
+        var name = arguments?.getString(getString(R.string.name))
+        var description = arguments?.getString(getString(R.string.description))
 
         SetUpScreen(name!!)
+        tv_data.text = description
 
-        for (item in list!!) {
-            if (item.situationName.equals("Pitcher")) {
-                tv_data.text = item.description
-                break
-            }
-        }
     }
 
     private fun SetUpScreen(name: String) {
         nextPageName = name
         when (name) {
-            "Pitcher" -> mBinding.toolbar.tvTitle.text = "Pitcher"
-            "Catcher" -> mBinding.toolbar.tvTitle.text = "Catcher"
-            "First Base" -> mBinding.toolbar.tvTitle.text = "First Base"
-            "Second Base" -> mBinding.toolbar.tvTitle.text = "Second Base"
-            "Third Base" -> mBinding.toolbar.tvTitle.text = "Third Base"
-            "Short Step" -> mBinding.toolbar.tvTitle.text = "Short Step"
-            "Left Field" -> mBinding.toolbar.tvTitle.text = "Left Field"
-            "Center Field" -> mBinding.toolbar.tvTitle.text = "Center Field"
-            "Right Field" -> mBinding.toolbar.tvTitle.text = "Right Field"
+            getString(R.string.pitcher) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.pitcher)
+            getString(R.string.catcher) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.catcher)
+            getString(R.string.first_base) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.first_base)
+            getString(R.string.second_base) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.second_base)
+            getString(R.string.third_base) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.third_base)
+            getString(R.string.short_step) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.short_step)
+            getString(R.string.left_field) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.left_field)
+            getString(R.string.center_field) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.center_field)
+            getString(R.string.right_field) -> mBinding.toolbar.tvTitle.text =
+                getString(R.string.right_field)
 
             else -> ""
 
@@ -100,7 +109,10 @@ class PitcherFragment : ScopedFragment(), KodeinAware {
     inner class ClickHandler {
 
         fun onPitchClick() {
-            findNavController().navigate(R.id.questionsFragment, bundleOf("name" to nextPageName))
+            findNavController().navigate(
+                R.id.questionsFragment,
+                bundleOf("name" to nextPageName, getString(R.string.id) to id,getString(R.string.defensive_situation) to mViewModel.selectDefensiveId)
+            )
 
         }
 

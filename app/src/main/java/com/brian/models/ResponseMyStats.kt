@@ -46,7 +46,7 @@ data class BadgesEarneday(
     val total: Int? = null,
 
     @field:SerializedName("data")
-    val data: List<Any?>? = null,
+    val data: ArrayList<DataBadges>? = null,
 
     @field:SerializedName("last_page")
     val lastPage: Int? = null,

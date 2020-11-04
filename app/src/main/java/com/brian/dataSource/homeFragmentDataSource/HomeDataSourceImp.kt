@@ -18,10 +18,32 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
         return response
     }
 
-    override suspend fun questionResponse(): QuestionResponse {
+    override suspend fun submitAnswers(submitAnswerParams: SubmitAnswerParams): BaseResponse {
+        var response = BaseResponse()
+        try {
+            response = apiService.submitAnswers(submitAnswerParams)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
+    override suspend fun getSelectDefensive(submitAnswerParams: SubmitAnswerParams): BaseResponse {
+        var response = BaseResponse()
+        try {
+            response = apiService.getSelectDefensiveSituation(submitAnswerParams)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response
+    }
+
+    override suspend fun questionResponse(id: Int): QuestionResponse {
         var response = QuestionResponse()
         try {
-            response = apiService.questionResponse()
+            response = apiService.questionResponse(id)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -81,15 +103,18 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
         }
-        return response    }
+        return response
+    }
 
     override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
         var response = ResponseCreateTeam()
         try {
             var params = HashMap<String, RequestBody>()
-            params["team_name"] = RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.team_name!!)
-            params["users"] = RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.users!!)
-            response = apiService.createTeam(params,createTeam.image)
+            params["team_name"] =
+                RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.team_name!!)
+            params["users"] =
+                RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.users!!)
+            response = apiService.createTeam(params, createTeam.image)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

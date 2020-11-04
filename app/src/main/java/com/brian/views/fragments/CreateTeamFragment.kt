@@ -50,8 +50,11 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
 
         mBinding.toolbar.tvTitle.text = getString(R.string.create_team)
         mBinding.toolbar.ivBack.setOnClickListener {
+            activity?.intent?.removeExtra("key")
             findNavController().navigateUp()
         }
+
+        mBinding.etTeamName.clearFocus()
 
         setupObserver()
 
@@ -78,7 +81,10 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
         fun onSelectUser() {
             findNavController().navigate(
                 R.id.usersFragment,
-                bundleOf(getString(R.string.challenge_type) to getString(R.string.yes))
+                bundleOf(
+                    getString(R.string.challenge_type) to getString(R.string.yes),
+                    getString(R.string.no) to getString(R.string.no)
+                )
             )
 
         }

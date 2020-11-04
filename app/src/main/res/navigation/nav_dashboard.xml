@@ -132,6 +132,11 @@
         android:id="@+id/myTeamfragment"
         android:name="com.brian.views.fragments.MyTeamPlayersFragment"
         tools:layout="@layout/my_teams_players_fragment" />
+
+    <fragment
+        android:id="@+id/myTeams"
+        android:name="com.brian.views.fragments.MyTeamsFragment"
+        tools:layout="@layout/teams_fragment" />
     <fragment
         android:id="@+id/myStatsFragment"
         android:name="com.brian.views.fragments.MyStatsFragment"

@@ -61,11 +61,13 @@ data class ChallengeTypeDataItem(
     @field:SerializedName("image")
     val image: String? = null,
 
+    @field:SerializedName("challenge_name")
+    val challengeName: String? = null,
+
     @field:SerializedName("updated_at")
     val updatedAt: String? = null,
 
-    @field:SerializedName("challenge_name")
-    val challengeName: String? = null,
+
 
     @field:SerializedName("created_at")
     val createdAt: String? = null,

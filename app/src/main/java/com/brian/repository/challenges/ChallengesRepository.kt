@@ -5,6 +5,7 @@ import com.brian.models.*
 interface ChallengesRepository {
 
     fun getChallenges(
+        id:Int,
         onResult: (
             isSuccess: Boolean,
             message: String,
@@ -14,6 +15,7 @@ interface ChallengesRepository {
 
 
     fun getMyChallenges(
+        id:Int,
         onResult: (
             isSuccess: Boolean,
             message: String,
@@ -23,6 +25,7 @@ interface ChallengesRepository {
 
 
     fun getChallengesRequests(
+        id:Int,
         onResult: (
             isSuccess: Boolean,
             message: String,

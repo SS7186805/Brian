@@ -99,7 +99,7 @@ data class BadgesEarneda(
     val total: Int? = null,
 
     @field:SerializedName("data")
-    val data: @RawValue List<Any?>? = null,
+    val data: ArrayList<DataBadges>? = null,
 
     @field:SerializedName("last_page")
     val lastPage: Int? = null,
@@ -123,6 +123,55 @@ data class BadgesEarneda(
     val currentPage: Int? = null
 ) : Parcelable
 
+
+@Parcelize
+data class DataBadges(
+
+    @field:SerializedName("is_accepted")
+    val isAccepted: Int? = null,
+
+    @field:SerializedName("challenge_id")
+    val challengeId: Int? = null,
+
+    @field:SerializedName("file_name")
+    val fileName: String? = null,
+
+    @field:SerializedName("challenge_to_user_id")
+    val challengeToUserId: Int? = null,
+
+    @field:SerializedName("created_at")
+    val createdAt: String? = null,
+
+    @field:SerializedName("type_of_file")
+    val typeOfFile: String? = null,
+
+    @field:SerializedName("deleted_at")
+    val deletedAt: String? = null,
+
+    @field:SerializedName("challenge_from_user_id")
+    val challengeFromUserId: Int? = null,
+
+    @field:SerializedName("updated_at")
+    val updatedAt: String? = null,
+
+    @field:SerializedName("date_and_time")
+    val dateAndTime: String? = null,
+
+    @field:SerializedName("thumbnail_video")
+    val thumbnailVideo: String? = null,
+
+    @field:SerializedName("is_approved")
+    val isApproved: Int? = null,
+
+    @field:SerializedName("challenge")
+    val challenge: Challenge? = null,
+
+    @field:SerializedName("challenge_title")
+    val challengeTitle: String? = null,
+
+    @field:SerializedName("id")
+    val id: Int? = null
+) : Parcelable
 
 class QueryParams {
     @field:SerializedName("page")
@@ -243,6 +292,23 @@ class AcceptChallengeParams {
 
 
 }
+
+class SubmitAnswerParams {
+    @field:SerializedName("selected_defensive_situation_id")
+    var selected_defensive_situation_id: Int? = null
+
+    @field:SerializedName("defensive_situation_id")
+    var defensive_situation_id: Int? = null
+
+    @field:SerializedName("question_id")
+    var question_id: Int? = null
+
+    @field:SerializedName("answer_id")
+    var answer_id: Int? = null
+
+
+}
+
 
 
 

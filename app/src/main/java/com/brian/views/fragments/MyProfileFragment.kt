@@ -107,12 +107,12 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
         }
 
         fun onMyTeamsClick() {
-            findNavController().navigate(R.id.teamFragment)
+            findNavController().navigate(R.id.myTeams)
 
         }
 
         fun onMyChallengesClick() {
-//            findNavController().navigate(R.id.myChallengesFragment)
+            findNavController().navigate(R.id.myChallengesFragment)
         }
 
         fun onChangePasswordClick() {

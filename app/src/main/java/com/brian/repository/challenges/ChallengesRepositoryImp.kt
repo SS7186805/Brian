@@ -10,9 +10,9 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
     ChallengesRepository {
 
 
-    override fun getChallenges(onResult: (isSuccess: Boolean, message: String, response: ResponseChallengeType?) -> Unit) {
+    override fun getChallenges( id:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseChallengeType?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = challengesDataSource.getChallenges()
+            val response = challengesDataSource.getChallenges(id)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
@@ -21,9 +21,9 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
         }
     }
 
-    override fun getMyChallenges(onResult: (isSuccess: Boolean, message: String, response: ResponseMyChallenges?) -> Unit) {
+    override fun getMyChallenges(id:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseMyChallenges?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = challengesDataSource.getMyChallenges()
+            val response = challengesDataSource.getMyChallenges(id)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {
@@ -32,9 +32,9 @@ class ChallengesRepositoryImp(private val challengesDataSource: ChallengesDataSo
         }
     }
 
-    override fun getChallengesRequests(onResult: (isSuccess: Boolean, message: String, response: ResponseMyChallenges?) -> Unit) {
+    override fun getChallengesRequests(id:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseMyChallenges?) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = challengesDataSource.getChallengesRequests()
+            val response = challengesDataSource.getChallengesRequests(id)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {

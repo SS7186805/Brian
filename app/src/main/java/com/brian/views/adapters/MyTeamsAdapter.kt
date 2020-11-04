@@ -14,7 +14,7 @@ class MyTeamsAdapter(override val layoutId: Int,var resourcesProvider: Resources
     override fun bind(holder: ViewHolder, item: DataItemMyTeam, position: Int) {
         holder.binding.item = item
 
-        holder.binding.iv11players.setText("${item.totalMember}${if (item.totalMember == 1) " Player" else " Players"}")
+        holder.binding.iv11players.setText("${item.totalMember}")
 
         holder.itemView.setOnClickListener {
             listener?.onTeamClick(position)

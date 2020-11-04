@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <data>
@@ -40,7 +39,8 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
 
-        <ScrollView
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,239 +49,250 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/indicators"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-
-                <LinearLayout
-                    android:id="@+id/indicators"
-                    android:layout_width="wrap_content"
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:layout_marginTop="@dimen/margin_10"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <View
-                        android:id="@+id/view1"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:background="@drawable/empty_dot" />
+                    android:background="@drawable/empty_dot" />
 
 
-                    <View
-                        android:id="@+id/view2"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/margin_5"
-                        android:background="@drawable/empty_dot" />
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:background="@drawable/empty_dot" />
 
-                    <View
-                        android:id="@+id/view3"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/margin_5"
-                        android:background="@drawable/empty_dot" />
-                    <View
-                        android:id="@+id/view4"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/margin_5"
-                        android:background="@drawable/empty_dot" />
-                    <View
-                        android:id="@+id/view5"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
-                        android:layout_marginLeft="@dimen/margin_5"
-                        android:background="@drawable/empty_dot" />
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:background="@drawable/empty_dot" />
 
-                </LinearLayout>
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:background="@drawable/empty_dot" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginLeft="@dimen/margin_5"
+                    android:background="@drawable/empty_dot" />
+
+            </LinearLayout>
 
 
-                <LinearLayout
-                    android:id="@+id/lYouAre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
-                    android:orientation="vertical"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/indicators">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:text="@string/you_are"
-                        android:textColor="@color/text_color_grey"
-                        android:textSize="@dimen/px50" />
-
-                    <TextView
-                        android:id="@+id/tv_u_r_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:textColor="@color/yellow"
-                        android:textSize="@dimen/px45" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lRunnersOn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_30"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/indicators">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:text="@string/runners_on"
-                        android:textColor="@color/text_color_grey"
-                        android:textSize="@dimen/px50" />
-
-                    <TextView
-                        android:id="@+id/tv_runner_on_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:textColor="@color/yellow"
-                        android:textSize="@dimen/px45" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/lOuts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="@dimen/margin_30"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/indicators">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:text="@string/outs"
-                        android:textColor="@color/text_color_grey"
-                        android:textSize="@dimen/px50" />
-
-                    <TextView
-                        android:id="@+id/tv_out_score"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/century_gothic_bold"
-                        android:textColor="@color/yellow"
-                        android:textSize="@dimen/px45" />
-
-                </LinearLayout>
+            <LinearLayout
+                android:id="@+id/lYouAre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/indicators">
 
                 <TextView
-                    android:id="@+id/Questiontitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_40"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:text="@string/question4"
-                    android:textColor="@color/yellow"
-                    android:textSize="@dimen/px40"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/lYouAre" />
-
+                    android:text="@string/you_are"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/px50" />
 
                 <TextView
-                    android:id="@+id/description"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:fontFamily="@font/century_gothic"
-                    android:textColor="@color/text_Color_drawer_item"
-                    android:textSize="@dimen/px40"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Questiontitle" />
-
-
-                <TextView
-                    android:id="@+id/thinktext"
+                    android:id="@+id/tv_u_r_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_20"
+                    android:layout_gravity="center"
                     android:fontFamily="@font/century_gothic_bold"
-                    android:text="@string/think_about"
                     android:textColor="@color/yellow"
-                    android:textSize="@dimen/px40"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/description" />
+                    android:textSize="@dimen/px45" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lRunnersOn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/indicators">
 
                 <TextView
-                    android:id="@+id/thinkDescription"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_5"
-                    android:fontFamily="@font/century_gothic"
-                    android:textColor="@color/text_Color_drawer_item"
-                    android:textSize="@dimen/px40"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/thinktext" />
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:text="@string/runners_on"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/px50" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/QuestionRecycler"
+                <TextView
+                    android:id="@+id/tv_runner_on_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/px45" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lOuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/indicators">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:text="@string/outs"
+                    android:textColor="@color/text_color_grey"
+                    android:textSize="@dimen/px50" />
+
+                <TextView
+                    android:id="@+id/tv_out_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/px45" />
+
+            </LinearLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scrollIndicators="none"
+                app:layout_constraintBottom_toTopOf="@id/bottomGuide"
+                app:layout_constraintTop_toBottomOf="@id/lYouAre">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/thinkDescription"/>
+                    android:layout_height="wrap_content">
 
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/bottomGuide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.9" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:background="@drawable/capsuler_login_btn"
-                    android:gravity="center"
-                    android:fontFamily="@font/century_gothic_bold"
-                    android:onClick="@{()-> clickHandler.onNextClick()}"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/px60"
-                    android:text="@string/next"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/bottomGuide" />
-
-                <ProgressBar
-                    android:id="@+id/Q_progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/Questiontitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_40"
+                        android:fontFamily="@font/century_gothic_bold"
+                        android:text="@string/question4"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/px40"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-        </ScrollView>
+                    <TextView
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:fontFamily="@font/century_gothic"
+                        android:textColor="@color/text_Color_drawer_item"
+                        android:textSize="@dimen/px40"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/Questiontitle" />
+
+
+                    <TextView
+                        android:id="@+id/thinktext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:fontFamily="@font/century_gothic_bold"
+                        android:text="@string/think_about"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/px40"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/description" />
+
+
+                    <TextView
+                        android:id="@+id/thinkDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_5"
+                        android:fontFamily="@font/century_gothic"
+                        android:textColor="@color/text_Color_drawer_item"
+                        android:textSize="@dimen/px40"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/thinktext" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/QuestionRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/bottomGuide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <TextView
+                android:id="@+id/bNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@drawable/capsuler_login_btn"
+                android:fontFamily="@font/century_gothic_bold"
+                android:gravity="center"
+                android:onClick="@{()-> clickHandler.onNextClick()}"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="@dimen/px60"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottomGuide" />
+
+            <ProgressBar
+                android:id="@+id/Q_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

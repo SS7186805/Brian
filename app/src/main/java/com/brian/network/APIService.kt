@@ -38,23 +38,31 @@ interface APIService {
     @POST("api/v1/login")
     suspend fun login(@Body request: RegisterRequest): BaseResponse
 
+    @POST("api/v1/submit-answers")
+    suspend fun submitAnswers(@Body request: SubmitAnswerParams): BaseResponse
+
     @POST("api/v1/forgot-password")
     suspend fun forgot(@Body request: RegisterRequest): BaseResponse
 
     @GET("api/v1/get-defensive-situation")
     suspend fun getDefensiveSituation(): DefensiveResponse
 
+
+    @POST("api/v1/select-defensive-situation")
+    suspend fun getSelectDefensiveSituation(@Body sendRequestParams: SubmitAnswerParams): BaseResponse
+
+
     @GET("api/v1/my-friends")
     suspend fun getMyFriends(@Query("page") page: Int): ResponseMyFriends
 
     @GET("api/v1/challenge-list-admin")
-    suspend fun getChallenges(): ResponseChallengeType
+    suspend fun getChallenges(@Query("page") page: Int): ResponseChallengeType
 
     @GET("api/v1/my-challenges")
-    suspend fun getMyChallenges(): ResponseMyChallenges
+    suspend fun getMyChallenges(@Query("page") int: Int): ResponseMyChallenges
 
     @GET("api/v1/challenge-req")
-    suspend fun getChallengesRequests(): ResponseMyChallenges
+    suspend fun getChallengesRequests(@Query("page") page: Int): ResponseMyChallenges
 
     @GET("api/v1/all-chats")
     suspend fun getAllChats(): ResponseAllChats
@@ -132,8 +140,8 @@ interface APIService {
         @Part profile_picture: MultipartBody.Part?
     ): BaseResponse
 
-    @GET("api/v1/get-question-randomly")
-    suspend fun questionResponse(): QuestionResponse
+    @GET("api/v1/get-question-randomly/{id}")
+    suspend fun questionResponse(@Path("id") id:Int): QuestionResponse
 
     @GET("api/v1/leaderboard/challenges")
     suspend fun getChallengesLeaderBoard(): ResponseLeaderboard

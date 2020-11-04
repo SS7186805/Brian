@@ -51,10 +51,10 @@ class UsersFragment : ScopedFragment(), KodeinAware {
             clickHandler = ClickHandler()
         }
 
-        if (arguments?.getString("no").equals("no")) {
+        if (arguments?.getString(getString(R.string.no)).equals(getString(R.string.no))) {
             mBinding.toolbar.tvTitle.text = getString(R.string.my_friends)
 
-        } else if (arguments?.getString("team").equals("team")) {
+        } else if (arguments?.getString(getString(R.string.teams)).equals(getString(R.string.teams))) {
             mBinding.toolbar.tvTitle.text = getString(R.string.team_player)
 
         } else {

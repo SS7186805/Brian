@@ -9,12 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
+import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengeTypeFragmentBinding
 import com.brian.internals.DialogUtil
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
+import com.brian.models.ChallengeTypeDataItem
 import com.brian.viewModels.challenges.ChallengesViewModel
 import com.brian.viewModels.challenges.ChallengesViewModelFactory
 import com.brian.views.adapters.ChallengeTypeAdapter
@@ -44,13 +46,35 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
             findNavController().navigateUp()
         }
 
+        if (arguments?.getString("badges").equals("badges")) {
+            mBinding.toolbar.tvTitle.setText(getString(R.string.badges_earned))
+            setBadgesEarned()
+
+        } else {
+            mViewModel.getAllChallenges()
+            mViewModel.allChallengesAdapter.listerner = this.ClickHandler()
+
+
+        }
+
         setupObserver()
         setupRecyclers()
         setupScrollListener()
-        mViewModel.getAllChallenges()
-        mViewModel.allChallengesAdapter.listerner = this.ClickHandler()
 
         return mBinding.root
+    }
+
+
+    fun setBadgesEarned() {
+
+
+        var list = ArrayList<ChallengeTypeDataItem>()
+        for (badge in Prefs.init().userInfo?.badgesEarneda?.data!!) {
+            list.add(ChallengeTypeDataItem(badge.challenge?.image, badge.challengeTitle))
+        }
+        mViewModel.allChallenges.postValue(list)
+
+
     }
 
     private fun setupViewModel() {
@@ -60,6 +84,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
 
     inner class ClickHandler : ChallengeTypeAdapter.onClickView {
         override fun onClickItem(position: Int) {
+
             getActivity()?.getIntent()?.putExtra(
                 getString(R.string.title),
                 mViewModel.allChallenges.value!![position].challengeName
@@ -80,6 +105,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
         if (arguments?.getString("badges").equals("badges")) {
 
             mBinding.toolbar.tvTitle.setText(getString(R.string.badges_earned))
+
 
         }
     }
@@ -105,6 +131,13 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
                     }
                 }
 
+                if (mViewModel.allChallenges.value.isNullOrEmpty()) {
+                    mBinding.tvNobadges.visibility = View.VISIBLE
+                } else {
+                    mBinding.tvNobadges.visibility = View.GONE
+
+                }
+
             })
 
             showLoading.observe(viewLifecycleOwner, Observer {
@@ -114,21 +147,21 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
     }
 
     private fun setupScrollListener() {
-        mBinding.apply {
-            recycler.setOnScrollChangeListener { _, _, _, _, _ ->
+        /* mBinding.apply {
+             recycler.setOnScrollChangeListener { _, _, _, _, _ ->
 
-                if (mViewModel.allChallenges.value?.isNotEmpty()!!) {
-                    val view = recycler.getChildAt(recycler.childCount - 1)
-                    val diff = view.bottom - (recycler.height + recycler.scrollY)
-                    val offset = mViewModel.allChallenges.value?.size
-                    if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChallengesLoaded) {
-                        mViewModel.getAllChallenges()
-                    }
-                }
+                 if (mViewModel.allChallenges.value?.isNotEmpty()!!) {
+                     val view = recycler.getChildAt(recycler.childCount - 1)
+                     val diff = view.bottom - (recycler.height + recycler.scrollY)
+                     val offset = mViewModel.allChallenges.value?.size
+                     if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChallengesLoaded) {
+                         mViewModel.getAllChallenges()
+                     }
+                 }
 
-            }
+             }
 
-        }
+         }*/
     }
 
 

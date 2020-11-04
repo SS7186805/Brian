@@ -40,7 +40,7 @@ class ContactUsFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
         mBinding.message.setImeOptions(EditorInfo.IME_ACTION_DONE);
         mBinding.message.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
-        mBinding.root.requestFocus()
+        mBinding.title.clearFocus()
 
 
 
