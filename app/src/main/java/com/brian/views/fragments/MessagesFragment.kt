@@ -51,17 +51,31 @@ class MessagesFragment : ScopedFragment(), KodeinAware {
         setupRecycler()
         setupObserver()
         setupScrollListener()
-
+        onSwipe()
         return mBinding.root
     }
 
 
-    override fun onResume() {
-        super.onResume()
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
+    fun loadData() {
         mViewModel.currentPageAllChats = 1
         mViewModel.allChats.value?.clear()
         mViewModel.messagesAdapter.clearData()
         mViewModel.getAllChats()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
+
 
     }
 

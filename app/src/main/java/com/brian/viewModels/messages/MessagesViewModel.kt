@@ -33,6 +33,7 @@ class MessagesViewModel(
     var allFriendsLoaded = false
     var allChatsLoaded = false
     var currentPageAllChats = 1
+    var currentPageMessages = 1
 
 
     init {
@@ -61,7 +62,8 @@ class MessagesViewModel(
             if (isSuccess) {
                 allChatsLoaded = response?.data?.data.isNullOrEmpty()
                 currentPageAllChats = response?.data?.currentPage!! + 1
-                allChats += response?.data.data!!
+               var list=response?.data.data!!.filter { s-> s.lastMessage!=null }
+                allChats += list!!
             } else {
                 showMessage.postValue(message)
             }
@@ -84,10 +86,11 @@ class MessagesViewModel(
 
     fun getAllMessages() {
         showLoading.postValue(true)
-        messagesRepository.getAllMessages(getAllChatParams) { isSuccess, message, response ->
+        messagesRepository.getAllMessages(currentPageMessages,getAllChatParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                allMessages.postValue(response?.data?.data)
+                currentPageMessages=response?.data?.currentPage!! +1
+                allMessages.postValue(response?.data?.data!!)
             } else {
                 showMessage.postValue(message)
             }

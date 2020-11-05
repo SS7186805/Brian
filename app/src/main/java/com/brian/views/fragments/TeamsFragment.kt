@@ -2,6 +2,7 @@ package com.brian.views.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,10 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.ScopedFragment
 import com.brian.databinding.TeamsFragmentBinding
 import com.brian.internals.hideProgress
@@ -26,6 +30,7 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
     private val viewModelFactory: HomescreenViewModelFactory by instance()
     lateinit var mBinding: TeamsFragmentBinding
     lateinit var mViewModel: HomeViewModel
+    var mEndlessFriendsecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -42,12 +47,33 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupRecyclers()
         setupScrollListener()
-        mViewModel.getMyTeams()
+        loadData()
+        onSwipe()
         mViewModel.myTeamsAdapter.listener = ClickHandler()
 
 
         return mBinding.root
     }
+
+    fun loadData() {
+        mViewModel.myTeams.value?.clear()
+        mViewModel.myTeamsAdapter.clearData()
+        mViewModel.currentPageTeams = 1
+        mViewModel.getMyTeams()
+
+
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
 
     private fun setupViewModel() {
         mViewModel =
@@ -77,15 +103,16 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
             })
 
             myTeams.observe(viewLifecycleOwner, Observer {
-                if (it.isNotEmpty()) {
+
+                if (it != null && it.isNotEmpty()) {
+                    mBinding.tvNobadges.visibility = View.GONE
                     mViewModel.myTeamsAdapter.setNewItems(it)
+                } else {
+                    if (mViewModel.myTeams.value!!.size == 0) {
+                        mBinding.tvNobadges.visibility = View.VISIBLE
+                    }
                 }
 
-                if (myTeams.value.isNullOrEmpty()) {
-                    mBinding.tvNobadges.visibility = View.VISIBLE
-                } else {
-                    mBinding.tvNobadges.visibility = View.GONE
-                }
 
             })
 
@@ -96,17 +123,25 @@ class TeamsFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun setupScrollListener() {
-        mBinding.apply {
-            recycler.setOnScrollChangeListener { _, _, _, _, _ ->
-                val view = recycler.getChildAt(recycler.childCount - 1)
-                val diff = view.bottom - (recycler.height + recycler.scrollY)
-                val offset = mViewModel.myTeams.value?.size
-                if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allTeamsLoaded) {
-                    mViewModel.getMyTeams()
+
+        mEndlessFriendsecyclerViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.myTeams.value?.size)
+
+                    if (mViewModel.myTeams.value!!.size % 10 == 0 && mViewModel.myTeams.value!!.size != 0) {
+                        mViewModel.getMyTeams()
+                    }
+
                 }
             }
 
-        }
+
+
+        mBinding.recycler.addOnScrollListener(mEndlessFriendsecyclerViewScrollListener!!)
+
+
     }
 
 

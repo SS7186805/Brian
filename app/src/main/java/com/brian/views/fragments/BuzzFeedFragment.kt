@@ -49,9 +49,31 @@ class BuzzFeedFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupRecyclers()
         setupScrollListener()
+        loadData()
+        onSwipe()
 
         return mBinding.root
     }
+
+
+    fun loadData() {
+        mViewModel.feedList.value?.clear()
+        mViewModel.buzzFeedAdapter.clearData()
+        mViewModel.currentPage = 1
+        mViewModel.getBuzzFeed()
+
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
 
     private fun setupViewModel() {
         mViewModel =

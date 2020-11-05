@@ -36,11 +36,12 @@ class MessagesRepositoryImp(private val messagesDataSource: MessagesDataSource) 
     }
 
     override fun getAllMessages(
+        page: Int,
         sendMessageParams: GetAllMessagesParams,
         onResult: (isSuccess: Boolean, message: String, response: ResponseGetAllMessages?) -> Unit
     ) {
         GlobalScope.launch(Dispatchers.Main) {
-            val response = messagesDataSource.getAllMessages(sendMessageParams)
+            val response = messagesDataSource.getAllMessages(page,sendMessageParams)
             if (response.error != null) {
                 onResult(false, response.error!!, null)
             } else {

@@ -55,11 +55,29 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupScrollListener()
         setupRecyclers()
-        mViewModel.queryParams.category_id = arguments?.getInt(getString(R.string.id), 0)
+        onSwipe()
         mViewModel.trainingVideosAdapter.listener = this.ClickHandler()
+        loadData()
+        return mBinding.root
+    }
+
+    fun loadData() {
+        mViewModel.videoslist.value?.clear()
+        mViewModel.trainingVideosAdapter.clearData()
+        mViewModel.queryParams.category_id = arguments?.getInt(getString(R.string.id), 0)
+        mViewModel.currentPage = 1
         mViewModel.getVideos()
 
-        return mBinding.root
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
     }
 
     private fun setupViewModel() {

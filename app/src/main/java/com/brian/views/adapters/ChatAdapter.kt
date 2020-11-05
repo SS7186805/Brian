@@ -23,12 +23,13 @@ class ChatAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var chatList: ArrayList<AllMessagesDataItem>
     private val resourcesProvider: ResourcesProvider
+    var listener: onClick? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == -1) {
 
             SentMessageHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.recycler_chat_receiver_item,
+                    R.layout.recycler_chat_sender_item,
                     parent,
                     false
                 )
@@ -37,7 +38,7 @@ class ChatAdapter(
 
             ReceivedMessageHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.recycler_chat_sender_item,
+                    R.layout.recycler_chat_receiver_item,
                     parent,
                     false
                 )
@@ -60,13 +61,9 @@ class ChatAdapter(
 
     override fun getItemViewType(position: Int): Int {
 
-        Log.e("UserId", "UserId${Prefs.init().userInfo?.id}")
-        Log.e("SenderUserId", "SenderUserId${chatList[position].senderUserId}")
-        Log.e("messge", "SenderUserId${chatList[position].message}")
         return if (Prefs.init().userInfo?.id ==
             chatList[position].senderUserId
         ) {
-            Log.e("SEnderrr", "UserId${Prefs.init().userInfo?.id}")
 
             -1
         } else {
@@ -111,6 +108,14 @@ class ChatAdapter(
             } else {
                 tvTime.setText(Utils.init.get12HourTime(chatModel.createdAt.toString()))
             }
+
+
+            itemView.setOnClickListener {
+                if (chatModel.typeOfFile?.toString().equals("video")) {
+                    listener?.onVideoMessageClick(position, chatModel.fileName.toString())
+                }
+            }
+
         }
 
 
@@ -157,6 +162,12 @@ class ChatAdapter(
             } else {
                 tvTime.setText(Utils.init.get12HourTime(chatModel.createdAt.toString()))
             }
+
+            itemView.setOnClickListener {
+                if (chatModel.typeOfFile?.toString().equals("video")) {
+                    listener?.onVideoMessageClick(position, chatModel.fileName.toString())
+                }
+            }
         }
 
         init {
@@ -171,5 +182,14 @@ class ChatAdapter(
     init {
         this.chatList = chatList
         this.resourcesProvider = resourcesProvider
+    }
+
+    fun setNewItems(newItems: ArrayList<AllMessagesDataItem>) {
+        this.chatList=newItems
+        notifyDataSetChanged()
+    }
+
+    interface onClick {
+        fun onVideoMessageClick(position: Int, url: String)
     }
 }

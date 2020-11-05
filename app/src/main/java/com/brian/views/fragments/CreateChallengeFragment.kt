@@ -169,6 +169,8 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
 
     override fun onOkayClick() {
         clear()
+        getActivity()?.getIntent()?.removeExtra("id")
+        getActivity()?.getIntent()?.removeExtra("key")
         findNavController().navigateUp()
     }
 

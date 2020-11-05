@@ -5,6 +5,7 @@ import com.brian.network.APIService
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 
+
 class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
 
     override suspend fun getDefensive(): DefensiveResponse {
@@ -84,10 +85,10 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
         return response
     }
 
-    override suspend fun getMyTeams(): ResponseMyTeams {
+    override suspend fun getMyTeams(page: Int): ResponseMyTeams {
         var response = ResponseMyTeams()
         try {
-            response = apiService.getMyTeams()
+            response = apiService.getMyTeams(page)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -114,7 +115,11 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
                 RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.team_name!!)
             params["users"] =
                 RequestBody.create("text/plain".toMediaTypeOrNull(), createTeam.users!!)
+
+
             response = apiService.createTeam(params, createTeam.image)
+
+
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)

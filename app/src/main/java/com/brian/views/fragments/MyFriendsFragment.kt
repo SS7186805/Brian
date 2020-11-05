@@ -2,6 +2,7 @@ package com.brian.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -49,14 +50,28 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
         setupObserver()
         setupRecyclers()
         setupScrollListener()
-        mViewModel.currentPageMyFriends = 1
-        mViewModel.myFriends.value?.clear()
-        mViewModel.myFriendsAdapter.clearData()
-        mViewModel.getMyFriends()
+        loadData()
+        onSwipe()
+
         mViewModel.myFriendsAdapter.listener = this.ClickHandler()
         return mBinding.root
     }
 
+    fun loadData() {
+        mViewModel.currentPageMyFriends = 1
+        mViewModel.myFriends.value?.clear()
+        mViewModel.myFriendsAdapter.clearData()
+        mViewModel.getMyFriends()
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
 
     private fun setupScrollListener() {
 
@@ -87,6 +102,8 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
 
     inner class ClickHandler : MyFriendsAdapter.onViewClick {
         override fun viewUserProfile(position: Int) {
+
+
             findNavController().navigate(
                 R.id.userProfileFragment,
                 bundleOf(getString(R.string.user_id) to mViewModel.myFriends.value!![position].otherUserDetail?.id.toString())
@@ -132,6 +149,7 @@ class MyFriendsFragment : ScopedFragment(), KodeinAware {
             })
 
             myFriends.observe(viewLifecycleOwner, Observer {
+                mBinding.lSwipe.isRefreshing = false
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoDatFound.visibility = View.GONE
                     mViewModel.myFriendsAdapter.setNewItems(it)

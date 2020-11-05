@@ -1,5 +1,6 @@
 package com.brian.views.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -23,7 +24,9 @@ import com.brian.internals.showToast
 import com.brian.models.MyFriendsDataItem
 import com.brian.viewModels.users.UsersViewModel
 import com.brian.viewModels.users.UsersViewModelFactory
+import com.brian.views.activities.ChatActivity
 import com.brian.views.adapters.AllUsersAdapter
+import com.brian.views.adapters.SelectFriendsAdapter
 import kotlinx.android.synthetic.main.activity_main.view.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
@@ -76,6 +79,12 @@ class UsersFragment : ScopedFragment(), KodeinAware {
             mViewModel.getMyUsers()
             mViewModel.type = getString(R.string.yes)
 
+        } else if (arguments?.getString(getString(R.string.register_message)).equals(getString(R.string.yes))) {
+            isChallenegeType = true
+            mViewModel.getMyUsers()
+            mViewModel.type = getString(R.string.yes)
+            mViewModel.selectFriendsAdapter.listenerChat = this.mClickHandler
+
         } else {
             isChallenegeType = false
             mViewModel.getUsers()
@@ -96,7 +105,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
     }
 
 
-    inner class ClickHandler : AllUsersAdapter.onViewClick {
+    inner class ClickHandler : AllUsersAdapter.onViewClick,
+        SelectFriendsAdapter.onChatClickListener {
 
         override fun viewUserProfile(position: Int) {
 
@@ -137,6 +147,24 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
         }
 
+        override fun onChatClick(position: Int) {
+            startActivity(
+                Intent(
+                    requireContext(),
+                    ChatActivity::class.java
+                ).putExtra(
+                    getString(R.string.other_user_id),
+                    mViewModel.myFriends.value!![position]?.otherUserDetail?.id
+                ).putExtra(
+                    getString(R.string.chat_room_id),
+                    0
+                ).putExtra(
+                    getString(R.string.user),
+                    mViewModel.myFriends.value!![position]?.otherUserDetail?.name
+                )
+            )
+        }
+
     }
 
 
@@ -165,9 +193,11 @@ class UsersFragment : ScopedFragment(), KodeinAware {
 
             myFriends.observe(viewLifecycleOwner, Observer {
 
+
+                Log.e("FRIENDDATA", it.size.toString())
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoDataFound.visibility = View.GONE
-                    mViewModel.selectFriendsAdapter.addNewItems(it)
+                    mViewModel.selectFriendsAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.myFriends.value!!.size == 0) {
                         mBinding.tvNoDataFound.visibility = View.VISIBLE

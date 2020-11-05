@@ -35,28 +35,36 @@
             app:layout_constraintGuide_percent="0.95" />
 
         <TextView
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="@string/no_data_found"
-            android:textColor="@color/yellow"
-            android:fontFamily="@font/century_gothic_bold"
             android:id="@+id/tvNoDatFound"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/century_gothic_bold"
+            android:text="@string/no_data_found"
             android:textAlignment="center"
+            android:textColor="@color/yellow"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_height="wrap_content"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerFeed"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/lSwipe"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_30"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/endGuide"
             app:layout_constraintStart_toStartOf="@id/startGuide"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerFeed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

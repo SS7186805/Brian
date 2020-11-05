@@ -34,7 +34,6 @@ class BuzzFeedViewModel(
         buzzFeedAdapter = BuzzFeedAdapter(
             R.layout.buzz_feed_item
         )
-        getBuzzFeed()
 
     }
 
@@ -46,7 +45,7 @@ class BuzzFeedViewModel(
             showLoading.postValue(false)
             if (isSuccess) {
                 allVideosLoaded = response?.data?.data.isNullOrEmpty()
-                currentPage = response?.data?.currentPage!! +1
+                currentPage = response?.data?.currentPage!! + 1
                 feedList += response?.data?.data!!
             } else {
                 showMessage.postValue(message)

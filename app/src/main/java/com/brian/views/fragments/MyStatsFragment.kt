@@ -68,6 +68,11 @@ class MyStatsFragment : ScopedFragment(), KodeinAware {
 
             myStats.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
+
+                    for (progress in 0..it.defensiveAvg?.toInt()!!) {
+                        mBinding.progressBar.progress = progress
+
+                    }
                     mBinding.tvChalleneges.setText(it.challengesCompleted.toString())
                     mBinding.tvAverage.setText("${it.defensiveAvg.toString()} %")
                     if (it.badgesEarneda?.data?.isNotEmpty()!!) {

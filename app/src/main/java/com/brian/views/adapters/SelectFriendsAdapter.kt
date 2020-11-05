@@ -13,6 +13,7 @@ class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesPro
     BaseRecyclerAdapter<MyFriendsItemBinding, MyFriendsDataItem>() {
 
     var listener: onViewClick? = null
+    var listenerChat: onChatClickListener? = null
     var rowIndex = 0
 
     override fun bind(holder: ViewHolder, item: MyFriendsDataItem, position: Int) {
@@ -44,9 +45,15 @@ class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesPro
 
 
         holder.itemView.setOnClickListener {
-            item.isSelected=!item.isSelected
-            holder.binding.clView.isSelected = item.isSelected
-            notifyDataSetChanged()
+            if (listenerChat != null) {
+                listenerChat?.onChatClick(position)
+
+            } else {
+                item.isSelected = !item.isSelected
+                holder.binding.clView.isSelected = item.isSelected
+                notifyDataSetChanged()
+            }
+
         }
 
 
@@ -59,5 +66,10 @@ class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesPro
 
     }
 
+
+    interface onChatClickListener {
+        fun onChatClick(position: Int)
+
+    }
 
 }

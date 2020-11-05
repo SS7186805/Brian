@@ -24,29 +24,63 @@ class MyChallengesAdapter(override val layoutId: Int, var resourcesProvider: Res
         if (Prefs.init().userInfo?.id == item.challengeToUserId) {
             if (item.isAccepted == 1 && item.isApproved == 0) {
                 holder.binding.bWaitingApproval.visibility = VISIBLE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.cancelChallenge.visibility = GONE
+
+
             } else if (item.isAccepted == 0 && item.isApproved == 0) {
-                holder.binding.lAcceptReject.visibility = VISIBLE
+                /*holder.binding.lAcceptReject.visibility = VISIBLE
                 holder.binding.accept.visibility = VISIBLE
                 holder.binding.approve.visibility = GONE
+                holder.binding.cancel.visibility = GONE
+                holder.binding.cancelChallenge.visibility = GONE*/
+
             } else if (item.isAccepted == 1 && item.isApproved == 1) {
                 holder.binding.check.visibility = VISIBLE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.cancelChallenge.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
+
             } else if (item.isAccepted == 1 && item.isApproved == 2) {
                 holder.binding.cancel.visibility = VISIBLE
+                holder.binding.cancelChallenge.visibility = GONE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
+
             }
 
         }
 
+        Log.e("OWnID",Prefs.init().userInfo?.id.toString())
         if (Prefs.init().userInfo?.id != item.challengeToUserId) {
             if (item.isAccepted == 1 && item.isApproved == 0) {
                 holder.binding.lAcceptReject.visibility = VISIBLE
                 holder.binding.accept.visibility = GONE
                 holder.binding.approve.visibility = VISIBLE
+                holder.binding.cancelChallenge.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
             } else if (item.isAccepted == 1 && item.isApproved == 1) {
                 holder.binding.check.visibility = VISIBLE
+                holder.binding.cancelChallenge.visibility = GONE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
             } else if (item.isAccepted == 1 && item.isApproved == 2) {
                 holder.binding.cancel.visibility = VISIBLE
+                holder.binding.cancelChallenge.visibility = GONE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
             } else {
                 holder.binding.cancelChallenge.visibility = VISIBLE
+                holder.binding.lAcceptReject.visibility = GONE
+                holder.binding.accept.visibility = GONE
+                holder.binding.approve.visibility = GONE
+                holder.binding.bWaitingApproval.visibility = GONE
+
 
             }
 

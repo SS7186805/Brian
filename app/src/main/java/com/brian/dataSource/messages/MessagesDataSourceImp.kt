@@ -8,7 +8,7 @@ import okhttp3.RequestBody
 class MessagesDataSourceImp(private val apiService: APIService) : MessagesDataSource {
 
 
-    override suspend fun getAllChats( page:Int): ResponseAllChats {
+    override suspend fun getAllChats(page: Int): ResponseAllChats {
         var response = ResponseAllChats()
         try {
             response = apiService.getAllChats(page)
@@ -53,10 +53,10 @@ class MessagesDataSourceImp(private val apiService: APIService) : MessagesDataSo
         return response
     }
 
-    override suspend fun getAllMessages(sendMessageParams: GetAllMessagesParams): ResponseGetAllMessages {
+    override suspend fun getAllMessages(page: Int,sendMessageParams: GetAllMessagesParams): ResponseGetAllMessages {
         var response = ResponseGetAllMessages()
         try {
-            response = apiService.getAllMessages(sendMessageParams)
+            response = apiService.getAllMessages(page, sendMessageParams)
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
@@ -83,7 +83,8 @@ class MessagesDataSourceImp(private val apiService: APIService) : MessagesDataSo
             e.printStackTrace()
             response.error = APIService.getErrorMessageFromGenericResponse(e)
         }
-        return response    }
+        return response
+    }
 
 
 }

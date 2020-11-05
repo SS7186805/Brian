@@ -2,6 +2,7 @@ package com.brian.views.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.brian.R
 import com.brian.base.ScopedFragment
 import com.brian.databinding.QuestionsFragmentBinding
+import com.brian.internals.DialogUtil
 import com.brian.internals.interfaces.ItemClickListener
 import com.brian.internals.showToast
 import com.brian.internals.toArrayList
@@ -28,7 +30,8 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 
-class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
+class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware,
+    DialogUtil.ErrorClickListener {
     override val kodein by closestKodein()
     private val viewModelFactory: HomescreenViewModelFactory by instance()
     lateinit var mBinding: QuestionsFragmentBinding
@@ -41,6 +44,7 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
     var correctAnswer: Int = 0
     var wrongeAnswer: Int = 0
     var questionSummary = ArrayList<QuestionData>()
+    var questionId = 0
 
 
     override fun onCreateView(
@@ -91,13 +95,26 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
 
             showMessage.observe(viewLifecycleOwner, Observer {
                 if (!TextUtils.isEmpty(it)) {
-                    requireContext().showToast(it)
-                    showMessage.postValue("")
+                    if (it.contains(getString(R.string.Questions_not_available))) {
+                        DialogUtil.build(requireContext()) {
+                            title = getString(R.string.error)
+                            dialogType = DialogUtil.DialogType.ERROR
+                            message = getString(R.string.Questions_not_available)
+                            errorClickListener = this@QuestionsFragment
+                        }
+                        showMessage.postValue("")
+
+                    } else {
+                        requireContext().showToast(it)
+                        showMessage.postValue("")
+                    }
+
                 }
             })
 
             data.observe(viewLifecycleOwner, Observer {
 
+                Log.e("QuestionIdd", it.id.toString())
                 description.text = it.question
                 tv_u_r_score.text = it.youAre.toString()
                 tv_runner_on_score.text = it.runnersOn.toString()
@@ -127,6 +144,8 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
 
     override fun onClick(data: AnswersItem, position: Int, correct: Boolean) {
 //        Toast.makeText(context, data.answer, Toast.LENGTH_SHORT).show()
+
+        Log.e("OnCLickQuestionIdd", data.questionId.toString())
 
         mViewModel.submitAnswerParams.answer_id = data.id
         mViewModel.submitAnswerParams.question_id = data.questionId
@@ -190,5 +209,9 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware {
                 }
             }
         }
+    }
+
+    override fun onOkayClick() {
+        findNavController().navigateUp()
     }
 }

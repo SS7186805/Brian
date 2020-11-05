@@ -153,7 +153,7 @@
     <string name="challenge_title_empty">Title name should be greater than 2 characters</string>
     <string name="challenge_type_empty">Please select challenge type.</string>
     <string name="date_empty">Please select date and time.</string>
-    <string name="select_user_message">Please select user.</string>
+    <string name="select_user_message">Please select users.</string>
     <string name="waiting_for_approval">Waiting For Approval</string>
     <string name="user_id">User_id</string>
     <string name="please_enter_message">Please enter description.</string>
@@ -166,7 +166,7 @@
     <string name="no_badges_found">No badges found...</string>
     <string name="challengers">Challengers</string>
     <string name="user_type_empty">Please select user</string>
-    <string name="no_data_found">no data found...</string>
+    <string name="no_data_found">No data found...</string>
     <string name="no_challenges_found_yet_create_new_challenges_to_earn_badges">No challenges found yet,\ncreate new challenges to earn badges</string>
     <string name="challenge_title_empty_team">Name must be at leat 2 characters long.</string>
     <string name="challenge_title_empty_message">Please enter challenge title.</string>
@@ -175,5 +175,8 @@
     <string name="error">Error</string>
     <string name="cancel_challenge_message">Are you sure you want to cancel the challenge?</string>
     <string name="new_challenge">new_challenge</string>
+    <string name="no_friends">No friends</string>
+    <string name="Questions_not_available">Questions not available.</string>
+    <string name="enter_message_validation">Please enter message.</string>
 
 </resources>

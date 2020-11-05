@@ -73,6 +73,7 @@ interface HomeRepository {
     )
 
     fun getMyTeams(
+        page:Int,
         onResult: (
             isSuccess: Boolean,
             message: String,

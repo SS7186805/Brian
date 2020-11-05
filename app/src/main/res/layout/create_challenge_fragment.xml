@@ -54,6 +54,7 @@
             android:drawablePadding="@dimen/margin_10"
             android:hint="@string/challenge_title"
             android:paddingStart="@dimen/margin_20"
+            android:maxLength="40"
             android:inputType="text"
             android:textColor="@color/edit_text_color"
             android:textSize="@dimen/px55"

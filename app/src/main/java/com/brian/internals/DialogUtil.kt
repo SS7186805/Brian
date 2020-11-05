@@ -8,14 +8,10 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
 import android.view.ViewGroup
 import com.brian.R
-import com.brian.network.APIService
 import kotlinx.android.synthetic.main.layout_custom_dialog.*
 import kotlinx.android.synthetic.main.layout_custom_dialog.description
 import kotlinx.android.synthetic.main.layout_custom_dialog.title
 import kotlinx.android.synthetic.main.layout_custom_dialog_logout.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class DialogUtil() {
@@ -57,6 +53,13 @@ class DialogUtil() {
                 dialog?.btNo?.setOnClickListener {
                     dialog?.cancel()
                     builder.yesNoDialogClickListener?.onClickNo()
+                }
+            }
+            DialogType.ERROR -> {
+                dialog?.setContentView(R.layout.layout_custom_particular_error)
+                dialog?.bOkay?.setOnClickListener {
+                    dialog?.cancel()
+                    builder.errorClickListener?.onOkayClick()
                 }
             }
 

@@ -29,6 +29,8 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
         ) {
             holder.binding.btnAccept.visibility = VISIBLE
             holder.binding.btnReject.visibility = VISIBLE
+            holder.binding.friends.visibility = GONE
+
         } else if (item.reqSendBySelf!!.contains(context.getString(R.string.No)) && item.reqSendByOther!!.contains(
                 context.getString(R.string.No)
             ) && item.isAccepted!!.contains(context.getString(R.string.No))
@@ -36,6 +38,8 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
             Log.e("SendReqyesy", "SendRequest")
             holder.binding.btnSendRequest.visibility = VISIBLE
             holder.binding.btnCancelRequest.visibility = GONE
+            holder.binding.friends.visibility = GONE
+
 
         } else if (item.reqSendBySelf!!.contains(context.getString(R.string.yes)) && item.reqSendByOther!!.contains(
                 context.getString(R.string.no)
@@ -44,14 +48,13 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
             Log.e("Cancelrequest", "SendRequest")
             holder.binding.btnCancelRequest.visibility = VISIBLE
             holder.binding.btnSendRequest.visibility = GONE
+            holder.binding.friends.visibility = GONE
 
 
         } else {
             holder.binding.friends.visibility = VISIBLE
             holder.binding.btnCancelRequest.visibility = GONE
             holder.binding.btnSendRequest.visibility = GONE
-            holder.binding.btnAccept.visibility = GONE
-            holder.binding.btnReject.visibility = GONE
 
         }
 

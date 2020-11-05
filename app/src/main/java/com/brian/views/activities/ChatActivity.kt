@@ -3,12 +3,14 @@ package com.brian.views.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
@@ -16,16 +18,22 @@ import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessChatScrollListener
 import com.brian.base.MainApplication
+import com.brian.base.PathUtil
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ChatFragmentBinding
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
+import com.brian.models.AllMessagesDataItem
 import com.brian.models.SendMessageParams
 import com.brian.viewModels.messages.MessagesViewModel
 import com.brian.viewModels.messages.MessagesViewModelFactory
+import com.brian.views.adapters.ChatAdapter
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -35,9 +43,10 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 import java.io.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class ChatActivity : ScopedActivity(), KodeinAware {
+class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
     override val kodein by lazy { (applicationContext as KodeinAware).kodein }
     private val viewModelFactory: MessagesViewModelFactory by instance()
     lateinit var mBinding: ChatFragmentBinding
@@ -45,6 +54,8 @@ class ChatActivity : ScopedActivity(), KodeinAware {
     var chatRoomId = 0
     var otherUserId = 0
     private var videoFile: File? = null
+    var mEndlessFriendsecyclerViewScrollListener: EndlessChatScrollListener? = null
+    var finalList = ArrayList<AllMessagesDataItem>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +76,7 @@ class ChatActivity : ScopedActivity(), KodeinAware {
 
 
         mBinding.chatRecycler.adapter = mViewModel.chatAdapter
+        mViewModel.chatAdapter.listener = this
 
 
         mBinding.toolbar.ivBack.setOnClickListener {
@@ -72,6 +84,7 @@ class ChatActivity : ScopedActivity(), KodeinAware {
         }
 
         mViewModel.createChatRoom()
+        setupScrollListener()
 
 
         setupObserver()
@@ -123,7 +136,7 @@ class ChatActivity : ScopedActivity(), KodeinAware {
             mViewModel.sendMessage(messageParams)
 
         } else {
-            showToast(getString(R.string.please_enter_message))
+            showToast(getString(R.string.enter_message_validation))
         }
         mBinding.etMessage.setText("")
     }
@@ -178,10 +191,18 @@ class ChatActivity : ScopedActivity(), KodeinAware {
             })
 
             allMessages.observe(this@ChatActivity, Observer {
-
                 Collections.reverse(it)
-                mViewModel.chatAdapter.updateList(it)
-                mBinding.chatRecycler.scrollToPosition(mViewModel.allMessages.value?.size!! - 1);
+                it.addAll(finalList)
+                finalList = it
+                if (it != null && it.isNotEmpty()) {
+                    Log.e("messagessize", allMessages.value?.size.toString())
+                    mViewModel.chatAdapter.setNewItems(it)
+                }
+
+                if (finalList.size <= 20) {
+                    mBinding.chatRecycler.scrollToPosition(mViewModel.allMessages.value?.size!! - 1);
+
+                }
 
 
             })
@@ -192,11 +213,56 @@ class ChatActivity : ScopedActivity(), KodeinAware {
         }
     }
 
+    /*  private fun setupScrollListener() {
+          mBinding.apply {
+              chatRecycler.setOnScrollChangeListener { _, _, _, _, _ ->
+
+                  if (mViewModel.allMessages.value?.isNotEmpty()!!) {
+                      val view = chatRecycler.getChildAt(0)
+                      val diff =  (chatRecycler.height - chatRecycler.scrollY) + view.bottom
+                      val offset = mViewModel.allMessages.value?.size
+                      Log.e("chatRecycler.height",chatRecycler.height.toString())
+                      Log.e("chatRecycler.scrollY.=",chatRecycler.scrollX.toString())
+                      Log.e("view.bottom",view.bottom.toString())
+                      Log.e("Offset",offset.toString())
+                      if (diff == 0 && offset!! % 20 == 0 ) {
+                          mViewModel.getAllMessages()
+                      }
+                  }
+
+              }
+
+          }
+      }*/
+
+
+    private fun setupScrollListener() {
+
+        mEndlessFriendsecyclerViewScrollListener =
+            object :
+                EndlessChatScrollListener(mBinding.chatRecycler.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.allMessages.value?.size)
+
+                    if (mViewModel.allMessages.value!!.size % 10 == 0 && mViewModel.allMessages.value!!.size != 0) {
+                        mViewModel.getAllMessages()
+                    }
+
+                }
+            }
+
+
+
+        mBinding.chatRecycler.addOnScrollListener(mEndlessFriendsecyclerViewScrollListener!!)
+
+
+    }
 
     fun selectVideo() {
         val intent = Intent()
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
         startActivityForResult(
             Intent.createChooser(intent, "Select Video"),
             100
@@ -223,6 +289,7 @@ class ChatActivity : ScopedActivity(), KodeinAware {
 
     private fun takeVideoFromCamera() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
         startActivityForResult(intent, 101)
     }
 
@@ -232,19 +299,7 @@ class ChatActivity : ScopedActivity(), KodeinAware {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 100) {
                 val selectedImageUri: Uri? = data?.data
-
-                Log.e("selectImageApUri", "Uri${selectedImageUri}")
-                Log.e("selectImageApUriPath", "Uri${selectedImageUri?.path}")
-
-                var id = DocumentsContract.getDocumentId(selectedImageUri);
-                var inputStream = getContentResolver().openInputStream(
-                    selectedImageUri!!
-                );
-
-                var file = File(cacheDir.getAbsolutePath() + "/" + id);
-
-                writeFile(inputStream!!, file);
-                var filePath = file.getAbsolutePath();
+                var filePath = PathUtil.getPath(this, selectedImageUri!!)
 
                 videoFile = File(filePath)
                 val filePart = MultipartBody.Part.createFormData(
@@ -320,6 +375,54 @@ class ChatActivity : ScopedActivity(), KodeinAware {
             cursor.moveToFirst()
             cursor.getString(column_index)
         } else null
+    }
+
+
+    private fun getImageUrlWithAuthority(
+        context: Context,
+        uri: Uri
+    ): String? {
+        var `is`: InputStream? = null
+        if (uri.authority != null) {
+            try {
+                `is` = context.getContentResolver().openInputStream(uri)
+                val bmp = BitmapFactory.decodeStream(`is`)
+                return writeToTempImageAndGetPathUri(context, bmp).toString()
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } finally {
+                try {
+                    `is`?.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        return null
+    }
+
+    private fun writeToTempImageAndGetPathUri(
+        inContext: Context,
+        inImage: Bitmap
+    ): Uri {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            inContext.getContentResolver(),
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
+    }
+
+    override fun onVideoMessageClick(position: Int, url: String) {
+        startActivity(
+            Intent(this, VideoViewActivity::class.java).putExtra(
+                getString(R.string.training_videos),
+                url
+            )
+        )
     }
 
 

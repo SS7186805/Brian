@@ -3,6 +3,7 @@ package com.brian.viewModels.homescreen
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.internals.plusAssign
 import com.brian.internals.toArrayList
 import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
@@ -43,8 +44,8 @@ class HomeViewModel(
     var submitAnswerParams = SubmitAnswerParams()
     var selectDefensiveId = 0
 
-    var currentPageChallenges = 1
-    var currentPagePlayers = 1
+    var currentPageTeams = 1
+    var currentPageMyTeams = 1
 
 
     init {
@@ -186,11 +187,11 @@ class HomeViewModel(
     fun getMyTeams() {
         myTeams.value?.clear()
         showLoading.postValue(true)
-        homeRepository.getMyTeams() { isSuccess, message, response ->
+        homeRepository.getMyTeams(currentPageTeams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-
-                myTeams.postValue(response?.data?.data)
+                currentPageTeams= response?.data?.currentPage!! +1
+                myTeams += response?.data?.data!!
 
             } else {
                 showMessage.postValue(message)
@@ -199,21 +200,6 @@ class HomeViewModel(
         }
     }
 
-    fun getTeamMembers() {
-        myTeams.value?.clear()
-        showLoading.postValue(true)
-        homeRepository.getMyTeams() { isSuccess, message, response ->
-            showLoading.postValue(false)
-            if (isSuccess) {
-
-                myTeams.postValue(response?.data?.data)
-
-            } else {
-                showMessage.postValue(message)
-            }
-
-        }
-    }
 
     fun getData() {
         showLoading.postValue(true)

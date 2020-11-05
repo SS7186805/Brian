@@ -23,6 +23,7 @@ interface MessagesRepository {
     )
 
     fun getAllMessages(
+        page: Int,
         sendMessageParams: GetAllMessagesParams,
         onResult: (
             isSuccess: Boolean,

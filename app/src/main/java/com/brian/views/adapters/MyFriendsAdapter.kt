@@ -1,5 +1,7 @@
 package com.brian.views.adapters
 
+import android.os.Handler
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.brian.R
@@ -18,6 +20,8 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
     override fun bind(holder: ViewHolder, item: MyFriendsDataItem, position: Int) {
 
         holder.binding.item = item
+
+        Log.e("IsAcepetedd", item.isAccepted.toString())
 
         if (item.isAccepted!!.contains(context.getString(R.string.No))
         ) {
@@ -44,12 +48,24 @@ class MyFriendsAdapter(override val layoutId: Int, var context: ResourcesProvide
 
 
         holder.binding.friendImage.setOnClickListener {
+            holder.binding.friendImage.isEnabled = false
+            Handler().postDelayed({
+
+                holder.binding.friendImage.isEnabled = true
+
+            }, 500)
+
             listener?.viewUserProfile(position)
         }
         holder.itemView.setOnClickListener {
+            holder.itemView.isEnabled = false
+            Handler().postDelayed({
+
+                holder.itemView.isEnabled = true
+
+            }, 500)
             listener?.startChat(position)
         }
-
 
 
     }

@@ -11,6 +11,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -62,6 +63,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         setupObserver()
         setupRecyclers()
         setupScrollListener()
+        onSwipe()
 
         mViewModel.challengeRequestsAdapter.listener = this.mClickHandler
         mViewModel.myChallengesAdapter.listener = this.mClickHandler
@@ -73,8 +75,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     }
 
 
-    override fun onResume() {
-        super.onResume()
+    fun loadData() {
         mViewModel.myChallenges.value?.clear()
         mViewModel.challengeRequests.value?.clear()
         mViewModel.myChallengesAdapter.clearData()
@@ -84,6 +85,24 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         mViewModel.currentPageChallenegesRequests = 1
         mViewModel.getMyChallenges()
         mViewModel.getChallengesRequests()
+
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+
+        mBinding.lSwipe.setOnRefreshListener {
+            Log.e("OnSwipee","OnSwipee")
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 
     private fun setupViewModel() {
@@ -192,6 +211,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
             myChallenges.observe(viewLifecycleOwner, Observer {
 
+                Log.e("MyChallengesSize",myChallenges.value?.size.toString())
+
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoMyChalleneges.visibility = View.GONE
                     mViewModel.myChallengesAdapter.setNewItems(it)
@@ -239,26 +260,22 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
             })
 
 
-            cancelResponse.observe(viewLifecycleOwner, Observer {
-
-                if (it.result?.contains(getString(R.string.success))!!) {
-                    mViewModel.myChallenges.value?.clear()
-                    mViewModel.myChallengesAdapter.clearData()
-                    mViewModel.currentPageAllChalleneges = 1
-                    mViewModel.getMyChallenges()
-                }
-
-
-            })
-
 
             challengeRequests.observe(viewLifecycleOwner, Observer {
                 if (it != null && it.isNotEmpty()) {
+
+                    Log.e("ChallnegeRequestss", "Requests")
                     mBinding.tvNoDataFound.visibility = View.GONE
                     mViewModel.challengeRequestsAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.challengeRequests.value!!.size == 0) {
-                        mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
+                        if (!mBinding.rMyChallenges.isVisible) {
+                            mBinding.tvNoDataFound.visibility = View.VISIBLE
+
+                        } else {
+                            mBinding.tvNoDataFound.visibility = View.GONE
+
+                        }
                     }
                 }
 
@@ -338,5 +355,11 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
     override fun onClickNo() {
     }
 
+
+    override fun onPause() {
+        super.onPause()
+        mEndlessChallengeRequestsViewScrollListener?.resetState()
+        mEndlessMyChallengesRecyclerViewScrollListener?.resetState()
+    }
 
 }

@@ -60,7 +60,9 @@ class UsersViewModel(
                 workRunnable?.let { handler.removeCallbacks(it) }
                 workRunnable = Runnable {
                     usersList.postValue(ArrayList())
+                    myFriends.postValue(ArrayList())
                     usersAdapter.clearData()
+                    selectFriendsAdapter.clearData()
                     currentPageAllUsers = 1
                     currentPageMyUsers = 1
                     searchQuery.search_name = s.toString()
@@ -197,11 +199,17 @@ class UsersViewModel(
         usersRepository.acceptRejectRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                myFriendsAdapter.list[position].isAccepted =
-                    if (action.contains(resourcesProvider.getString(R.string.accept))) resourcesProvider.getString(
-                        R.string.yes
-                    ) else resourcesProvider.getString(R.string.No)
-                myFriendsAdapter.notifyItemChanged(position)
+                if (action.contains(resourcesProvider.getString(R.string.accept))) {
+                    myFriendsAdapter.list[position].isAccepted =
+                        resourcesProvider.getString(R.string.yes)
+                    myFriendsAdapter.notifyItemChanged(position)
+
+
+                } else {
+                    myFriendsAdapter.list.removeAt(position)
+                    myFriendsAdapter.notifyItemRemoved(position)
+
+                }
 
 
             } else {
@@ -213,11 +221,12 @@ class UsersViewModel(
 
     fun removeFriend(position: Int) {
         showLoading.postValue(true)
-        sendRequestParams.receiver_user_id = myFriends.value!![position].senderUserId.toString()
+        sendRequestParams.receiver_user_id = usersList.value!![position].receiverId.toString()
         usersRepository.removeFriend(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                usersAdapter.list[position].reqSendByOther = resourcesProvider.getString(R.string.No)
+                usersAdapter.list[position].reqSendByOther =
+                    resourcesProvider.getString(R.string.No)
                 usersAdapter.list[position].reqSendBySelf = resourcesProvider.getString(R.string.No)
                 usersAdapter.list[position].isAccepted = resourcesProvider.getString(R.string.No)
                 usersAdapter.notifyItemChanged(position)

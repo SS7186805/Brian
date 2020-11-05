@@ -68,12 +68,12 @@ interface APIService {
     suspend fun getAllChats(@Query("page") page: Int): ResponseAllChats
 
     @POST("api/v1/get-chat-by-room-id")
-    suspend fun getAllMessages(@Body getAllMessagesParams: GetAllMessagesParams): ResponseGetAllMessages
+    suspend fun getAllMessages(@Query("page") page: Int,@Body getAllMessagesParams: GetAllMessagesParams): ResponseGetAllMessages
 
     @POST("api/v1/create_chat_room")
     suspend fun createChatRoom(@Body createChatRoomParams: CreateChatRoomParams): ResponseCreateChatRoom
 
-    @POST("api/v1/remove_chat")
+    @POST("api/v1/remove-chat")
     suspend fun removeChat(@Body createChatRoomParams: GetAllMessagesParams): BaseResponse
 
     @POST("api/v1/change-password")
@@ -147,7 +147,7 @@ interface APIService {
     ): BaseResponse
 
     @GET("api/v1/get-question-randomly/{id}")
-    suspend fun questionResponse(@Path("id") id:Int): QuestionResponse
+    suspend fun questionResponse(@Path("id") id: Int): QuestionResponse
 
     @GET("api/v1/leaderboard/challenges")
     suspend fun getChallengesLeaderBoard(): ResponseLeaderboard
@@ -159,7 +159,7 @@ interface APIService {
     suspend fun getStats(): ResponseMyStats
 
     @GET("api/v1/teams")
-    suspend fun getMyTeams(): ResponseMyTeams
+    suspend fun getMyTeams(@Query("page") page: Int): ResponseMyTeams
 
 
     @GET("api/v1/profile/{id}")

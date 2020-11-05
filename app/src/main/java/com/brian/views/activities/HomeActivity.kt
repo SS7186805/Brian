@@ -93,7 +93,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.toolbar.visibility = View.VISIBLE
         }
 
-        if (destination.id == R.id.myFriendsFragment || destination.id == R.id.challenegesFragment || destination.id == R.id.teamFragment) {
+        if (destination.id == R.id.myFriendsFragment || destination.id == R.id.messagesFragment || destination.id == R.id.challenegesFragment || destination.id == R.id.teamFragment) {
             mBinding.toolbar.iAdd.visibility = VISIBLE
 
         } else {
@@ -232,6 +232,16 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
 
             if (navController.currentDestination?.id == R.id.teamFragment) {
                 navController.navigate(R.id.createTeamFragment)
+
+            }
+            if (navController.currentDestination?.id == R.id.messagesFragment) {
+                navController.navigate(
+                    R.id.usersFragment,
+                    bundleOf(
+                        getString(R.string.register_message) to getString(R.string.yes),
+                        getString(R.string.no) to getString(R.string.no)
+                    )
+                )
 
             }
 
