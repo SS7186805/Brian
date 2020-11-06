@@ -41,6 +41,7 @@
         <TextView
             android:id="@+id/tvNobadges"
             android:layout_width="match_parent"
+            android:textSize="@dimen/text_no_data_size"
             android:layout_height="wrap_content"
             android:fontFamily="@font/century_gothic_bold"
             android:text="@string/no_data_found"

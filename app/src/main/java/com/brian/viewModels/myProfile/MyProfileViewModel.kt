@@ -1,6 +1,7 @@
 package com.brian.viewModels.myProfile
 
 import android.text.TextUtils
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.brian.base.BaseViewModel
@@ -59,7 +60,15 @@ class MyProfileViewModel(private val myProfileRepository: MyProfileRepository) :
 
                 if (response?.data is LoginData) {
                     val loginData: LoginData = response?.data
-                    Prefs.init().userInfo = loginData
+
+                    Log.e("UserId",Prefs.init().userInfo?.id.toString())
+                    Log.e("OtherUser",response.data.id.toString())
+
+                    if (Prefs.init().userInfo?.id.toString().equals(response.data.id.toString())) {
+                        Log.e("OwnUser",response.data.id.toString())
+                        Prefs.init().userInfo = loginData
+                    }
+
                     this@MyProfileViewModel.loginData.postValue(loginData)
                 }
             } else {

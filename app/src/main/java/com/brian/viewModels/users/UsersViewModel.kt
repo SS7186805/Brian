@@ -62,6 +62,7 @@ class UsersViewModel(
                     usersList.postValue(ArrayList())
                     myFriends.postValue(ArrayList())
                     usersAdapter.clearData()
+                    selectFriendsAdapter.selectedUsers.clear()
                     selectFriendsAdapter.clearData()
                     currentPageAllUsers = 1
                     currentPageMyUsers = 1
@@ -176,14 +177,24 @@ class UsersViewModel(
 
     fun acceptRejectRequest(position: Int, action: String) {
         showLoading.postValue(true)
-        sendRequestParams.receiver_user_id = usersList.value!![position].id.toString()
+        sendRequestParams.receiver_user_id = usersList.value!![position].senderId.toString()
         sendRequestParams.action = action
-        usersRepository.cancelRequest(sendRequestParams) { isSuccess, message, response ->
+        usersRepository.acceptRejectRequest(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                usersList.value!![position].reqSendBySelf =
-                    resourcesProvider.getString(R.string.No)
-                usersAdapter.notifyItemChanged(position, usersList.value!![position])
+
+                if (action.contains(resourcesProvider.getString(R.string.accept))) {
+                    usersAdapter.list[position].isAccepted =
+                        resourcesProvider.getString(R.string.yes)
+                    usersAdapter.notifyItemChanged(position)
+
+
+                } else {
+                    usersAdapter.list.removeAt(position)
+                    usersAdapter.notifyItemRemoved(position)
+
+                }
+
             } else {
                 showMessage.postValue(message)
             }
@@ -221,7 +232,7 @@ class UsersViewModel(
 
     fun removeFriend(position: Int) {
         showLoading.postValue(true)
-        sendRequestParams.receiver_user_id = usersList.value!![position].receiverId.toString()
+        sendRequestParams.receiver_user_id = usersList.value!![position].id.toString()
         usersRepository.removeFriend(sendRequestParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {

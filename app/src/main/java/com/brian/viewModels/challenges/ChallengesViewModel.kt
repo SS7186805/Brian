@@ -5,10 +5,12 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.brian.R
 import com.brian.base.BaseViewModel
+import com.brian.base.Prefs
 import com.brian.internals.plusAssign
 import com.brian.models.*
 import com.brian.providers.resources.ResourcesProvider
 import com.brian.repository.challenges.ChallengesRepository
+import com.brian.repository.myProfileRepository.MyProfileRepository
 import com.brian.views.adapters.ChallengeTypeAdapter
 import com.brian.views.adapters.MyChallengesAdapter
 import com.brian.views.adapters.MyChallengesRequestsAdapter
@@ -16,6 +18,7 @@ import com.brian.views.adapters.MyChallengesRequestsAdapter
 
 class ChallengesViewModel(
     private val challengesRepository: ChallengesRepository,
+    private val profileRepository: MyProfileRepository,
     private val resourcesProvider: ResourcesProvider
 ) : BaseViewModel() {
 
@@ -24,6 +27,7 @@ class ChallengesViewModel(
         MutableLiveData<ArrayList<ChallengeTypeDataItem>>().apply { value = ArrayList() }
     var myChallenges =
         MutableLiveData<ArrayList<DataItemMyChalleneges>>().apply { value = ArrayList() }
+    var loginDataa = MutableLiveData<LoginData>()
 
     var cancelResponse = MutableLiveData<BaseResponse>()
     var approveRejectResponse = MutableLiveData<BaseResponse>()
@@ -54,6 +58,24 @@ class ChallengesViewModel(
         initRecyclerAdapters()
     }
 
+    fun viewProfile(id: String) {
+        showLoading.postValue(true)
+        profileRepository.viewProfile(id) { isSuccess, message, response ->
+            showLoading.postValue(false)
+
+            if (isSuccess) {
+
+                if (response?.data is LoginData) {
+                    val loginData: LoginData = response?.data
+                    Prefs.init().userInfo = loginData
+                    loginDataa.postValue(response.data)
+                }
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
 
     private fun initRecyclerAdapters() {
         allChallengesAdapter = ChallengeTypeAdapter(

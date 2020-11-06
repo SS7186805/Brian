@@ -6,11 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
+import com.brian.base.MainApplication
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentMainScreenBinding
 import com.brian.internals.hideProgress
@@ -44,22 +46,45 @@ class MainScreenFragment : ScopedFragment(), KodeinAware {
 
 
         setupObserver()
+        loadData()
+        onSwipe()
+        return mBinding.root
+    }
 
+    fun loadData() {
         if (videoUrl.equals("")) {
             mViewModel.getData()
 
         }
-        return mBinding.root
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
     }
 
 
     inner class ClickHandler {
 
         fun onStart() {
-            findNavController().navigate(
-                R.id.action_mainScreenFragment_to_videoViewFragment,
-                bundleOf("path" to videoUrl, getString(R.string.training_videos) to false)
-            )
+
+            if (MainApplication.hasNetwork()) {
+                findNavController().navigate(
+                    R.id.action_mainScreenFragment_to_videoViewFragment,
+                    bundleOf("path" to videoUrl, getString(R.string.training_videos) to false)
+                )
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.internet_alert),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
 
         }
 

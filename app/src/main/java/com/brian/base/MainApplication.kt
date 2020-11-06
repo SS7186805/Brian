@@ -129,7 +129,7 @@ class MainApplication : Application(),KodeinAware{
         bind() from singleton { BuzzFeedViewModelFactory(instance(), instance()) }
         bind() from singleton { TrainingsViewModelFactory(instance(), instance()) }
         bind() from singleton { UsersViewModelFactory(instance(), instance()) }
-        bind() from singleton { ChallengesViewModelFactory(instance(), instance()) }
+        bind() from singleton { ChallengesViewModelFactory(instance(), instance(), instance()) }
         bind() from singleton { MessagesViewModelFactory(instance(), instance()) }
     }
 

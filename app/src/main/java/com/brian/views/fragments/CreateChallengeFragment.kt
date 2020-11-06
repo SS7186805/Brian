@@ -1,5 +1,6 @@
 package com.brian.views.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -28,6 +29,7 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
     lateinit var mBinding: CreateChallengeFragmentBinding
     lateinit var mViewModel: ChallengesViewModel
     var newChallenge = ""
+    var selectedUsers = ArrayList<MyFriendsDataItem>()
 
 
     override fun onCreateView(
@@ -88,9 +90,10 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
     }
 
 
+    @SuppressLint("UseRequireInsteadOfGet")
     fun setUsersData() {
-        var selectedUsers = getActivity()?.getIntent()?.getExtras()
-            ?.getParcelableArrayList<MyFriendsDataItem>("key")
+        selectedUsers = getActivity()?.getIntent()?.getExtras()
+            ?.getParcelableArrayList<MyFriendsDataItem>("key")!!
         var selectedUsersNames = ""
         var selecteduserIds = ""
 
@@ -149,9 +152,13 @@ class CreateChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.Succes
                 R.id.usersFragment,
                 bundleOf(
                     getString(R.string.challenge_type) to getString(R.string.yes),
-                    getString(R.string.no) to getString(R.string.no)
+                    getString(R.string.no) to getString(R.string.no),
+                    getString(R.string.select_user) to selectedUsers
                 )
             )
+
+            mBinding.selectUser.setText("")
+            getActivity()?.getIntent()?.removeExtra("key")
 
 
         }

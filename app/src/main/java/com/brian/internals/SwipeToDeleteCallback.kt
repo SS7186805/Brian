@@ -1,6 +1,6 @@
 package com.brian.internals
 
-import android.R
+
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.brian.R
 
 
 open class SwipeToDeleteCallback(context: Context?) : ItemTouchHelper.Callback() {
@@ -26,7 +27,7 @@ open class SwipeToDeleteCallback(context: Context?) : ItemTouchHelper.Callback()
         backgroundColor = Color.parseColor("#1c1c1b")
         mClearPaint = Paint()
         mClearPaint!!.setXfermode(PorterDuffXfermode(PorterDuff.Mode.CLEAR))
-        deleteDrawable = mContext?.resources?.getDrawable(R.drawable.ic_delete)
+        deleteDrawable = mContext?.getDrawable(R.drawable.ic_delete_chat)
         intrinsicWidth = deleteDrawable!!.intrinsicWidth
         intrinsicHeight = deleteDrawable!!.intrinsicHeight
     }

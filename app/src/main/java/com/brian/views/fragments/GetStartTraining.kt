@@ -6,11 +6,13 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
+import com.brian.base.MainApplication
 import com.brian.base.ScopedFragment
 import com.brian.databinding.FragmentGetStartTrainingBinding
 import com.brian.internals.hideProgress
@@ -41,37 +43,71 @@ class GetStartTraining : ScopedFragment(), KodeinAware {
         }
 
         setupObserver()
+        loadData()
+        onSwipe()
 
-        mViewModel.getTrainingVideoDataManagement()
         return mBinding.root
     }
 
 
+    fun loadData() {
+        mViewModel.getTrainingVideoDataManagement()
+
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
     inner class ClickHandler {
 
         fun onStartOne() {
-            findNavController().navigate(
-                R.id.getStartTrainingFragment_to_videoViewFragment,
-                bundleOf(
-                    "path" to videoUrl,
-                    getString(R.string.training_videos) to true,
-                    getString(R.string.id) to 1
+
+
+            if (MainApplication.hasNetwork()) {
+                findNavController().navigate(
+                    R.id.getStartTrainingFragment_to_videoViewFragment,
+                    bundleOf(
+                        "path" to videoUrl,
+                        getString(R.string.training_videos) to true,
+                        getString(R.string.id) to 1
+                    )
                 )
-            )
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.internet_alert),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
 
         }
 
         fun onStartTwo() {
-            findNavController().navigate(
-                R.id.getStartTrainingFragment_to_videoViewFragment,
-                bundleOf(
-                    "path" to videoUrl,
-                    getString(R.string.training_videos) to true,
-                    getString(R.string.id) to 2
+
+            if (MainApplication.hasNetwork()) {
+                findNavController().navigate(
+                    R.id.getStartTrainingFragment_to_videoViewFragment,
+                    bundleOf(
+                        "path" to videoUrl,
+                        getString(R.string.training_videos) to true,
+                        getString(R.string.id) to 2
+                    )
                 )
-            )
 
-
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.internet_alert),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
 
 
         }
@@ -89,12 +125,7 @@ class GetStartTraining : ScopedFragment(), KodeinAware {
             data.observe(viewLifecycleOwner, Observer {
                 if (it != null && it.isNotEmpty()) {
 
-                    mBinding.interactTxt.setText(
-                        Html.fromHtml(
-                            it[0].heading,
-                            Html.FROM_HTML_MODE_COMPACT
-                        )
-                    )
+
                     mBinding.textOne.setText(
                         Html.fromHtml(
                             it[0].description1,

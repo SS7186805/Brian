@@ -48,7 +48,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
 
         if (arguments?.getString("badges").equals("badges")) {
             mBinding.toolbar.tvTitle.setText(getString(R.string.badges_earned))
-            setBadgesEarned()
+            mViewModel.viewProfile(Prefs.init().userInfo?.id.toString())
 
         } else {
             mViewModel.getAllChallenges()
@@ -69,6 +69,8 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
 
 
         var list = ArrayList<ChallengeTypeDataItem>()
+
+
         for (badge in Prefs.init().userInfo?.badgesEarneda?.data!!) {
             list.add(ChallengeTypeDataItem(badge.challenge?.image, badge.challengeTitle))
         }
@@ -119,6 +121,12 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
                 if (!TextUtils.isEmpty(it)) {
                     requireContext().showToast(it)
                     showMessage.postValue("")
+                }
+            })
+
+            mViewModel.loginDataa.observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    setBadgesEarned()
                 }
             })
 

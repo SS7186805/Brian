@@ -73,30 +73,56 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         mBinding.etSearchBar.addTextChangedListener(mViewModel.textWatcher)
         mViewModel.usersAdapter.listener = this.mClickHandler
 
+        loadData()
+        setupRecyclers()
+        setupScrollListener()
+        setupObserver()
+        onSwipe()
+
+        return mBinding.root
+    }
+
+    fun loadData() {
 
         if (arguments?.getString(getString(R.string.challenge_type)).equals(getString(R.string.yes))) {
+            var selectedUsers =
+                arguments?.getParcelableArrayList<MyFriendsDataItem>(getString(R.string.select_user))
             isChallenegeType = true
+            mViewModel.myFriends.value?.clear()
+            mViewModel.selectFriendsAdapter.clearData()
+            mViewModel.selectFriendsAdapter.selectedUsers.clear()
+            mViewModel.selectFriendsAdapter.selectedUsers = selectedUsers!!
+            mViewModel.currentPageMyUsers = 1
             mViewModel.getMyUsers()
             mViewModel.type = getString(R.string.yes)
 
         } else if (arguments?.getString(getString(R.string.register_message)).equals(getString(R.string.yes))) {
             isChallenegeType = true
+            mViewModel.myFriends.value?.clear()
+            mViewModel.selectFriendsAdapter.clearData()
+            mViewModel.currentPageMyUsers = 1
             mViewModel.getMyUsers()
             mViewModel.type = getString(R.string.yes)
             mViewModel.selectFriendsAdapter.listenerChat = this.mClickHandler
 
         } else {
             isChallenegeType = false
+            mViewModel.usersList.value?.clear()
+            mViewModel.usersAdapter.clearData()
+            mViewModel.currentPageAllUsers = 1
             mViewModel.getUsers()
             mViewModel.type = getString(R.string.no)
 
         }
-        setupRecyclers()
-        setupScrollListener()
-        setupObserver()
+    }
 
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            loadData()
+            mBinding.lSwipe.isRefreshing = false
 
-        return mBinding.root
+        }
     }
 
     private fun setupViewModel() {
@@ -140,6 +166,8 @@ class UsersFragment : ScopedFragment(), KodeinAware {
         }
 
         override fun rejectRequest(position: Int) {
+            mViewModel.acceptRejectRequest(position, getString(R.string.reject))
+
         }
 
         override fun removeFriend(position: Int) {

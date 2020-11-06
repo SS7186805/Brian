@@ -98,9 +98,13 @@ class RegisterFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickL
             regUserType.setAdapter(arrayAdapter)
             regUserType.threshold = 100
             regUserType.setOnClickListener {
+                Utils.init.hideKeyBoard(requireContext(), mBinding.root)
+
                 regUserType.showDropDown()
             }
             regUserType.setOnFocusChangeListener { v, hasFocus ->
+                Utils.init.hideKeyBoard(requireContext(), mBinding.root)
+
                 regUserType.showDropDown()
             }
 

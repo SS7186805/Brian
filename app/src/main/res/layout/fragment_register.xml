@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-             <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/blackTheme">
@@ -136,6 +136,7 @@
                         android:drawableStart="@drawable/ic_d_user"
                         android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                         android:drawablePadding="@dimen/margin_10"
+                        android:focusable="false"
                         android:fontFamily="@font/century_gothic"
                         android:hint="@string/select_user_type"
                         android:imeOptions="actionNext"

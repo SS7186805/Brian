@@ -114,4 +114,9 @@ class UserProfileFragment : ScopedFragment(), KodeinAware {
 
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        id=""
+    }
 }

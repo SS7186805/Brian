@@ -47,7 +47,7 @@
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
                         android:src="@drawable/video_full"
-                        bind:imageUrl="@{item.challenge.image}">
+                        bind:imageUrl="@{item.fileName}">
 
                     </ImageView>
 
@@ -113,34 +113,36 @@
                 android:id="@+id/check"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
+                android:layout_marginBottom="@dimen/margin_15"
                 android:paddingBottom="@dimen/margin_5"
                 android:src="@drawable/ic_check"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/profilePic" />
+                app:layout_constraintTop_toBottomOf="@id/profilePic" />
 
 
             <ImageView
                 android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_5"
-                android:paddingBottom="@dimen/margin_5"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginBottom="@dimen/margin_15"
+                android:src="@drawable/cross"
                 android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/profilePic" />
+                app:layout_constraintTop_toBottomOf="@id/profilePic" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_5"
                 android:fontFamily="@font/century_gothic"
-                android:text="@{item.createdAt}"
                 android:textColor="@color/text_color_grey"
                 android:textSize="@dimen/px40"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/check" />
+                app:layout_constraintTop_toBottomOf="@id/profilePic" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/lAcceptReject"

@@ -142,5 +142,10 @@ class MyProfileFragment : ScopedFragment(), KodeinAware, DialogUtil.YesNoDialogC
 
     }
 
+    override fun onStop() {
+        super.onStop()
+
+    }
+
 
 }

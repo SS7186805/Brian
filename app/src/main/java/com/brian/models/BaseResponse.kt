@@ -99,7 +99,7 @@ data class BadgesEarneda(
     val total: Int? = null,
 
     @field:SerializedName("data")
-    val data: ArrayList<DataBadges>? = null,
+    val data: ArrayList<DataBadges> = ArrayList(),
 
     @field:SerializedName("last_page")
     val lastPage: Int? = null,

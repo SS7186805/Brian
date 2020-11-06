@@ -92,7 +92,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
 
         mBinding.lSwipe.setOnRefreshListener {
-            Log.e("OnSwipee","OnSwipee")
+            Log.e("OnSwipee", "OnSwipee")
             loadData()
             mBinding.lSwipe.isRefreshing = false
 
@@ -211,7 +211,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
             myChallenges.observe(viewLifecycleOwner, Observer {
 
-                Log.e("MyChallengesSize",myChallenges.value?.size.toString())
+                Log.e("MyChallengesSize", myChallenges.value?.size.toString())
 
                 if (it != null && it.isNotEmpty()) {
                     mBinding.tvNoMyChalleneges.visibility = View.GONE
@@ -219,6 +219,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
                 } else {
                     if (mViewModel.myChallenges.value!!.size == 0) {
                         mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
+                        mBinding.tvNoDataFound.visibility = View.GONE
+
                     }
                 }
 
@@ -271,6 +273,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
                     if (mViewModel.challengeRequests.value!!.size == 0) {
                         if (!mBinding.rMyChallenges.isVisible) {
                             mBinding.tvNoDataFound.visibility = View.VISIBLE
+                            mBinding.tvNoMyChalleneges.visibility = View.GONE
+
 
                         } else {
                             mBinding.tvNoDataFound.visibility = View.GONE
@@ -358,6 +362,8 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
     override fun onPause() {
         super.onPause()
+        mViewModel.myChallenges.value?.clear()
+        mViewModel.challengeRequests.value?.clear()
         mEndlessChallengeRequestsViewScrollListener?.resetState()
         mEndlessMyChallengesRecyclerViewScrollListener?.resetState()
     }

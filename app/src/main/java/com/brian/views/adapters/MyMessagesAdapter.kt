@@ -40,6 +40,10 @@ class MyMessagesAdapter(override val layoutId: Int, var resourcesProvider: Resou
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
 
     interface onViewClick {
         fun onChatClick(position: Int)

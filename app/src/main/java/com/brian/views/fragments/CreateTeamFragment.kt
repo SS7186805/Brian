@@ -1,8 +1,10 @@
 package com.brian.views.fragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -35,6 +37,8 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
     lateinit var mBinding: CreateTeamFragmentBinding
     lateinit var mViewModel: HomeViewModel
     private var imageFile: File? = null
+    var selectedUsers = ArrayList<MyFriendsDataItem>()
+    var fileUri:Uri?=null
 
 
     override fun onCreateView(
@@ -55,6 +59,12 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
         }
 
         mBinding.etTeamName.clearFocus()
+
+        if(fileUri!=null){
+            mBinding.ivImage.setImageURI(fileUri)
+
+        }
+
 
         setupObserver()
 
@@ -79,13 +89,18 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
         }
 
         fun onSelectUser() {
+
             findNavController().navigate(
                 R.id.usersFragment,
                 bundleOf(
                     getString(R.string.challenge_type) to getString(R.string.yes),
-                    getString(R.string.no) to getString(R.string.no)
+                    getString(R.string.no) to getString(R.string.no),
+                    getString(R.string.select_user) to selectedUsers
                 )
             )
+
+            mBinding.etSelectUser.setText("")
+            getActivity()?.getIntent()?.removeExtra("key")
 
         }
 
@@ -103,6 +118,7 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
     }
 
     override fun onOkayClick() {
+        activity?.intent?.removeExtra("key")
         findNavController().navigateUp()
 
     }
@@ -124,7 +140,7 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
         when (resultCode) {
             Activity.RESULT_OK -> {
                 //Image Uri will not be null for RESULT_OK
-                val fileUri = data?.data
+                fileUri = data?.data
                 mBinding.ivImage.setImageURI(fileUri)
                 //You can get File object from intent
                 imageFile = ImagePicker.getFile(data)!!
@@ -181,12 +197,13 @@ class CreateTeamFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClic
     }
 
 
+    @SuppressLint("UseRequireInsteadOfGet")
     override fun onResume() {
         super.onResume()
 
         if (getActivity()?.getIntent()?.getExtras()?.getParcelableArrayList<MyFriendsDataItem>("key") != null) {
-            var selectedUsers = getActivity()?.getIntent()?.getExtras()
-                ?.getParcelableArrayList<MyFriendsDataItem>("key")
+            selectedUsers = getActivity()?.getIntent()?.getExtras()
+                ?.getParcelableArrayList<MyFriendsDataItem>("key")!!
             var selectedUsersNames = ""
             var selecteduserIds = ""
 

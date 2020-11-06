@@ -23,7 +23,7 @@ import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
 
 
-const val BASE_URL = "http://1.6.98.142/brian_m4/"
+const val BASE_URL = "http://192.168.3.177/brian_m4/"
 
 interface APIService {
 
@@ -68,7 +68,7 @@ interface APIService {
     suspend fun getAllChats(@Query("page") page: Int): ResponseAllChats
 
     @POST("api/v1/get-chat-by-room-id")
-    suspend fun getAllMessages(@Query("page") page: Int,@Body getAllMessagesParams: GetAllMessagesParams): ResponseGetAllMessages
+    suspend fun getAllMessages(@Query("page") page: Int, @Body getAllMessagesParams: GetAllMessagesParams): ResponseGetAllMessages
 
     @POST("api/v1/create_chat_room")
     suspend fun createChatRoom(@Body createChatRoomParams: CreateChatRoomParams): ResponseCreateChatRoom
@@ -216,10 +216,10 @@ interface APIService {
                         error = errorParser.message ?: exception.message()
                     }
                     is ConnectException -> {
-                        error = "Connection_Error"
+                        error = "Your internet connection appears to be offline. Please try again."
                     }
                     is SocketTimeoutException -> {
-                        error = "TimeoutError"
+                        error = "Something went wrong. Please try again."
                     }
                 }
             } catch (e: IOException) {

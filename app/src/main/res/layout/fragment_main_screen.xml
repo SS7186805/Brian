@@ -15,132 +15,144 @@
             type="com.brian.views.fragments.MainScreenFragment.ClickHandler" />
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/lSwipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blackTheme">
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_one"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_20"
-            android:background="#000"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/blackTheme">
 
 
-            <TextView
-                android:id="@+id/baseball_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/century_gothic_bold"
-                android:text="Baseball.com"
-                android:textColor="@color/yellow"
-                android:textSize="@dimen/px70"
-                app:layout_constraintBottom_toTopOf="@+id/baseball_home_bg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/baseball_home_bg"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_one"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:src="@drawable/logo2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/baseball_txt" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container_two"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/margin_20"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="@dimen/margin_20"
-            android:background="#000"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container_one"
-            tools:ignore="UnknownId">
-
-
-            <TextView
-                android:id="@+id/interact_txt"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/century_gothic_bold"
-                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:background="#000"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Interact with you Coaches\n&amp; Teammates in our cool and fun\napp"
-                android:textColor="#fff"
-                android:textSize="@dimen/px70"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:clipToPadding="false"
-                android:layout_marginBottom="@dimen/margin_20"
-                android:paddingBottom="@dimen/margin_10"
-                app:layout_constraintBottom_toTopOf="@id/GetStart"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/interact_txt">
+                app:layout_constraintTop_toTopOf="parent">
 
 
                 <TextView
-                    android:id="@+id/text_view"
+                    android:id="@+id/baseball_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:text="Baseball.com"
+                    android:textColor="@color/yellow"
+                    android:textSize="@dimen/px70"
+                    app:layout_constraintBottom_toTopOf="@+id/baseball_home_bg"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/baseball_home_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/century_gothic"
-                    android:gravity="start"
-                    android:textColor="#FFFDFD"
-                    android:textSize="@dimen/px55" />
+                    android:layout_height="50dp"
+                    android:src="@drawable/logo2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/baseball_txt" />
 
 
-            </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <TextView
-                android:id="@+id/GetStart"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_two"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_btn_size"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/btn_bg"
-                android:fontFamily="@font/century_gothic_bold"
-                android:gravity="center"
-                android:onClick="@{()->clickHandler.onStart()}"
-                android:text="@string/get_started"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/px60"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="@dimen/margin_20"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:background="#000"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_one"
+                tools:ignore="UnknownId">
+
+
+                <TextView
+                    android:id="@+id/interact_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Interact with you Coaches\n&amp; Teammates in our cool and fun\napp"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/px70"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    android:clipToPadding="false"
+                    android:paddingBottom="@dimen/margin_10"
+                    app:layout_constraintBottom_toTopOf="@id/GetStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/interact_txt">
+
+
+                    <TextView
+                        android:id="@+id/text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/century_gothic"
+                        android:gravity="start"
+                        android:textColor="#FFFDFD"
+                        android:textSize="@dimen/px55" />
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+                <TextView
+                    android:id="@+id/GetStart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_btn_size"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/btn_bg"
+                    android:fontFamily="@font/century_gothic_bold"
+                    android:gravity="center"
+                    android:onClick="@{()->clickHandler.onStart()}"
+                    android:text="@string/get_started"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/px60"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </layout>

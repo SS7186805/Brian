@@ -174,16 +174,18 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
 
             sendMessageResponse.observe(this@ChatActivity, Observer {
                 if (it.result?.contains(getString(R.string.success))!!) {
-                    if (mViewModel.allMessages.value?.size != 0) {
-                        mViewModel.allMessages.value?.add(
-                            mViewModel.allMessages.value!!.size,
+                    if (finalList?.size != 0) {
+                        finalList?.add(
+                            finalList.size,
                             it.data!!
                         )
                     } else {
-                        mViewModel.allMessages.value?.add(
+                        finalList.add(
                             it.data!!
                         )
                     }
+                    mViewModel.chatAdapter.setNewItems(finalList)
+                    showKeyboard(mBinding.root)
 
                     mBinding.chatRecycler.scrollToPosition(mViewModel.allMessages.value?.size!! - 1)
                 }
@@ -196,7 +198,7 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
                 finalList = it
                 if (it != null && it.isNotEmpty()) {
                     Log.e("messagessize", allMessages.value?.size.toString())
-                    mViewModel.chatAdapter.setNewItems(it)
+                    mViewModel.chatAdapter.setNewItems(finalList)
                 }
 
                 if (finalList.size <= 20) {

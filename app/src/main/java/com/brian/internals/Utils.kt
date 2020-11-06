@@ -3,6 +3,7 @@ package com.brian.internals
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Color
 import android.text.InputFilter
@@ -63,6 +64,16 @@ class Utils private constructor() {
 
     }
 
+    fun copyMessage(text: String?, context: Context?) {
+        if (context != null) {
+            val cm =
+                context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            if (cm != null) {
+                cm.text = text
+                Toast.makeText(context, "Message copied to clipboard.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     fun toTextRequestBody(value: String): RequestBody {
         return value.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -86,6 +97,21 @@ class Utils private constructor() {
         }
         return tTime
     }
+    fun get24HourTimeChallenge(time: String): String {
+
+        var tTime = time
+        var orignalformat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        orignalformat.setTimeZone(TimeZone.getTimeZone("UTC"))
+        var date: Date? = null
+        try {
+            date = orignalformat.parse(tTime);
+            tTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return tTime
+    }
+
 
     fun get12HourTime(time: String): String {
         var tTime = time
@@ -96,6 +122,21 @@ class Utils private constructor() {
         try {
             date = orignalformat.parse(tTime);
             tTime = SimpleDateFormat("hh:mm aa").format(date);
+        } catch (e: ParseException) {
+            e.printStackTrace();
+        }
+        return tTime;
+    }
+
+    fun get12HourTimeChallenge(time: String): String {
+        var tTime = time
+        var orignalformat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        orignalformat.setTimeZone(TimeZone.getTimeZone("UTC"))
+
+        var date: Date? = null
+        try {
+            date = orignalformat.parse(tTime);
+            tTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date);
         } catch (e: ParseException) {
             e.printStackTrace();
         }

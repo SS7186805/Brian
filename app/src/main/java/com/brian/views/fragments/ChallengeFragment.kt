@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.brian.R
+import com.brian.base.PathUtil
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengeFragmentBinding
 import com.brian.internals.DialogUtil
@@ -30,6 +31,7 @@ import com.brian.internals.showToast
 import com.brian.models.DataItemMyChalleneges
 import com.brian.viewModels.challenges.ChallengesViewModel
 import com.brian.viewModels.challenges.ChallengesViewModelFactory
+import com.bumptech.glide.Glide
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import kotlinx.android.synthetic.main.activity_main.view.ivBack
 import kotlinx.android.synthetic.main.activity_main.view.tvTitle
@@ -147,6 +149,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
         val intent = Intent()
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
         startActivityForResult(
             Intent.createChooser(intent, "Select Video"),
             100
@@ -183,34 +186,29 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
             if (requestCode == 100) {
                 val selectedImageUri: Uri? = data?.data
 
-                Log.e("selectImageApUri", "Uri${selectedImageUri}")
-                Log.e("selectImageApUriPath", "Uri${selectedImageUri?.path}")
 
-                var id = DocumentsContract.getDocumentId(selectedImageUri);
-                var inputStream = requireContext().getContentResolver().openInputStream(
-                    selectedImageUri!!
-                );
-
-                var file = File(requireContext().cacheDir.getAbsolutePath() + "/" + id);
-
-                writeFile(inputStream!!, file);
-                var filePath = file.getAbsolutePath();
+                var filePath = PathUtil.getPath(requireContext(),selectedImageUri!!)
 
                 videoFile = File(filePath)
                 val filePart = MultipartBody.Part.createFormData(
-                    "image",
+                    "file_name",
                     videoFile?.name,
                     RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 
                 )
 
-                Log.e("ImageUri", "####${selectedImageUri}")
+               /* Log.e("ImageUri", "####${selectedImageUri}")
                 mBinding.videoView.setImageBitmap(
                     ThumbnailUtils.createVideoThumbnail(
                         filePath,
                         MediaStore.Video.Thumbnails.MICRO_KIND
                     )
-                )
+                )*/
+
+                Glide.with(this)
+                    .asBitmap()
+                    .load(selectedImageUri) // or URI/path
+                    .into(mBinding.videoView)
                 mViewModel.acceptChallengeRequestParams.file_name = filePart
             }
 
@@ -220,7 +218,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
                 var selectedImagePath = getPath(selectedImageUri)
                 videoFile = File(selectedImagePath)
                 val filePart = MultipartBody.Part.createFormData(
-                    "image",
+                    "file_name",
                     videoFile?.name,
                     RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 

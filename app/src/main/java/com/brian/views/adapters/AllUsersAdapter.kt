@@ -1,8 +1,9 @@
 package com.brian.views.adapters
 
+import android.os.Handler
 import android.util.Log
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View.*
+import androidx.constraintlayout.solver.GoalRow
 import com.brian.R
 import com.brian.base.BaseRecyclerAdapter
 import com.brian.databinding.UsersItemBinding
@@ -30,6 +31,8 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
             holder.binding.btnAccept.visibility = VISIBLE
             holder.binding.btnReject.visibility = VISIBLE
             holder.binding.friends.visibility = GONE
+            holder.binding.btnSendRequest.visibility = GONE
+            holder.binding.btnCancelRequest.visibility = GONE
 
         } else if (item.reqSendBySelf!!.contains(context.getString(R.string.No)) && item.reqSendByOther!!.contains(
                 context.getString(R.string.No)
@@ -39,6 +42,8 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
             holder.binding.btnSendRequest.visibility = VISIBLE
             holder.binding.btnCancelRequest.visibility = GONE
             holder.binding.friends.visibility = GONE
+            holder.binding.btnAccept.visibility = INVISIBLE
+            holder.binding.btnReject.visibility = INVISIBLE
 
 
         } else if (item.reqSendBySelf!!.contains(context.getString(R.string.yes)) && item.reqSendByOther!!.contains(
@@ -49,17 +54,37 @@ class AllUsersAdapter(override val layoutId: Int, var context: ResourcesProvider
             holder.binding.btnCancelRequest.visibility = VISIBLE
             holder.binding.btnSendRequest.visibility = GONE
             holder.binding.friends.visibility = GONE
+            holder.binding.btnAccept.visibility = INVISIBLE
+            holder.binding.btnReject.visibility = INVISIBLE
 
 
         } else {
             holder.binding.friends.visibility = VISIBLE
             holder.binding.btnCancelRequest.visibility = GONE
             holder.binding.btnSendRequest.visibility = GONE
-
+            holder.binding.btnAccept.visibility = INVISIBLE
+            holder.binding.btnReject.visibility = INVISIBLE
         }
 
 
+        holder.binding.tvFrndName.setOnClickListener {
+            holder.binding.tvFrndName.isEnabled = false
+            Handler().postDelayed({
+
+                holder.binding.tvFrndName.isEnabled = true
+
+            }, 500)
+            listener?.viewUserProfile(position)
+
+        }
+
         holder.binding.friendImage.setOnClickListener {
+            holder.binding.friendImage.isEnabled = false
+            Handler().postDelayed({
+
+                holder.binding.friendImage.isEnabled = true
+
+            }, 500)
             listener?.viewUserProfile(position)
         }
 

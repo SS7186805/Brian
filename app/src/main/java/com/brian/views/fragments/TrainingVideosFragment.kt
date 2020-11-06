@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -40,6 +41,8 @@ class TrainingVideosFragment : ScopedFragment(), KodeinAware {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().getWindow()
+            .clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setupViewModel()
         mBinding = TrainingVideosBinding.inflate(inflater, container, false).apply {
             viewModel = mViewModel

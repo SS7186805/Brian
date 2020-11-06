@@ -3,14 +3,14 @@
 <layout xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.brian.models.DataItemMyTeam" />
     </data>
 
 
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,26 +27,28 @@
                 android:id="@+id/iv_ribbon"
                 android:layout_width="@dimen/margin_50"
                 android:layout_height="@dimen/margin_50"
+                android:src="@drawable/team_placeholder"
                 android:scaleType="centerCrop"
-                bind:imageUrl="@{item.image}"
-                android:src="@drawable/team_logo"
-                app:civ_circle_background_color="@color/yellow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_Workgym"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                bind:imageUrl="@{item.image}" />
 
             <TextView
                 android:id="@+id/tv_Workgym"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_10"
                 android:fontFamily="@font/century_gothic_bold"
                 android:text="@{item.teamName}"
                 android:textColor="#fec60a"
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:textSize="@dimen/px55"
+                android:layout_marginHorizontal="@dimen/margin_10"
                 app:layout_constraintBottom_toTopOf="@+id/iv_11players"
                 app:layout_constraintStart_toEndOf="@+id/iv_ribbon"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

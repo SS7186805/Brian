@@ -38,6 +38,12 @@ abstract class ScopedActivity : AppCompatActivity(), CoroutineScope {
         imm.hideSoftInputFromWindow(v.windowToken, 0)
     }
 
+    fun showKeyboard(v: View) {
+        val imm =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInputFromInputMethod(v.windowToken, 0)
+    }
+
 
     fun setStatusBarColor() {
         val window = this.window

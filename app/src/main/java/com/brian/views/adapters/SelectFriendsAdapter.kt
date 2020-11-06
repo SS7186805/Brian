@@ -1,5 +1,6 @@
 package com.brian.views.adapters
 
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import com.brian.R
@@ -15,10 +16,31 @@ class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesPro
     var listener: onViewClick? = null
     var listenerChat: onChatClickListener? = null
     var rowIndex = 0
+    var selectedUsers = ArrayList<MyFriendsDataItem>()
 
     override fun bind(holder: ViewHolder, item: MyFriendsDataItem, position: Int) {
 
         holder.binding.item = item
+
+
+
+        Log.e("ItemSlectedd", item.isSelected.toString())
+        for (user in selectedUsers) {
+
+            Log.e("Selectusers", selectedUsers.size.toString())
+            if (user.id == item.id) {
+                item.isSelected = !item.isSelected
+                holder.binding.clView.isSelected = item.isSelected
+                selectedUsers.remove(user)
+                break
+//                notifyDataSetChanged()
+
+            }
+        }
+
+
+        holder.binding.clView.isSelected = item.isSelected
+
 
         if (item.isAccepted!!.contains(context.getString(R.string.No))
         ) {
@@ -28,6 +50,8 @@ class SelectFriendsAdapter(override val layoutId: Int, var context: ResourcesPro
             holder.binding.btnAccept.visibility = GONE
             holder.binding.btnReject.visibility = GONE
         }
+
+
 
 
         holder.binding.friendImage.setOnClickListener {

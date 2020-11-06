@@ -6,6 +6,7 @@ import android.view.View.VISIBLE
 import com.brian.base.BaseRecyclerAdapter
 import com.brian.base.Prefs
 import com.brian.databinding.MyChallengesItemBinding
+import com.brian.internals.Utils
 import com.brian.models.DataItemMyChalleneges
 import com.brian.providers.resources.ResourcesProvider
 
@@ -26,9 +27,15 @@ class MyChallengesRequestsAdapter(
 
 
         holder.binding.lAcceptReject.visibility = VISIBLE
+        holder.binding.cardVideoImage.visibility= GONE
         holder.binding.accept.visibility = VISIBLE
         holder.binding.approve.visibility = GONE
 
+        if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
+            holder.binding.time.setText(Utils.init.get24HourTimeChallenge(item.createdAt.toString()))
+        } else {
+            holder.binding.time.setText(Utils.init.get12HourTimeChallenge(item.createdAt.toString()))
+        }
 
 
         holder.binding.accept.setOnClickListener {

@@ -178,5 +178,6 @@
     <string name="no_friends">No friends</string>
     <string name="Questions_not_available">Questions not available.</string>
     <string name="enter_message_validation">Please enter message.</string>
+    <string name="internet_alert">Your internet connection appears to be offline. Please try again.</string>
 
 </resources>

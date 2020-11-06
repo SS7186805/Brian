@@ -70,6 +70,11 @@ abstract class EndlessChatScrollListener : RecyclerView.OnScrollListener {
                     "LastVisibleItem",
                     "${(mLayoutManager as LinearLayoutManager).findLastVisibleItemPosition()}"
                 )
+                Log.e(
+                    "firsvisibleItem",
+                    "${(mLayoutManager as LinearLayoutManager).findFirstVisibleItemPosition()}"
+                )
+
                 lastVisibleItemPosition =
                     (mLayoutManager as LinearLayoutManager).findLastVisibleItemPosition()
 
@@ -113,6 +118,10 @@ abstract class EndlessChatScrollListener : RecyclerView.OnScrollListener {
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         // threshold should reflect how many total columns there are too
+
+        if (view.canScrollVertically(-1)) {
+            Log.e("ONSCrollll", "OnScrolll")
+        }
         if (!loading && firstVisibleItemPosition <= 2 && firstVisibleItemPosition >= 0) {
             Log.e("Paginggg", "detected")
             currentPage++
@@ -139,8 +148,13 @@ abstract class EndlessChatScrollListener : RecyclerView.OnScrollListener {
             val canScrollDownMore = recyclerView.canScrollVertically(1)
             // If recyclerView.canScrollVertically(1) returns false it means you're at the end of the list.
             if (!canScrollDownMore) {
-                onScrolled(recyclerView, 0, 1)
+
             }
+        }
+
+        if (recyclerView.canScrollVertically(-1)) {
+            Log.e("ONSCrollll", "OnScrolll")
+            onScrolled(recyclerView, 0, 1)
         }
     }
 }

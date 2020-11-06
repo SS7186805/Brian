@@ -1,6 +1,6 @@
 package com.brian.views.adapters
 
-import android.util.Log
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -61,10 +61,12 @@ class ChatAdapter(
 
     override fun getItemViewType(position: Int): Int {
 
-        return if (Prefs.init().userInfo?.id ==
-            chatList[position].senderUserId
-        ) {
+        /*  Log.e("USerIddd", Prefs.init().userInfo?.id.toString())
+          Log.e("chatList[position].senderUserId", chatList[position].senderUserId.toString())*/
 
+        return if (Prefs.init().userInfo?.id.toString().equals(chatList[position].senderUserId.toString())
+
+        ) {
             -1
         } else {
             position
@@ -112,8 +114,20 @@ class ChatAdapter(
 
             itemView.setOnClickListener {
                 if (chatModel.typeOfFile?.toString().equals("video")) {
+                    itemView.isEnabled = false
+                    Handler().postDelayed({
+
+                        itemView.isEnabled = true
+
+                    }, 1000)
+
                     listener?.onVideoMessageClick(position, chatModel.fileName.toString())
                 }
+            }
+
+            itemView.setOnLongClickListener { v: View? ->
+                Utils.init.copyMessage(tvMessage.text.toString(), resourcesProvider.getContext())
+                false
             }
 
         }
@@ -162,11 +176,22 @@ class ChatAdapter(
             } else {
                 tvTime.setText(Utils.init.get12HourTime(chatModel.createdAt.toString()))
             }
-
             itemView.setOnClickListener {
                 if (chatModel.typeOfFile?.toString().equals("video")) {
+                    itemView.isEnabled = false
+                    Handler().postDelayed({
+
+                        itemView.isEnabled = true
+
+                    }, 1000)
+
                     listener?.onVideoMessageClick(position, chatModel.fileName.toString())
                 }
+            }
+
+            itemView.setOnLongClickListener { v: View? ->
+                Utils.init.copyMessage(tvMessage.text.toString(), resourcesProvider.getContext())
+                false
             }
         }
 
@@ -185,7 +210,7 @@ class ChatAdapter(
     }
 
     fun setNewItems(newItems: ArrayList<AllMessagesDataItem>) {
-        this.chatList=newItems
+        this.chatList = newItems
         notifyDataSetChanged()
     }
 
