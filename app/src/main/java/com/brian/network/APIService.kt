@@ -21,9 +21,10 @@ import java.io.IOException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.Throws
 
 
-const val BASE_URL = "http://192.168.3.177/brian_m4/"
+const val BASE_URL = "http://1.6.98.142/brian_m4/"
 
 interface APIService {
 
@@ -178,6 +179,11 @@ interface APIService {
 
     @GET("api/v1/get-defensive-situation-data-management")
     suspend fun getDataHome(): ResponseDataManagement
+
+
+    @GET("api/v1/get-result-qa/{id}")
+    suspend fun getGameSummary(@Path("id") id: Int): ResponseGameSummary
+
 
     @GET("api/v1/buzz-feeds")
     suspend fun getBuzzFeed(@Query("page") page: Int?): ResponseBuzzFeed

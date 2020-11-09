@@ -3,14 +3,12 @@ package com.brian.views.activities
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
@@ -26,6 +24,7 @@ import com.brian.base.MainApplication
 import com.brian.base.PathUtil
 import com.brian.base.ScopedActivity
 import com.brian.databinding.ChatFragmentBinding
+import com.brian.internals.Validator
 import com.brian.internals.hideProgress
 import com.brian.internals.showProgress
 import com.brian.internals.showToast
@@ -35,13 +34,14 @@ import com.brian.viewModels.messages.MessagesViewModel
 import com.brian.viewModels.messages.MessagesViewModelFactory
 import com.brian.views.adapters.ChatAdapter
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+import com.vincent.videocompressor.VideoCompress
 import kotlinx.android.synthetic.main.activity_main.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
-import java.io.*
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -56,6 +56,9 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
     private var videoFile: File? = null
     var mEndlessFriendsecyclerViewScrollListener: EndlessChatScrollListener? = null
     var finalList = ArrayList<AllMessagesDataItem>()
+    var DOWNLOAD_PATH =
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .absolutePath
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,10 +87,38 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
         }
 
         mViewModel.createChatRoom()
-        setupScrollListener()
+//        setupScrollListener()
+        keyboardOpenChangListener()
+        onSwipe()
 
 
         setupObserver()
+    }
+
+    fun onSwipe() {
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+
+            if (mViewModel.allMessages.value!!.size % 10 == 0 && mViewModel.allMessages.value!!.size != 0) {
+                mViewModel.getAllMessages()
+            }
+
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
+
+    fun keyboardOpenChangListener() {
+        mBinding.chatRecycler.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (bottom < oldBottom) {
+                Log.e("OlDD", "sd")
+                mBinding.chatRecycler.postDelayed(object : Runnable {
+                    override fun run() {
+                        mBinding.chatRecycler.smoothScrollToPosition(finalList.size!!);
+                    }
+                }, 100);
+            }
+        }
     }
 
 
@@ -149,7 +180,7 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
         messageParams.type_of_file = "video"
         messageParams.chat_room_id = chatRoomId
         messageParams.other_user_id = otherUserId
-        mViewModel.sendMessage(messageParams)
+        mViewModel.sendVideoMessage(messageParams)
 
 
     }
@@ -185,9 +216,8 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
                         )
                     }
                     mViewModel.chatAdapter.setNewItems(finalList)
-                    showKeyboard(mBinding.root)
-
                     mBinding.chatRecycler.scrollToPosition(mViewModel.allMessages.value?.size!! - 1)
+
                 }
 
             })
@@ -214,28 +244,6 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
             })
         }
     }
-
-    /*  private fun setupScrollListener() {
-          mBinding.apply {
-              chatRecycler.setOnScrollChangeListener { _, _, _, _, _ ->
-
-                  if (mViewModel.allMessages.value?.isNotEmpty()!!) {
-                      val view = chatRecycler.getChildAt(0)
-                      val diff =  (chatRecycler.height - chatRecycler.scrollY) + view.bottom
-                      val offset = mViewModel.allMessages.value?.size
-                      Log.e("chatRecycler.height",chatRecycler.height.toString())
-                      Log.e("chatRecycler.scrollY.=",chatRecycler.scrollX.toString())
-                      Log.e("view.bottom",view.bottom.toString())
-                      Log.e("Offset",offset.toString())
-                      if (diff == 0 && offset!! % 20 == 0 ) {
-                          mViewModel.getAllMessages()
-                      }
-                  }
-
-              }
-
-          }
-      }*/
 
 
     private fun setupScrollListener() {
@@ -264,7 +272,8 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
         val intent = Intent()
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
+        intent.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 50)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60)
         startActivityForResult(
             Intent.createChooser(intent, "Select Video"),
             100
@@ -291,7 +300,7 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
 
     private fun takeVideoFromCamera() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60)
         startActivityForResult(intent, 101)
     }
 
@@ -300,20 +309,55 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 100) {
+
                 val selectedImageUri: Uri? = data?.data
                 var filePath = PathUtil.getPath(this, selectedImageUri!!)
+                if (Validator.init.validatePostMediaData(this,filePath)) {
+                    videoFile = File(filePath)
+                    val filePart = MultipartBody.Part.createFormData(
+                        "file_name",
+                        videoFile?.name,
+                        RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 
-                videoFile = File(filePath)
-                val filePart = MultipartBody.Part.createFormData(
-                    "file_name",
-                    videoFile?.name,
-                    RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
+                    )
 
-                )
+                    Log.e(
+                        "FileLenghtwewrer",
+                        File("${filePath}").length().toString()
+                    )
 
-                sendVideoMessage(filePart)
+                    val destPath: String =
+                        DOWNLOAD_PATH + File.separator + "POST_VID_" + Calendar.getInstance().timeInMillis + ".mp4"
+                    VideoCompress.compressVideoLow(
+                        filePath,
+                        destPath,
+                        object : VideoCompress.CompressListener {
+                            override fun onStart() {
+                                showProgress(this@ChatActivity)
+                            }
 
-                Log.e("ImageUri", "####${selectedImageUri}")
+                            override fun onSuccess() {
+                                hideProgress()
+
+
+                                Log.e(
+                                    "FileLenght",
+                                    File("${DOWNLOAD_PATH + File.separator + "POST_VID_" + Calendar.getInstance().timeInMillis + ".mp4"}").length().toString()
+                                )
+                                sendVideoMessage(filePart)
+
+                            }
+
+                            override fun onFail() {
+
+                            }
+
+                            override fun onProgress(percent: Float) {}
+                        })
+
+                } else {
+
+                }
 
 
             }
@@ -323,42 +367,42 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
 
                 var selectedImagePath = getPath(selectedImageUri)
                 videoFile = File(selectedImagePath)
-                val filePart = MultipartBody.Part.createFormData(
-                    "file_name",
-                    videoFile?.name,
-                    RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
+                if (Validator.init.validatePostMediaData(this,selectedImagePath)) {
 
-                )
-                sendVideoMessage(filePart)
+                    val filePart = MultipartBody.Part.createFormData(
+                        "file_name",
+                        videoFile?.name,
+                        RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 
+                    )
 
-                Log.e("ImageUri", "####${selectedImageUri}")
+                    val destPath: String =
+                        DOWNLOAD_PATH + File.separator + "POST_VID_" + Calendar.getInstance().timeInMillis + ".mp4"
+                    VideoCompress.compressVideoLow(
+                        selectedImagePath,
+                        destPath,
+                        object : VideoCompress.CompressListener {
+                            override fun onStart() {
+                                showProgress(this@ChatActivity)
+                            }
 
+                            override fun onSuccess() {
+                                hideProgress()
+                                sendVideoMessage(filePart)
 
-            }
-        }
-    }
+                            }
 
+                            override fun onFail() {
+                                mViewModel.showLoading.postValue(false)
 
-    fun writeFile(`in`: InputStream, file: File?) {
-        var out: OutputStream? = null
-        try {
-            out = FileOutputStream(file)
-            val buf = ByteArray(1024)
-            var len: Int
-            while (`in`.read(buf).also { len = it } > 0) {
-                out.write(buf, 0, len)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            try {
-                if (out != null) {
-                    out.close()
+                            }
+
+                            override fun onProgress(percent: Float) {}
+                        })
                 }
-                `in`.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
+
+
+
             }
         }
     }
@@ -380,44 +424,6 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
     }
 
 
-    private fun getImageUrlWithAuthority(
-        context: Context,
-        uri: Uri
-    ): String? {
-        var `is`: InputStream? = null
-        if (uri.authority != null) {
-            try {
-                `is` = context.getContentResolver().openInputStream(uri)
-                val bmp = BitmapFactory.decodeStream(`is`)
-                return writeToTempImageAndGetPathUri(context, bmp).toString()
-            } catch (e: FileNotFoundException) {
-                e.printStackTrace()
-            } finally {
-                try {
-                    `is`?.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-        return null
-    }
-
-    private fun writeToTempImageAndGetPathUri(
-        inContext: Context,
-        inImage: Bitmap
-    ): Uri {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.getContentResolver(),
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
-    }
-
     override fun onVideoMessageClick(position: Int, url: String) {
         startActivity(
             Intent(this, VideoViewActivity::class.java).putExtra(
@@ -425,6 +431,12 @@ class ChatActivity : ScopedActivity(), KodeinAware, ChatAdapter.onClick {
                 url
             )
         )
+    }
+
+    override fun onPostResume() {
+        super.onPostResume()
+
+
     }
 
 

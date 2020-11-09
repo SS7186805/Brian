@@ -89,5 +89,14 @@ interface HomeRepository {
         ) -> Unit
     )
 
+    fun getGameSummary(
+        id: Int,
+        onResult: (
+            isSuccess: Boolean,
+            message: String,
+            response: ResponseGameSummary?
+        ) -> Unit
+    )
+
 
 }

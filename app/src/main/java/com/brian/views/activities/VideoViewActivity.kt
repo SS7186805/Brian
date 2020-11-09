@@ -24,6 +24,7 @@ class VideoViewActivity : AppCompatActivity() {
 
         if (intent.getStringExtra(getString(R.string.training_videos)).endsWith(".mp3")) {
             ivAudio.visibility = View.VISIBLE
+
         }
 
         ivBack.setOnClickListener {

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="gameSummary"
-            type="com.brian.models.QuestionData" />
-
-
+            type="com.brian.models.SubmittedAnswersItem" />
 
     </data>
 
@@ -49,11 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5"
                 android:fontFamily="@font/century_gothic"
-                android:text="@{gameSummary.question}"
+                android:text="@{gameSummary.question.question}"
                 android:textColor="@color/text_Color_drawer_item"
                 android:textSize="@dimen/px40"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
 
 
@@ -74,13 +72,13 @@
                 android:id="@+id/thinkDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_5"
                 android:fontFamily="@font/century_gothic"
-                android:text="@{gameSummary.alsoThinkAboutIt}"
+                android:text="@{gameSummary.question.alsoThinkAboutIt}"
                 android:textColor="@color/text_Color_drawer_item"
                 android:textSize="@dimen/px40"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/thinktext" />
 
 
@@ -89,9 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/margin_10"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/thinkDescription"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/thinkDescription" />
 
             <TextView
                 android:id="@+id/correctAnswer"
@@ -112,16 +110,15 @@
                 android:id="@+id/correctOption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/margin_10"
-                android:paddingHorizontal="@dimen/margin_20"
-                android:fontFamily="@font/century_gothic_bold"
                 android:layout_marginTop="@dimen/margin_20"
+                android:fontFamily="@font/century_gothic_bold"
+                android:paddingHorizontal="@dimen/margin_20"
+                android:paddingVertical="@dimen/margin_10"
                 android:text="@string/option1"
                 android:textColor="@color/green"
                 android:textSize="@dimen/px55"
                 app:layout_constraintStart_toEndOf="@+id/correctAnswer"
-                app:layout_constraintTop_toBottomOf="@+id/QuestionSummaryRecycler"/>
-
+                app:layout_constraintTop_toBottomOf="@+id/QuestionSummaryRecycler" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

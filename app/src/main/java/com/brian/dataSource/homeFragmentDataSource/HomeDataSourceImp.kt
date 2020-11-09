@@ -107,6 +107,16 @@ class HomeDataSourceImp(private val apiService: APIService) : HomeDataSource {
         return response
     }
 
+    override suspend fun getGameSummary(id: Int): ResponseGameSummary {
+        var response = ResponseGameSummary()
+        try {
+            response = apiService.getGameSummary(id)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            response.error = APIService.getErrorMessageFromGenericResponse(e)
+        }
+        return response    }
+
     override suspend fun createTeam(createTeam: CreateTeamParams): ResponseCreateTeam {
         var response = ResponseCreateTeam()
         try {

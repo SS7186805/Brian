@@ -37,6 +37,7 @@
             app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="@dimen/margin_10"
             app:layout_constraintBottom_toBottomOf="@id/tvTime"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -44,7 +45,7 @@
                 android:id="@+id/ivVideo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/video">
+                android:src="@drawable/buzz_details">
 
             </ImageView>
 

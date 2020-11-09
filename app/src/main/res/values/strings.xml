@@ -179,5 +179,7 @@
     <string name="Questions_not_available">Questions not available.</string>
     <string name="enter_message_validation">Please enter message.</string>
     <string name="internet_alert">Your internet connection appears to be offline. Please try again.</string>
+    <string name="video_upload_duration_limit">Please upload the video of less than 1 minute.</string>
+    <string name="video_size">Video size should not be greater than 50 MB.</string>
 
 </resources>

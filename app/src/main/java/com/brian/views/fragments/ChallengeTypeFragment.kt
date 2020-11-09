@@ -2,13 +2,17 @@ package com.brian.views.fragments
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.brian.R
+import com.brian.base.EndlessRecyclerViewScrollListener
 import com.brian.base.Prefs
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengeTypeFragmentBinding
@@ -29,6 +33,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
     private val viewModelFactory: ChallengesViewModelFactory by instance()
     lateinit var mBinding: ChallengeTypeFragmentBinding
     lateinit var mViewModel: ChallengesViewModel
+    var mEndlessFriendsecyclerViewScrollListener: EndlessRecyclerViewScrollListener? = null
 
 
     override fun onCreateView(
@@ -60,10 +65,30 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
         setupObserver()
         setupRecyclers()
         setupScrollListener()
+        onSwipe()
 
         return mBinding.root
     }
 
+    fun loadData() {
+        mViewModel.currentPageAllChalleneges = 1
+        mViewModel.allChallenges.value?.clear()
+        mViewModel.allChallengesAdapter.clearData()
+        mViewModel.getAllChallenges()
+    }
+
+    fun onSwipe() {
+
+
+        mBinding.lSwipe.setProgressBackgroundColorSchemeColor(resources.getColor(R.color.yellow));
+        mBinding.lSwipe.setOnRefreshListener {
+            if (!arguments?.getString("badges").equals("badges")) {
+                loadData()
+            }
+            mBinding.lSwipe.isRefreshing = false
+
+        }
+    }
 
     fun setBadgesEarned() {
 
@@ -72,7 +97,7 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
 
 
         for (badge in Prefs.init().userInfo?.badgesEarneda?.data!!) {
-            list.add(ChallengeTypeDataItem(badge.challenge?.image, badge.challengeTitle))
+            list.add(ChallengeTypeDataItem(badge.challenge?.image, badge.challenge?.challengeName))
         }
         mViewModel.allChallenges.postValue(list)
 
@@ -155,23 +180,26 @@ class ChallengeTypeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessC
     }
 
     private fun setupScrollListener() {
-        /* mBinding.apply {
-             recycler.setOnScrollChangeListener { _, _, _, _, _ ->
 
-                 if (mViewModel.allChallenges.value?.isNotEmpty()!!) {
-                     val view = recycler.getChildAt(recycler.childCount - 1)
-                     val diff = view.bottom - (recycler.height + recycler.scrollY)
-                     val offset = mViewModel.allChallenges.value?.size
-                     if (diff == 0 && offset!! % 10 == 0 && !mViewModel.allChallengesLoaded) {
-                         mViewModel.getAllChallenges()
-                     }
-                 }
+        mEndlessFriendsecyclerViewScrollListener =
+            object :
+                EndlessRecyclerViewScrollListener(mBinding.recycler.layoutManager as LinearLayoutManager) {
+                override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                    Log.e("ONLOADMOREMyUsers", "Onloadmore" + mViewModel.allChallenges.value?.size)
 
-             }
+                    if (mViewModel.allChallenges.value!!.size % 10 == 0 && mViewModel.allChallenges.value!!.size != 0) {
+                        mViewModel.getAllChallenges()
+                    }
 
-         }*/
+                }
+            }
+
+
+
+        mBinding.recycler.addOnScrollListener(mEndlessFriendsecyclerViewScrollListener!!)
+
+
     }
-
 
     private fun setupRecyclers() {
         mBinding.apply {

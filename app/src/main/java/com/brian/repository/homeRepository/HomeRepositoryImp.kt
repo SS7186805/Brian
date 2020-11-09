@@ -125,4 +125,14 @@ class HomeRepositoryImp(private val homeDataSource: HomeDataSource) : HomeReposi
                 onResult(true, response.message!!, response)
             }
         }    }
+
+    override fun getGameSummary(id:Int,onResult: (isSuccess: Boolean, message: String, response: ResponseGameSummary?) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val response = homeDataSource.getGameSummary(id)
+            if (response.error != null) {
+                onResult(false, response.error!!, null)
+            } else {
+                onResult(true, response.message!!, response)
+            }
+        }       }
 }

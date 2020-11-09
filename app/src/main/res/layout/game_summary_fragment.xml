@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.brian.viewModels.register.RegisterViewModel" />
+            type="com.brian.viewModels.homescreen.HomeViewModel" />
 
         <variable
             name="clickHandler"
             type="com.brian.views.fragments.GameSummaryFragment.ClickHandler" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blackTheme">
@@ -40,218 +40,218 @@
             app:layout_constraintGuide_percent="0.95" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:paddingBottom="@dimen/margin_20"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/endGuide"
-                app:layout_constraintStart_toStartOf="@id/startGuide"
-                app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingBottom="@dimen/margin_20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/endGuide"
+            app:layout_constraintStart_toStartOf="@id/startGuide"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/score"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_30"
+                android:layout_marginBottom="@dimen/margin_10"
+                app:cardBackgroundColor="@color/item_bg_drawer_item"
+                app:cardCornerRadius="@dimen/margin_10"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/margin_30"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_10"
-                    app:cardBackgroundColor="@color/item_bg_drawer_item"
-                    app:cardCornerRadius="@dimen/margin_10"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:background="@color/item_bg_drawer_item"
+                    android:padding="@dimen/margin_10">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <TextView
+                        android:id="@+id/tScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:fontFamily="@font/century_gothic"
+                        android:text="@string/score"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/px65"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/average"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:fontFamily="@font/century_gothic"
+                        android:text="@string/average"
+                        android:textColor="@color/yellow"
+                        android:textSize="@dimen/px65"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/item_bg_drawer_item"
-                        android:padding="@dimen/margin_10">
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_20"
+                        android:layout_marginEnd="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_20"
+                        app:cardBackgroundColor="@color/game_item_bg"
+                        app:cardCornerRadius="@dimen/margin_10"
+                        app:layout_constraintTop_toBottomOf="@id/average">
 
-
-                        <TextView
-                            android:id="@+id/tScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/century_gothic"
-                            android:text="@string/score"
-                            android:textColor="@color/yellow"
-                            android:textSize="@dimen/px65"
-                            android:layout_marginStart="@dimen/margin_10"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/average"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/century_gothic"
-                            android:text="@string/average"
-                            android:textColor="@color/yellow"
-                            android:layout_marginEnd="@dimen/margin_10"
-                            android:textSize="@dimen/px65"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.cardview.widget.CardView
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_20"
-                            android:layout_marginStart="@dimen/margin_10"
-                            android:layout_marginEnd="@dimen/margin_10"
-                            android:layout_marginBottom="@dimen/margin_20"
-                            app:cardBackgroundColor="@color/game_item_bg"
-                            app:cardCornerRadius="@dimen/margin_10"
-                            app:layout_constraintTop_toBottomOf="@id/average">
+                            android:background="@color/game_item_bg"
+                            android:padding="@dimen/margin_10">
 
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="match_parent"
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/mid"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@color/game_item_bg"
-                                android:padding="@dimen/margin_10">
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.55" />
 
-                                <androidx.constraintlayout.widget.Guideline
-                                    android:layout_width="wrap_content"
-                                    android:orientation="vertical"
-                                    android:id="@+id/mid"
-                                    app:layout_constraintGuide_percent="0.55"
-                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/total_questions"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="@string/total_questions"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                                <TextView
-                                    android:id="@+id/total_questions"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="@string/total_questions"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/correct_answers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="@string/correct_answers"
+                                android:textColor="@color/green"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/total_questions" />
 
-                                <TextView
-                                    android:id="@+id/correct_answers"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_5"
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="@string/correct_answers"
-                                    android:textColor="@color/green"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/total_questions" />
+                            <TextView
+                                android:id="@+id/incorrect_answers"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
 
-                                <TextView
-                                    android:id="@+id/incorrect_answers"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_5"
-
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="@string/incorrect_answers"
-                                    android:textColor="@color/red"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/correct_answers" />
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="@string/incorrect_answers"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/correct_answers" />
 
 
-                                <TextView
-                                    android:id="@+id/total_questions_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="5"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="@id/mid"
-                                    app:layout_constraintTop_toTopOf="parent" />
+                            <TextView
+                                android:id="@+id/total_questions_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="5"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="@id/mid"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                                <TextView
-                                    android:id="@+id/correct_answers_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_5"
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="3"
-                                    android:textColor="@color/green"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="@id/mid"
-                                    app:layout_constraintTop_toBottomOf="@id/total_questions_count" />
+                            <TextView
+                                android:id="@+id/correct_answers_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="3"
+                                android:textColor="@color/green"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="@id/mid"
+                                app:layout_constraintTop_toBottomOf="@id/total_questions_count" />
 
-                                <TextView
-                                    android:id="@+id/incorrect_answers_count"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/margin_5"
+                            <TextView
+                                android:id="@+id/incorrect_answers_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_5"
 
-                                    android:fontFamily="@font/century_gothic_bold"
-                                    android:text="1"
-                                    android:textColor="@color/red"
-                                    android:textSize="@dimen/px50"
-                                    app:layout_constraintStart_toStartOf="@id/mid"
-                                    app:layout_constraintTop_toBottomOf="@id/correct_answers_count" />
+                                android:fontFamily="@font/century_gothic_bold"
+                                android:text="1"
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/px50"
+                                app:layout_constraintStart_toStartOf="@id/mid"
+                                app:layout_constraintTop_toBottomOf="@id/correct_answers_count" />
 
-                            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                        </androidx.cardview.widget.CardView>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
 
 
-                </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.core.widget.NestedScrollView
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_20"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/score">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="@dimen/margin_20"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/score"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/score">
 
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_gameSummary"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/score"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/question_item" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_50"
+                        android:layout_marginBottom="@dimen/margin_20"
+                        android:background="@drawable/capsuler_login_btn"
+                        android:fontFamily="@font/century_gothic_bold"
+                        android:gravity="center"
+                        android:onClick="@{()-> clickHandler.onPitchClick()}"
+                        android:text="@string/done"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/px60"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/recycler_gameSummary" />
 
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recycler_gameSummary"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:listitem="@layout/question_item"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_50"
-                            android:layout_marginBottom="@dimen/margin_20"
-                            android:background="@drawable/capsuler_login_btn"
-                            android:onClick="@{()-> clickHandler.onPitchClick()}"
-                            android:fontFamily="@font/century_gothic_bold"
-                            android:textAllCaps="false"
-                            android:textSize="@dimen/px60"
-                            android:gravity="center"
-                            android:text="@string/done"
-                            android:textColor="@color/black"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/recycler_gameSummary" />
+            </androidx.core.widget.NestedScrollView>
 
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.core.widget.NestedScrollView>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

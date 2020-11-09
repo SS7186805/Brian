@@ -62,7 +62,7 @@ class MessagesViewModel(
             if (isSuccess) {
                 allChatsLoaded = response?.data?.data.isNullOrEmpty()
                 currentPageAllChats = response?.data?.currentPage!! + 1
-               var list=response?.data.data!!.filter { s-> s.lastMessage!=null }
+                var list = response?.data.data!!.filter { s -> s.lastMessage != null }
                 allChats += list!!
             } else {
                 showMessage.postValue(message)
@@ -72,7 +72,20 @@ class MessagesViewModel(
     }
 
     fun sendMessage(sendMessageParams: SendMessageParams) {
+        messagesRepository.sendMessage(sendMessageParams) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                sendMessageResponse.postValue(response)
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun sendVideoMessage(sendMessageParams: SendMessageParams) {
         showLoading.postValue(true)
+
         messagesRepository.sendMessage(sendMessageParams) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
@@ -86,10 +99,13 @@ class MessagesViewModel(
 
     fun getAllMessages() {
         showLoading.postValue(true)
-        messagesRepository.getAllMessages(currentPageMessages,getAllChatParams) { isSuccess, message, response ->
+        messagesRepository.getAllMessages(
+            currentPageMessages,
+            getAllChatParams
+        ) { isSuccess, message, response ->
             showLoading.postValue(false)
             if (isSuccess) {
-                currentPageMessages=response?.data?.currentPage!! +1
+                currentPageMessages = response?.data?.currentPage!! + 1
                 allMessages.postValue(response?.data?.data!!)
             } else {
                 showMessage.postValue(message)

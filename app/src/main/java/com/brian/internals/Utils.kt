@@ -3,6 +3,7 @@ package com.brian.internals
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.Color
@@ -319,16 +320,33 @@ class Utils private constructor() {
             calendar.time = date
         }
 
-        var currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date());
+//        var currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(Date());
 
         val mYear = calendar[Calendar.YEAR]
         val mMonth = calendar[Calendar.MONTH]
         val mDay = calendar[Calendar.DAY_OF_MONTH]
+        val startHour = calendar[Calendar.HOUR]
+        val startMinute = calendar[Calendar.MINUTE]
         datePickerDialog = DatePickerDialog(
             context!!,
             OnDateSetListener { _: DatePicker?, year: Int, month: Int, dayOfMonth: Int ->
-                editText.text =
-                    getFormattedDate(year.toString() + "-" + (month + 1) + "-" + dayOfMonth) + " " + currentTime
+
+
+                TimePickerDialog(context, TimePickerDialog.OnTimeSetListener { _, hour, minute->
+                    val pickedDateTime = Calendar.getInstance()
+                    pickedDateTime.set(year, month, dayOfMonth, hour, minute)
+
+                    Log.e("PickedDateTime",pickedDateTime.toString())
+
+                    var currentTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(pickedDateTime.time);
+
+
+                    editText.text =
+                        getFormattedDate(year.toString() + "-" + (month + 1) + "-" + dayOfMonth) + " " + currentTime
+//                    doSomethingWith(pickedDateTime)
+                }, startHour, startMinute, false).show()
+
+
             },
             mYear,
             mMonth,

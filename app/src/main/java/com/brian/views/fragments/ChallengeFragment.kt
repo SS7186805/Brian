@@ -6,16 +6,14 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.database.Cursor
-import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -24,24 +22,21 @@ import com.brian.R
 import com.brian.base.PathUtil
 import com.brian.base.ScopedFragment
 import com.brian.databinding.ChallengeFragmentBinding
-import com.brian.internals.DialogUtil
-import com.brian.internals.hideProgress
-import com.brian.internals.showProgress
-import com.brian.internals.showToast
+import com.brian.internals.*
 import com.brian.models.DataItemMyChalleneges
 import com.brian.viewModels.challenges.ChallengesViewModel
 import com.brian.viewModels.challenges.ChallengesViewModelFactory
 import com.bumptech.glide.Glide
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
-import kotlinx.android.synthetic.main.activity_main.view.ivBack
-import kotlinx.android.synthetic.main.activity_main.view.tvTitle
-import kotlinx.android.synthetic.main.toolbar_layout.view.*
+import com.vincent.videocompressor.VideoCompress
+import kotlinx.android.synthetic.main.activity_main.view.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.kodein.di.KodeinAware
 import org.kodein.di.generic.instance
 import java.io.*
+import java.util.*
 
 
 class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClickListener {
@@ -50,6 +45,9 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
     lateinit var mBinding: ChallengeFragmentBinding
     lateinit var mViewModel: ChallengesViewModel
     private var videoFile: File? = null
+    var DOWNLOAD_PATH =
+        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            .absolutePath
 
 
     override fun onCreateView(
@@ -75,7 +73,12 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
         mViewModel.acceptChallengeRequestParams.status = 1
 
 
-        mBinding.toolbar.ivShare.visibility = VISIBLE
+     /*   if (android.text.format.DateFormat.is24HourFormat(requireContext())) {
+            mBinding.time.setText(Utils.init.get24HourTimeChallenge(mBinding.item!!.challenge?.createdAt.toString()))
+        } else {
+            mBinding.time.setText(Utils.init.get12HourTimeChallenge(mBinding.item!!.challenge?.createdAt.toString()))
+        }*/
+//        mBinding.toolbar.ivShare.visibility = VISIBLE
         return mBinding.root
     }
 
@@ -149,7 +152,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
         val intent = Intent()
         intent.type = "video/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 59)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60)
         startActivityForResult(
             Intent.createChooser(intent, "Select Video"),
             100
@@ -176,6 +179,7 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
 
     private fun takeVideoFromCamera() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 60)
         startActivityForResult(intent, 101)
     }
 
@@ -185,53 +189,94 @@ class ChallengeFragment : ScopedFragment(), KodeinAware, DialogUtil.SuccessClick
         if (resultCode == RESULT_OK) {
             if (requestCode == 100) {
                 val selectedImageUri: Uri? = data?.data
+                var filePath = PathUtil.getPath(requireContext(), selectedImageUri!!)
+                if (Validator.init.validatePostMediaData(requireContext(), filePath)) {
+                    videoFile = File(filePath)
+                    val filePart = MultipartBody.Part.createFormData(
+                        "file_name",
+                        videoFile?.name,
+                        RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 
-
-                var filePath = PathUtil.getPath(requireContext(),selectedImageUri!!)
-
-                videoFile = File(filePath)
-                val filePart = MultipartBody.Part.createFormData(
-                    "file_name",
-                    videoFile?.name,
-                    RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
-
-                )
-
-               /* Log.e("ImageUri", "####${selectedImageUri}")
-                mBinding.videoView.setImageBitmap(
-                    ThumbnailUtils.createVideoThumbnail(
-                        filePath,
-                        MediaStore.Video.Thumbnails.MICRO_KIND
                     )
-                )*/
 
-                Glide.with(this)
-                    .asBitmap()
-                    .load(selectedImageUri) // or URI/path
-                    .into(mBinding.videoView)
-                mViewModel.acceptChallengeRequestParams.file_name = filePart
+
+                    val destPath: String =
+                        DOWNLOAD_PATH + File.separator + "POST_VID_" + Calendar.getInstance().timeInMillis + ".mp4"
+                    VideoCompress.compressVideoLow(
+                        filePath,
+                        destPath,
+                        object : VideoCompress.CompressListener {
+                            override fun onStart() {
+                                showProgress(requireContext())
+                            }
+
+                            override fun onSuccess() {
+                                hideProgress()
+                                Glide.with(requireContext())
+                                    .asBitmap()
+                                    .load(selectedImageUri) // or URI/path
+                                    .into(mBinding.videoView)
+                                mViewModel.acceptChallengeRequestParams.file_name = filePart
+                            }
+
+                            override fun onFail() {
+                                mViewModel.showLoading.postValue(false)
+
+                            }
+
+                            override fun onProgress(percent: Float) {}
+                        })
+
+                }
+
             }
 
             if (requestCode == 101) {
                 val selectedImageUri: Uri = data?.getData()!!
 
-                var selectedImagePath = getPath(selectedImageUri)
-                videoFile = File(selectedImagePath)
-                val filePart = MultipartBody.Part.createFormData(
-                    "file_name",
-                    videoFile?.name,
-                    RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
+                var selectedImagePath = PathUtil.getPath(requireContext(), selectedImageUri!!)
 
-                )
+                if (Validator.init.validatePostMediaData(requireContext(), selectedImagePath)) {
+                    videoFile = File(selectedImagePath)
+                    val filePart = MultipartBody.Part.createFormData(
+                        "file_name",
+                        videoFile?.name,
+                        RequestBody.create("video/*".toMediaTypeOrNull(), videoFile!!)
 
-                Log.e("ImageUri", "####${selectedImageUri}")
-                mBinding.videoView.setImageBitmap(
-                    ThumbnailUtils.createVideoThumbnail(
-                        selectedImagePath,
-                        MediaStore.Video.Thumbnails.MICRO_KIND
                     )
-                )
-                mViewModel.acceptChallengeRequestParams.file_name = filePart
+
+                    Log.e("ImageUri", "####${selectedImageUri}")
+
+                    val destPath: String =
+                        DOWNLOAD_PATH + File.separator + "POST_VID_" + Calendar.getInstance().timeInMillis + ".mp4"
+
+                    VideoCompress.compressVideoLow(
+                        selectedImagePath,
+                        destPath,
+                        object : VideoCompress.CompressListener {
+                            override fun onStart() {
+                                showProgress(requireContext())
+                            }
+
+                            override fun onSuccess() {
+                                hideProgress()
+                                Glide.with(requireContext())
+                                    .asBitmap()
+                                    .load(selectedImageUri) // or URI/path
+                                    .into(mBinding.videoView)
+                                mViewModel.acceptChallengeRequestParams.file_name = filePart
+                            }
+
+                            override fun onFail() {
+                                mViewModel.showLoading.postValue(false)
+
+                            }
+
+                            override fun onProgress(percent: Float) {}
+                        })
+
+                }
+
 
             }
         }

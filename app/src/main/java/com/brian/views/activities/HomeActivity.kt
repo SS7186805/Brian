@@ -11,6 +11,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation
@@ -73,6 +74,7 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
         }
 
         mBinding.drawerLayout.setDrawerListener(toggel)
+
     }
 
     override fun onDestinationChanged(
@@ -91,6 +93,14 @@ class HomeActivity : ScopedActivity(), NavController.OnDestinationChangedListene
             mBinding.toolbar.visibility = GONE
         } else {
             mBinding.toolbar.visibility = View.VISIBLE
+        }
+
+        if (destination.id == R.id.videoViewFragment) {
+            mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+        } else {
+            mBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
         }
 
         if (destination.id == R.id.myFriendsFragment || destination.id == R.id.messagesFragment || destination.id == R.id.challenegesFragment || destination.id == R.id.teamFragment) {

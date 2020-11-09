@@ -51,11 +51,9 @@ class MainScreenFragment : ScopedFragment(), KodeinAware {
         return mBinding.root
     }
 
-    fun loadData() {
-        if (videoUrl.equals("")) {
-            mViewModel.getData()
+    fun loadData() { mViewModel.getData()
 
-        }
+
     }
 
     fun onSwipe() {

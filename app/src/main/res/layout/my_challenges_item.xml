@@ -141,6 +141,7 @@
                 android:fontFamily="@font/century_gothic"
                 android:textColor="@color/text_color_grey"
                 android:textSize="@dimen/px40"
+                android:text="@{item.dateAndTime}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/profilePic" />
 

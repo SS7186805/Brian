@@ -38,14 +38,12 @@ class HomeViewModel(
 
     var myStats =
         MutableLiveData<DataMyStats>()
-    var allTeamsLoaded = false
 
     var createTeamParams = CreateTeamParams()
     var submitAnswerParams = SubmitAnswerParams()
+    var gameSummaryResponse = MutableLiveData<ResponseGameSummary>()
     var selectDefensiveId = 0
-
     var currentPageTeams = 1
-    var currentPageMyTeams = 1
 
 
     init {
@@ -207,6 +205,20 @@ class HomeViewModel(
             showLoading.postValue(false)
             if (isSuccess) {
                 homeData.postValue(response?.data!!)
+
+            } else {
+                showMessage.postValue(message)
+            }
+
+        }
+    }
+
+    fun getGameSummary() {
+        showLoading.postValue(true)
+        homeRepository.getGameSummary(selectDefensiveId) { isSuccess, message, response ->
+            showLoading.postValue(false)
+            if (isSuccess) {
+                gameSummaryResponse.postValue(response)
 
             } else {
                 showMessage.postValue(message)

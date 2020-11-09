@@ -31,12 +31,12 @@ class MyChallengesRequestsAdapter(
         holder.binding.accept.visibility = VISIBLE
         holder.binding.approve.visibility = GONE
 
-        if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
-            holder.binding.time.setText(Utils.init.get24HourTimeChallenge(item.createdAt.toString()))
+      /*  if (android.text.format.DateFormat.is24HourFormat(resourcesProvider.getContext())) {
+            holder.binding.time.setText(Utils.init.get24HourTimeChallenge(item.challenge?.createdAt.toString()))
         } else {
-            holder.binding.time.setText(Utils.init.get12HourTimeChallenge(item.createdAt.toString()))
+            holder.binding.time.setText(Utils.init.get12HourTimeChallenge(item.challenge?.createdAt.toString()))
         }
-
+*/
 
         holder.binding.accept.setOnClickListener {
             listener?.onRequestAcceptClick(position)

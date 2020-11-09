@@ -218,8 +218,11 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
                     mViewModel.myChallengesAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.myChallenges.value!!.size == 0) {
-                        mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
-                        mBinding.tvNoDataFound.visibility = View.GONE
+                        if (mBinding.rMyChallenges.isVisible) {
+                            mBinding.tvNoMyChalleneges.visibility = View.VISIBLE
+                            mBinding.tvNoDataFound.visibility = View.GONE
+                        }
+
 
                     }
                 }
@@ -229,34 +232,46 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
 
             cancelResponse.observe(viewLifecycleOwner, Observer {
 
-                if (it.result?.contains(getString(R.string.success))!!) {
-                    mViewModel.myChallenges.value?.clear()
-                    mViewModel.myChallengesAdapter.clearData()
-                    mViewModel.currentPageAllChalleneges = 1
-                    mViewModel.getMyChallenges()
+                if(it!=null){
+                    if (it.result?.contains(getString(R.string.success))!!) {
+                        mViewModel.myChallenges.value?.clear()
+                        mViewModel.myChallengesAdapter.clearData()
+                        mViewModel.currentPageAllChalleneges = 1
+                        Log.e("CancelResponsee",cancelResponse.toString())
+                        mViewModel.getMyChallenges()
+                    }
+
                 }
+
 
 
             })
             approveRejectResponse.observe(viewLifecycleOwner, Observer {
 
-                if (it.result?.contains(getString(R.string.success))!!) {
-                    mViewModel.myChallenges.value?.clear()
-                    mViewModel.myChallengesAdapter.clearData()
-                    mViewModel.currentPageAllChalleneges = 1
-                    mViewModel.getMyChallenges()
+                if(it!=null){
+                    if (it.result?.contains(getString(R.string.success))!!) {
+                        mViewModel.myChallenges.value?.clear()
+                        mViewModel.myChallengesAdapter.clearData()
+                        mViewModel.currentPageAllChalleneges = 1
+                        mViewModel.getMyChallenges()
+                    }
                 }
+
+
 
 
             })
             rejectRequestResponse.observe(viewLifecycleOwner, Observer {
-
-                if (it.result?.contains(getString(R.string.success))!!) {
-                    mViewModel.challengeRequests.value?.clear()
-                    mViewModel.challengeRequestsAdapter.clearData()
-                    mViewModel.currentPageChallenegesRequests = 1
-                    mViewModel.getChallengesRequests()
+                if(it!=null){
+                    if (it.result?.contains(getString(R.string.success))!!) {
+                        mViewModel.challengeRequests.value?.clear()
+                        mViewModel.challengeRequestsAdapter.clearData()
+                        mViewModel.currentPageChallenegesRequests = 1
+                        mViewModel.getChallengesRequests()
+                    }
                 }
+
+
 
 
             })
@@ -271,7 +286,7 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
                     mViewModel.challengeRequestsAdapter.setNewItems(it)
                 } else {
                     if (mViewModel.challengeRequests.value!!.size == 0) {
-                        if (!mBinding.rMyChallenges.isVisible) {
+                        if (mBinding.rChallengeRequests.isVisible) {
                             mBinding.tvNoDataFound.visibility = View.VISIBLE
                             mBinding.tvNoMyChalleneges.visibility = View.GONE
 
@@ -364,6 +379,12 @@ class ChallengesFragment : ScopedFragment(), KodeinAware, TabLayout.OnTabSelecte
         super.onPause()
         mViewModel.myChallenges.value?.clear()
         mViewModel.challengeRequests.value?.clear()
+        mViewModel.myChallengesAdapter.clearData()
+        mViewModel.challengeRequestsAdapter.clearData()
+        mViewModel.cancelResponse.value=null
+        mViewModel.approveRejectResponse.value=null
+        mViewModel.cancelResponse.value=null
+        mViewModel.rejectRequestResponse.value=null
         mEndlessChallengeRequestsViewScrollListener?.resetState()
         mEndlessMyChallengesRecyclerViewScrollListener?.resetState()
     }

@@ -1,21 +1,17 @@
 package com.brian.base
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.brian.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
+
 
 abstract class ScopedActivity : AppCompatActivity(), CoroutineScope {
     private lateinit var job: Job
@@ -39,9 +35,12 @@ abstract class ScopedActivity : AppCompatActivity(), CoroutineScope {
     }
 
     fun showKeyboard(v: View) {
-        val imm =
+        val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInputFromInputMethod(v.windowToken, 0)
+        inputMethodManager.toggleSoftInputFromWindow(
+            v.applicationWindowToken,
+            InputMethodManager.SHOW_FORCED, 0
+        )
     }
 
 

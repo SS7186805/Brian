@@ -13,6 +13,7 @@ interface HomeDataSource {
     suspend fun getStats() : ResponseMyStats
     suspend fun getMyTeams( page:Int) : ResponseMyTeams
     suspend fun getData() : ResponseDataManagement
+    suspend fun getGameSummary(id:Int) : ResponseGameSummary
     suspend fun createTeam(createTeam:CreateTeamParams) : ResponseCreateTeam
 
 }

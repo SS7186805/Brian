@@ -134,7 +134,7 @@ class MainApplication : Application(),KodeinAware{
     }
 
     companion object {
-        private lateinit var instance: MainApplication
+        lateinit var instance: MainApplication
         fun get(): MainApplication = instance
         fun hasNetwork(): Boolean {
             return instance.checkIfHasNetwork()

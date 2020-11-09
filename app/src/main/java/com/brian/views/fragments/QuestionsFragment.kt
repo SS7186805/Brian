@@ -203,7 +203,8 @@ class QuestionsFragment : ScopedFragment(), ItemClickListener, KodeinAware,
                         bundleOf(
                             "correctAnswer" to correctAnswer,
                             "wrongeAnswer" to wrongeAnswer,
-                            "questionSammary" to questionSummary
+                            "questionSammary" to questionSummary,
+                            getString(R.string.defensive_situation) to   mViewModel.submitAnswerParams.selected_defensive_situation_id
                         )
                     )
                 }

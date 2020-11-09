@@ -1,5 +1,6 @@
 package com.brian.views.adapters
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import kotlinx.android.synthetic.main.layout_slide_view.view.*
 class SlideViewRecyclerAdapter(private val images: ArrayList<BuzzFeedFilesItem>) :
     SliderViewAdapter<SlideViewRecyclerAdapter.ViewHolder>() {
 
-    var listener:onClickEvents? = null
+    var listener: onClickEvents? = null
 
     inner class ViewHolder(itemView: View) : SliderViewAdapter.ViewHolder(itemView) {
 
@@ -41,6 +42,13 @@ class SlideViewRecyclerAdapter(private val images: ArrayList<BuzzFeedFilesItem>)
             .into(holder.itemView.ivSlideImage)
 
         holder.itemView.setOnClickListener {
+
+            holder.itemView.isEnabled = false
+            Handler().postDelayed({
+
+                holder.itemView.isEnabled = true
+
+            }, 500)
             if (images[position].fileType.equals("video")) {
                 listener?.onVideoClick(position, images[position].fileUrl!!)
 
@@ -64,8 +72,8 @@ class SlideViewRecyclerAdapter(private val images: ArrayList<BuzzFeedFilesItem>)
     }
 
     interface onClickEvents {
-        fun onVideoClick(position: Int,url:String)
-        fun onAudioClick(position: Int,url: String)
+        fun onVideoClick(position: Int, url: String)
+        fun onAudioClick(position: Int, url: String)
 
     }
 

@@ -121,12 +121,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/century_gothic"
-                    android:text="@{item.createdAt}"
+                    android:text="@{item.dateAndTime}"
                     android:textColor="@color/text_color_grey"
                     android:textSize="@dimen/px40"
                     app:layout_constraintStart_toStartOf="@id/username"
                     app:layout_constraintTop_toBottomOf="@id/username" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,18 +146,18 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clAddVideo"
-                android:background="#0c0c0c"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="#0c0c0c"
                 android:onClick="@{()->clickHandler.addVideo()}">
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:background="#0c0c0c"
                     android:id="@+id/videoView"
-                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:adjustViewBounds="true"
-                    android:layout_height="match_parent">
+                    android:background="#0c0c0c"
+                    android:scaleType="centerCrop">
 
                 </ImageView>
 
